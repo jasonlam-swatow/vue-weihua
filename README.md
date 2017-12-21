@@ -6,49 +6,31 @@
 
 ## File structure
 
+```
+
 ├---- build                     // webpack configs
-
 ├---- config                    // other configs
-
 ├---- src                       // source code
-
 │   ├---- api                   // all request apis
-
 │   ├---- assets                // static assets like fonts and images
-
 │   ├---- components            // global public components
-
 │   ├—— icons                   // all svg icons used
-
 │   ├---- router                // router configs
-
 │   ├---- store                 // global vuex store
-
 │   ├---- styles                // global styles
-
 │   ├---- utils                 // global public util functions
-
 │   ├---- views                 // views
-
 │   ├---- App.vue               // entry point
-
 │   ├---- main.js               // entry script for initializing and mounting components
-
 │   └---- permission.js         // auth management
-
 ├---- static                    // third-party assets
-
 ├---- .babelrc                  // babel-loader configs
-
 ├---- eslintrc.js               // eslint configs
-
 ├---- .gitignore
-
 ├---- favicon.ico
-
 ├---- index.html                // html template
-
 └---- package.json
+```
 
 Let's focus on the `src` folder here. Notice that:
 
