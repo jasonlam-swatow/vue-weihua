@@ -6,10 +6,9 @@
 
 ## File structure
 
+```
 ├---- build                     // webpack configs
-
 ├---- config                    // other configs
-
 ├---- src                       // source code
 
 │   ├---- api                   // all request apis

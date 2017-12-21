@@ -1,6 +1,6 @@
 <template>
   <scroll-bar>
-    <el-menu mode="vertical" unique-opened :default-active="$route.path" :collapse="isCollapse" background-color="#304156" text-color="#fff" active-text-color="#409EFF">
+    <el-menu mode="vertical" unique-opened :default-openeds="defaultOpeneds" :default-active="$route.path" :collapse="isCollapse" background-color="#304156" text-color="#fff" active-text-color="#409EFF">
       <sidebar-item :routes="routes"></sidebar-item>
     </el-menu>
   </scroll-bar>
@@ -22,6 +22,13 @@ export default {
     },
     isCollapse() {
       return !this.sidebar.opened
+    },
+    defaultOpeneds() {
+      const openeds = []
+      this.routes.forEach(_ => {
+        if (_.name) openeds.push(_.name)
+      })
+      return openeds
     }
   }
 }
