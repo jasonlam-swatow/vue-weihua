@@ -74,17 +74,18 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-// @import url("../../../styles/variables.scss");
+@import '../../../styles/variables.scss';
+
 .navbar {
-  height: 50px;
+  height: $navbarHeight;
   width: 100%;
-  line-height: 50px;
+  line-height: $navbarHeight;
   border-radius: 0px !important;
   position: fixed;
-  z-index: 99;
+  z-index: map-get($zIndex, drone);
   .el-menu-item {
-    height: 50px;
-    line-height: 50px;
+    height: $navbarHeight;
+    line-height: $navbarHeight;
     &:hover,
     &:focus {
       border-bottom-color: rgb(64, 158, 255) !important;
@@ -92,10 +93,10 @@ export default {
   }
   .logo {
     width: 180px;
-    height: 50px;
+    height: $navbarHeight;
     &-name {
       font-size: 28px;
-      line-height: 50px;
+      line-height: $navbarHeight;
     }
     &-image {
       width: 28px;
@@ -105,7 +106,7 @@ export default {
   }
   .hamburger-container {
     line-height: 58px;
-    height: 50px;
+    height: $navbarHeight;
     float: left;
     padding: 0 10px;
   }
@@ -119,7 +120,7 @@ export default {
     float: right;
   }
   .avatar-container {
-    height: 50px;
+    height: $navbarHeight;
     display: inline-block;
     margin-right: 35px;
     // position: absolute;

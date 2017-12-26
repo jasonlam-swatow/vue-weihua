@@ -8,29 +8,8 @@
           </el-button>
           <el-button round icon="el-icon-edit">仅修改紧急联系人信息</el-button>
         </div>
-        <el-tabs v-model="activeTab" type="card" v-loading.body="dataLoading">
-          <el-tab-pane
-            v-for="tab in tabList"
-            :key="tab.name"
-            :label="tab.label"
-            :name="tab.name">
-            <el-form
-              :inline="true"
-              class="readonly-form"
-              label-width="130px">
-              <el-form-item
-                v-for="(item, key) in tabList[0].content"
-                :key="key"
-                :label="item.label"
-                :class="{ 'full-width': ['business_range', 'license_src'].includes(key) }">
-                <div v-if="key === 'license_src'">
-                  <img :src="item.value">
-                </div>
-                <div v-else>{{item.value}}</div>
-              </el-form-item>
-            </el-form>
-          </el-tab-pane>
-        </el-tabs>
+
+        <business-info :business-info="businessInfo" :loading="dataLoading"></business-info>
       </el-col>
     </el-row>
   </div>
@@ -38,17 +17,13 @@
 
 <script>
 import { getInfo } from '@/api/business/info'
+import businessInfo from '@/components/businessInfo'
 
 export default {
   data() {
     return {
       dataLoading: true,
-      activeTab: 'first',
-      tabList: [{
-        label: '基本信息',
-        name: 'first',
-        content: null
-      }]
+      businessInfo: []
     }
   },
 
@@ -60,10 +35,12 @@ export default {
     fetchData() {
       this.dataLoading = true
       getInfo().then(response => {
-        this.tabList[0].content = response.data
+        this.businessInfo = response.data.list
         this.dataLoading = false
       })
     }
-  }
+  },
+
+  components: { businessInfo }
 }
 </script>
