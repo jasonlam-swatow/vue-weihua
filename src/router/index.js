@@ -134,16 +134,16 @@ export const constantRouterMap = [
       }
     ]
   }, {
-    path: '/others',
+    path: '/settings',
     component: Layout,
-    redirect: '/others/setting',
+    redirect: '/settings/systemg',
     name: '其他',
     meta: { title: '其他', icon: 'stacks' },
     children: [
       {
         path: 'system',
         name: '系统消息配置',
-        component: _import('table/index'),
+        component: _import('settings/system/index'),
         meta: { title: '系统消息配置', icon: 'setting' }
       }, {
         path: 'messages',
