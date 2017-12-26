@@ -7,7 +7,21 @@
           <el-button round icon="el-icon-edit">仅修改紧急联系人信息</el-button>
         </div>
 
-        <business-info :business-info="businessInfo" :loading="dataLoading"></business-info>
+        <business-info :business-info="businessInfo" :loading="dataLoading.basic"></business-info>
+
+        <el-tabs v-model="activeTab" type="card" v-loading.body="dataLoading.cert">
+          <el-tab-pane
+            v-for="tab in certTabList"
+            :key="tab.name"
+            :label="tab.label"
+            :name="tab.name">
+            <el-card class="box-card">
+              <div slot="header" class="clearfix">
+                <!-- <span>{{tab.content.}}</span> -->
+              </div>
+            </el-card>
+          </el-tab-pane>
+        </el-tabs>
       </el-col>
     </el-row>
   </div>
@@ -20,9 +34,18 @@ import businessInfo from '@/components/businessInfo'
 export default {
   data() {
     return {
-      dataLoading: true,
+      dataLoading: {
+        basic: true,
+        cert: true
+      },
       companyName: '',
-      businessInfo: null
+      businessInfo: null,
+      activeTab: 'first',
+      certTabList: [{
+        name: 'first',
+        label: '其他认证信息',
+        content: null
+      }]
     }
   },
 
@@ -32,11 +55,18 @@ export default {
 
   methods: {
     fetchData() {
-      this.dataLoading = true
-      this.$store.dispatch('GetBusinessInfo').then(res => {
+      this.dataLoading.basic = true
+      this.$store.dispatch('GetBasicInfo').then(res => {
         this.companyName = res.data.name
         this.businessInfo = res.data.info
-        this.dataLoading = false
+        this.dataLoading.basic = false
+      })
+
+      this.dataLoading.cert = true
+      this.$store.dispatch('GetCertInfo').then(res => {
+        console.log(res.data.info)
+        this.certTabList[0].content = res.data.info
+        this.dataLoading.cert = false
       })
     },
 

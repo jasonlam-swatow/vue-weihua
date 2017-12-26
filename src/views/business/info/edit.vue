@@ -66,20 +66,20 @@ export default {
   },
 
   created() {
-    if (this.$store.getters.businessInfo === null) {
-      this.$store.dispatch('GetBusinessInfo')
+    if (this.$store.getters.basicInfo === null) {
+      this.$store.dispatch('GetBasicInfo')
     }
   },
 
   computed: {
     companyName() {
-      return this.$store.getters.businessInfo
-        ? this.$store.getters.businessInfo.name
+      return this.$store.getters.basicInfo
+        ? this.$store.getters.basicInfo.name
         : ''
     },
     basicTabList() {
-      const info = this.$store.getters.businessInfo
-        ? this.$store.getters.businessInfo.info : null
+      const info = this.$store.getters.basicInfo
+        ? this.$store.getters.basicInfo.info : null
       return [{
         label: '基本信息',
         name: 'first',

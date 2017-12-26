@@ -29,9 +29,9 @@ service.interceptors.response.use(
   */
     const res = response.data
     if (res.code !== '200') {
-      console.log(res)
+      console.log(res.code)
       Message({
-        message: res.data,
+        message: `请求错误：${JSON.stringify(res)}`,
         type: 'error',
         duration: 5 * 1000
       })
