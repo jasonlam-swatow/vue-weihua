@@ -45,8 +45,14 @@ export const constantRouterMap = [
       {
         path: 'info',
         name: '企业信息',
-        component: _import('business/info'),
+        component: _import('business/info/index'),
         meta: { title: '企业信息', icon: 'cubes' }
+      }, {
+        path: 'info/edit',
+        name: '企业信息修改',
+        component: _import('business/info/edit'),
+        meta: { title: '企业信息修改' },
+        hidden: true
       }, {
         path: 'employees',
         name: '员工管理',

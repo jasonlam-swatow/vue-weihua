@@ -10,11 +10,11 @@
         class="readonly-form"
         label-width="130px">
         <el-form-item
-          v-for="(item, index) in tabList[0].content"
-          :key="index"
+          v-for="(item, key) in tabList[0].content"
+          :key="key"
           :label="item.label"
-          :class="{ 'full-width': ['营业执照经营范围', '上传企业营业执照'].includes(item.label) }">
-          <div v-if="item.label === '上传企业营业执照'">
+          :class="{ 'full-width': ['business_range', 'lisence'].includes(key) }">
+          <div v-if="key === 'lisence'">
             <img :src="item.value">
           </div>
           <div v-else>{{item.value}}</div>
@@ -26,9 +26,10 @@
 
 <script>
 export default {
+  name: 'businessInfo',
   props: {
     loading: Boolean,
-    businessInfo: Array
+    businessInfo: Object
   },
   data() {
     return {
