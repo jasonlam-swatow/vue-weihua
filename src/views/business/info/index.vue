@@ -17,6 +17,7 @@
             :name="tab.name">
             <el-card
               v-for="(item, key) in tab.content"
+              :key="key"
               class="box-card mgb12">
               <div slot="header" class="clearfix">
                 <span>{{item.name}}</span>
