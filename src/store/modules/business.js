@@ -2,12 +2,12 @@ import { getInfo } from '@/api/business/info'
 
 const business = {
   state: {
-    info: null
+    businessInfo: null
   },
 
   mutations: {
-    SET_INFO: (state, info) => {
-      state.info = info
+    SET_INFO: (state, businessInfo) => {
+      state.businessInfo = businessInfo
     }
   },
 

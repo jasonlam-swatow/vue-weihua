@@ -14,6 +14,10 @@
             :label="tab.label"
             :name="tab.name">
             <el-form :inline="true" label-width="130px">
+              <el-form-item label="企业名称" class="full-width">
+                <el-input v-model="companyName" disabled></el-input>
+                <span class="sub-text input-warning"><i class="el-icon-info"></i> 不可修改，如需修改，请联系平台客服人员！</span>
+              </el-form-item>
               <el-form-item
                 v-for="(item, key) in tab.content"
                 :key="key"
@@ -68,8 +72,14 @@ export default {
   },
 
   computed: {
+    companyName() {
+      return this.$store.getters.businessInfo
+        ? this.$store.getters.businessInfo.name
+        : ''
+    },
     basicTabList() {
-      const { info } = this.$store.getters.businessInfo
+      const info = this.$store.getters.businessInfo
+        ? this.$store.getters.businessInfo.info : null
       return [{
         label: '基本信息',
         name: 'first',
@@ -79,3 +89,13 @@ export default {
   }
 }
 </script>
+
+<style rel="stylesheet/scss" lang="scss" scoped>
+  .input-warning {
+    line-height: 14px;
+    font-size: 13px;
+    position: absolute;
+    top: 14px;
+    right: -286px;
+  }
+</style>

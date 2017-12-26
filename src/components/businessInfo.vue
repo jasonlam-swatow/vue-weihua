@@ -13,7 +13,8 @@
           v-for="(item, key) in tabList[0].content"
           :key="key"
           :label="item.label"
-          :class="{ 'full-width': ['business_range', 'lisence'].includes(key) }">
+          :class="[{ 'full-width': ['business_range', 'lisence'].includes(key) },
+                   { 'with-control': ['business_range', 'lisence'].includes(key) }]">
           <div v-if="key === 'lisence'">
             <img :src="item.value">
           </div>
