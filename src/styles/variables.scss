@@ -6,3 +6,11 @@ $sidebarWidth: 180px;
 
 // navbar
 $navbarHeight: 50px;
+
+// zIndex
+$zIndex: (
+  probing: -1000,
+  peeking: 100,
+  drone: 1000,
+  ufo: 1001
+)
