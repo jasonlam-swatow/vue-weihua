@@ -53,11 +53,11 @@ export default {
   },
   methods: {
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+      console.log(`当前页: ${val}`)
       this.currentPage = val
       this.fetchData()
     },
-    fetchData () {
+    fetchData() {
       getOrderList().then(res => {
         console.log(res)
         this.orderList = res.data.list
