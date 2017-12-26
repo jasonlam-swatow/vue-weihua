@@ -34,18 +34,16 @@ export default {
   },
   data() {
     return {
-      activeTab: 'first',
-      tabList: [{
-        label: '基本信息',
-        name: 'first',
-        content: null
-      }]
+      activeTab: 'first'
     }
   },
-  watch: {
-    businessInfo(val) {
-      console.log(val)
-      this.tabList[0].content = val
+  computed: {
+    tabList() {
+      return [{
+        label: '基本信息',
+        name: 'first',
+        content: this.businessInfo
+      }]
     }
   }
 }

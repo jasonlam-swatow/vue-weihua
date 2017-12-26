@@ -100,7 +100,7 @@ export const constantRouterMap = [
       }, {
         path: 'collaborators',
         name: '合作委托企业',
-        component: _import('tree/index'),
+        component: _import('orders/collaborators'),
         meta: { title: '合作委托企业', icon: 'suitcase' }
       }
     ]
