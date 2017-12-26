@@ -1,11 +1,11 @@
 <template>
   <div class="app-container">
     <el-tabs type="card">
-      <el-tab-pane key="1" :label="holeBusinessTitle" >
-       <el-input size="medium" class="button-area" style="width:30%">
+      <el-tab-pane key="1" :label="title" >
+       <el-input size="medium" class="button-area" style="width:36%" placeholder="输入企业名称或信用代码">
          <el-button slot="append" icon="el-icon-search"></el-button>
        </el-input>
-       <el-table :data="orderList" border>
+       <el-table :data="collaborators" border>
          <el-table-column prop="name" label="企业名称"></el-table-column>
          <el-table-column prop="social_code" label="统一社会信用代码"></el-table-column>
          <el-table-column prop="order_num" label="相关运单"></el-table-column>
@@ -21,11 +21,11 @@
     </el-tabs>
     <div class="fr" style="margin-top:12px">
     <el-pagination
-      @current-change="handleCurrentChange"
+      @current-change="onPaginate"
       :current-page="currentPage"
       :page-size="10"
       layout="total, prev, pager, next, jumper"
-      :total="holeBusinessNum">
+      :total="totalNum">
     </el-pagination>
   </div>
     <el-dialog :visible.sync="dialogVisible" width="50%">
@@ -34,35 +34,35 @@
   </div>
 </template>
 <script>
-import { getOrderList } from '../../api/orders/collaborators'
+import { getCollaborators } from '@/api/orders/collaborators'
 import businessInfo from '@/components/businessInfo'
 
 export default {
   data() {
     return {
-      orderList: [],
+      collaborators: [],
       dialogVisible: false,
       selectedBusiness: null,
-      holeBusinessTitle: '',
-      holeBusinessNum: 0,
+      title: '',
+      totalNum: 0,
       currentPage: 1
     }
   },
   created() {
-    this.handleCurrentChange(1)
+    this.onPaginate(1)
   },
   methods: {
-    handleCurrentChange(val) {
+    onPaginate(val) {
       console.log(`当前页: ${val}`)
       this.currentPage = val
       this.fetchData()
     },
     fetchData() {
-      getOrderList().then(res => {
+      getCollaborators().then(res => {
         console.log(res)
-        this.orderList = res.data.list
-        this.holeBusinessNum = res.data.list.length
-        this.holeBusinessTitle = '全部企业' + '(' + this.holeBusinessNum + ')'
+        this.collaborators = res.data.list
+        this.totalNum = res.data.list.length
+        this.title = '全部企业' + '（' + this.totalNum + '）'
       })
     },
     onViewBusiness({ qualifications }) {
@@ -75,6 +75,3 @@ export default {
   }
 }
 </script>
-<style lang="sass" scoped>
-
-</style>
