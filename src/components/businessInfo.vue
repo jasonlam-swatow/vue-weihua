@@ -16,7 +16,7 @@
           :class="[{ 'full-width': ['business_range', 'lisence'].includes(key) },
                    { 'with-control': ['business_range', 'lisence'].includes(key) }]">
           <div v-if="key === 'lisence'">
-            <img :src="item.value">
+            <img v-for="file in item.value" :src="file.url">
           </div>
           <div v-else>{{item.value}}</div>
         </el-form-item>

@@ -4,7 +4,7 @@
       <el-col :md="20" :sm="24">
         <div class="button-area">
           <el-button round icon="el-icon-edit" @click="onEditBusiness">修改企业信息</el-button>
-          <el-button round icon="el-icon-edit">仅修改紧急联系人信息</el-button>
+          <el-button round icon="el-icon-edit" @click="dialogFormVisible = true">仅修改紧急联系人信息</el-button>
         </div>
 
         <business-info :business-info="businessInfo" :loading="dataLoading.basic"></business-info>
@@ -15,15 +15,65 @@
             :key="tab.name"
             :label="tab.label"
             :name="tab.name">
-            <el-card class="box-card">
+            <el-card
+              v-for="(item, key) in tab.content"
+              :key="key"
+              class="box-card mgb12">
               <div slot="header" class="clearfix">
-                <!-- <span>{{tab.content.}}</span> -->
+                <span>{{item.name}}</span>
+              </div>
+              <div>
+                <el-row>
+                  <el-col :sm="24" :md="16" :lg="12">
+                    <el-form class="readonly-form">
+                      <template v-if="key === 'business_permit'">
+                        <el-form-item label="道路运输经营许可证">
+                          <span>{{item.permit_num}}</span>
+                        </el-form-item>
+                        <el-form-item label="有效期">
+                          <span>{{item.validity}}</span>
+                        </el-form-item>
+                      </template>
+                      <template v-if="key === 'safety_commitment'">
+                        <el-form-item label="要求">
+                          <span class="sub-text">下载→填写→盖公章→彩色件扫描上传</span>
+                        </el-form-item>
+                        <el-form-item label="下载证件">
+                          <el-button type="text" icon="el-icon-tickets">{{item.file_name}}</el-button>
+                        </el-form-item>
+                      </template>
+                    </el-form>
+                  </el-col>
+                  <el-col :sm="24" :md="8" :lg="12">
+                    <div style="width: 200px; height: 180px; border: 1px solid red"></div>
+                  </el-col>
+                </el-row>
               </div>
             </el-card>
           </el-tab-pane>
         </el-tabs>
       </el-col>
     </el-row>
+    <el-dialog title="修改紧急救援联系人信息" :visible.sync="dialogFormVisible">
+      <el-form label-width="100px" :rules="contactFormRules">
+        <el-form-item label="联系人姓名" prop="name">
+          <el-input v-model="contact.name"></el-input>
+        </el-form-item>
+        <el-form-item label="联系电话" prop="tel">
+          <el-input v-model="contact.tel"></el-input>
+        </el-form-item>
+        <el-form-item label="验证码" prop="code">
+          <el-input v-model="contact.code"></el-input>
+        </el-form-item>
+        <el-form-item label=" ">
+         <el-button type="primary">获取短信验证码</el-button>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -45,7 +95,25 @@ export default {
         name: 'first',
         label: '其他认证信息',
         content: null
-      }]
+      }],
+      dialogFormVisible: false,
+      contact: {
+        name: '',
+        tel: '',
+        code: ''
+      },
+      contactFormRules: {
+        name: [
+          { required: true, message: '请输入联系人姓名', trigger: 'blur' },
+          { min: 2, message: '联系人姓名应不少于二个字', trigger: 'blur' }
+        ],
+        tel: [
+          { required: true, message: '请输入联系电话', trigger: 'blur' }
+        ],
+        code: [
+          { required: true, message: '请输入验证码', trigger: 'blur' }
+        ]
+      }
     }
   },
 

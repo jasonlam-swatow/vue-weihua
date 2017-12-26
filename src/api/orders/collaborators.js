@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-export function getOrderList() {
+export function getCollaborators() {
   return request({
     url: '/orders/collaborators',
     method: 'get'
