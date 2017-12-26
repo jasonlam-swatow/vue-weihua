@@ -28,13 +28,11 @@
   }
 }
 
-.el-form.readonly-form {
-  .el-form-item {
-    margin-bottom: 12px;
-    margin-right: 8px;
+.el-form {
+  .el-form-item.full-width {
+    width: 100%;
 
-    &.full-width {
-      width: 100%;
+    &.with-control {
       .el-form-item__content {
         display: block;
         div {
@@ -47,6 +45,13 @@
         }
       }
     }
+  }
+}
+
+.el-form.readonly-form {
+  .el-form-item {
+    margin-bottom: 12px;
+    margin-right: 8px;
   }
   .el-form-item__label,
   .el-form-item__content {
