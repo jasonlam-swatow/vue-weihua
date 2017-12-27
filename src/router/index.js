@@ -56,7 +56,7 @@ export const constantRouterMap = [
       }, {
         path: 'employees',
         name: '员工管理',
-        component: _import('business/employees'),
+        component: _import('business/employees/index'),
         meta: { title: '员工管理', icon: 'group' }
       }, {
         path: 'vehicles',

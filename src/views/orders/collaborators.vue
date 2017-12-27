@@ -2,21 +2,23 @@
   <div class="app-container">
     <el-tabs type="card">
       <el-tab-pane key="1" :label="title" >
-       <el-input size="medium" class="button-area" style="width:36%" placeholder="输入企业名称或信用代码">
-         <el-button slot="append" icon="el-icon-search"></el-button>
-       </el-input>
-       <el-table :data="collaborators" border>
-         <el-table-column prop="name" label="企业名称"></el-table-column>
-         <el-table-column prop="social_code" label="统一社会信用代码"></el-table-column>
-         <el-table-column prop="order_num" label="相关运单"></el-table-column>
-         <el-table-column prop="address" label="企业注册地址"></el-table-column>
-         <el-table-column prop="contact" label="紧急联系人/联系电话"></el-table-column>
-         <el-table-column  label="查看企业资质">
-           <template slot-scope="scope">
-             <el-button type="text" @click="onViewBusiness(scope.row)">点击查看</el-button>
-           </template>
-         </el-table-column>
-       </el-table>
+        <div class="button-area">
+          <el-input size="medium" style="max-width: 320px; min-width: 260px;" placeholder="输入企业名称或信用代码">
+            <el-button slot="append" icon="el-icon-search"></el-button>
+          </el-input>
+        </div>
+        <el-table :data="collaborators" border>
+          <el-table-column prop="name" label="企业名称"></el-table-column>
+          <el-table-column prop="social_code" label="统一社会信用代码"></el-table-column>
+          <el-table-column prop="order_num" label="相关运单"></el-table-column>
+          <el-table-column prop="address" label="企业注册地址"></el-table-column>
+          <el-table-column prop="contact" label="紧急联系人/联系电话"></el-table-column>
+          <el-table-column  label="查看企业资质">
+            <template slot-scope="scope">
+              <el-button type="text" @click="onViewBusiness(scope.row)">点击查看</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
       </el-tab-pane> 
     </el-tabs>
     <div class="fr" style="margin-top:12px">

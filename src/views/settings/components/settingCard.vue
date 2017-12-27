@@ -1,7 +1,7 @@
 <template>
-  <el-card class="box-card mgb12" style="min-height: 408px">
-    <div slot="header" class="clearfix card-header-with-svg">
-      <svg-icon :icon-class="iconMap[title]"></svg-icon> <span>{{title}}</span>
+  <el-card class="box-card mgb12" style="min-height: 408px" v-loading="loading">
+    <div slot="header" class="clearfix">
+      <span class="span-with-svg"><svg-icon :icon-class="iconMap[title]"></svg-icon> {{title}}</span>
     </div>
     <div>
       <el-form label-width="240px" label-position="left">
@@ -39,7 +39,8 @@ export default {
         '车辆证照': 'vehicle',
         '罐体证照': 'tank'
       },
-      lisenceForm: null
+      lisenceForm: null,
+      loading: true
     }
   },
 
@@ -49,7 +50,11 @@ export default {
 
   methods: {
     fetchData(lisenceType) {
-      getLisence(lisenceType).then(res => this.lisenceForm = res.data)
+      this.loading = true
+      getLisence(lisenceType).then(res => {
+        this.lisenceForm = res.data
+        this.loading = false
+      })
     }
   }
 }
@@ -58,6 +63,6 @@ export default {
 <style rel="stylesheet/scss" lang="scss" scoped>
   .validity-append {
     position: absolute;
-    right: 136px;
+    left: 88px;
   }
 </style>
