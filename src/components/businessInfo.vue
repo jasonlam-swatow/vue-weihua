@@ -5,6 +5,7 @@
       :key="tab.name"
       :label="tab.label"
       :name="tab.name">
+      <span slot="label" class="span-with-svg"><svg-icon :icon-class="tab.icon"></svg-icon>{{tab.label}}</span>
       <el-form
         :inline="true"
         class="readonly-form"
@@ -41,6 +42,7 @@ export default {
     tabList() {
       return [{
         label: '基本信息',
+        icon: 'id-card',
         name: 'first',
         content: this.businessInfo
       }]

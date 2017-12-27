@@ -79,3 +79,12 @@ a:hover {
   display: block;
   color: map-get($palette, info);
 }
+
+.span-with-svg {
+  display: flex;
+  align-items: center;
+
+  svg {
+    margin-right: 4px;
+  }
+}

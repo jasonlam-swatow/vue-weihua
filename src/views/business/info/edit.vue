@@ -11,9 +11,12 @@
           <el-tab-pane
             v-for="tab in basicTabList"
             :key="tab.name"
-            :label="tab.label"
             :name="tab.name">
-            <el-form :inline="true" label-width="130px">
+            <span slot="label" class="span-with-svg">
+              <svg-icon :icon-class="tab.icon"></svg-icon>
+              {{tab.label}}
+            </span>
+            <el-form :inline="true" label-width="130px" class="prevent-uneven">
               <el-form-item label="企业名称" class="full-width">
                 <el-input v-model="companyName" disabled></el-input>
                 <span class="sub-text input-warning"><i class="el-icon-info"></i> 不可修改，如需修改，请联系平台客服人员！</span>
@@ -76,8 +79,11 @@
           <el-tab-pane
             v-for="tab in certTabList"
             :key="tab.name"
-            :label="tab.label"
             :name="tab.name">
+            <span slot="label" class="span-with-svg">
+              <svg-icon :icon-class="tab.icon"></svg-icon>
+              {{tab.label}}
+            </span>
             <el-card
               v-for="(item, key) in tab.content"
               :key="key"
@@ -86,8 +92,8 @@
                 <span>{{item.name}}</span>
               </div>
               <div>
-                <el-row>
-                  <el-col :sm="24" :md="16" :lg="12">
+                <el-row type="flex" justify="space-around">
+                  <el-col :span="16">
                     <el-form class="readonly-form">
                       <template v-if="key === 'business_permit'">
                         <el-form-item label="道路运输经营许可证">
@@ -110,7 +116,7 @@
                       </template>
                     </el-form>
                   </el-col>
-                  <el-col :sm="24" :md="8" :lg="12">
+                  <el-col :span="8">
                     <div style="width: 200px; height: 180px; border: 1px solid red"></div>
                   </el-col>
                 </el-row>
@@ -152,6 +158,7 @@ export default {
       return [{
         label: '基本信息',
         name: 'first',
+        icon: 'id-card',
         content: info
       }]
     },
@@ -164,6 +171,7 @@ export default {
       return [{
         name: 'first',
         label: '其他认证信息',
+        icon: 'approve',
         content: certInfo
       }]
     }

@@ -56,7 +56,7 @@ export const constantRouterMap = [
       }, {
         path: 'employees',
         name: '员工管理',
-        component: _import('business/employees'),
+        component: _import('business/employees/index'),
         meta: { title: '员工管理', icon: 'group' }
       }, {
         path: 'vehicles',
@@ -134,16 +134,16 @@ export const constantRouterMap = [
       }
     ]
   }, {
-    path: '/others',
+    path: '/settings',
     component: Layout,
-    redirect: '/others/setting',
+    redirect: '/settings/systemg',
     name: '其他',
     meta: { title: '其他', icon: 'stacks' },
     children: [
       {
         path: 'system',
         name: '系统消息配置',
-        component: _import('table/index'),
+        component: _import('settings/system/index'),
         meta: { title: '系统消息配置', icon: 'setting' }
       }, {
         path: 'messages',
