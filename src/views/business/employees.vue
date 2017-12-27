@@ -17,7 +17,7 @@
             </el-input>
          </div>
          <div>
-           <el-button>新增员工</el-button>
+           <el-button @click="increaseEmployees">新增员工</el-button>
            <el-button>批量导入</el-button>
            <a type="text">下载模版</a>
          </div>
@@ -40,8 +40,8 @@
          </el-table-column>
          <el-table-column prop="contact" label="操作">
            <template slot-scope="scope">
-             <i class="el-icon-edit"></i>
-             <i class="el-icon-delete"></i>
+             <i class="el-icon-edit" @click="editUserInfo(scope.row)"></i>
+             <i class="el-icon-delete" @click="deleteUser(scope.row)"></i>
            </template>
          </el-table-column>         
        </el-table>
@@ -99,6 +99,15 @@ export default {
     this.handleCurrentChange(1)
   },
   methods: {
+    increaseEmployees() {
+      this.$router.push('/home')
+    },
+    editUserInfo(info) {
+      console.log(info)
+    },
+    deleteUser(user) {
+      console.log(user)
+    },
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`)
       this.currentPage = val
