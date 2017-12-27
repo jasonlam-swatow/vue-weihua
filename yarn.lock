@@ -1584,6 +1584,10 @@ cosmiconfig@^2.1.0, cosmiconfig@^2.1.1:
     parse-json "^2.2.0"
     require-from-string "^1.1.0"
 
+countup.js@^1.8.1:
+  version "1.9.3"
+  resolved "http://registry.npm.taobao.org/countup.js/download/countup.js-1.9.3.tgz#ce3e50cd7160441e478f07da31895edcc0f1c9dd"
+
 create-ecdh@^4.0.0:
   version "4.0.0"
   resolved "http://registry.npm.taobao.org/create-ecdh/download/create-ecdh-4.0.0.tgz#888c723596cdf7612f6498233eebd7a35301737d"
@@ -6363,6 +6367,13 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
+vue-countup-v2@^0.1.2:
+  version "0.1.2"
+  resolved "http://registry.npm.taobao.org/vue-countup-v2/download/vue-countup-v2-0.1.2.tgz#ca3b7b7a6c9e293164f4f6e3130c51721548cd8e"
+  dependencies:
+    countup.js "^1.8.1"
+    vue "^2.1.8"
+
 vue-hot-reload-api@^2.2.0:
   version "2.2.4"
   resolved "http://registry.npm.taobao.org/vue-hot-reload-api/download/vue-hot-reload-api-2.2.4.tgz#683bd1d026c0d3b3c937d5875679e9a87ec6cd8f"
@@ -6410,6 +6421,10 @@ vue-template-es2015-compiler@^1.6.0:
 vue@2.5.10:
   version "2.5.10"
   resolved "http://registry.npm.taobao.org/vue/download/vue-2.5.10.tgz#dcd772e2594ba994145f2f09522149d9a1e7841a"
+
+vue@^2.1.8:
+  version "2.5.13"
+  resolved "http://registry.npm.taobao.org/vue/download/vue-2.5.13.tgz#95bd31e20efcf7a7f39239c9aa6787ce8cf578e1"
 
 vuex@3.0.1:
   version "3.0.1"

@@ -74,6 +74,9 @@ a:hover {
 .mgb12 {
   margin-bottom: 12px;
 }
+.mgb24 {
+  margin-bottom: 24px;
+}
 
 .sub-text {
   display: block;
@@ -86,5 +89,11 @@ a:hover {
 
   svg {
     margin-right: 4px;
+  }
+}
+
+@each $name, $value in $palette {
+  .text-#{$name} {
+    color: $value
   }
 }
