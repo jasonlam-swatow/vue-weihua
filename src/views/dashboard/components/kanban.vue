@@ -1,5 +1,5 @@
 <template>  
-  <el-card class="box-card kanban mgb12" style="min-height: 360px" v-loading="loading">
+  <el-card class="box-card kanban mgb12" style="min-height: 360px" v-loading.body="loading">
     <div slot="header" class="clearfix">
       <el-row type="flex">
         <el-col :span="10" class="kanban-header-column">
@@ -8,6 +8,7 @@
         <el-col :span="14" class="kanban-header-column">
           <div class="countup-container">
             <count-up
+              v-if="statistics.total"
               class="countup"
               :start="0"
               :end="statistics.total"
@@ -31,11 +32,23 @@
           v-if="typeof item.value === 'object'"
           style="text-align: right"
           :span="14">
-          <span class="text-warning">{{item.value.expiring}}(即将过期)</span>+<span class="text-danger">{{item.value.expired}}(已过期)</span></el-col>
+          <span class="text-warning">即将过期</span>
+          <el-tag type="warning" size="small">{{item.value.expiring}}</el-tag>
+          <span class="text-danger">已过期</span>
+          <el-tag type="danger" size="small">{{item.value.expired}}</el-tag>
+        </el-col>
+        <el-col
+          v-else-if="item.name === '待认证审核'"
+          style="text-align: right"
+          :span="16">
+          <el-tag type="warning" size="small">{{item.value}}</el-tag>
+        </el-col>
         <el-col
           v-else
           style="text-align: right"
-          :span="16">{{item.value}}</el-col>
+          :span="16">
+          <b class="text-sub">{{item.value}} {{titleMap[title].suffix}}</b>  
+        </el-col>
       </el-row>
     </div>
   </el-card>
@@ -52,7 +65,7 @@ export default {
   },
   data() {
     return {
-      statistics: null,
+      statistics: {},
       loading: true,
       countUpOptions: {
         useEasing: true,
@@ -60,6 +73,11 @@ export default {
         seperator: ',',
         decimal: '.',
         suffix: ''
+      },
+      titleMap: {
+        '在册车辆': { suffix: '辆' },
+        '在册罐体': { suffix: '个' },
+        '在册员工': { suffix: '人' }
       }
     }
   },
@@ -100,6 +118,9 @@ export default {
     .countup {
       font-size: 48px;
       font-family: Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace;
+      background: -webkit-linear-gradient(#ababab, #000);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     h5 {
