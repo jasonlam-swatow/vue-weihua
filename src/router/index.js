@@ -61,12 +61,12 @@ export const constantRouterMap = [
       }, {
         path: 'vehicles',
         name: '车辆管理',
-        component: _import('tree/index'),
+        component: _import('business/vehicles/index'),
         meta: { title: '车辆管理', icon: 'vehicle' }
       }, {
         path: 'tanks',
         name: '罐体管理',
-        component: _import('tree/index'),
+        component: _import('business/tanks/index'),
         meta: { title: '罐体管理', icon: 'tank' }
       }
     ]
