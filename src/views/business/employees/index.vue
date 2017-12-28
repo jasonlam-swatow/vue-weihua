@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-tabs type="card">
+    <el-tabs type="card" class="customized">
       <el-tab-pane v-for="(item, index) in tabPaneTitles" :label="item" :key="index">
         <el-row type="flex" class="mgb12">
           <el-col :span="16">
@@ -22,7 +22,7 @@
             <el-button type="text" icon="el-icon-document">下载模板</el-button>
           </el-col>
         </el-row>
-        <el-table :data="orderList" border>
+        <el-table :data="orderList" border stripe v-loading="loading">
           <el-table-column type="selection"></el-table-column>
           <el-table-column prop="name" label="姓名" width="100"></el-table-column>
           <el-table-column prop="gender" label="性别" width="80"></el-table-column>
@@ -41,7 +41,7 @@
           <el-table-column prop="contact" label="操作">
             <template slot-scope="scope">
               <el-tooltip content="编辑" placement="top">
-                <el-button type="text" icon="el-icon-edit" @click="editUserInfo(scope.row)"></el-button>
+                <el-button type="text" icon="el-icon-edit-outline" @click="editUserInfo(scope.row)"></el-button>
               </el-tooltip>
               <el-tooltip content="删除" placement="top">
                 <el-button type="text" icon="el-icon-delete"  @click="deleteUser(scope.row)"></el-button>
@@ -68,6 +68,7 @@ import { getEmployeesList } from '@/api/business/employees'
 export default {
   data() {
     return {
+      loading: true,
       orderList: [],
       currentPage: 1,
       total: 0,
@@ -118,10 +119,12 @@ export default {
       this.fetchData()
     },
     fetchData() {
+      this.loading = true
       getEmployeesList().then(res => {
         console.log(res)
         this.orderList = res.data.list
         this.total = res.data.list.length
+        this.loading = false
       })
     }
   }

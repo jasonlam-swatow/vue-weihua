@@ -21,6 +21,23 @@
   }
 }
 
+// .el-table
+.el-table {
+  thead {
+    tr {
+      background-color: #737d8c;
+      color: #fff;
+
+      th {
+        border-right: none;
+      }
+    }
+  }
+  &__row--striped td {
+    background-color: #f5f8ff !important;
+  }
+}
+
 //暂时性解决diolag 问题 https://github.com/ElemeFE/element/issues/2461
 .el-dialog {
   transform: none;
@@ -103,11 +120,17 @@
     margin-bottom: 32px;
 
     .el-tabs__header {
-      border-bottom: none;
       margin-bottom: 0;
     }
 
-    .el-tabs__nav,
+    .el-tabs__item {
+      color: #fff;
+      &.is-active {
+        background-color: #fff;
+        color: map-get($palette, primary);
+      }
+    }
+
     .el-tabs__content {
       background-color: #fff;
     }
