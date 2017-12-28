@@ -8,28 +8,30 @@
               <el-option v-for="(status, key) in statusSelection" :key="key" :label="status.label" :value="status.value">
               </el-option>
             </el-select>
-            <el-select placeholder="主要岗位" v-model="positionSelected">
-              <el-option v-for="(position, key) in positionSelection" :key="key" :label="position.label" :value="position.value">
+            <el-select placeholder="车辆类型" v-model="carTypeSelected">
+            <el-option-group v-for="(group, key) in vehicleSelection" :key="key" :label="group.label">
+              <el-option v-for="(item, key) in group.options" :key="key" :label="item.label" :value="item.value">
               </el-option>
+            </el-option-group>
             </el-select>
-            <el-input size="medium" style="width:200px" placeholder="身份证号或姓名">
+            <el-input size="medium" style="width:200px" placeholder="车号 or 道路运输证号">
                 <el-button slot="append" icon="el-icon-search"></el-button>
             </el-input>
           </el-col>
           <el-col :span="8">
-            <el-button icon="el-icon-plus" type="primary" @click="increaseEmployees">新增员工</el-button>
+            <el-button icon="el-icon-plus" type="primary" @click="increaseEmployees">新增车辆</el-button>
             <el-button icon="el-icon-upload2">批量导入</el-button>
             <el-button type="text" icon="el-icon-document">下载模板</el-button>
           </el-col>
         </el-row>
         <el-table :data="orderList" border>
           <el-table-column type="selection"></el-table-column>
-          <el-table-column prop="name" label="姓名" width="100"></el-table-column>
-          <el-table-column prop="gender" label="性别" width="80"></el-table-column>
-          <el-table-column prop="id_card" label="身份证"></el-table-column>
-          <el-table-column prop="position" label="主要岗位"></el-table-column>
-          <el-table-column prop="tel" label="联系电话"></el-table-column>
-          <el-table-column prop="entry_date" label="入职日期"></el-table-column>         
+          <el-table-column prop="lisence_num" label="车号" width="100"></el-table-column>
+          <el-table-column prop="vehicle_type" label="车辆类型" width="80"></el-table-column>
+          <el-table-column prop="transport_num" label="道路运输证号"></el-table-column>
+          <el-table-column prop="gps_time" label="GPS更新时间"></el-table-column>
+          <el-table-column prop="curb_weight" label="整备质量（KG）"></el-table-column>
+          <el-table-column prop="tow_weight" label="核载/准牵引（KG）"></el-table-column>         
           <el-table-column prop="status" label="审核状态" width="100"></el-table-column>
           <el-table-column label="证照有限期状态" width="240">
             <template slot-scope="scope">
@@ -63,7 +65,7 @@
   </div>
 </template>
 <script>
-import { getEmployeesList } from '@/api/business/employees'
+import { getVehiclesList } from '@/api/business/vehicles'
 
 export default {
   data() {
@@ -72,8 +74,8 @@ export default {
       currentPage: 1,
       total: 0,
       statusSelected: '',
-      positionSelected: '',
-      tabPaneTitles: ['全部员工', '待审核', '审核未通过'],
+      carTypeSelected: '',
+      tabPaneTitles: ['全部车辆', '待审核', '审核未通过'],
       statusSelection: [{
         value: '1',
         label: '即将过期'
@@ -87,15 +89,24 @@ export default {
         value: '4',
         label: '证照数量齐全'
       }],
-      positionSelection: [{
-        value: '1',
-        label: '驾驶员'
+      vehicleSelection: [{
+        label: '牵引车',
+        options: [{
+           value: '1',
+           label: '重型半挂牵引车'
+        }, {
+           value: '2',
+           label: '中型半挂牵引车'
+        }]
       }, {
-        value: '2',
-        label: '押运员'
-      }, {
-        value: '3',
-        label: '驾驶员/押运员'
+        label: '半挂车',
+        options: [{
+           value: '3',
+           label: '重型普通牵引车'
+        },{
+           value: '1',
+           label: '重型厢式牵引车'
+        }]
       }]
     }
   },
@@ -118,7 +129,7 @@ export default {
       this.fetchData()
     },
     fetchData() {
-      getEmployeesList().then(res => {
+      getVehiclesList().then(res => {
         console.log(res)
         this.orderList = res.data.list
         this.total = res.data.list.length
