@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer">
+  <footer class="footer-bar">
     <p>Copyright &copy; 2016-2017</p>
   </footer>
 </template>
@@ -10,19 +10,22 @@ export default {
 }
 </script>
 
-<style rel="stylesheet/scss" scoped>
+<style rel="stylesheet/scss" lang="scss" scoped>
 @import '../../../styles/variables.scss';
-  .footer {
-    /* position: fixed; */
-    height: $footerHeight;
-    background-color: #282828;
-    display: flex;
-    justify-content: center;
+.footer-bar {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: $footerHeight;
+  background-color: #282828;
+  z-index: map-get($zIndex, drone);
 
-    p {
-      margin: 0;
-      color: #666;
-      text-align: center;
-    }
+  p {
+    margin: 0;
+    color: #666;
+    text-align: center;
+    font-size: 12px;
+    line-height: 20px;
   }
+}
 </style>
