@@ -6,11 +6,12 @@
     <div class="main-container">
       <app-main></app-main>
     </div>
+    <footer-bar></footer-bar>
   </div>
 </template>
 
 <script>
-import { Navbar, Sidebar, AppMain, Breadcrumb } from './components'
+import { Navbar, Sidebar, AppMain, Breadcrumb, FooterBar } from './components'
 
 export default {
   name: 'layout',
@@ -18,7 +19,8 @@ export default {
     Navbar,
     Sidebar,
     AppMain,
-    Breadcrumb
+    Breadcrumb,
+    FooterBar
   },
   computed: {
     sidebar() {
