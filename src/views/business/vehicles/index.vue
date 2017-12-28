@@ -92,20 +92,20 @@ export default {
       vehicleSelection: [{
         label: '牵引车',
         options: [{
-           value: '1',
-           label: '重型半挂牵引车'
+          value: '1',
+          label: '重型半挂牵引车'
         }, {
-           value: '2',
-           label: '中型半挂牵引车'
+          value: '2',
+          label: '中型半挂牵引车'
         }]
       }, {
         label: '半挂车',
         options: [{
-           value: '3',
-           label: '重型普通牵引车'
-        },{
-           value: '1',
-           label: '重型厢式牵引车'
+          value: '3',
+          label: '重型普通牵引车'
+        }, {
+          value: '1',
+          label: '重型厢式牵引车'
         }]
       }]
     }
