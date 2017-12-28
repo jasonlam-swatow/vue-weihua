@@ -6,7 +6,6 @@ const typeMap = {
   '在册员工': 'employees'
 }
 
-
 export function getStatistics(type) {
   return request({
     url: `/dashboard/${typeMap[type]}`,

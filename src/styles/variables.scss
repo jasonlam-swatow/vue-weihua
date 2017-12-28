@@ -1,11 +1,19 @@
+// main
+$mainBg: #F2F9F9;
+
 // sidebar
-$menuBg:#304156;
-$subMenuBg:#1f2d3d;
-$menuHover:#001528;
+$menuBg: transparent;
+$subMenuBg:#fff;
+$subMenuTitle:#e6f0fd;
 $sidebarWidth: 180px;
 
 // navbar
 $navbarHeight: 50px;
+
+// subNavbar
+$subNavbarColor: #fff;
+$subNavbarHeight: 40px;
+$subNavbarWidth: 180px;
 
 // palette
 $palette: (

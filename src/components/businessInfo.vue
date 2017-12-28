@@ -1,5 +1,5 @@
 <template>
-  <el-tabs v-model="activeTab" type="card" v-loading.body="loading">
+  <el-tabs v-model="activeTab" class="customized" type="card" v-loading="loading">
     <el-tab-pane
       v-for="tab in tabList"
       :key="tab.name"

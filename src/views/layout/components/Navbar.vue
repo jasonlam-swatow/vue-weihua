@@ -2,9 +2,8 @@
   <el-menu class="navbar" mode="horizontal">
     <el-menu-item index="1" class="logo">
       <router-link to="/home">
-          <!-- <b>EasyOps</b> 运维管理系统 -->
-          <span class="logo-name">危化运输</span>
           <img class="logo-image" src="../../../assets/logo.png" alt="logo">
+          <span class="logo-name">危化运输</span>
         </router-link>
     </el-menu-item>
     <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
@@ -77,17 +76,29 @@ export default {
 @import '../../../styles/variables.scss';
 
 .navbar {
+  $color: #fff;
+
   height: $navbarHeight;
   width: 100%;
   line-height: $navbarHeight;
   border-radius: 0px !important;
   position: fixed;
   z-index: map-get($zIndex, drone);
+  background-color: transparent;
+  border: none;
+
   .el-menu-item {
     height: $navbarHeight;
     line-height: $navbarHeight;
+    color: $color;
+
+    i {
+      color: $color;
+    }
+
     &:hover,
     &:focus {
+      background-color: inherit;
       border-bottom-color: rgb(64, 158, 255) !important;
     }
   }
@@ -97,18 +108,19 @@ export default {
     &-name {
       font-size: 28px;
       line-height: $navbarHeight;
+      color: $color;
     }
     &-image {
       width: 28px;
       height: 28px;
-      margin-left: 12px;
+      margin-right: 8px;
     }
   }
   .hamburger-container {
     line-height: 58px;
     height: $navbarHeight;
     float: left;
-    padding: 0 10px;
+    padding: 0 8px;
   }
   .screenfull {
     position: absolute;

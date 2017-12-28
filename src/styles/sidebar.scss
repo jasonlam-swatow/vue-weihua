@@ -4,15 +4,21 @@
   // 主体区域
   .main-container {
     min-height: 100%;
+    width: 100%;
+    width: calc(100vw - 180px);
     transition: margin-left 0.28s;
     margin-left: 180px;
+    position: fixed;
+    top: $navbarHeight + $subNavbarHeight;
+    bottom: 0;
+    overflow: scroll;
   } // 侧边栏
   .sidebar-container {
     transition: width 0.28s;
     width: $sidebarWidth !important;
     height: 100%;
     position: fixed;
-    top: $navbarHeight;
+    top: $navbarHeight + $subNavbarHeight;
     bottom: 0;
     left: 0;
     z-index: map-get($zIndex, drone);
@@ -24,12 +30,39 @@
       margin-right: 10px;
     }
     .el-menu {
-      border: none;
       width: 100%;
+      background-color: transparent !important;
+      border: none;
+      &-item {
+        color: map-get($palette, sub) !important;
+        height: 36px;
+        line-height: 36px;
+        // margin: 4px 0;
+        &.is-active {
+          background-color: $subMenuTitle !important;
+          color: map-get($palette, primary) !important;
+        }
+      }
+    }
+    .el-submenu {
+      margin-bottom: 6px;
+      background-color: $subMenuBg;
+
+      &__title {
+        background-color: $subMenuTitle !important;
+        color: map-get($palette, primary) !important;
+        font-weight: bold;
+        height: 42px;
+        line-height: 42px;
+      }
+      &__icon-arrow {
+        color: map-get($palette, primary);
+        font-weight: bold;
+      }
     }
   }
   .menu-wrapper {
-    padding-bottom: 36px;
+    padding-bottom: 72px;
   }
   .hideSidebar {
     .sidebar-container,.sidebar-container .el-menu {
@@ -40,6 +73,7 @@
       margin-left: 36px;
     }
   }
+
   .hideSidebar {
     .submenu-title-noDropdown {
       padding-left: 10px!important;
@@ -72,9 +106,9 @@
       }
     }
     .el-submenu {
-      &>.el-submenu__title {
-        padding-left: 10px!important;
-        &>span {
+      & > .el-submenu__title {
+        padding-left: 10px !important;
+        & > span {
           display: none;
         }
         .el-submenu__icon-arrow {
@@ -95,8 +129,10 @@
   .el-submenu .el-menu-item {
     min-width: 180px!important;
     background-color: $subMenuBg!important;
+    padding-left: 28px !important;
     &:hover {
-      background-color: $menuHover!important;
+      background-color: $subMenuTitle !important;
+      color: map-get($palette, primary) !important;
     }
   }
   .el-menu--collapse .el-menu .el-submenu{

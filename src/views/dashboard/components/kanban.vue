@@ -1,9 +1,14 @@
 <template>  
-  <el-card class="box-card kanban mgb12" style="min-height: 360px" v-loading.body="loading">
+  <el-card class="box-card kanban mgb12" style="min-height: 360px" v-loading="loading">
     <div slot="header" class="clearfix">
       <el-row type="flex">
         <el-col :span="10" class="kanban-header-column">
-          <svg-icon class="kanban-icon" icon-class="vehicle"></svg-icon>
+          <!-- <svg-icon class="kanban-icon" icon-class="vehicle"></svg-icon> -->
+          <div class="kanban-icon">
+            <img v-if="title === '在册车辆'" :src="dash_vehicles">
+            <img v-else-if="title === '在册员工'" :src="dash_employees">
+            <img v-else :src="dash_tanks">
+          </div>
         </el-col>
         <el-col :span="14" class="kanban-header-column">
           <div class="countup-container">
@@ -58,6 +63,10 @@
 <script>
 import CountUp from 'vue-countup-v2'
 import { getStatistics } from '@/api/dashboard'
+import dash_vehicles from '@/assets/dash-vehicles.png'
+import dash_employees from '@/assets/dash-employees.png'
+import dash_tanks from '@/assets/dash-tanks.png'
+
 export default {
   name: 'kanban',
   props: {
@@ -78,7 +87,10 @@ export default {
         '在册车辆': { suffix: '辆' },
         '在册罐体': { suffix: '个' },
         '在册员工': { suffix: '人' }
-      }
+      },
+      dash_vehicles,
+      dash_employees,
+      dash_tanks
     }
   },
   created() {
@@ -105,7 +117,9 @@ export default {
     }
 
     &-icon {
-      font-size: 48px;
+      img {
+        width: 100%;
+      }
     }
 
     &-header-column {

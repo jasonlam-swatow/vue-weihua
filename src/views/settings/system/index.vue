@@ -5,7 +5,8 @@
         v-for="title in titles"
         :key="title"
         :sm="24"
-        :md="12">
+        :md="12"
+        :xl="8">
         <setting-card :title="title"></setting-card>
       </el-col>
     </el-row>

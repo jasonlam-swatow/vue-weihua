@@ -89,3 +89,32 @@
 .el-tag.adjacent {
   margin: 0 4px 4px 0;
 }
+
+// el-steps
+.dashboard-steps {
+  .el-step__icon {
+    display: none;
+  }
+}
+
+// customized el-tabs
+.customized {
+  &.el-tabs {
+    margin-bottom: 32px;
+
+    .el-tabs__header {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .el-tabs__nav,
+    .el-tabs__content {
+      background-color: #fff;
+    }
+
+    .el-tabs__content {
+      padding: 24px 36px;
+      border-radius: 0 4px 4px 4px;
+    }
+  }
+}
