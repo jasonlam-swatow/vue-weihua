@@ -1,13 +1,13 @@
 <template>
   <div class="app-container">
-    <el-tabs type="card">
+    <el-tabs type="card" class="customized denser mgb0">
       <el-tab-pane key="1" :label="title" >
-        <div class="button-area">
+        <div class="button-area strange-input">
           <el-input size="medium" style="max-width: 320px; min-width: 260px;" placeholder="输入企业名称或信用代码">
             <el-button slot="append" icon="el-icon-search"></el-button>
           </el-input>
         </div>
-        <el-table :data="collaborators" border>
+        <el-table :data="collaborators" border stripe>
           <el-table-column prop="name" label="企业名称"></el-table-column>
           <el-table-column prop="social_code" label="统一社会信用代码"></el-table-column>
           <el-table-column prop="order_num" label="相关运单"></el-table-column>

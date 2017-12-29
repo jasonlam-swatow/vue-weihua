@@ -12,6 +12,10 @@
             <kanban :title="kanban"></kanban>
           </el-col>
         </el-row>
+
+        <div class="chart-container">
+          <line-chart height="400px" width="100%"></line-chart>
+        </div>
       </el-col>
     </el-row>
   </div>
@@ -21,6 +25,7 @@
 import { mapGetters } from 'vuex'
 import kanban from './components/kanban'
 import progressBar from './components/progressBar'
+import lineChart from './components/lineChart'
 
 export default {
   name: 'dashboard',
@@ -38,7 +43,7 @@ export default {
     ])
   },
 
-  components: { kanban, progressBar }
+  components: { kanban, progressBar, lineChart }
 }
 </script>
 
@@ -46,6 +51,7 @@ export default {
 .dashboard {
   &-container {
     margin: 4px 30px;
+    padding-bottom: 40px;
   }
   &-text {
     font-size: 30px;
