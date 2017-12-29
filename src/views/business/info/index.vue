@@ -51,7 +51,9 @@
                     </el-form>
                   </el-col>
                   <el-col :span="8">
-                    <div style="width: 200px; height: 180px; border: 1px solid red"></div>
+                    <div class="lisence-container">
+                      <img src="../../../assets/u159.png">
+                    </div>
                   </el-col>
                 </el-row>
               </div>

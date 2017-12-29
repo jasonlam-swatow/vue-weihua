@@ -13,7 +13,7 @@ export default {
 <style rel="stylesheet/scss" lang="scss" scoped>
 @import '../../../styles/variables.scss';
 .footer-bar {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   height: $footerHeight;

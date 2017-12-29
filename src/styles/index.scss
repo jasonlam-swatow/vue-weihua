@@ -58,7 +58,7 @@ a:hover {
 }
 //main-container全局样式
 .app-main{
-  min-height: calc(100vh - (#{$navbarHeight} + #{$subNavbarHeight}));
+  min-height: calc(100vh - (#{$navbarHeight} + #{$subNavbarHeight} + #{$footerHeight}));
   // padding-top: $navbarHeight;
 }
 
@@ -71,11 +71,14 @@ a:hover {
 }
 
 // 一些全局类
+.mgb0 {
+  margin-bottom: 0 !important;
+}
 .mgb12 {
-  margin-bottom: 12px;
+  margin-bottom: 12px !important;
 }
 .mgb24 {
-  margin-bottom: 24px;
+  margin-bottom: 24px !important;
 }
 
 .sub-text {
@@ -123,6 +126,12 @@ a:hover {
 
   svg {
     margin-right: 4px;
+  }
+}
+
+.lisence-container {
+  img {
+    width: 100%;
   }
 }
 

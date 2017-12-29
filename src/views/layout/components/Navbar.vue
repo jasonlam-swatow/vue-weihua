@@ -82,8 +82,8 @@ export default {
   width: 100%;
   line-height: $navbarHeight;
   border-radius: 0px !important;
-  position: fixed;
-  z-index: map-get($zIndex, drone);
+  // position: fixed;
+  // z-index: map-get($zIndex, drone);
   background-color: transparent;
   border: none;
 

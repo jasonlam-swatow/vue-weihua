@@ -8,9 +8,11 @@
     width: calc(100vw - 180px);
     transition: margin-left 0.28s;
     margin-left: 180px;
-    position: fixed;
-    top: $navbarHeight + $subNavbarHeight;
-    bottom: 0;
+    padding-bottom: $footerHeight;
+    padding-top: $navbarHeight + $subNavbarHeight;
+    // position: fixed;
+    // top: $navbarHeight + $subNavbarHeight;
+    // bottom: 0;
     overflow: scroll;
   } // 侧边栏
   .sidebar-container {
@@ -28,6 +30,9 @@
     }
     .svg-icon {
       margin-right: 10px;
+    }
+    .scroll-wrapper > .el-menu {
+      padding-bottom: $footerHeight;
     }
     .el-menu {
       width: 100%;

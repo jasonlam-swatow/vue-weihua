@@ -54,8 +54,8 @@ export default {
     color: $subNavbarColor;
     width: 100%;
     height: $subNavbarHeight;
-    position: fixed;
-    top: $navbarHeight;
+    // position: fixed;
+    // top: $navbarHeight;
     display: block;
 
     * {
