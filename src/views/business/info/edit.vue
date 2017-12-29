@@ -7,7 +7,7 @@
           type="warning"
           show-icon
           class="mgb12"></el-alert>
-        <el-tabs v-model="activeTab" type="card">
+        <el-tabs v-model="activeTab" type="card" class="customized denser">
           <el-tab-pane
             v-for="tab in basicTabList"
             :key="tab.name"
@@ -16,7 +16,7 @@
               <svg-icon :icon-class="tab.icon"></svg-icon>
               {{tab.label}}
             </span>
-            <el-form :inline="true" label-width="130px" class="prevent-uneven">
+            <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="企业名称" class="full-width">
                 <el-input v-model="companyName" disabled></el-input>
                 <span class="sub-text input-warning"><i class="el-icon-info"></i> 不可修改，如需修改，请联系平台客服人员！</span>

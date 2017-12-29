@@ -27,6 +27,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/home',
     name: '首页',
+    hidden: true,
     children: [
       {
         path: 'home',
@@ -74,7 +75,7 @@ export const constantRouterMap = [
         path: 'tanks',
         name: '罐体管理',
         component: _import('business/tanks/index'),
-        meta: { title: '罐体管理', icon: 'tank' }
+        meta: { title: '罐体管理', icon: 'tanks' }
       }
     ]
   }, {
@@ -93,7 +94,7 @@ export const constantRouterMap = [
         path: 'accepted',
         name: '已接运单',
         component: _import('tree/index'),
-        meta: { title: '已接运单', icon: 'calendar-check' }
+        meta: { title: '已接运单', icon: 'order' }
       }, {
         path: 'pin',
         name: '在途车辆定位',
@@ -137,7 +138,7 @@ export const constantRouterMap = [
         path: 'accounting',
         name: '人工记账',
         component: _import('tree/index'),
-        meta: { title: '人工记账', icon: 'account' }
+        meta: { title: '人工记账', icon: 'bills' }
       }
     ]
   }, {

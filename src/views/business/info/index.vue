@@ -2,14 +2,17 @@
   <div class="app-container">
     <el-row>
       <el-col :md="20" :sm="24">
-        <div class="button-area">
-          <el-button round icon="el-icon-edit" @click="onEditBusiness">修改企业信息</el-button>
-          <el-button round icon="el-icon-edit" @click="dialogFormVisible = true">仅修改紧急联系人信息</el-button>
-        </div>
+        <header class="info-header">
+          <h4>{{companyName}}</h4>
+          <el-button type="text" @click="onEditBusiness">
+            <svg-icon icon-class="building"></svg-icon>修改企业信息</el-button>
+          <el-button type="text" @click="dialogFormVisible = true">
+            <svg-icon icon-class="user-o"></svg-icon>仅修改紧急联系人信息</el-button>
+        </header>
 
         <business-info :business-info="businessInfo" :loading="dataLoading.basic"></business-info>
 
-        <el-tabs v-model="activeTab" type="card" v-loading.body="dataLoading.cert">
+        <el-tabs v-model="activeTab" type="card" class="customized" v-loading="dataLoading.cert">
           <el-tab-pane
             v-for="tab in certTabList"
             :key="tab.name"

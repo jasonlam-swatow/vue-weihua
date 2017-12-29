@@ -2,21 +2,25 @@
   <div class="app-wrapper" :class="{hideSidebar:!sidebar.opened}">
     <sidebar class="sidebar-container"></sidebar>
     <navbar></navbar>
+    <breadcrumb></breadcrumb>
     <div class="main-container">
       <app-main></app-main>
     </div>
+    <footer-bar></footer-bar>
   </div>
 </template>
 
 <script>
-import { Navbar, Sidebar, AppMain } from '@/views/layout/components'
+import { Navbar, Sidebar, AppMain, Breadcrumb, FooterBar } from './components'
 
 export default {
   name: 'layout',
   components: {
     Navbar,
     Sidebar,
-    AppMain
+    AppMain,
+    Breadcrumb,
+    FooterBar
   },
   computed: {
     sidebar() {
@@ -27,11 +31,16 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
+@import "src/styles/variables.scss";
 @import "src/styles/mixin.scss";
 .app-wrapper {
   @include clearfix;
   position: relative;
-  height: 100%;
+  height: 100vh;
   width: 100%;
+  background-color: $mainBg;
+  background-image: url("./../../assets/main-bg.png");
+  background-position: top center;
+  background-repeat: no-repeat;
 }
 </style>

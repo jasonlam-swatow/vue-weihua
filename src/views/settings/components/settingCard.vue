@@ -4,7 +4,7 @@
       <span class="span-with-svg"><svg-icon :icon-class="iconMap[title]"></svg-icon> {{title}}</span>
     </div>
     <div>
-      <el-form label-width="240px" label-position="left">
+      <el-form label-width="240px" label-position="left" class="strange-input">
         <el-form-item
           v-for="(item, key) in lisenceForm"
           :key="key"
@@ -61,8 +61,10 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
+@import '../../../styles/variables.scss';
   .validity-append {
     position: absolute;
     left: 88px;
+    color: map-get($palette, primary);
   }
 </style>

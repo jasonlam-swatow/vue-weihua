@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-tabs type="card">
+    <el-tabs type="card" class="customized denser">
       <el-tab-pane v-for="(item, index) in tabPaneTitles" :label="item" :key="index">
         <el-row type="flex" class="mgb12">
           <el-col :span="16">
@@ -18,7 +18,7 @@
                 <el-button slot="append" icon="el-icon-search"></el-button>
             </el-input>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="8" class="fr">
             <el-button icon="el-icon-plus" type="primary" @click="increaseEmployees">新增车辆</el-button>
             <el-button icon="el-icon-upload2">批量导入</el-button>
             <el-button type="text" icon="el-icon-document">下载模板</el-button>
@@ -43,7 +43,7 @@
           <el-table-column prop="contact" label="操作">
             <template slot-scope="scope">
               <el-tooltip content="编辑" placement="top">
-                <el-button type="text" icon="el-icon-edit" @click="editUserInfo(scope.row)"></el-button>
+                <el-button type="text" icon="el-icon-edit-outline" @click="editUserInfo(scope.row)"></el-button>
               </el-tooltip>
               <el-tooltip content="删除" placement="top">
                 <el-button type="text" icon="el-icon-delete"  @click="deleteUser(scope.row)"></el-button>
