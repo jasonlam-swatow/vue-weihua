@@ -1,8 +1,8 @@
 <template>
   <div class="app-container">
-    <el-tabs type="card" class="customized">
+    <el-tabs type="card" class="customized denser">
       <el-tab-pane v-for="(item, index) in tabPaneTitles" :label="item" :key="index">
-        <el-row type="flex" class="mgb12">
+        <el-row type="flex" class="mgb12 strange-input">
           <el-col :span="16">
             <el-select placeholder="按证照状态筛选" v-model="statusSelected">
               <el-option v-for="(status, key) in statusSelection" :key="key" :label="status.label" :value="status.value">
@@ -12,11 +12,11 @@
               <el-option v-for="(position, key) in positionSelection" :key="key" :label="position.label" :value="position.value">
               </el-option>
             </el-select>
-            <el-input size="medium" style="width:200px" placeholder="身份证号或姓名">
+            <el-input style="width:200px" placeholder="身份证号或姓名">
                 <el-button slot="append" icon="el-icon-search"></el-button>
             </el-input>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="8" class="fr">
             <el-button icon="el-icon-plus" type="primary" @click="increaseEmployees">新增员工</el-button>
             <el-button icon="el-icon-upload2">批量导入</el-button>
             <el-button type="text" icon="el-icon-document">下载模板</el-button>

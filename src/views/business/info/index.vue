@@ -5,7 +5,7 @@
         <header class="info-header">
           <h4>{{companyName}}</h4>
           <el-button type="text" @click="onEditBusiness">
-            <svg-icon icon-class="building-o"></svg-icon>修改企业信息</el-button>
+            <svg-icon icon-class="building"></svg-icon>修改企业信息</el-button>
           <el-button type="text" @click="dialogFormVisible = true">
             <svg-icon icon-class="user-o"></svg-icon>仅修改紧急联系人信息</el-button>
         </header>
