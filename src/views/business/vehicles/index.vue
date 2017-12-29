@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-tabs type="card" class="customized denser">
+    <el-tabs type="card" class="customized denser mgb0">
       <el-tab-pane v-for="(item, index) in tabPaneTitles" :label="item" :key="index">
         <el-row type="flex" class="mgb12">
           <el-col :span="16">
