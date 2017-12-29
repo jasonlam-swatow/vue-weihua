@@ -132,6 +132,8 @@ export default {
     },
     editUserInfo(info) {
       console.log(info)
+      let basicInfo = info
+      this.$router.push({path: '/business/employees/edit', query: {userId : info.name}})
     },
     deleteUser(user) {
       console.log(user)

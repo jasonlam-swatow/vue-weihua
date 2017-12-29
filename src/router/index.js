@@ -47,25 +47,24 @@ export const constantRouterMap = [
         path: 'info',
         name: '企业信息',
         component: _import('business/info/index'),
-        meta: { title: '企业信息', icon: 'cubes' },
-        children: [{
-          path: 'edit',
-          name: '企业信息修改',
-          component: _import('business/info/edit'),
-          meta: { title: '企业信息修改' },
-          hidden: true
-        }]
+        meta: { title: '企业信息', icon: 'cubes' }
+      }, {
+        path: 'info/edit',
+        name: '企业信息修改',
+        component: _import('business/info/edit'),
+        meta: { title: '企业信息修改' },
+        hidden: true
       }, {
         path: 'employees',
         name: '员工管理',
         component: _import('business/employees/index'),
-        meta: { title: '员工管理', icon: 'group' },
-        children: [{
-          path: 'edit',
-          name: '员工信息新增/修改',
-          component: _import('business/employees/edit'),
-          meta: { title: '员工信息新增/修改' }
-        }]
+        meta: { title: '员工管理', icon: 'group' }
+      }, {
+        path: 'employees/edit',
+        name: '员工信息新增/修改',
+        component: _import('business/employees/edit'),
+        meta: { title: '员工信息新增/修改' },
+        hidden: true
       }, {
         path: 'vehicles',
         name: '车辆管理',
