@@ -16,6 +16,7 @@
     overflow: scroll;
   } // 侧边栏
   .sidebar-container {
+    background-color: white;
     transition: width 0.28s;
     width: $sidebarWidth !important;
     height: 100%;

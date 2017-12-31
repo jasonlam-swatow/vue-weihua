@@ -106,24 +106,24 @@ export default {
   methods: {
     switchShortName(name) {
       let shortName = ''
-      switch(name) {
+      switch (name) {
         case '身份证' :
-         shortName = '基本'
-        break;
+          shortName = '基本'
+          break
         case '劳动合同' :
-         shortName = '合同'
-        break;
+          shortName = '合同'
+          break
         case '驾驶证审验' :
-         shortName = '驾驶证'
-        break;
+          shortName = '驾驶证'
+          break
         case '驾驶员从业资格证' :
-         shortName = '驾资格'
-        break;
+          shortName = '驾资格'
+          break
         case '押运员从业资格证' :
-         shortName = '押资格'
-        break;
+          shortName = '押资格'
+          break
         default :
-         shortName = '其他'
+          shortName = '其他'
       }
       return shortName
     },
@@ -132,8 +132,7 @@ export default {
     },
     editUserInfo(info) {
       console.log(info)
-      let basicInfo = info
-      this.$router.push({path: '/business/employees/edit', query: {userId : info.name}})
+      this.$router.push({ path: '/business/employees/edit', query: { userId: info.name }})
     },
     deleteUser(user) {
       console.log(user)
