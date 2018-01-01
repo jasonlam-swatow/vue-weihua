@@ -28,6 +28,14 @@ export default {
     return { chart: null }
   },
   mounted() {
+    // document.addEventListener('scroll', () => {
+    //   const scrollTop = (window.pageYOffset !== undefined)
+    //     ? window.pageYOffset
+    //     : (document.documentElement || document.body.parentNode || document.body).scrollTop
+    //   const offsetTop = document.getElementById(this.id).offsetTop
+    //   console.log(scrollTop, offsetTop)
+    //   if (scrollTop >= offsetTop) this.initChart()
+    // })
     this.initChart()
   },
   beforeDestroy() {
@@ -209,7 +217,7 @@ export default {
               borderWidth: 12
             }
           },
-          data: [220, 182, 125, 145, 122, 191, 134, 150,]
+          data: [220, 182, 125, 145, 122, 191, 134, 150]
         }]
       })
     }
