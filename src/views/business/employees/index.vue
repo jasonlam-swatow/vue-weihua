@@ -34,7 +34,7 @@
           <el-table-column label="证照有限期状态" width="240">
             <template slot-scope="scope">
               <span v-for="(item, key) in scope.row.certifications" :key="key">
-                <el-tag class="adjacent" :type="item.status === '已上传' ? 'success': 'warning' ">{{item.name}}</el-tag>
+                <el-tag class="adjacent"  :type="item.status === '已上传' ? 'success': 'warning' ">{{switchShortName(item.name)}}</el-tag>
               </span>
             </template>
           </el-table-column>
@@ -104,11 +104,35 @@ export default {
     this.onPaginate(1)
   },
   methods: {
+    switchShortName(name) {
+      let shortName = ''
+      switch (name) {
+        case '身份证' :
+          shortName = '基本'
+          break
+        case '劳动合同' :
+          shortName = '合同'
+          break
+        case '驾驶证审验' :
+          shortName = '驾驶证'
+          break
+        case '驾驶员从业资格证' :
+          shortName = '驾资格'
+          break
+        case '押运员从业资格证' :
+          shortName = '押资格'
+          break
+        default :
+          shortName = '其他'
+      }
+      return shortName
+    },
     increaseEmployees() {
       this.$router.push('/home')
     },
     editUserInfo(info) {
       console.log(info)
+      this.$router.push({ path: '/business/employees/edit', query: { userId: info.name }})
     },
     deleteUser(user) {
       console.log(user)
@@ -130,3 +154,4 @@ export default {
   }
 }
 </script>
+

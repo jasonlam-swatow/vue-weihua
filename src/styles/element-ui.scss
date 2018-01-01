@@ -112,7 +112,6 @@
 .el-form {
   .el-form-item.full-width {
     width: 100%;
-
     &.with-control {
       .el-form-item__content {
         display: block;
@@ -132,6 +131,9 @@
 .el-form--inline.prevent-uneven {
   .el-input__inner {
     width: 220px;
+  }
+  .el-radio-group {
+    width: 220px
   }
 }
 
