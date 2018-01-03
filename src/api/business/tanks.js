@@ -1,8 +1,15 @@
 import request from '@/utils/request'
 
-export function getTanksList() {
+export function getTankList(page) {
   return request({
-    url: '/business/tanks',
+    url: `/tankers/?pageNum=${page}`,
     method: 'get'
+  })
+}
+
+export function deleteTank(id) {
+  return request({
+    url: `/tankers/${id}`,
+    method: 'delete'
   })
 }

@@ -24,29 +24,29 @@
             <el-button type="text" icon="el-icon-document">下载模板</el-button>
           </el-col>
         </el-row>
-        <el-table :data="orderList" border>
+        <el-table :data="vehicleList" border>
           <el-table-column type="selection"></el-table-column>
-          <el-table-column prop="lisence_num" label="车号" width="100"></el-table-column>
-          <el-table-column prop="vehicle_type" label="车辆类型" width="80"></el-table-column>
-          <el-table-column prop="transport_num" label="道路运输证号"></el-table-column>
+          <el-table-column prop="plateNo" label="车号" width="100"></el-table-column>
+          <el-table-column prop="plateType" label="车辆类型" width="80"></el-table-column>
+          <el-table-column prop="licenseNo" label="道路运输证号"></el-table-column>
           <el-table-column prop="gps_time" label="GPS更新时间"></el-table-column>
-          <el-table-column prop="curb_weight" label="整备质量（KG）"></el-table-column>
-          <el-table-column prop="tow_weight" label="核载/准牵引（KG）"></el-table-column>         
+          <el-table-column prop="curbWeight" label="整备质量（KG）"></el-table-column>
+          <el-table-column prop="tractionMass" label="核载/准牵引（KG）"></el-table-column>         
           <el-table-column prop="status" label="审核状态" width="100"></el-table-column>
           <el-table-column label="证照有限期状态" width="240">
             <template slot-scope="scope">
-              <span v-for="(item, key) in scope.row.certifications" :key="key">
+              <!-- <span v-for="(item, key) in scope.row.businessType" :key="key">
                 <el-tag class="adjacent" :type="item.status === '已上传' ? 'success': 'warning' ">{{item.name}}</el-tag>
-              </span>
+              </span> -->
             </template>
           </el-table-column>
           <el-table-column prop="contact" label="操作">
             <template slot-scope="scope">
               <el-tooltip content="编辑" placement="top">
-                <el-button type="text" icon="el-icon-edit-outline" @click="editUserInfo(scope.row)"></el-button>
+                <el-button type="text" icon="el-icon-edit-outline" @click="editVehicle(scope.row)"></el-button>
               </el-tooltip>
               <el-tooltip content="删除" placement="top">
-                <el-button type="text" icon="el-icon-delete"  @click="deleteUser(scope.row)"></el-button>
+                <el-button type="text" icon="el-icon-delete"  @click="deleteVehicle(scope.row)"></el-button>
               </el-tooltip>
             </template>
           </el-table-column>
@@ -55,7 +55,7 @@
     </el-tabs>
     <div class="fr" style="margin-top:12px">
     <el-pagination
-      @current-change="onPaginate"
+      @current-change="fetchData"
       :current-page="currentPage"
       :page-size="10"
       layout="total, prev, pager, next, jumper"
@@ -65,14 +65,18 @@
   </div>
 </template>
 <script>
-import { getVehiclesList } from '@/api/business/vehicles'
+import {
+  getVehicleList,
+  deleteVehicle
+} from '@/api/business/vehicles'
 
 export default {
   data() {
     return {
-      orderList: [],
+      vehicleList: [],
       currentPage: 1,
       total: 0,
+      loading: true,
       statusSelected: '',
       carTypeSelected: '',
       tabPaneTitles: ['全部车辆', '待审核', '审核未通过'],
@@ -111,28 +115,40 @@ export default {
     }
   },
   created() {
-    this.onPaginate(1)
+    this.fetchData()
   },
   methods: {
     increaseEmployees() {
       this.$router.push('/home')
     },
-    editUserInfo(info) {
-      console.log(info)
+    editVehicle(id) {
+      console.log(id)
     },
-    deleteUser(user) {
-      console.log(user)
+    deleteVehicle(id) {
+      this.$confirm('此操作将永久删除该车辆，是否继续？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteVehicle(id).then(() => {
+          this.$message.success('已删除车辆！')
+          this.fetchData(this.currentPage)
+        })
+      })
     },
     onPaginate(val) {
       console.log(`当前页: ${val}`)
       this.currentPage = val
       this.fetchData()
     },
-    fetchData() {
-      getVehiclesList().then(res => {
+    fetchData(page = 1) {
+      this.loading = true
+      this.currentPage = page
+      getVehicleList(page).then(res => {
         console.log(res)
-        this.orderList = res.data.list
-        this.total = res.data.list.length
+        this.vehicleList = res.data.list
+        this.total = res.data.total
+        this.loading = false
       })
     }
   }

@@ -186,7 +186,7 @@ export default {
   },
 
   created() {
-    this.fetchData(this.$route.query.userId)
+    this.fetchData(this.$route.query.id)
   },
   mounted() {
   },
