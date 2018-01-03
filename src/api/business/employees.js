@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getEmployeesList() {
   return request({
-    url: '/business/employees',
+    url: '/employees/',
     method: 'get'
   })
 }
