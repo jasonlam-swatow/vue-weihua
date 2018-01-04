@@ -16,6 +16,7 @@ import '@/icons' // icon
 // import '@/permission' // permission control
 
 Vue.use(ElementUI)
+Vue.use(require('vue-moment'))
 
 Vue.config.productionTip = false
 

@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-tabs type="card" class="customized denser mgb0">
       <el-tab-pane v-for="(item, index) in tabPaneTitles" :label="item" :key="index">
-        <el-row type="flex" class="mgb12">
+        <el-row type="flex" class="mgb12 strange-input">
           <el-col :span="16">
             <el-select placeholder="按证照状态筛选" v-model="statusSelected">
               <el-option v-for="(status, key) in statusSelection" :key="key" :label="status.label" :value="status.value">
@@ -17,33 +17,37 @@
             </el-input>
           </el-col>
           <el-col :span="8" class="fr">
-            <el-button icon="el-icon-plus" type="primary" @click="increaseEmployees">新增罐体</el-button>
+            <el-button icon="el-icon-plus" type="primary" @click="addTank">新增罐体</el-button>
             <el-button icon="el-icon-upload2">批量导入</el-button>
             <el-button type="text" icon="el-icon-document">下载模板</el-button>
           </el-col>
         </el-row>
-        <el-table :data="orderList" border>
+        <el-table :data="tankList" border>
           <el-table-column type="selection"></el-table-column>
-          <el-table-column prop="tanks_num" label="罐体编号" width="100"></el-table-column>
-          <el-table-column prop="tanks_type" label="罐体类型" width="80"></el-table-column>
-          <el-table-column prop="tanks_volume" label="罐体容积 m3"></el-table-column>
-          <el-table-column prop="vehicles_relation" label="关联挂车号"></el-table-column>
-          <el-table-column prop="operation_date" label="投运日期"></el-table-column>       
+          <el-table-column prop="tankerNo" label="罐体编号" width="100"></el-table-column>
+          <el-table-column prop="type" label="罐体类型" width="80"></el-table-column>
+          <el-table-column prop="volume" label="罐体容积 m3"></el-table-column>
+          <el-table-column prop="trailerId" label="关联挂车号"></el-table-column>
+          <el-table-column label="投运日期">
+            <template slot-scope="scope">
+              <span>{{scope.row.startDate/1000 | moment('YYYY/MM/DD')}}</span>
+            </template>
+          </el-table-column>       
           <el-table-column prop="status" label="审核状态" width="100"></el-table-column>
           <el-table-column label="证照有限期状态" width="240">
-            <template slot-scope="scope">
+            <!-- <template slot-scope="scope">
               <span v-for="(item, key) in scope.row.certifications" :key="key">
                 <el-tag class="adjacent" :type="item.status === '已上传' ? 'success': 'warning' ">{{item.name}}</el-tag>
               </span>
-            </template>
+            </template> -->
           </el-table-column>
-          <el-table-column prop="contact" label="操作">
+          <el-table-column label="操作">
             <template slot-scope="scope">
               <el-tooltip content="编辑" placement="top">
-                <el-button type="text" icon="el-icon-edit" @click="editUserInfo(scope.row)"></el-button>
+                <el-button type="text" icon="el-icon-edit-outline" @click="editTank(scope.row.id)"></el-button>
               </el-tooltip>
               <el-tooltip content="删除" placement="top">
-                <el-button type="text" icon="el-icon-delete"  @click="deleteUser(scope.row)"></el-button>
+                <el-button type="text" icon="el-icon-delete"  @click="deleteTank(scope.row.id)"></el-button>
               </el-tooltip>
             </template>
           </el-table-column>
@@ -52,7 +56,7 @@
     </el-tabs>
     <div class="fr" style="margin-top:12px">
     <el-pagination
-      @current-change="onPaginate"
+      @current-change="fetchData"
       :current-page="currentPage"
       :page-size="10"
       layout="total, prev, pager, next, jumper"
@@ -62,14 +66,18 @@
   </div>
 </template>
 <script>
-import { getTanksList } from '@/api/business/tanks'
+import {
+  getTankList,
+  deleteTank
+} from '@/api/business/tanks'
 
 export default {
   data() {
     return {
-      orderList: [],
+      tankList: [],
       currentPage: 1,
       total: 0,
+      loading: true,
       statusSelected: '',
       carTypeSelected: '',
       tabPaneTitles: ['全部罐体', '待审核', '审核未通过'],
@@ -96,28 +104,35 @@ export default {
     }
   },
   created() {
-    this.onPaginate(1)
+    this.fetchData()
   },
   methods: {
-    increaseEmployees() {
+    addTank() {
       this.$router.push('/home')
     },
-    editUserInfo(info) {
-      console.log(info)
+    editTank(id) {
+      console.log(id)
     },
-    deleteUser(user) {
-      console.log(user)
+    deleteTank(id) {
+      this.$confirm('此操作将永久删除该罐体，是否继续？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteTank(id).then(() => {
+          this.$message.success('已删除罐体！')
+          this.fetchData(this.currentPage)
+        })
+      })
     },
-    onPaginate(val) {
-      console.log(`当前页: ${val}`)
-      this.currentPage = val
-      this.fetchData()
-    },
-    fetchData() {
-      getTanksList().then(res => {
+    fetchData(page = 1) {
+      this.loading = true
+      this.currentPage = page
+      getTankList(page).then(res => {
         console.log(res)
-        this.orderList = res.data.list
-        this.total = res.data.list.length
+        this.tankList = res.data.list
+        this.total = res.data.total
+        this.loading = false
       })
     }
   }

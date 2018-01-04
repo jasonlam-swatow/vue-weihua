@@ -17,19 +17,23 @@
             </el-input>
           </el-col>
           <el-col :span="8" class="fr">
-            <el-button icon="el-icon-plus" type="primary" @click="increaseEmployees">新增员工</el-button>
+            <el-button icon="el-icon-plus" type="primary" @click="addEmployee">新增员工</el-button>
             <el-button icon="el-icon-upload2">批量导入</el-button>
             <el-button type="text" icon="el-icon-document">下载模板</el-button>
           </el-col>
         </el-row>
-        <el-table :data="orderList" border stripe v-loading="loading">
+        <el-table :data="employeeList" border stripe v-loading="loading">
           <el-table-column type="selection"></el-table-column>
           <el-table-column prop="name" label="姓名" width="100"></el-table-column>
           <el-table-column prop="gender" label="性别" width="80"></el-table-column>
-          <el-table-column prop="id_card" label="身份证"></el-table-column>
+          <el-table-column prop="idCard" label="身份证"></el-table-column>
           <el-table-column prop="position" label="主要岗位"></el-table-column>
-          <el-table-column prop="tel" label="联系电话"></el-table-column>
-          <el-table-column prop="entry_date" label="入职日期"></el-table-column>         
+          <el-table-column prop="phone" label="联系电话"></el-table-column>
+          <el-table-column label="入职日期">
+            <template slot-scope="scope">
+              <span>{{scope.row.entryDate/1000 | moment('YYYY/MM/DD')}}</span>
+            </template>
+          </el-table-column>         
           <el-table-column prop="status" label="审核状态" width="100"></el-table-column>
           <el-table-column label="证照有限期状态" width="240">
             <template slot-scope="scope">
@@ -38,13 +42,13 @@
               </span>
             </template>
           </el-table-column>
-          <el-table-column prop="contact" label="操作">
+          <el-table-column label="操作">
             <template slot-scope="scope">
               <el-tooltip content="编辑" placement="top">
-                <el-button type="text" icon="el-icon-edit-outline" @click="editUserInfo(scope.row)"></el-button>
+                <el-button type="text" icon="el-icon-edit-outline" @click="editEmployee(scope.row.id)"></el-button>
               </el-tooltip>
               <el-tooltip content="删除" placement="top">
-                <el-button type="text" icon="el-icon-delete"  @click="deleteUser(scope.row)"></el-button>
+                <el-button type="text" icon="el-icon-delete"  @click="deleteEmployee(scope.row.id)"></el-button>
               </el-tooltip>
             </template>
           </el-table-column>
@@ -53,7 +57,7 @@
     </el-tabs>
     <div class="fr" style="margin-top:12px">
     <el-pagination
-      @current-change="onPaginate"
+      @current-change="fetchData"
       :current-page="currentPage"
       :page-size="10"
       layout="total, prev, pager, next, jumper"
@@ -63,13 +67,16 @@
   </div>
 </template>
 <script>
-import { getEmployeesList } from '@/api/business/employees'
+import {
+  getEmployeeList,
+  deleteEmployee
+} from '@/api/business/employees'
 
 export default {
   data() {
     return {
       loading: true,
-      orderList: [],
+      employeeList: [],
       currentPage: 1,
       total: 0,
       statusSelected: '',
@@ -101,7 +108,7 @@ export default {
     }
   },
   created() {
-    this.onPaginate(1)
+    this.fetchData()
   },
   methods: {
     switchShortName(name) {
@@ -127,27 +134,31 @@ export default {
       }
       return shortName
     },
-    increaseEmployees() {
+    addEmployee() {
       this.$router.push('/home')
     },
-    editUserInfo(info) {
-      console.log(info)
-      this.$router.push({ path: '/business/employees/edit', query: { userId: info.name }})
+    editEmployee(id) {
+      this.$router.push({ path: '/business/employees/edit', query: { id }})
     },
-    deleteUser(user) {
-      console.log(user)
+    deleteEmployee(id) {
+      this.$confirm('此操作将永久删除该员工，是否继续？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteEmployee(id).then(() => {
+          this.$message.success('已删除员工！')
+          this.fetchData(this.currentPage)
+        })
+      })
     },
-    onPaginate(val) {
-      console.log(`当前页: ${val}`)
-      this.currentPage = val
-      this.fetchData()
-    },
-    fetchData() {
+    fetchData(page = 1) {
       this.loading = true
-      getEmployeesList().then(res => {
+      this.currentPage = page
+      getEmployeeList(page).then(res => {
         console.log(res)
-        this.orderList = res.data.list
-        this.total = res.data.list.length
+        this.employeeList = res.data.list
+        this.total = res.data.total
         this.loading = false
       })
     }
