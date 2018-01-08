@@ -203,7 +203,7 @@ export default {
   methods: {
     check(res) {
       console.log(res.data)
-      this.basicTabList.certification[0].path = res.deta
+      this.basicTabList.certifications[0].path = res.deta
     },
     fetchData(id) {
       if (this.$route.query.id) {
