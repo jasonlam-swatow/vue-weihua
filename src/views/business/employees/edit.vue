@@ -184,12 +184,14 @@ export default {
       contractList: ''
     }
   },
-
-  created() {
-    this.fetchData(this.$route.query.id)
+  watch: {
+    '$route.query.id': 'fetchData'
   },
-  mounted() {
-  },
+  // created() {
+  //   this.fetchData(this.$route.query.id)
+  // },
+  // mounted() {
+  // },
   methods: {
     fetchData(id) {
       this.loading = true

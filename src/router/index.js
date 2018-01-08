@@ -44,6 +44,12 @@ export const constantRouterMap = [
     meta: { title: '企业管理', icon: 'enterprise' },
     children: [
       {
+        path: 'emterprise',
+        name: '企业管理',
+        component: _import('business/enterprise/index'),
+        meta: { title: '企业管理', icon: 'cubes' }
+      },
+      {
         path: 'info',
         name: '企业信息',
         component: _import('business/info/index'),
@@ -61,6 +67,12 @@ export const constantRouterMap = [
         meta: { title: '员工管理', icon: 'group' }
       }, {
         path: 'employees/edit',
+        name: '员工信息新增/修改',
+        component: _import('business/employees/edit'),
+        meta: { title: '员工信息新增/修改' },
+        hidden: true
+      }, {
+        path: 'employees/add',
         name: '员工信息新增/修改',
         component: _import('business/employees/edit'),
         meta: { title: '员工信息新增/修改' },

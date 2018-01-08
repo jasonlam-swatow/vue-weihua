@@ -135,7 +135,7 @@ export default {
       return shortName
     },
     addEmployee() {
-      this.$router.push('/home')
+      this.$router.push('/business/employees/add')
     },
     editEmployee(id) {
       this.$router.push({ path: '/business/employees/edit', query: { id }})
