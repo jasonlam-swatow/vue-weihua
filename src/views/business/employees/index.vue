@@ -155,7 +155,9 @@ export default {
     fetchData(page = 1) {
       this.loading = true
       this.currentPage = page
-      getEmployeeList(page).then(res => {
+      const pageNum = 1
+      const pageSize = 10
+      getEmployeeList({ pageNum, pageSize }).then(res => {
         console.log(res)
         this.employeeList = res.data.list
         this.total = res.data.total
