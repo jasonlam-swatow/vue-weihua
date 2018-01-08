@@ -23,7 +23,7 @@ export function deleteEmployee(id) {
 }
 
 export function createEmployee(data) {
-  return ({
+  return request({
     url: '/employees/',
     method: 'post',
     data: data
@@ -31,7 +31,7 @@ export function createEmployee(data) {
 }
 
 export function editEmployee(id, data) {
-  return ({
+  return request({
     url: `/employees/${id}`,
     method: 'put',
     data: data

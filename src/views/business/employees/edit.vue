@@ -116,7 +116,7 @@
                     action="/v1/files/upload"
                     list-type="picture-card"
                     :limit="num"
-                    :on-success="check"
+                    :on-success="onUpload"
                     >
                     <i class="el-icon-plus"></i>
                     <div
@@ -160,7 +160,7 @@
           </el-tab-pane>
         </el-tabs> -->
         <div class="button_area">
-          <el-button type="primary" @click="handleSuccess">审核通过</el-button>
+          <el-button type="primary" @click="onSubmit">审核通过</el-button>
           <!-- <el-button type="primary" @click="handleFailed">审核不通过</el-button>          -->
         </div>
       </el-col>
@@ -201,9 +201,9 @@ export default {
     this.fetchData(this.$route.query.id)
   },
   methods: {
-    check(res) {
+    onUpload(res) {
       console.log(res.data)
-      this.basicTabList.certifications[0].path = res.deta
+      this.basicTabList.content.certifications[0].path = res.data
     },
     fetchData(id) {
       if (this.$route.query.id) {
@@ -215,14 +215,14 @@ export default {
         })
       }
     },
-    handleSuccess() {
+    onSubmit() {
       const content = this.basicTabList.content
       console.log(content)
       if (this.$route.query.id) {
         editEmployee(this.$route.query.id, { ...this.basicTabList.content }).then(res => {})
       } else {
         console.log('1')
-        createEmployee({ ...this.basicTabList.content }).then(res => {
+        createEmployee(content).then(res => {
           console.log(res)
         })
       }
