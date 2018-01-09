@@ -169,7 +169,10 @@
 </template>
 
 <script>
-import { getEmployeeInfo, createEmployee, editEmployee } from '@/api/business/employees'
+import {
+  getEmployeeInfo,
+  createEmployee,
+  editEmployee } from '@/api/business/employees'
 
 export default {
   data() {
@@ -216,12 +219,10 @@ export default {
       }
     },
     onSubmit() {
-      const content = this.basicTabList.content
-      console.log(content)
+      const { content } = this.basicTabList
       if (this.$route.query.id) {
         editEmployee(this.$route.query.id, { ...this.basicTabList.content }).then(res => {})
       } else {
-        console.log('1')
         createEmployee(content).then(res => {
           console.log(res)
         })
