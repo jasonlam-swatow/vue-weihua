@@ -4,25 +4,25 @@
       <el-col :md="20" :sm="24">
         <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
           <el-tab-pane
-            :key="basicTabList.name"
-            :name="basicTabList.name">
+            :key="tabData.name"
+            :name="tabData.name">
             <span slot="label" class="span-with-svg">
-              <svg-icon :icon-class="basicTabList.icon"></svg-icon>
-              {{basicTabList.label}}
+              <svg-icon :icon-class="tabData.icon"></svg-icon>
+              {{tabData.label}}
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item
                 label="姓名"
                 >
                 <el-input
-                  v-model="basicTabList.content.name"
+                  v-model="tabData.content.name"
                   ></el-input>
               </el-form-item>
               <el-form-item
                 label="性别"
                 >
                 <el-radio-group
-                  v-model="basicTabList.content.gender"
+                  v-model="tabData.content.gender"
                   >
                   <el-radio label="male">男</el-radio>
                   <el-radio label="female">女</el-radio>
@@ -32,133 +32,353 @@
                 label="主要岗位"
                 >
                 <el-select
-                  v-model="basicTabList.content.position">
+                  v-model="tabData.content.position">
                     <el-option label="驾驶员" value="driver"></el-option>
                     <el-option label="押运员" value="guard"></el-option>
                     <el-option label="驾驶员/押运员" value="both"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item
+                label="入职时间"
+                >
+                <el-date-picker
+                  v-model="tabData.content.entryDate"
+                  type="date"
+                  ></el-date-picker>
+              </el-form-item>
+              <el-form-item
                 label="联系电话"
                 >
                 <el-input
-                  v-model="basicTabList.content.phone"
+                  v-model="tabData.content.phone"
                   ></el-input>
               </el-form-item>
               <el-form-item
                 label="身份证号码"
                 >
                 <el-input
-                  v-model="basicTabList.content.idCard"
+                  v-model="tabData.content.idCard"
                   ></el-input>
               </el-form-item>
-              <!-- <el-form-item
-                label="身份证有效期"
-                >
-                <el-date-picker
-                  v-model="tab.content.id_validity"
-                  type="date"
-                  value-format="yyyy-MM-dd"></el-date-picker>
-              </el-form-item> -->
-              <!-- <el-form-item
-                label="身份证上传"
-                >
-                <el-upload
-                  action="/v1/files/upload"
-                  list-type="picture-card"
-                  :limit="num"
-                  :on-success="check"
-                  >
-                  <i class="el-icon-plus"></i>
-                  <div
-                    slot="tip"
-                    class="el-upload__tip"
-                    style="line-height: 14px; margin: 0;">
-                    <i class="el-icon-info">身份证正面</i>
-                  </div>
-                </el-upload>
-                <el-upload
-                  action="https://up.uploadfiles.io/upload"
-                  list-type="picture-card"
-                  :limit="num">
-                  <i class="el-icon-plus"></i>
-                  <div
-                    slot="tip"
-                    class="el-upload__tip"
-                    style="line-height: 14px; margin: 0;"
-                    limit="">
-                    <i class="el-icon-info">身份证反面</i>
-                  </div>
-                </el-upload>
-              </el-form-item> -->
             </el-form>
           </el-tab-pane>
         </el-tabs>
-        <div v-for="(tab, index) in basicTabList.content.certifications">
-          <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
-            <el-tab-pane
-              :key="tab.title"
-              name="first">
-              <span slot="label" class="span-with-svg">
-                <svg-icon icon-class="id-card"></svg-icon>
-                {{tab.title}}
-              </span>
-              <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
-                <el-form-item label="有效期" class="full-width">
-                  <el-date-picker
-                    v-model="tab.expireDate"
-                    type="date"
-                    ></el-date-picker>
-                </el-form-item>
-                <el-form-item
-                  >
-                  <el-upload
-                    action="/v1/files/upload"
-                    list-type="picture-card"
-                    :limit="num"
-                    :on-success="onUpload"
-                    >
-                    <i class="el-icon-plus"></i>
-                    <div
-                      slot="tip"
-                      class="el-upload__tip"
-                      style="line-height: 14px; margin: 0;">
-                      <i class="el-icon-info">劳动合同封面</i>
-                    </div>
-                  </el-upload>
-                  <!-- <el-upload
-                  style="display:inline-block"
-                    action="https://up.uploadfiles.io/upload"
-                    list-type="picture-card"
-                    :limit="num">
-                    <i class="el-icon-plus"></i>
-                    <div
-                      slot="tip"
-                      class="el-upload__tip"
-                      style="line-height: 14px; margin: 0;"
-                      limit="">
-                      <i class="el-icon-info">劳动合同内页</i>
-                    </div>
-                  </el-upload> -->
-                </el-form-item>
-              </el-form>
-            </el-tab-pane>
-          </el-tabs>
-        </div>
-        <!-- <el-tabs type="card" class="customized denser" v-loading="loading">
-          <el-tab-pane>
+
+        <!-- 上传身分证 -->
+        <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
+          <el-tab-pane name="first">
             <span slot="label" class="span-with-svg">
-              <svg-icon icon-class="file"></svg-icon>
-              修改审核操作日志
+              <svg-icon icon-class="id-card"></svg-icon>
+              身分证
             </span>
-            <div class="title">操作日志</div>
-            <div class="logContainer">
-              <div v-for="item in operationLog" class="logInfo">
-                <span>{{item.date}} {{item.event}}</span>
-              </div>
-            </div>
+            <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
+              <el-form-item label="有效期" class="full-width">
+                <el-date-picker
+                  v-model="tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'A').expireDate"
+                  type="date"
+                  ></el-date-picker>
+              </el-form-item>
+              <el-form-item label="上传身分证" class="full-width">
+                <el-upload
+                  action="/v1/files/upload"
+                  class="license-uploader"
+                  :on-success="onUploadIdA">
+                  <img
+                    v-if="tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'A').path"
+                    :src="tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'A').path"
+                    class="license">
+                  <i v-else class="el-icon-plus license-uploader-icon"></i>
+                  <div
+                    slot="tip"
+                    class="el-upload__tip">
+                    <p>正面</p>
+                  </div>
+                </el-upload>
+                <el-upload
+                  action="/v1/files/upload"
+                  class="license-uploader"
+                  :on-success="onUploadIdB">
+                  <img
+                    v-if="tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'B').path"
+                    :src="tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'B').path"
+                    class="license">
+                  <i v-else class="el-icon-plus license-uploader-icon"></i>
+                  <div
+                    slot="tip"
+                    class="el-upload__tip">
+                    <p>反面</p>
+                  </div>
+                </el-upload>
+              </el-form-item>
+            </el-form>
           </el-tab-pane>
-        </el-tabs> -->
+        </el-tabs>
+        
+        <!-- 上传劳动合同 -->
+        <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
+          <el-tab-pane name="first">
+            <span slot="label" class="span-with-svg">
+              <svg-icon icon-class="id-card"></svg-icon>
+              劳动合同
+            </span>
+            <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
+              <el-form-item label="有效期" class="full-width">
+                <el-date-picker
+                  v-model="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'A').expireDate"
+                  type="date"
+                  ></el-date-picker>
+              </el-form-item>
+              <el-form-item label="上传劳动合同" class="full-width">
+                <el-upload
+                  action="/v1/files/upload"
+                  class="license-uploader"
+                  :on-success="onUploadContractA">
+                  <img
+                    v-if="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'A').path"
+                    :src="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'A').path"
+                    class="license">
+                  <i v-else class="el-icon-plus license-uploader-icon"></i>
+                  <div
+                    slot="tip"
+                    class="el-upload__tip">
+                    <p>封面，含甲乙方名称</p>
+                  </div>
+                </el-upload>
+                <el-upload
+                  action="/v1/files/upload"
+                  class="license-uploader"
+                  :on-success="onUploadContractB">
+                  <img
+                    v-if="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'B').path"
+                    :src="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'B').path"
+                    class="license">
+                  <i v-else class="el-icon-plus license-uploader-icon"></i>
+                  <div
+                    slot="tip"
+                    class="el-upload__tip">
+                    <p>内页，含劳动合约时间页</p>
+                  </div>
+                </el-upload>
+                <el-upload
+                  action="/v1/files/upload"
+                  class="license-uploader"
+                  :on-success="onUploadContractC">
+                  <img
+                    v-if="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'C').path"
+                    :src="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'C').path"
+                    class="license">
+                  <i v-else class="el-icon-plus license-uploader-icon"></i>
+                  <div
+                    slot="tip"
+                    class="el-upload__tip">
+                    <p>内页，含甲乙方签字</p>
+                  </div>
+                </el-upload>
+              </el-form-item>
+            </el-form>
+          </el-tab-pane>
+        </el-tabs>
+        
+        <!-- 上传驾驶证 -->
+        <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
+          <el-tab-pane name="first">
+            <span slot="label" class="span-with-svg">
+              <svg-icon icon-class="id-card"></svg-icon>
+              驾驶证
+            </span>
+            <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
+              <el-form-item label="有效期" class="full-width">
+                <el-date-picker
+                  v-model="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'A').expireDate"
+                  type="date"
+                  ></el-date-picker>
+              </el-form-item>
+              <el-form-item label="上传驾驶证" class="full-width">
+                <el-upload
+                  action="/v1/files/upload"
+                  class="license-uploader"
+                  :on-success="onUploadLicenseA">
+                  <img
+                    v-if="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'A').path"
+                    :src="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'A').path"
+                    class="license">
+                  <i v-else class="el-icon-plus license-uploader-icon"></i>
+                  <div
+                    slot="tip"
+                    class="el-upload__tip">
+                    <p>正本正面</p>
+                  </div>
+                </el-upload>
+                <el-upload
+                  action="/v1/files/upload"
+                  class="license-uploader"
+                  :on-success="onUploadLicenseB">
+                  <img
+                    v-if="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'B').path"
+                    :src="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'B').path"
+                    class="license">
+                  <i v-else class="el-icon-plus license-uploader-icon"></i>
+                  <div
+                    slot="tip"
+                    class="el-upload__tip">
+                    <p>正本反面</p>
+                  </div>
+                </el-upload>
+                <el-upload
+                  action="/v1/files/upload"
+                  class="license-uploader"
+                  :on-success="onUploadLicenseC">
+                  <img
+                    v-if="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'C').path"
+                    :src="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'C').path"
+                    class="license">
+                  <i v-else class="el-icon-plus license-uploader-icon"></i>
+                  <div
+                    slot="tip"
+                    class="el-upload__tip">
+                    <p>副本正面</p>
+                  </div>
+                </el-upload>
+                <el-upload
+                  action="/v1/files/upload"
+                  class="license-uploader"
+                  :on-success="onUploadLicenseC">
+                  <img
+                    v-if="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'D').path"
+                    :src="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'D').path"
+                    class="license">
+                  <i v-else class="el-icon-plus license-uploader-icon"></i>
+                  <div
+                    slot="tip"
+                    class="el-upload__tip">
+                    <p>副本反面</p>
+                  </div>
+                </el-upload>
+              </el-form-item>
+            </el-form>
+          </el-tab-pane>
+        </el-tabs>
+        
+        <!-- 上传驾驶员从业资格证 -->
+        <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
+          <el-tab-pane name="first">
+            <span slot="label" class="span-with-svg">
+              <svg-icon icon-class="id-card"></svg-icon>
+              驾驶员从业资格证
+            </span>
+            <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
+              <el-form-item label="有效期" class="full-width">
+                <el-date-picker
+                  v-model="tabData.content.certifications.find(_ => _.title === '驾驶员从业资格证').expireDate"
+                  type="date"
+                  ></el-date-picker>
+              </el-form-item>
+              <el-form-item label="上传驾驶员从业资格证" class="full-width">
+                <el-upload
+                  action="/v1/files/upload"
+                  class="license-uploader"
+                  :on-success="onUploadDriverPermit">
+                  <img
+                    v-if="tabData.content.certifications.find(_ => _.title === '驾驶员从业资格证').path"
+                    :src="tabData.content.certifications.find(_ => _.title === '驾驶员从业资格证').path"
+                    class="license">
+                  <i v-else class="el-icon-plus license-uploader-icon"></i>
+                  <div
+                    slot="tip"
+                    class="el-upload__tip">
+                    <p>基本信息页</p>
+                  </div>
+                </el-upload>
+              </el-form-item>
+            </el-form>
+          </el-tab-pane>
+        </el-tabs>
+        
+        <!-- 上传押运员从业资格证 -->
+        <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
+          <el-tab-pane name="first">
+            <span slot="label" class="span-with-svg">
+              <svg-icon icon-class="id-card"></svg-icon>
+              押运员从业资格证
+            </span>
+            <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
+              <el-form-item label="有效期" class="full-width">
+                <el-date-picker
+                  v-model="tabData.content.certifications.find(_ => _.title === '押运员从业资格证').expireDate"
+                  type="date"
+                  ></el-date-picker>
+              </el-form-item>
+              <el-form-item label="上传押运员从业资格证" class="full-width">
+                <el-upload
+                  action="/v1/files/upload"
+                  class="license-uploader"
+                  :on-success="onUploadEscortPermit">
+                  <img
+                    v-if="tabData.content.certifications.find(_ => _.title === '押运员从业资格证').path"
+                    :src="tabData.content.certifications.find(_ => _.title === '押运员从业资格证').path"
+                    class="license">
+                  <i v-else class="el-icon-plus license-uploader-icon"></i>
+                  <div
+                    slot="tip"
+                    class="el-upload__tip">
+                    <p>基本信息页</p>
+                  </div>
+                </el-upload>
+              </el-form-item>
+            </el-form>
+          </el-tab-pane>
+        </el-tabs>
+        
+        <!-- 上传安全责任状 -->
+        <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
+          <el-tab-pane name="first">
+            <span slot="label" class="span-with-svg">
+              <svg-icon icon-class="id-card"></svg-icon>
+              安全责任状
+            </span>
+            <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
+              <el-form-item label="有效期" class="full-width">
+                <el-date-picker
+                  v-model="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'A').expireDate"
+                  type="date"
+                  ></el-date-picker>
+              </el-form-item>
+              <el-form-item label="上传安全责任状" class="full-width">
+                <el-upload
+                  action="/v1/files/upload"
+                  class="license-uploader"
+                  :on-success="onUploadCommitmentA">
+                  <img
+                    v-if="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'A').path"
+                    :src="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'A').path"
+                    class="license">
+                  <i v-else class="el-icon-plus license-uploader-icon"></i>
+                  <div
+                    slot="tip"
+                    class="el-upload__tip">
+                    <p>含甲乙方名称页</p>
+                  </div>
+                </el-upload>
+                <el-upload
+                  action="/v1/files/upload"
+                  class="license-uploader"
+                  :on-success="onUploadCommitmentB">
+                  <img
+                    v-if="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'B').path"
+                    :src="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'B').path"
+                    class="license">
+                  <i v-else class="el-icon-plus license-uploader-icon"></i>
+                  <div
+                    slot="tip"
+                    class="el-upload__tip">
+                    <p>含甲乙方签章页</p>
+                  </div>
+                </el-upload>
+              </el-form-item>
+            </el-form>
+          </el-tab-pane>
+        </el-tabs>
+
         <div class="button_area">
           <el-button type="primary" @click="onSubmit">审核通过</el-button>
           <!-- <el-button type="primary" @click="handleFailed">审核不通过</el-button>          -->
@@ -182,7 +402,7 @@ export default {
       operationLog: '',
       loading: false,
       num: 1,
-      basicTabList: {
+      tabData: {
         label: '基本信息',
         name: 'first',
         icon: 'id-card',
@@ -190,10 +410,85 @@ export default {
           gender: '',
           idCard: '',
           position: '',
+          entryDate: '',
           phone: '',
+          enterpriseId: 1,
+          status: '',
           certifications: [{
-            title: '运输许可证',
+            fkTable: 'EMP',
+            title: '身分证',
             path: '',
+            type: 'A',
+            expireDate: ''
+          }, {
+            fkTable: 'EMP',
+            title: '身分证',
+            path: '',
+            type: 'B',
+            expireDate: ''
+          }, {
+            fkTable: 'EMP',
+            title: '劳动合同',
+            path: '',
+            type: 'A',
+            expireDate: ''
+          }, {
+            fkTable: 'EMP',
+            title: '劳动合同',
+            path: '',
+            type: 'B',
+            expireDate: ''
+          }, {
+            fkTable: 'EMP',
+            title: '劳动合同',
+            path: '',
+            type: 'C',
+            expireDate: ''
+          }, {
+            fkTable: 'EMP',
+            title: '驾驶证',
+            path: '',
+            type: 'A',
+            expireDate: ''
+          }, {
+            fkTable: 'EMP',
+            title: '驾驶证',
+            path: '',
+            type: 'B',
+            expireDate: ''
+          }, {
+            fkTable: 'EMP',
+            title: '驾驶证',
+            path: '',
+            type: 'C',
+            expireDate: ''
+          }, {
+            fkTable: 'EMP',
+            title: '驾驶证',
+            path: '',
+            type: 'D',
+            expireDate: ''
+          }, {
+            fkTable: 'EMP',
+            title: '驾驶员从业资格证',
+            path: '',
+            expireDate: ''
+          }, {
+            fkTable: 'EMP',
+            title: '押运员从业资格证',
+            path: '',
+            expireDate: ''
+          }, {
+            fkTable: 'EMP',
+            title: '安全责任状',
+            path: '',
+            type: 'A',
+            expireDate: ''
+          }, {
+            fkTable: 'EMP',
+            title: '安全责任状',
+            path: '',
+            type: 'B',
             expireDate: ''
           }]
         }
@@ -204,24 +499,59 @@ export default {
     this.fetchData(this.$route.query.id)
   },
   methods: {
-    onUpload(res) {
-      console.log(res.data)
-      this.basicTabList.content.certifications[0].path = res.data
-    },
     fetchData(id) {
       if (this.$route.query.id) {
         this.loading = true
         getEmployeeInfo(id).then(res => {
           console.log(res.data)
-          this.basicTabList.content = res.data
+          this.tabData.content = res.data
           this.loading = false
         })
       }
     },
+    onUploadIdA(res) {
+      this.tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'A').path = res.data
+    },
+    onUploadIdB(res) {
+      this.tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'B').path = res.data
+    },
+    onUploadContractA(res) {
+      this.tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'A').path = res.data
+    },
+    onUploadContractB(res) {
+      this.tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'B').path = res.data
+    },
+    onUploadContractC(res) {
+      this.tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'C').path = res.data
+    },
+    onUploadLicenseA(res) {
+      this.tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'A').path = res.data
+    },
+    onUploadLicenseB(res) {
+      this.tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'B').path = res.data
+    },
+    onUploadLicenseC(res) {
+      this.tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'C').path = res.data
+    },
+    onUploadLicenseD(res) {
+      this.tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'D').path = res.data
+    },
+    onUploadDriverPermit(res) {
+      this.tabData.content.certifications.find(_ => _.title === '驾驶员从业资格证').path = res.data
+    },
+    onUploadEscortPermit(res) {
+      this.tabData.content.certifications.find(_ => _.title === '押运员从业资格证').path = res.data
+    },
+    onUploadCommitmentA(res) {
+      this.tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'A').path = res.data
+    },
+    onUploadCommitmentB(res) {
+      this.tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'B').path = res.data
+    },
     onSubmit() {
-      const { content } = this.basicTabList
+      const { content } = this.tabData
       if (this.$route.query.id) {
-        editEmployee(this.$route.query.id, { ...this.basicTabList.content }).then(res => {})
+        editEmployee(this.$route.query.id, { ...this.tabData.content }).then(res => {})
       } else {
         createEmployee(content).then(res => {
           console.log(res)

@@ -151,12 +151,10 @@ export default {
         })
       })
     },
-    fetchData(page = 1) {
+    fetchData(pageNum = 1) {
       this.loading = true
-      this.currentPage = page
-      const pageNum = 1
-      const pageSize = 10
-      getEmployeeList({ pageNum, pageSize }).then(res => {
+      this.currentPage = pageNum
+      getEmployeeList({ pageNum, pageSize: 10 }).then(res => {
         console.log(res)
         this.employeeList = res.data.list
         this.total = res.data.total
