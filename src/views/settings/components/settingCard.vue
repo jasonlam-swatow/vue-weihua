@@ -1,19 +1,20 @@
 <template>
   <el-card class="box-card mgb12" style="min-height: 408px" v-loading="loading">
     <div slot="header" class="clearfix">
-      <span class="span-with-svg"><svg-icon :icon-class="iconMap[title]"></svg-icon> {{title}}</span>
+       <span class="span-with-svg"><!--<svg-icon :icon-class="iconMap[title]"></svg-icon> --> {{settingData.title}}</span>
     </div>
     <div>
       <el-form label-width="240px" label-position="left" class="strange-input">
         <el-form-item
-          v-for="(item, key) in lisenceForm"
-          :key="key"
-          :label="item.name">
+          v-for="item in settingData"
+          :key="item.id"
+          :label="item.title">
             <el-input-number
               v-model="item.value"
               controls-position="right"
-              @change="onChangeValidity(item)"
-              :min="1"></el-input-number>
+              :min="1"
+              :debounce="800"
+              @change="onChange(item)"></el-input-number>
             <span class="validity-append">天</span>
         </el-form-item>
       </el-form>
@@ -22,38 +23,27 @@
 </template>
 
 <script>
-import { getLisence } from '@/api/settings/system'
-
+import { saveSettings } from '@/api/settings'
 export default {
   name: 'settingCard',
 
   props: {
-    title: String
+    settingData: Array
   },
 
   data() {
     return {
-      iconMap: {
-        '企业证照': 'enterprise',
-        '员工证照': 'group',
-        '车辆证照': 'vehicle',
-        '罐体证照': 'tank'
-      },
-      lisenceForm: null,
-      loading: true
+      iconMap: {},
+      loading: false
     }
   },
 
-  created() {
-    this.fetchData(this.title)
-  },
-
   methods: {
-    fetchData(lisenceType) {
+    onChange(item) {
       this.loading = true
-      getLisence(lisenceType).then(res => {
-        this.lisenceForm = res.data
+      saveSettings(item, item.id).then(res => {
         this.loading = false
+        this.$message.success('已修改！')
       })
     }
   }

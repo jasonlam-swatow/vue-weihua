@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-tabs type="card" class="customized denser mgb0">
       <el-tab-pane v-for="(item, index) in tabPaneTitles" :label="item" :key="index">
-        <el-row type="flex" class="mgb12">
+        <el-row type="flex" class="mgb12 strange-input">
           <el-col :span="16">
             <el-select placeholder="按证照状态筛选" v-model="statusSelected">
               <el-option v-for="(status, key) in statusSelection" :key="key" :label="status.label" :value="status.value">
