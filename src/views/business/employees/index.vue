@@ -12,13 +12,12 @@
               <el-option v-for="(position, key) in positionSelection" :key="key" :label="position.label" :value="position.value">
               </el-option>
             </el-select>
-            <el-input style="width:200px" placeholder="身份证号或姓名">
-                <el-button slot="append" icon="el-icon-search"></el-button>
-            </el-input>
+            <el-input style="width:200px" placeholder="身份证号或姓名"></el-input>
+            <el-button size="medium" type="primary" plain round icon="el-icon-search" @click="onSearch"></el-button>
           </el-col>
           <el-col :span="8" class="fr">
-            <el-button icon="el-icon-plus" type="primary" @click="addEmployee">新增员工</el-button>
-            <el-button icon="el-icon-upload2">批量导入</el-button>
+            <el-button size="medium" icon="el-icon-plus" type="primary" @click="addEmployee">新增员工</el-button>
+            <el-button size="medium" icon="el-icon-upload2">批量导入</el-button>
             <el-button type="text" icon="el-icon-document">下载模板</el-button>
           </el-col>
         </el-row>

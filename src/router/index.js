@@ -44,9 +44,9 @@ export const constantRouterMap = [
     meta: { title: '企业管理', icon: 'enterprise' },
     children: [
       {
-        path: 'emterprise',
+        path: 'enterprises',
         name: '企业管理',
-        component: _import('business/enterprise/index'),
+        component: _import('business/enterprises/index'),
         meta: { title: '企业管理', icon: 'cubes' }
       },
       {

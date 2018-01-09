@@ -12,13 +12,12 @@
             <el-option v-for="(tank, key) in tanksSelection" :key="key" :label="tank.label" :value="tank.value">
               </el-option>
             </el-select>
-            <el-input size="medium" style="width:200px" placeholder="车号 or 道路运输证号">
-                <el-button slot="append" icon="el-icon-search"></el-button>
-            </el-input>
+            <el-input size="medium" style="width:200px" placeholder="车号 or 道路运输证号"></el-input>
+            <el-button size="medium" type="primary" plain round icon="el-icon-search" @click="onSearch"></el-button>
           </el-col>
           <el-col :span="8" class="fr">
-            <el-button icon="el-icon-plus" type="primary" @click="addTank">新增罐体</el-button>
-            <el-button icon="el-icon-upload2">批量导入</el-button>
+            <el-button size="medium" icon="el-icon-plus" type="primary" @click="addTank">新增罐体</el-button>
+            <el-button size="medium" icon="el-icon-upload2">批量导入</el-button>
             <el-button type="text" icon="el-icon-document">下载模板</el-button>
           </el-col>
         </el-row>

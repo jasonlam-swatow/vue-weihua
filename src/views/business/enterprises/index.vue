@@ -4,9 +4,8 @@
       <el-tab-pane v-for="(item, index) in tabPaneTitles" :label="item" :key="index">
         <el-row type="flex" class="mgb12">
           <el-col :span="16">
-            <el-input size="medium" style="width:200px" placeholder="企业名称/信用代码">
-                <el-button slot="append" icon="el-icon-search"></el-button>
-            </el-input>
+            <el-input size="medium" style="width:200px" placeholder="企业名称/信用代码"></el-input>
+            <el-button size="medium" type="primary" plain round icon="el-icon-search" @click="onSearch"></el-button>
           </el-col>
         </el-row>
         <el-table :data="enterprisesList" border>
