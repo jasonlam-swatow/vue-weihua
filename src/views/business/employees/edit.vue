@@ -7,7 +7,7 @@
             :key="tabData.name"
             :name="tabData.name">
             <span slot="label" class="span-with-svg">
-              <svg-icon :icon-class="tabData.icon"></svg-icon>
+              <svg-icon icon-class="menu"></svg-icon>
               {{tabData.label}}
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
@@ -242,7 +242,7 @@
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader"
-                  :on-success="onUploadLicenseC">
+                  :on-success="onUploadLicenseD">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'D').path"
                     :src="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'D').path"
@@ -380,7 +380,7 @@
         </el-tabs>
 
         <div class="button_area">
-          <el-button type="primary" @click="onSubmit">审核通过</el-button>
+          <el-button type="primary" @click="onSubmit" v-loading="submitting">提交</el-button>
           <!-- <el-button type="primary" @click="handleFailed">审核不通过</el-button>          -->
         </div>
       </el-col>
@@ -400,7 +400,8 @@ export default {
       activeTab: 'first',
       lisenceFileList: '',
       operationLog: '',
-      loading: false,
+      loading: true,
+      submitting: false,
       num: 1,
       tabData: {
         label: '基本信息',
@@ -549,12 +550,17 @@ export default {
       this.tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'B').path = res.data
     },
     onSubmit() {
+      this.submitting = true
       const { content } = this.tabData
       if (this.$route.query.id) {
-        editEmployee(this.$route.query.id, { ...this.tabData.content }).then(res => {})
+        editEmployee(this.$route.query.id, { ...this.tabData.content }).then(res => {
+          this.$message.success('已提交！')
+          this.submitting = false
+        })
       } else {
         createEmployee(content).then(res => {
-          console.log(res)
+          this.$message.success('已提交！')
+          this.submitting = false
         })
       }
     }
