@@ -24,9 +24,13 @@
         <el-table :data="employeeList" border stripe v-loading="loading">
           <el-table-column type="selection"></el-table-column>
           <el-table-column prop="name" label="姓名" width="100"></el-table-column>
-          <el-table-column prop="gender" label="性别" width="80"></el-table-column>
+          <el-table-column label="性别" width="80">
+            <template slot-scope="scope">{{EMPLOYEE[scope.row.gender]}}</template>
+          </el-table-column>
           <el-table-column prop="idCard" label="身份证"></el-table-column>
-          <el-table-column prop="position" label="主要岗位"></el-table-column>
+          <el-table-column label="主要岗位">
+            <template slot-scope="scope">{{EMPLOYEE[scope.row.position]}}</template>
+          </el-table-column>
           <el-table-column prop="phone" label="联系电话"></el-table-column>
           <el-table-column label="入职日期">
             <template slot-scope="scope">
@@ -70,10 +74,12 @@ import {
   getEmployeeList,
   deleteEmployee
 } from '@/api/business/employees'
+import EMPLOYEE from '@/constants/EMPLOYEE'
 
 export default {
   data() {
     return {
+      EMPLOYEE,
       loading: true,
       employeeList: [],
       currentPage: 1,
@@ -158,11 +164,15 @@ export default {
     fetchData(pageNum = 1) {
       this.loading = true
       this.currentPage = pageNum
+<<<<<<< HEAD
       const pageSize = 10
       const position = this.positionSelected
       const status = this.statusSelected
       const idOrName = this.idOrName
       getEmployeeList({ pageNum, pageSize, position, status, idOrName }).then(res => {
+=======
+      getEmployeeList({ pageNum, pageSize: 10 }).then(res => {
+>>>>>>> 46201c6cd017a739061101eaa3751f0eeb9ab585
         console.log(res)
         this.employeeList = res.data.list
         this.total = res.data.total
