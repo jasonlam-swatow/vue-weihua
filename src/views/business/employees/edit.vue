@@ -380,7 +380,9 @@
         </el-tabs>
 
         <div class="button_area">
-          <el-button type="primary" @click="onSubmit" v-loading="submitting">提交</el-button>
+          <el-button type="primary" @click="onSubmit" v-loading="submitting" icon="el-icon-check">
+            确认{{ isAdd ? '新增' : '修改' }}
+          </el-button>
           <!-- <el-button type="primary" @click="handleFailed">审核不通过</el-button>          -->
         </div>
       </el-col>
@@ -400,7 +402,7 @@ export default {
       activeTab: 'first',
       lisenceFileList: '',
       operationLog: '',
-      loading: true,
+      loading: false,
       submitting: false,
       num: 1,
       tabData: {
@@ -496,19 +498,22 @@ export default {
       }
     }
   },
+  computed: {
+    isAdd() {
+      return this.$route.path.indexOf('add') >= 0
+    }
+  },
   created() {
-    this.fetchData(this.$route.query.id)
+    if (!this.isAdd) this.fetchData()
   },
   methods: {
-    fetchData(id) {
-      if (this.$route.query.id) {
-        this.loading = true
-        getEmployeeInfo(id).then(res => {
-          console.log(res.data)
-          this.tabData.content = res.data
-          this.loading = false
-        })
-      }
+    fetchData() {
+      const { id } = this.$route.query
+      this.loading = true
+      getEmployeeInfo(id).then(res => {
+        this.tabData.content = res.data
+        this.loading = false
+      })
     },
     onUploadIdA(res) {
       this.tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'A').path = res.data
