@@ -2,10 +2,13 @@
   <div class="app-container">
     <el-tabs type="card" class="customized denser mgb0">
       <el-tab-pane v-for="(item, index) in tabPaneTitles" :label="item" :key="index">
-        <el-row type="flex" class="mgb12">
-          <el-col :span="16">
-            <el-input size="medium" style="width:200px" placeholder="企业名称/信用代码"></el-input>
-            <el-button size="medium" type="primary" plain round icon="el-icon-search" @click="onSearch"></el-button>
+        <el-row type="flex" class="mgb12 strange-input">
+          <el-col :span="20">
+            <el-input  style="width:200px" placeholder="企业名称" v-model="name"></el-input>
+            <el-input  style="width:200px" placeholder="信用代码" v-model="registrationNo"></el-input>
+            <el-date-picker v-model="gmtCreateBegin" type="date" size="mdeium" style="width:200px;height:36px" placeholder="创建开始时间"></el-date-picker>
+            <el-date-picker v-model="gmtCreateEnd" type="date" size="mdeium" style="width:200px;height:36px" placeholder="创建结束时间"></el-date-picker>
+            <el-button  type="primary" plain round icon="el-icon-search" @click="onSearch"></el-button>
           </el-col>
         </el-row>
         <el-table :data="enterprisesList" border>
@@ -40,6 +43,8 @@ import { getEnterpriseInfo } from '@/api/business/enterprise'
 export default {
   data() {
     return {
+      gmtCreateBegin: '',
+      gmtCreateEnd: '',
       vehicleList: [],
       currentPage: 1,
       total: 0,
@@ -52,6 +57,9 @@ export default {
     this.fetchData()
   },
   methods: {
+    onSearch() {
+      this.fetchData()
+    },
     onViewEnterprise(info) {
       console.log(info)
     },
@@ -60,10 +68,14 @@ export default {
       this.currentPage = val
       this.fetchData()
     },
-    fetchData(page = 1) {
+    fetchData(pageNum = 1) {
+      const pageSize = 10
+      const name = this.name
+      const gmtCreateBegin = this.gmtCreateBegin
+      const gmtCreateEnd = this.gmtCreateEnd
       this.loading = true
-      this.currentPage = page
-      getEnterpriseInfo(page).then(res => {
+      this.currentPage = pageNum
+      getEnterpriseInfo({ pageNum, name, gmtCreateBegin, gmtCreateEnd, pageSize }).then(res => {
         console.log(res)
         this.enterprisesList = res.data.list
         this.loading = false

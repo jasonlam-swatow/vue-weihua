@@ -96,13 +96,13 @@ export default {
         label: '证照数量齐全'
       }],
       positionSelection: [{
-        value: 'pilot',
+        value: 'PILOT',
         label: '驾驶员'
       }, {
-        value: 'escort',
+        value: 'ESCORT',
         label: '押运员'
       }, {
-        value: 'both',
+        value: 'BOTH',
         label: '驾驶员/押运员'
       }]
     }
@@ -155,9 +155,9 @@ export default {
         })
       })
     },
-    fetchData(page = 1) {
+    fetchData(pageNum = 1) {
       this.loading = true
-      const pageNum = this.currentPage
+      this.currentPage = pageNum
       const pageSize = 10
       const position = this.positionSelected
       const status = this.statusSelected
