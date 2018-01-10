@@ -25,11 +25,11 @@
           <el-table-column type="selection"></el-table-column>
           <el-table-column prop="name" label="姓名" width="100"></el-table-column>
           <el-table-column label="性别" width="80">
-            <template slot-scope="scope">{{VEHICLE[scope.row.gender]}}</template>
+            <template slot-scope="scope">{{EMPLOYEE[scope.row.gender]}}</template>
           </el-table-column>
           <el-table-column prop="idCard" label="身份证"></el-table-column>
           <el-table-column label="主要岗位">
-            <template slot-scope="scope">{{VEHICLE[scope.row.position]}}</template>
+            <template slot-scope="scope">{{EMPLOYEE[scope.row.position]}}</template>
           </el-table-column>
           <el-table-column prop="phone" label="联系电话"></el-table-column>
           <el-table-column label="入职日期">
@@ -74,12 +74,12 @@ import {
   getEmployeeList,
   deleteEmployee
 } from '@/api/business/employees'
-import VEHICLE from '@/constants/vehicle'
+import EMPLOYEE from '@/constants/EMPLOYEE'
 
 export default {
   data() {
     return {
-      VEHICLE,
+      EMPLOYEE,
       loading: true,
       employeeList: [],
       currentPage: 1,

@@ -24,8 +24,8 @@
                 <el-radio-group
                   v-model="tabData.content.gender"
                   >
-                  <el-radio label="male">男</el-radio>
-                  <el-radio label="female">女</el-radio>
+                  <el-radio label="MALE">男</el-radio>
+                  <el-radio label="FEMALE">女</el-radio>
                   </el-radio-group>
               </el-form-item>
               <el-form-item
@@ -33,9 +33,9 @@
                 >
                 <el-select
                   v-model="tabData.content.position">
-                    <el-option label="驾驶员" value="driver"></el-option>
-                    <el-option label="押运员" value="guard"></el-option>
-                    <el-option label="驾驶员/押运员" value="both"></el-option>
+                    <el-option label="驾驶员" value="PILOT"></el-option>
+                    <el-option label="押运员" value="ESCORT"></el-option>
+                    <el-option label="驾驶员/押运员" value="BOTH"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item
