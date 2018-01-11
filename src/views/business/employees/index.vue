@@ -111,7 +111,7 @@ export default {
     }
   },
   computed: {
-    positionSelections () {
+    positionSelections() {
       const { PILOT, ESCORT, BOTH } = this.EMPLOYEE
       return map({ PILOT, ESCORT, BOTH }, (label, value) => ({
         value,
@@ -170,8 +170,6 @@ export default {
     fetchData(pageNum = 1) {
       this.loading = true
       this.currentPage = pageNum
-      console.log(this.searchQueries)
-      console.log(omitBy(this.searchQueries, isEmpty))
       const queries = {
         pageNum,
         pageSize: 10,
