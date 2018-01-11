@@ -4,15 +4,15 @@
       <el-tab-pane v-for="(item, index) in tabPaneTitles" :label="item" :key="index">
         <el-row type="flex" class="mgb12 strange-input">
           <el-col :span="16">
-            <el-select placeholder="按证照状态筛选" v-model="statusSelected" clearable>
+            <el-select placeholder="按证照状态筛选" v-model="searchQueries.status" clearable>
               <el-option v-for="(status, key) in statusSelection" :key="key" :label="status.label" :value="status.value">
               </el-option>
             </el-select>
-            <el-select placeholder="主要岗位" v-model="positionSelected" clearable>
-              <el-option v-for="(position, key) in positionSelection" :key="key" :label="position.label" :value="position.value">
+            <el-select placeholder="主要岗位" v-model="searchQueries.position" clearable>
+              <el-option v-for="(position, key) in positionSelections" :key="key" :label="position.label" :value="position.value">
               </el-option>
             </el-select>
-            <el-input style="width:200px" placeholder="身份证号或姓名" v-model="idOrName"></el-input>
+            <el-input style="width:200px" placeholder="身份证号或姓名" v-model="searchQueries.idOrName"></el-input>
             <el-button size="medium" type="primary" plain round icon="el-icon-search" @click="onSearch"></el-button>
           </el-col>
           <el-col :span="8" class="fr">
@@ -77,6 +77,9 @@ import {
   deleteEmployee
 } from '@/api/business/employees'
 import EMPLOYEE from '@/constants/EMPLOYEE'
+import map from 'lodash/map'
+import omitBy from 'lodash/omitBy'
+import isEmpty from 'lodash/isEmpty'
 
 export default {
   data() {
@@ -86,9 +89,11 @@ export default {
       employeeList: [],
       currentPage: 1,
       total: 0,
-      statusSelected: '',
-      positionSelected: '',
-      idOrName: '',
+      searchQueries: {
+        status: '',
+        position: '',
+        idOrName: ''
+      },
       tabPaneTitles: ['全部员工', '待审核', '审核未通过'],
       statusSelection: [{
         value: '1',
@@ -102,17 +107,16 @@ export default {
       }, {
         value: '4',
         label: '证照数量齐全'
-      }],
-      positionSelection: [{
-        value: 'PILOT',
-        label: '驾驶员'
-      }, {
-        value: 'ESCORT',
-        label: '押运员'
-      }, {
-        value: 'BOTH',
-        label: '驾驶员/押运员'
       }]
+    }
+  },
+  computed: {
+    positionSelections () {
+      const { PILOT, ESCORT, BOTH } = this.EMPLOYEE
+      return map({ PILOT, ESCORT, BOTH }, (label, value) => ({
+        value,
+        label
+      }))
     }
   },
   created() {
@@ -166,11 +170,15 @@ export default {
     fetchData(pageNum = 1) {
       this.loading = true
       this.currentPage = pageNum
-      const pageSize = 10
-      const position = this.positionSelected
-      const status = this.statusSelected
-      const idOrName = this.idOrName
-      getEmployeeList({ pageNum, pageSize, position, status, idOrName }).then(res => {
+      console.log(this.searchQueries)
+      console.log(omitBy(this.searchQueries, isEmpty))
+      const queries = {
+        pageNum,
+        pageSize: 10,
+        ...omitBy(this.searchQueries, isEmpty)
+      }
+      console.log(queries)
+      getEmployeeList(queries).then(res => {
         console.log(res)
         this.employeeList = res.data.list
         this.total = res.data.total
