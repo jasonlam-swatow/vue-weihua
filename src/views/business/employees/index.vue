@@ -166,15 +166,11 @@ export default {
     fetchData(pageNum = 1) {
       this.loading = true
       this.currentPage = pageNum
-<<<<<<< HEAD
       const pageSize = 10
       const position = this.positionSelected
       const status = this.statusSelected
       const idOrName = this.idOrName
       getEmployeeList({ pageNum, pageSize, position, status, idOrName }).then(res => {
-=======
-      getEmployeeList({ pageNum, pageSize: 10 }).then(res => {
->>>>>>> 46201c6cd017a739061101eaa3751f0eeb9ab585
         console.log(res)
         this.employeeList = res.data.list
         this.total = res.data.total
