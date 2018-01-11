@@ -328,7 +328,6 @@
             </el-form>
           </el-tab-pane>
         </el-tabs>
-        
         <!-- 上传安全责任状 -->
         <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
           <el-tab-pane name="first">
@@ -399,6 +398,7 @@ import {
 export default {
   data() {
     return {
+
       activeTab: 'first',
       lisenceFileList: '',
       operationLog: '',
@@ -480,6 +480,29 @@ export default {
             fkTable: 'EMP',
             title: '押运员从业资格证',
             path: '',
+            type: 'D',
+            expireDate: ''
+          }, {
+            fkTable: 'EMP',
+            title: '驾驶员从业资格证',
+            path: '',
+            expireDate: ''
+          }, {
+            fkTable: 'EMP',
+            title: '押运员从业资格证',
+            path: '',
+            expireDate: ''
+          }, {
+            fkTable: 'EMP',
+            title: '安全责任状',
+            path: '',
+            type: 'A',
+            expireDate: ''
+          }, {
+            fkTable: 'EMP',
+            title: '安全责任状',
+            path: '',
+            type: 'B',
             expireDate: ''
           }, {
             fkTable: 'EMP',
@@ -514,6 +537,46 @@ export default {
         this.tabData.content = res.data
         this.loading = false
       })
+    },
+    onUploadIdA(res) {
+      this.tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'A').path = res.data
+    },
+    onUploadIdB(res) {
+      this.tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'B').path = res.data
+    },
+    onUploadContractA(res) {
+      this.tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'A').path = res.data
+    },
+    onUploadContractB(res) {
+      this.tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'B').path = res.data
+    },
+    onUploadContractC(res) {
+      this.tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'C').path = res.data
+    },
+    onUploadLicenseA(res) {
+      this.tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'A').path = res.data
+    },
+    onUploadLicenseB(res) {
+      this.tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'B').path = res.data
+    },
+    onUploadLicenseC(res) {
+      this.tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'C').path = res.data
+    },
+    onUploadLicenseD(res) {
+      this.tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'D').path = res.data
+    },
+    onUploadDriverPermit(res) {
+      this.tabData.content.certifications.find(_ => _.title === '驾驶员从业资格证').path = res.data
+    },
+    onUploadEscortPermit(res) {
+      this.tabData.content.certifications.find(_ => _.title === '押运员从业资格证').path = res.data
+    },
+    onUploadCommitmentA(res) {
+      this.tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'A').path = res.data
+    },
+    onUploadCommitmentB(res) {
+      this.tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'B').path = res.data
+>>>>>>> 46201c6cd017a739061101eaa3751f0eeb9ab585
     },
     onUploadIdA(res) {
       this.tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'A').path = res.data

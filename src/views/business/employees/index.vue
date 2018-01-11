@@ -4,15 +4,15 @@
       <el-tab-pane v-for="(item, index) in tabPaneTitles" :label="item" :key="index">
         <el-row type="flex" class="mgb12 strange-input">
           <el-col :span="16">
-            <el-select placeholder="按证照状态筛选" v-model="statusSelected">
+            <el-select placeholder="按证照状态筛选" v-model="statusSelected" clearable>
               <el-option v-for="(status, key) in statusSelection" :key="key" :label="status.label" :value="status.value">
               </el-option>
             </el-select>
-            <el-select placeholder="主要岗位" v-model="positionSelected">
+            <el-select placeholder="主要岗位" v-model="positionSelected" clearable>
               <el-option v-for="(position, key) in positionSelection" :key="key" :label="position.label" :value="position.value">
               </el-option>
             </el-select>
-            <el-input style="width:200px" placeholder="身份证号或姓名"></el-input>
+            <el-input style="width:200px" placeholder="身份证号或姓名" v-model="idOrName"></el-input>
             <el-button size="medium" type="primary" plain round icon="el-icon-search" @click="onSearch"></el-button>
           </el-col>
           <el-col :span="8" class="fr">
@@ -88,6 +88,7 @@ export default {
       total: 0,
       statusSelected: '',
       positionSelected: '',
+      idOrName: '',
       tabPaneTitles: ['全部员工', '待审核', '审核未通过'],
       statusSelection: [{
         value: '1',
@@ -103,13 +104,13 @@ export default {
         label: '证照数量齐全'
       }],
       positionSelection: [{
-        value: '1',
+        value: 'PILOT',
         label: '驾驶员'
       }, {
-        value: '2',
+        value: 'ESCORT',
         label: '押运员'
       }, {
-        value: '3',
+        value: 'BOTH',
         label: '驾驶员/押运员'
       }]
     }
@@ -118,6 +119,9 @@ export default {
     this.fetchData()
   },
   methods: {
+    onSearch() {
+      this.fetchData()
+    },
     switchShortName(name) {
       let shortName = ''
       switch (name) {
@@ -162,7 +166,15 @@ export default {
     fetchData(pageNum = 1) {
       this.loading = true
       this.currentPage = pageNum
+<<<<<<< HEAD
+      const pageSize = 10
+      const position = this.positionSelected
+      const status = this.statusSelected
+      const idOrName = this.idOrName
+      getEmployeeList({ pageNum, pageSize, position, status, idOrName }).then(res => {
+=======
       getEmployeeList({ pageNum, pageSize: 10 }).then(res => {
+>>>>>>> 46201c6cd017a739061101eaa3751f0eeb9ab585
         console.log(res)
         this.employeeList = res.data.list
         this.total = res.data.total
