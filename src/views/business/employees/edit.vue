@@ -7,7 +7,7 @@
             :key="tabData.name"
             :name="tabData.name">
             <span slot="label" class="span-with-svg">
-              <svg-icon icon-class="menu"></svg-icon>
+              <svg-icon icon-class="document"></svg-icon>
               {{tabData.label}}
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
@@ -118,7 +118,7 @@
         <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
           <el-tab-pane name="first">
             <span slot="label" class="span-with-svg">
-              <svg-icon icon-class="id-card"></svg-icon>
+              <svg-icon icon-class="stamp"></svg-icon>
               劳动合同
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
@@ -183,7 +183,7 @@
         <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
           <el-tab-pane name="first">
             <span slot="label" class="span-with-svg">
-              <svg-icon icon-class="id-card"></svg-icon>
+              <svg-icon icon-class="driver"></svg-icon>
               驾驶证
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
@@ -263,7 +263,7 @@
         <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
           <el-tab-pane name="first">
             <span slot="label" class="span-with-svg">
-              <svg-icon icon-class="id-card"></svg-icon>
+              <svg-icon icon-class="qualification"></svg-icon>
               驾驶员从业资格证
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
@@ -298,7 +298,7 @@
         <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
           <el-tab-pane name="first">
             <span slot="label" class="span-with-svg">
-              <svg-icon icon-class="id-card"></svg-icon>
+              <svg-icon icon-class="qualification"></svg-icon>
               押运员从业资格证
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
@@ -333,7 +333,7 @@
         <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
           <el-tab-pane name="first">
             <span slot="label" class="span-with-svg">
-              <svg-icon icon-class="id-card"></svg-icon>
+              <svg-icon icon-class="security"></svg-icon>
               安全责任状
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
@@ -557,16 +557,21 @@ export default {
     onSubmit() {
       this.submitting = true
       const { content } = this.tabData
-      if (this.$route.query.id) {
-        editEmployee(this.$route.query.id, { ...this.tabData.content }).then(res => {
-          this.$message.success('已提交！')
-          this.submitting = false
+      if (this.isAdd) {
+        createEmployee(content).then(res => {
+          this.$message.success('已新增！')
+          _afterSubmit()
         })
       } else {
-        createEmployee(content).then(res => {
-          this.$message.success('已提交！')
-          this.submitting = false
+        editEmployee(this.$route.query.id, { ...this.tabData.content }).then(res => {
+          this.$message.success('已修改！')
+          _afterSubmit()
         })
+      }
+      const _this = this
+      function _afterSubmit() {
+        _this.submitting = false
+        _this.$router.push('/business/employees')
       }
     }
   }

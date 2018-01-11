@@ -37,7 +37,9 @@
               <span>{{scope.row.entryDate/1000 | moment('YYYY/MM/DD')}}</span>
             </template>
           </el-table-column>         
-          <el-table-column prop="status" label="审核状态" width="100"></el-table-column>
+          <el-table-column label="审核状态" width="100">
+            <template slot-scope="scope">{{EMPLOYEE[scope.row.status]}}</template>
+          </el-table-column>
           <el-table-column label="证照有限期状态" width="240">
             <template slot-scope="scope">
               <span v-for="(item, key) in scope.row.certifications" :key="key">
