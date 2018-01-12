@@ -393,12 +393,13 @@
 import {
   getEmployeeInfo,
   createEmployee,
-  editEmployee } from '@/api/business/employees'
+  editEmployee
+} from '@/api/business/employees'
+import find from 'lodash/find'
 
 export default {
   data() {
     return {
-
       activeTab: 'first',
       lisenceFileList: '',
       operationLog: '',
@@ -539,43 +540,43 @@ export default {
       })
     },
     onUploadIdA(res) {
-      this.tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'A').path = res.data
+      find(this.tabData.content.certifications, { title: '身分证', type: 'A' }).path = res.data
     },
     onUploadIdB(res) {
-      this.tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'B').path = res.data
+      find(this.tabData.content.certifications, { title: '身分证', type: 'B' }).path = res.data
     },
     onUploadContractA(res) {
-      this.tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'A').path = res.data
+      find(this.tabData.content.certifications, { title: '劳动合同', type: 'A' }).path = res.data
     },
     onUploadContractB(res) {
-      this.tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'B').path = res.data
+      find(this.tabData.content.certifications, { title: '劳动合同', type: 'B' }).path = res.data
     },
     onUploadContractC(res) {
-      this.tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'C').path = res.data
+      find(this.tabData.content.certifications, { title: '劳动合同', type: 'C' }).path = res.data
     },
     onUploadLicenseA(res) {
-      this.tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'A').path = res.data
+      find(this.tabData.content.certifications, { title: '驾驶证', type: 'A' }).path = res.data
     },
     onUploadLicenseB(res) {
-      this.tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'B').path = res.data
+      find(this.tabData.content.certifications, { title: '驾驶证', type: 'B' }).path = res.data
     },
     onUploadLicenseC(res) {
-      this.tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'C').path = res.data
+      find(this.tabData.content.certifications, { title: '驾驶证', type: 'C' }).path = res.data
     },
     onUploadLicenseD(res) {
-      this.tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'D').path = res.data
+      find(this.tabData.content.certifications, { title: '驾驶证', type: 'D' }).path = res.data
     },
     onUploadDriverPermit(res) {
-      this.tabData.content.certifications.find(_ => _.title === '驾驶员从业资格证').path = res.data
+      find(this.tabData.content.certifications, { title: '驾驶员从业资格证' }).path = res.data
     },
     onUploadEscortPermit(res) {
-      this.tabData.content.certifications.find(_ => _.title === '押运员从业资格证').path = res.data
+      find(this.tabData.content.certifications, { title: '押运员从业资格证' }).path = res.data
     },
     onUploadCommitmentA(res) {
-      this.tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'A').path = res.data
+      find(this.tabData.content.certifications, { title: '安全责任状', type: 'A' }).path = res.data
     },
     onUploadCommitmentB(res) {
-      this.tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'B').path = res.data
+      find(this.tabData.content.certifications, { title: '安全责任状', type: 'B' }).path = res.data
     },
     onSubmit() {
       this.submitting = true

@@ -9,8 +9,15 @@
               </el-option>
             </el-select>
             <el-select placeholder="车辆类型" v-model="carTypeSelected">
-            <el-option-group v-for="(group, key) in vehicleSelection" :key="key" :label="group.label">
-              <el-option v-for="(item, key) in group.options" :key="key" :label="item.label" :value="item.value">
+            <el-option-group
+              v-for="group in vehicleTypes"
+              :key="group.id"
+              :label="group.value">
+              <el-option
+                v-for="child in group.children"
+                :key="child.id"
+                :label="child.value"
+                :value="child.code">
               </el-option>
             </el-option-group>
             </el-select>
@@ -64,6 +71,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import {
   getVehicleList,
   deleteVehicle
@@ -91,27 +99,13 @@ export default {
       }, {
         value: '4',
         label: '证照数量齐全'
-      }],
-      vehicleSelection: [{
-        label: '牵引车',
-        options: [{
-          value: '1',
-          label: '重型半挂牵引车'
-        }, {
-          value: '2',
-          label: '中型半挂牵引车'
-        }]
-      }, {
-        label: '半挂车',
-        options: [{
-          value: '3',
-          label: '重型普通牵引车'
-        }, {
-          value: '1',
-          label: '重型厢式牵引车'
-        }]
       }]
     }
+  },
+  computed: {
+    ...mapGetters([
+      'vehicleTypes'
+    ])
   },
   created() {
     this.fetchData()
