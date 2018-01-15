@@ -1,7 +1,13 @@
 <template>
   <div class="app-container">
-    <el-tabs type="card" class="customized denser mgb0">
-      <el-tab-pane v-for="(item, index) in tabPaneTitles" :label="item" :key="index">
+    <el-tabs
+      type="card"
+      class="customized denser mgb0"
+      @tab-click="onTabChange">
+      <el-tab-pane
+        v-for="(value, key) in tabPanes"
+        :label="key"
+        :key="value">
         <el-row type="flex" class="mgb12 strange-input">
           <el-col :span="16">
             <el-select placeholder="按证照状态筛选" v-model="searchQueries.status" clearable>
@@ -57,7 +63,7 @@
               $_.find(statusTypes, ['code', scope.row.status]).value}}
             </template>
           </el-table-column>
-          <el-table-column label="证照有限期状态" width="240">
+          <el-table-column label="证照有效期状态" width="240">
             <template slot-scope="scope">
               <span v-for="(item, key) in scope.row.certifications" :key="key">
                 <el-tag class="adjacent"  :type="item.status === '已上传' ? 'success': 'warning' ">{{switchShortName(item.name)}}</el-tag>
@@ -109,7 +115,11 @@ export default {
         position: '',
         idOrName: ''
       },
-      tabPaneTitles: ['全部员工', '待审核', '审核未通过']
+      tabPanes: {
+        '全部员工': '',
+        '待审核': 'PENDING',
+        '审核未通过': 'UNAUDITED'
+      }
     }
   },
   computed: {
@@ -124,6 +134,18 @@ export default {
   },
   methods: {
     onSearch() {
+      this.fetchData()
+    },
+    _resetSearch() {
+      this.searchQueries = {
+        status: '',
+        position: '',
+        idOrName: ''
+      }
+    },
+    onTabChange({ label }) {
+      this._resetSearch()
+      this.searchQueries.status = this.tabPanes[label]
       this.fetchData()
     },
     switchShortName(name) {

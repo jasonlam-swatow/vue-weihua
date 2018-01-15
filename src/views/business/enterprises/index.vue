@@ -12,13 +12,13 @@
           </el-col>
         </el-row>
         <el-table :data="enterprisesList" border>
-          <el-table-column prop="name" label="企业名称" width="100"></el-table-column>
-          <el-table-column prop="plateType" label="统一社会信用代码" width="80"></el-table-column>
+          <el-table-column prop="name" label="企业名称"></el-table-column>
+          <el-table-column prop="plateType" label="统一社会信用代码" width="140"></el-table-column>
           <el-table-column prop="licenseNo" label="相关运单"></el-table-column>
           <el-table-column prop="registrationAuthority" label="企业注册地址"></el-table-column>
           <el-table-column prop="contactName" label="紧急联系人"></el-table-column>
           <el-table-column prop="contactMobile" label="联系电话"></el-table-column>
-          <el-table-column  label="查看企业资质">
+          <el-table-column  label="企业资质" width="100">
             <template>
               <el-button type="text" @click="onViewEnterprise(scope.row)">点击查看</el-button>
             </template>

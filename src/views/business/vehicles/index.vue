@@ -1,10 +1,16 @@
 <template>
   <div class="app-container">
-    <el-tabs type="card" class="customized denser mgb0">
-      <el-tab-pane v-for="(item, index) in tabPaneTitles" :label="item" :key="index">
+    <el-tabs
+      type="card"
+      class="customized denser mgb0"
+      @tab-click="onTabChange">
+      <el-tab-pane
+        v-for="(value, key) in tabPanes"
+        :label="key"
+        :key="value">
         <el-row type="flex" class="mgb12 strange-input">
           <el-col :span="16">
-            <el-select placeholder="按证照状态筛选" v-model="statusSelected">
+            <el-select placeholder="按证照状态筛选" v-model="searchQueries.status">
               <el-option
                 v-for="status in statusTypes"
                 :key="status.code"
@@ -12,7 +18,7 @@
                 :value="status.code">
               </el-option>
             </el-select>
-            <el-select placeholder="车辆类型" v-model="carTypeSelected">
+            <el-select placeholder="车辆类型" v-model="searchQueries.vehicleType">
             <el-option-group
               v-for="group in vehicleTypes"
               :key="group.id"
@@ -25,7 +31,11 @@
               </el-option>
             </el-option-group>
             </el-select>
-            <el-input size="medium" style="width:200px" placeholder="车号 or 道路运输证号"></el-input>
+            <el-input
+              size="medium"
+              style="width:200px"
+              placeholder="车号 or 道路运输证号"
+              v-model="searchQueries.number"></el-input>
             <el-button size="medium" type="primary" plain round icon="el-icon-search" @click="onSearch"></el-button>
           </el-col>
           <el-col :span="8" class="fr">
@@ -53,7 +63,7 @@
               $_.find(statusTypes, ['code', scope.row.status]).value}}
             </template>
           </el-table-column>
-          <el-table-column label="证照有限期状态" width="240">
+          <el-table-column label="证照有效期状态" width="240">
             <template slot-scope="scope">
               <!-- <span v-for="(item, key) in scope.row.businessType" :key="key">
                 <el-tag class="adjacent" :type="item.status === '已上传' ? 'success': 'warning' ">{{item.name}}</el-tag>
@@ -90,6 +100,8 @@ import {
   getVehicleList,
   deleteVehicle
 } from '@/api/business/vehicles'
+import omitBy from 'lodash/omitBy'
+import isEmpty from 'lodash/isEmpty'
 // import find from 'lodash/find'
 
 export default {
@@ -101,7 +113,16 @@ export default {
       loading: true,
       statusSelected: '',
       carTypeSelected: '',
-      tabPaneTitles: ['全部车辆', '待审核', '审核未通过']
+      searchQueries: {
+        status: '',
+        vehicleType: '',
+        number: ''
+      },
+      tabPanes: {
+        '全部员工': '',
+        '待审核': 'PENDING',
+        '审核未通过': 'UNAUDITED'
+      }
     }
   },
   computed: {
@@ -116,6 +137,21 @@ export default {
     this.fetchData()
   },
   methods: {
+    onSearch() {
+      this.fetchData()
+    },
+    _resetSearch() {
+      this.searchQueries = {
+        status: '',
+        vehicleType: '',
+        number: ''
+      }
+    },
+    onTabChange({ label }) {
+      this._resetSearch()
+      this.searchQueries.status = this.tabPanes[label]
+      this.fetchData()
+    },
     increaseEmployees() {
       this.$router.push('/home')
     },
@@ -139,10 +175,16 @@ export default {
       this.currentPage = val
       this.fetchData()
     },
-    fetchData(page = 1) {
+    fetchData(pageNum = 1) {
       this.loading = true
-      this.currentPage = page
-      getVehicleList(page).then(res => {
+      this.currentPage = pageNum
+      const queries = {
+        pageNum,
+        pageSize: 10,
+        ...omitBy(this.searchQueries, isEmpty)
+      }
+      console.log(queries)
+      getVehicleList(queries).then(res => {
         console.log(res)
         this.vehicleList = res.data.list
         this.total = res.data.total

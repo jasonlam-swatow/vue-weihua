@@ -1,9 +1,10 @@
 import request from '@/utils/request'
 
-export function getVehicleList(page) {
+export function getVehicleList(params) {
   return request({
-    url: `/trailers/?pageNum=${page}`,
-    method: 'get'
+    url: `/trailers/`,
+    method: 'get',
+    params
   })
 }
 

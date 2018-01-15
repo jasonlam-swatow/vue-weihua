@@ -33,7 +33,7 @@
             </template>
           </el-table-column>       
           <el-table-column prop="status" label="审核状态" width="100"></el-table-column>
-          <el-table-column label="证照有限期状态" width="240">
+          <el-table-column label="证照有效期状态" width="240">
             <!-- <template slot-scope="scope">
               <span v-for="(item, key) in scope.row.certifications" :key="key">
                 <el-tag class="adjacent" :type="item.status === '已上传' ? 'success': 'warning' ">{{item.name}}</el-tag>

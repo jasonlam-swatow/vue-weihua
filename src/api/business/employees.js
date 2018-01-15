@@ -1,10 +1,10 @@
 import request from '@/utils/request'
 
-export function getEmployeeList(para) {
+export function getEmployeeList(params) {
   return request({
     url: '/employees/',
     method: 'get',
-    params: para
+    params
   })
 }
 
