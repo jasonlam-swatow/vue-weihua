@@ -33,11 +33,17 @@
           <el-table-column type="selection"></el-table-column>
           <el-table-column prop="name" label="姓名" width="100"></el-table-column>
           <el-table-column label="性别" width="80">
-            <template slot-scope="scope">{{$_.find(genderTypes, ['code', scope.row.gender]).value}}</template>
+            <template slot-scope="scope">
+              {{$_.find(genderTypes, ['code', scope.row.gender]) &&
+              $_.find(genderTypes, ['code', scope.row.gender]).value}}
+            </template>
           </el-table-column>
           <el-table-column prop="idCard" label="身份证"></el-table-column>
           <el-table-column label="主要岗位">
-            <template slot-scope="scope">{{$_.find(positionTypes, ['code', scope.row.position]).value}}</template>
+            <template slot-scope="scope">
+              {{$_.find(positionTypes, ['code', scope.row.position]) &&
+              $_.find(positionTypes, ['code', scope.row.position]).value}}
+            </template>
           </el-table-column>
           <el-table-column prop="phone" label="联系电话"></el-table-column>
           <el-table-column label="入职日期">
@@ -46,7 +52,10 @@
             </template>
           </el-table-column>         
           <el-table-column label="审核状态" width="100">
-            <template slot-scope="scope">{{$_.find(statusTypes, ['code', scope.row.status]).value}}</template>
+            <template slot-scope="scope">
+              {{$_.find(statusTypes, ['code', scope.row.status]) &&
+              $_.find(statusTypes, ['code', scope.row.status]).value}}
+            </template>
           </el-table-column>
           <el-table-column label="证照有限期状态" width="240">
             <template slot-scope="scope">
