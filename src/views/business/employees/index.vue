@@ -5,11 +5,19 @@
         <el-row type="flex" class="mgb12 strange-input">
           <el-col :span="16">
             <el-select placeholder="按证照状态筛选" v-model="searchQueries.status" clearable>
-              <el-option v-for="(status, key) in statusSelection" :key="key" :label="status.label" :value="status.value">
+              <el-option
+                v-for="status in statusTypes"
+                :key="status.code"
+                :label="status.value"
+                :value="status.code">
               </el-option>
             </el-select>
             <el-select placeholder="主要岗位" v-model="searchQueries.position" clearable>
-              <el-option v-for="(position, key) in positionSelections" :key="key" :label="position.label" :value="position.value">
+              <el-option
+                v-for="position in positionTypes"
+                :key="position.code"
+                :label="position.value"
+                :value="position.code">
               </el-option>
             </el-select>
             <el-input style="width:200px" placeholder="身份证号或姓名" v-model="searchQueries.idOrName"></el-input>
@@ -25,11 +33,11 @@
           <el-table-column type="selection"></el-table-column>
           <el-table-column prop="name" label="姓名" width="100"></el-table-column>
           <el-table-column label="性别" width="80">
-            <template slot-scope="scope">{{EMPLOYEE[scope.row.gender]}}</template>
+            <template slot-scope="scope">{{find(genderTypes, ['code', scope.row.gender])}}</template>
           </el-table-column>
           <el-table-column prop="idCard" label="身份证"></el-table-column>
           <el-table-column label="主要岗位">
-            <template slot-scope="scope">{{EMPLOYEE[scope.row.position]}}</template>
+            <template slot-scope="scope">{{find(positionTypes, ['code', scope.row.position])}}</template>
           </el-table-column>
           <el-table-column prop="phone" label="联系电话"></el-table-column>
           <el-table-column label="入职日期">
@@ -38,7 +46,7 @@
             </template>
           </el-table-column>         
           <el-table-column label="审核状态" width="100">
-            <template slot-scope="scope">{{EMPLOYEE[scope.row.status]}}</template>
+            <template slot-scope="scope">{{find(statusTypes, ['code', scope.row.status])}}</template>
           </el-table-column>
           <el-table-column label="证照有限期状态" width="240">
             <template slot-scope="scope">
@@ -72,19 +80,18 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import {
   getEmployeeList,
   deleteEmployee
 } from '@/api/business/employees'
-import EMPLOYEE from '@/constants/EMPLOYEE'
-import map from 'lodash/map'
+import find from 'lodash/find'
 import omitBy from 'lodash/omitBy'
 import isEmpty from 'lodash/isEmpty'
 
 export default {
   data() {
     return {
-      EMPLOYEE,
       loading: true,
       employeeList: [],
       currentPage: 1,
@@ -94,30 +101,16 @@ export default {
         position: '',
         idOrName: ''
       },
-      tabPaneTitles: ['全部员工', '待审核', '审核未通过'],
-      statusSelection: [{
-        value: '1',
-        label: '即将过期'
-      }, {
-        value: '2',
-        label: '已过期'
-      }, {
-        value: '3',
-        label: '正常有效期'
-      }, {
-        value: '4',
-        label: '证照数量齐全'
-      }]
+      tabPaneTitles: ['全部员工', '待审核', '审核未通过']
     }
   },
   computed: {
-    positionSelections() {
-      const { PILOT, ESCORT, BOTH } = this.EMPLOYEE
-      return map({ PILOT, ESCORT, BOTH }, (label, value) => ({
-        value,
-        label
-      }))
-    }
+    ...mapGetters([
+      'statusTypes',
+      'positionTypes',
+      'genderTypes'
+    ]),
+    find() { return find }
   },
   created() {
     this.fetchData()

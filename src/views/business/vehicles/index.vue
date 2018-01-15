@@ -5,7 +5,11 @@
         <el-row type="flex" class="mgb12 strange-input">
           <el-col :span="16">
             <el-select placeholder="按证照状态筛选" v-model="statusSelected">
-              <el-option v-for="(status, key) in statusSelection" :key="key" :label="status.label" :value="status.value">
+              <el-option
+                v-for="status in statusTypes"
+                :key="status.code"
+                :label="status.value"
+                :value="status.code">
               </el-option>
             </el-select>
             <el-select placeholder="车辆类型" v-model="carTypeSelected">
@@ -33,12 +37,16 @@
         <el-table :data="vehicleList" border>
           <el-table-column type="selection"></el-table-column>
           <el-table-column prop="plateNo" label="车号" width="100"></el-table-column>
-          <el-table-column prop="plateType" label="车辆类型" width="80"></el-table-column>
+          <el-table-column label="车辆类型" width="100">
+            <template slot-scope="scope">{{find(licensePlateTypes, ['code', scope.row.plateType])}}</template>
+          </el-table-column>
           <el-table-column prop="licenseNo" label="道路运输证号"></el-table-column>
           <el-table-column prop="gps_time" label="GPS更新时间"></el-table-column>
           <el-table-column prop="curbWeight" label="整备质量（KG）"></el-table-column>
           <el-table-column prop="tractionMass" label="核载/准牵引（KG）"></el-table-column>         
-          <el-table-column prop="status" label="审核状态" width="100"></el-table-column>
+          <el-table-column label="审核状态" width="100">
+            <template slot-scope="scope">{{find(statusTypes, ['code', scope.row.status])}}</template>
+          </el-table-column>
           <el-table-column label="证照有限期状态" width="240">
             <template slot-scope="scope">
               <!-- <span v-for="(item, key) in scope.row.businessType" :key="key">
@@ -76,6 +84,7 @@ import {
   getVehicleList,
   deleteVehicle
 } from '@/api/business/vehicles'
+import find from 'lodash/find'
 
 export default {
   data() {
@@ -86,26 +95,16 @@ export default {
       loading: true,
       statusSelected: '',
       carTypeSelected: '',
-      tabPaneTitles: ['全部车辆', '待审核', '审核未通过'],
-      statusSelection: [{
-        value: '1',
-        label: '即将过期'
-      }, {
-        value: '2',
-        label: '已过期'
-      }, {
-        value: '3',
-        label: '正常有效期'
-      }, {
-        value: '4',
-        label: '证照数量齐全'
-      }]
+      tabPaneTitles: ['全部车辆', '待审核', '审核未通过']
     }
   },
   computed: {
     ...mapGetters([
-      'vehicleTypes'
-    ])
+      'vehicleTypes',
+      'statusTypes',
+      'licensePlateType'
+    ]),
+    find() { return find }
   },
   created() {
     this.fetchData()
