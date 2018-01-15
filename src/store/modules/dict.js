@@ -31,7 +31,7 @@ const dict = {
     // 获取车辆定义
     GetVehicleTypes({ commit, state }) {
       return new Promise((resolve, reject) => {
-        getDict('VEHICLE_TYPES').then(response => {
+        getDict('VEHICLE_TYPE').then(response => {
           commit('GET_VEHICLE_TYPES', response.data)
           resolve(response)
         }).catch(error => {
@@ -43,7 +43,7 @@ const dict = {
     // 获取车牌定义
     GetLicensePlateTypes({ commit, state }) {
       return new Promise((resolve, reject) => {
-        getDict('LICENSE_PLATE_TYPES').then(response => {
+        getDict('LICENSE_PLATE_TYPE').then(response => {
           commit('GET_LICENSE_PLATE_TYPES', response.data)
           resolve(response)
         }).catch(error => {
@@ -55,7 +55,7 @@ const dict = {
     // 获取车牌定义
     GetStatusType({ commit, state }) {
       return new Promise((resolve, reject) => {
-        getDict('STATUS_TYPES').then(response => {
+        getDict('STATUS').then(response => {
           commit('GET_STATUS_TYPES', response.data)
           resolve(response)
         }).catch(error => {
@@ -67,7 +67,7 @@ const dict = {
     // 获取车牌定义
     GetPositionType({ commit, state }) {
       return new Promise((resolve, reject) => {
-        getDict('POSITION_TYPES').then(response => {
+        getDict('POSITION').then(response => {
           commit('GET_POSITION_TYPES', response.data)
           resolve(response)
         }).catch(error => {
