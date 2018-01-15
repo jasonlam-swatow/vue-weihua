@@ -38,14 +38,14 @@
           <el-table-column type="selection"></el-table-column>
           <el-table-column prop="plateNo" label="车号" width="100"></el-table-column>
           <el-table-column label="车辆类型" width="100">
-            <template slot-scope="scope">{{find(licensePlateTypes, ['code', scope.row.plateType])}}</template>
+            <template slot-scope="scope">{{$_.find(licensePlateTypes, ['code', scope.row.plateType]).value}}</template>
           </el-table-column>
           <el-table-column prop="licenseNo" label="道路运输证号"></el-table-column>
           <el-table-column prop="gps_time" label="GPS更新时间"></el-table-column>
           <el-table-column prop="curbWeight" label="整备质量（KG）"></el-table-column>
           <el-table-column prop="tractionMass" label="核载/准牵引（KG）"></el-table-column>         
           <el-table-column label="审核状态" width="100">
-            <template slot-scope="scope">{{find(statusTypes, ['code', scope.row.status])}}</template>
+            <template slot-scope="scope">{{$_.find(statusTypes, ['code', scope.row.status]).value}}</template>
           </el-table-column>
           <el-table-column label="证照有限期状态" width="240">
             <template slot-scope="scope">
@@ -84,7 +84,7 @@ import {
   getVehicleList,
   deleteVehicle
 } from '@/api/business/vehicles'
-import find from 'lodash/find'
+// import find from 'lodash/find'
 
 export default {
   data() {
@@ -102,9 +102,9 @@ export default {
     ...mapGetters([
       'vehicleTypes',
       'statusTypes',
-      'licensePlateType'
-    ]),
-    find() { return find }
+      'licensePlateTypes'
+    ])
+    // find() { return find }
   },
   created() {
     this.fetchData()

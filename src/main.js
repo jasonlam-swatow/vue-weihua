@@ -6,6 +6,8 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 // import locale from 'element-ui/lib/locale/lang/en'
 
+import _ from './plugins/_'
+
 import '@/styles/index.scss' // global css
 
 import App from './App'
@@ -17,6 +19,7 @@ import '@/icons' // icon
 
 Vue.use(ElementUI)
 Vue.use(require('vue-moment'))
+Vue.use(_)
 
 Vue.config.productionTip = false
 

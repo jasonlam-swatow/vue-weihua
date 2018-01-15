@@ -6,6 +6,10 @@ const getters = {
   roles: state => state.user.roles,
   basicInfo: state => state.business.basicInfo,
   certInfo: state => state.business.certInfo,
-  vehicleTypes: state => state.dict.vehicleTypes
+  vehicleTypes: state => state.dict.vehicleTypes,
+  licensePlateTypes: state => state.dict.licensePlateTypes,
+  statusTypes: state => state.dict.statusTypes,
+  positionTypes: state => state.dict.positionTypes,
+  genderTypes: state => state.dict.genderTypes
 }
 export default getters

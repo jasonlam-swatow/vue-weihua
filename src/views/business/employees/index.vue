@@ -33,11 +33,11 @@
           <el-table-column type="selection"></el-table-column>
           <el-table-column prop="name" label="姓名" width="100"></el-table-column>
           <el-table-column label="性别" width="80">
-            <template slot-scope="scope">{{find(genderTypes, ['code', scope.row.gender])}}</template>
+            <template slot-scope="scope">{{$_.find(genderTypes, ['code', scope.row.gender]).value}}</template>
           </el-table-column>
           <el-table-column prop="idCard" label="身份证"></el-table-column>
           <el-table-column label="主要岗位">
-            <template slot-scope="scope">{{find(positionTypes, ['code', scope.row.position])}}</template>
+            <template slot-scope="scope">{{$_.find(positionTypes, ['code', scope.row.position]).value}}</template>
           </el-table-column>
           <el-table-column prop="phone" label="联系电话"></el-table-column>
           <el-table-column label="入职日期">
@@ -46,7 +46,7 @@
             </template>
           </el-table-column>         
           <el-table-column label="审核状态" width="100">
-            <template slot-scope="scope">{{find(statusTypes, ['code', scope.row.status])}}</template>
+            <template slot-scope="scope">{{$_.find(statusTypes, ['code', scope.row.status]).value}}</template>
           </el-table-column>
           <el-table-column label="证照有限期状态" width="240">
             <template slot-scope="scope">
@@ -85,7 +85,6 @@ import {
   getEmployeeList,
   deleteEmployee
 } from '@/api/business/employees'
-import find from 'lodash/find'
 import omitBy from 'lodash/omitBy'
 import isEmpty from 'lodash/isEmpty'
 
@@ -109,8 +108,7 @@ export default {
       'statusTypes',
       'positionTypes',
       'genderTypes'
-    ]),
-    find() { return find }
+    ])
   },
   created() {
     this.fetchData()
