@@ -6,12 +6,6 @@
 
 <script>
 export default {
-  name: 'app',
-  created() {
-    this.$store.dispatch('GetVehicleTypes')
-    this.$store.dispatch('GetLicensePlateTypes')
-    this.$store.dispatch('GetStatusType')
-    this.$store.dispatch('GetPositionType')
-  }
+  name: 'app'
 }
 </script>
