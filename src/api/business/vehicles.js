@@ -1,15 +1,16 @@
 import request from '@/utils/request'
 
-export function getVehicleList(page) {
+export function getVehicleList(params) {
   return request({
-    url: `/trailers/?pageNum=${page}`,
-    method: 'get'
+    url: `/v1/trailers/`,
+    method: 'get',
+    params
   })
 }
 
 export function deleteVehicle(id) {
   return request({
-    url: `/trailers/${id}`,
+    url: `/v1/trailers/${id}`,
     method: 'delete'
   })
 }

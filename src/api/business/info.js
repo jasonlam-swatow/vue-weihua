@@ -2,14 +2,14 @@ import request from '@/utils/request'
 
 export function getBasicInfo() {
   return request({
-    url: '/business/info/basic',
+    url: '/v1/business/info/basic',
     method: 'get'
   })
 }
 
 export function getCertInfo() {
   return request({
-    url: '/business/info/cert',
+    url: '/v1/business/info/cert',
     method: 'get'
   })
 }

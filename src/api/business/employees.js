@@ -1,30 +1,30 @@
 import request from '@/utils/request'
 
-export function getEmployeeList(para) {
+export function getEmployeeList(params) {
   return request({
-    url: '/employees/',
+    url: '/v1/employees/',
     method: 'get',
-    params: para
+    params
   })
 }
 
 export function getEmployeeInfo(id) {
   return request({
-    url: `/employees/${id}`,
+    url: `/v1/employees/${id}`,
     method: 'get'
   })
 }
 
 export function deleteEmployee(id) {
   return request({
-    url: `/employees/${id}`,
+    url: `/v1/employees/${id}`,
     method: 'delete'
   })
 }
 
 export function createEmployee(data) {
   return request({
-    url: '/employees/',
+    url: '/v1/employees/',
     method: 'post',
     data: data
   })
@@ -32,7 +32,7 @@ export function createEmployee(data) {
 
 export function editEmployee(id, data) {
   return request({
-    url: `/employees/${id}`,
+    url: `/v1/employees/${id}`,
     method: 'put',
     data: data
   })

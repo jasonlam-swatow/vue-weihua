@@ -94,7 +94,7 @@ export default {
     }
   },
   created() {
-    this.fetchData(this.title)
+    // this.fetchData(this.title)
   },
   methods: {
     fetchData(type) {
