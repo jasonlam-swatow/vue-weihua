@@ -63,11 +63,22 @@
               $_.find(statusTypes, ['code', scope.row.status]).value}}
             </template>
           </el-table-column>
-          <el-table-column label="证照有效期状态" width="240">
+          <el-table-column label="证照有效期状态" width="200">
             <template slot-scope="scope">
-              <span v-for="(item, key) in scope.row.certifications" :key="key">
-                <el-tag class="adjacent"  :type="item.status === '已上传' ? 'success': 'warning' ">{{switchShortName(item.name)}}</el-tag>
-              </span>
+              <el-tooltip placement="right" effect="light">
+                <div slot="content" class="text-success" style="font-size: 14px">
+                  <p v-for="cert in flattenCertifications(shortenCertifications(scope.row.certifications, certtificationMap))" :key="cert">
+                    <b>{{cert}}：</b>审核通过
+                  </p>
+                </div>
+                <div>
+                  <el-tag
+                    v-for="(cert, key) in shortenCertifications(scope.row.certifications, certtificationMap)"
+                    :key="key"
+                    v-if="cert.length"
+                    size="small" type="success" class="adjacent">{{key}}</el-tag>
+                </div>
+              </el-tooltip>
             </template>
           </el-table-column>
           <el-table-column label="操作">
@@ -102,6 +113,10 @@ import {
 } from '@/api/business/employees'
 import omitBy from 'lodash/omitBy'
 import isEmpty from 'lodash/isEmpty'
+import mapValues from 'lodash/mapValues'
+import intersection from 'lodash/intersection'
+import values from 'lodash/values'
+import flattenDeep from 'lodash/flattenDeep'
 
 export default {
   data() {
@@ -114,6 +129,13 @@ export default {
         status: '',
         position: '',
         idOrName: ''
+      },
+      certtificationMap: {
+        '基': ['身分证', '驾驶证'],
+        '劳': ['劳动合同'],
+        '驾': ['驾驶员从业资格证'],
+        '押': ['押运员从业资格证'],
+        '安': ['安全责任状']
       },
       tabPanes: {
         '全部员工': '',
@@ -148,28 +170,14 @@ export default {
       this.searchQueries.status = this.tabPanes[label]
       this.fetchData()
     },
-    switchShortName(name) {
-      let shortName = ''
-      switch (name) {
-        case '身份证' :
-          shortName = '基本'
-          break
-        case '劳动合同' :
-          shortName = '合同'
-          break
-        case '驾驶证审验' :
-          shortName = '驾驶证'
-          break
-        case '驾驶员从业资格证' :
-          shortName = '驾资格'
-          break
-        case '押运员从业资格证' :
-          shortName = '押资格'
-          break
-        default :
-          shortName = '其他'
-      }
-      return shortName
+    shortenCertifications(certifications, certMap) {
+      const certNames = this.$_.map(certifications, 'title')
+      return mapValues(certMap, (cert) => {
+        return intersection(cert, certNames)
+      })
+    },
+    flattenCertifications(shortenedCertifications) {
+      return flattenDeep(values(shortenedCertifications))
     },
     addEmployee() {
       this.$router.push('/business/employees/add')
