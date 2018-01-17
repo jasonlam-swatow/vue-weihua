@@ -63,7 +63,7 @@
           <el-table-column prop="contact" label="操作">
             <template slot-scope="scope">
               <el-tooltip content="编辑" placement="top">
-                <el-button type="text" icon="el-icon-edit-outline" @click="editVehicle(scope.row)"></el-button>
+                <el-button type="text" icon="el-icon-edit-outline" @click="editVehicle(scope.row.plateNo)"></el-button>
               </el-tooltip>
               <el-tooltip content="删除" placement="top">
                 <el-button type="text" icon="el-icon-delete"  @click="deleteVehicle(scope.row)"></el-button>
@@ -117,10 +117,10 @@ export default {
   },
   methods: {
     increaseEmployees() {
-      this.$router.push('/home')
+      this.$router.push('/business/vehicles/add')
     },
     editVehicle(id) {
-      console.log(id)
+      this.$router.push({ path: '/business//edit', query: { id }})
     },
     deleteVehicle(id) {
       this.$confirm('此操作将永久删除该车辆，是否继续？', '提示', {

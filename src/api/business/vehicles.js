@@ -13,3 +13,26 @@ export function deleteVehicle(id) {
     method: 'delete'
   })
 }
+
+export function getTrailerInfo(id) {
+  return request({
+    url: `/trailers/${id}`,
+    method: 'get'
+  })
+}
+
+export function createTrailer(data) {
+  return request({
+    url: '/trailers/',
+    method: 'get',
+    data: data
+  })
+}
+
+export function editTrailer(id, data) {
+  return request({
+    url: `/trailers/${id}`,
+    method: 'put',
+    data: data
+  })
+}

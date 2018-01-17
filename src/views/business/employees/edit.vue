@@ -400,8 +400,6 @@ export default {
   data() {
     return {
       activeTab: 'first',
-      lisenceFileList: '',
-      operationLog: '',
       loading: false,
       submitting: false,
       num: 1,

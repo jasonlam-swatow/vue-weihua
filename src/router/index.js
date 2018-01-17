@@ -83,6 +83,18 @@ export const constantRouterMap = [
         component: _import('business/vehicles/index'),
         meta: { title: '车辆管理', icon: 'vehicle' }
       }, {
+        path: 'vehicles/edit',
+        name: '车辆信息新增/修改',
+        component: _import('business/vehicles/edit'),
+        meta: { title: '车辆管理', icon: 'vehicle' },
+        hidden: true
+      }, {
+        path: 'vehicles/add',
+        name: '车辆信息新增/修改',
+        component: _import('business/vehicles/edit'),
+        meta: { title: '车辆管理', icon: 'vehicle' },
+        hidden: true
+      }, {
         path: 'tanks',
         name: '罐体管理',
         component: _import('business/tanks/index'),
