@@ -14,11 +14,17 @@ router.beforeEach((to, from, next) => {
     } else {
       if (store.getters.roles.length === 0) {
         store.dispatch('GetInfo').then(res => { // 拉取用户信息
-          store.dispatch('GetVehicleTypes')
-          store.dispatch('GetLicensePlateTypes')
-          store.dispatch('GetStatusType')
-          store.dispatch('GetPositionType')
-          next()
+          // 获取菜单
+          store.dispatch('GenerateRoutes').then(() => {
+            router.addRoutes(store.getters.addRouters)
+            console.log(router)
+            // 获取各类基础定义
+            store.dispatch('GetVehicleTypes')
+            store.dispatch('GetLicensePlateTypes')
+            store.dispatch('GetStatusType')
+            store.dispatch('GetPositionType')
+            next({ ...to, replace: true })
+          })
         }).catch(() => {
           store.dispatch('FedLogOut').then(() => {
             Message.error('验证失败,请重新登录')

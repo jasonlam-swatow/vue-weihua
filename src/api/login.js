@@ -24,3 +24,10 @@ export function logout() {
     method: 'post'
   })
 }
+
+export function getMenus() {
+  return request({
+    url: '/v1/menus/mine',
+    method: 'get'
+  })
+}
