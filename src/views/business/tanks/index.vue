@@ -122,7 +122,7 @@ export default {
       this.fetchData()
     },
     _resetSearch() {
-      this.searchQueries.type = '',
+      this.searchQueries.type = ''
       this.searchQueries.tankerNo = ''
     },
     onTabChange({ label }) {
