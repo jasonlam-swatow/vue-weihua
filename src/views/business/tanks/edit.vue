@@ -258,19 +258,19 @@ export default {
   },
   methods: {
     onUploadPaperA(res) {
-      this.$_.find(this.tabData.content.certifications, {title: '罐体检验报告', type: 'A'}).path = res.data
+      this.$_.find(this.tabData.content.certifications, { title: '罐体检验报告', type: 'A' }).path = res.data
     },
     onUploadPaperB(res) {
-      this.$_.find(this.tabData.content.certifications, {title: '罐体检验报告', type: 'B'}).path = res.data
+      this.$_.find(this.tabData.content.certifications, { title: '罐体检验报告', type: 'B' }).path = res.data
     },
     onUploadLicenseA(res) {
-      this.$_.find(this.tabData.content.certifications, {title: '压力罐容器登记证', type: 'A'}).path = res.data
+      this.$_.find(this.tabData.content.certifications, { title: '压力罐容器登记证', type: 'A' }).path = res.data
     },
     onUploadLicenseB(res) {
-      this.$_.find(this.tabData.content.certifications, {title: '压力罐容器登记证', type: 'B'}).path = res.data
+      this.$_.find(this.tabData.content.certifications, { title: '压力罐容器登记证', type: 'B' }).path = res.data
     },
     onUploadLicenseC(res) {
-      this.$_.find(this.tabData.content.certifications, {title: '压力罐容器登记证', type: 'C'}).path = res.data
+      this.$_.find(this.tabData.content.certifications, { title: '压力罐容器登记证', type: 'C' }).path = res.data
     },
     fetchData() {
       const { id } = this.$route.query

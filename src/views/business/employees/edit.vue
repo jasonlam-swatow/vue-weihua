@@ -196,7 +196,7 @@
               <el-form-item label="上传驾驶证" class="full-width">
                 <el-upload
                   action="/v1/files/upload"
-                  class="license-uploader"
+                  class="license-uploader "
                   :on-success="onUploadLicenseA">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'A').path"

@@ -133,7 +133,7 @@ export default {
       this.$router.push('/business/tanks/add')
     },
     editTank(id) {
-      this.$router.push({path:'/business/tanks/edit', query: { id }})
+      this.$router.push({ path: '/business/tanks/edit', query: { id }})
     },
     deleteTank(id) {
       this.$confirm('此操作将永久删除该罐体，是否继续？', '提示', {
