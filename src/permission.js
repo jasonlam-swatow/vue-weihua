@@ -23,6 +23,7 @@ router.beforeEach((to, from, next) => {
             store.dispatch('GetLicensePlateTypes')
             store.dispatch('GetStatusType')
             store.dispatch('GetPositionType')
+            store.dispatch('GetTankerType')
             next({ ...to, replace: true })
           })
         }).catch(() => {

@@ -1,9 +1,10 @@
 import request from '@/utils/request'
 
-export function getTankList(page) {
+export function getTankList(params) {
   return request({
-    url: `/v1/tankers/?pageNum=${page}`,
-    method: 'get'
+    url: `/v1/tankers/`,
+    method: 'get',
+    params
   })
 }
 

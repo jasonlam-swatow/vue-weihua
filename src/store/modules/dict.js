@@ -6,6 +6,7 @@ const dict = {
     licensePlateTypes: [],
     statusTypes: [],
     positionTypes: [],
+    tankerTypes: [],
     genderTypes: [
       { code: 'FEMALE', value: '女' },
       { code: 'MALE', value: '男' }
@@ -24,6 +25,9 @@ const dict = {
     },
     GET_POSITION_TYPES: (state, positionTypes) => {
       state.positionTypes = positionTypes
+    },
+    GET_TANKER_TYPES: (state, tankerTypes) => {
+      state.tankerTypes = tankerTypes
     }
   },
 
@@ -64,11 +68,23 @@ const dict = {
       })
     },
 
-    // 获取车牌定义
+    // 获取状态定义
     GetPositionType({ commit, state }) {
       return new Promise((resolve, reject) => {
         getDict('POSITION').then(response => {
           commit('GET_POSITION_TYPES', response.data)
+          resolve(response)
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+
+    // 获取罐体定义
+    GetTankerType({ commit, state }) {
+      return new Promise((resolve, reject) => {
+        getDict('TANKERTYPE').then(response => {
+          commit('GET_TANKER_TYPES', response.data)
           resolve(response)
         }).catch(error => {
           reject(error)

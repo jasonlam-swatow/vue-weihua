@@ -4,16 +4,19 @@
       <el-tab-pane v-for="(value, key) in tabPanes" :label="key" :key="value">
         <el-row type="flex" class="mgb12 strange-input">
           <el-col :span="16">
-            <el-select placeholder="按证照状态筛选" v-model="statusSelected">
+            <!-- <el-select placeholder="按证照状态筛选" v-model="statusSelected">
               <el-option 
                 v-for="status in statusTypes" 
                 :key="status.code" 
                 :label="status.value" 
                 :value="status.code">
               </el-option>
-            </el-select>
-            <el-select placeholder="全部罐体类型" v-model="tanksSelected">
-            <el-option v-for="(tank, key) in tanksSelection" :key="key" :label="tank.label" :value="tank.value">
+            </el-select> -->
+            <el-select placeholder="全部罐体类型" v-model="searchQueries.type">
+            <el-option
+              v-for="tank in tankerTypes"
+              :key="tank.seq"
+              :label="tank.value" :value="tank.code">
               </el-option>
             </el-select>
             <el-input size="medium" style="width:200px" placeholder="罐体编号 or 关联挂车号" v-model="searchQueries.tankerNo"></el-input>
@@ -28,7 +31,12 @@
         <el-table :data="tankList" border>
           <el-table-column type="selection"></el-table-column>
           <el-table-column prop="tankerNo" label="罐体编号" width="100"></el-table-column>
-          <el-table-column prop="type" label="罐体类型" width="80"></el-table-column>
+          <el-table-column label="车辆类型" width="100">
+            <template slot-scope="scope">
+              {{$_.find(tankerTypes, ['code', scope.row.type]) &&
+              $_.find(tankerTypes, ['code', scope.row.type]).value}}
+            </template>
+          </el-table-column>
           <el-table-column prop="volume" label="罐体容积 m3"></el-table-column>
           <el-table-column prop="trailerId" label="关联挂车号"></el-table-column>
           <el-table-column label="投运日期">
@@ -36,7 +44,12 @@
               <span>{{scope.row.startDate/1000 | moment('YYYY/MM/DD')}}</span>
             </template>
           </el-table-column>       
-          <el-table-column prop="status" label="审核状态" width="100"></el-table-column>
+          <el-table-column label="审核状态" width="100">
+            <template slot-scope="scope">
+              {{$_.find(statusTypes, ['code', scope.row.status]) &&
+              $_.find(statusTypes, ['code', scope.row.status]).value}}
+            </template>
+          </el-table-column>
           <el-table-column label="证照有效期状态" width="240">
             <!-- <template slot-scope="scope">
               <span v-for="(item, key) in scope.row.certifications" :key="key">
@@ -76,12 +89,14 @@ import {
 import omitBy from 'lodash/omitBy'
 import isEmpty from 'lodash/isEmpty'
 import { mapGetters } from 'vuex'
+
 export default {
   data() {
     return {
       searchQueries: {
         type: '',
-        tankerNo: ''
+        tankerNo: '',
+        status: ''
       },
       tankList: [],
       currentPage: 1,
@@ -93,28 +108,22 @@ export default {
         '全部罐体': '',
         '待审核': 'PENDING',
         '审核未通过': 'UNAUDITED'
-      },
-      tanksSelection: [{
-        value: '1',
-        label: '压力罐'
-      }, {
-        value: '2',
-        label: '常压馆'
-      }]
+      }
     }
+  },
+  computed: {
+    ...mapGetters(['statusTypes', 'tankerTypes'])
   },
   created() {
     this.fetchData()
   },
-  computed: {
-    ...mapGetters(['statusTypes'])
-  },
   methods: {
+    onSearch() {
+      this.fetchData()
+    },
     _resetSearch() {
-      this.searchQueries = {
-        type: '',
-        tankerNo: ''
-      }
+      this.searchQueries.type = '',
+      this.searchQueries.tankerNo = ''
     },
     onTabChange({ label }) {
       this._resetSearch()
@@ -144,10 +153,11 @@ export default {
       this.currentPage = pageNum
       const queries = {
         pageNum,
-        pageSize,
+        pageSize: 10,
         ...omitBy(this.searchQueries, isEmpty)
       }
-      getTankList(page).then(res => {
+      console.log(queries)
+      getTankList(queries).then(res => {
         console.log(res)
         this.tankList = res.data.list
         this.total = res.data.total

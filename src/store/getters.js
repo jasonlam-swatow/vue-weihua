@@ -12,6 +12,7 @@ const getters = {
   licensePlateTypes: state => state.dict.licensePlateTypes,
   statusTypes: state => state.dict.statusTypes,
   positionTypes: state => state.dict.positionTypes,
+  tankerTypes: state => state.dict.tankerTypes,
   genderTypes: state => state.dict.genderTypes
 }
 export default getters
