@@ -1,18 +1,22 @@
 <template>
   <div class="app-container">
-    <el-tabs type="card" class="customized denser mgb0">
-      <el-tab-pane v-for="(item, index) in tabPaneTitles" :label="item" :key="index">
+    <el-tabs type="card" class="customized denser mgb0" @tab-click="onTabChange">
+      <el-tab-pane v-for="(value, key) in tabPanes" :label="key" :key="value">
         <el-row type="flex" class="mgb12 strange-input">
           <el-col :span="16">
             <el-select placeholder="按证照状态筛选" v-model="statusSelected">
-              <el-option v-for="(status, key) in statusSelection" :key="key" :label="status.label" :value="status.value">
+              <el-option 
+                v-for="status in statusTypes" 
+                :key="status.code" 
+                :label="status.value" 
+                :value="status.code">
               </el-option>
             </el-select>
-            <el-select placeholder="车辆类型" v-model="tanksSelected">
+            <el-select placeholder="全部罐体类型" v-model="tanksSelected">
             <el-option v-for="(tank, key) in tanksSelection" :key="key" :label="tank.label" :value="tank.value">
               </el-option>
             </el-select>
-            <el-input size="medium" style="width:200px" placeholder="车号 or 道路运输证号"></el-input>
+            <el-input size="medium" style="width:200px" placeholder="罐体编号 or 关联挂车号" v-model="searchQueries.tankerNo"></el-input>
             <el-button size="medium" type="primary" plain round icon="el-icon-search" @click="onSearch"></el-button>
           </el-col>
           <el-col :span="8" class="fr">
@@ -69,30 +73,27 @@ import {
   getTankList,
   deleteTank
 } from '@/api/business/tanks'
-
+import omitBy from 'lodash/omitBy'
+import isEmpty from 'lodash/isEmpty'
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
+      searchQueries: {
+        type: '',
+        tankerNo: ''
+      },
       tankList: [],
       currentPage: 1,
       total: 0,
       loading: true,
       statusSelected: '',
       carTypeSelected: '',
-      tabPaneTitles: ['全部罐体', '待审核', '审核未通过'],
-      statusSelection: [{
-        value: '1',
-        label: '即将过期'
-      }, {
-        value: '2',
-        label: '已过期'
-      }, {
-        value: '3',
-        label: '正常有效期'
-      }, {
-        value: '4',
-        label: '证照数量齐全'
-      }],
+      tabPanes: {
+        '全部罐体': '',
+        '待审核': 'PENDING',
+        '审核未通过': 'UNAUDITED'
+      },
       tanksSelection: [{
         value: '1',
         label: '压力罐'
@@ -105,7 +106,21 @@ export default {
   created() {
     this.fetchData()
   },
+  computed: {
+    ...mapGetters(['statusTypes'])
+  },
   methods: {
+    _resetSearch() {
+      this.searchQueries = {
+        type: '',
+        tankerNo: ''
+      }
+    },
+    onTabChange({ label }) {
+      this._resetSearch()
+      this.searchQueries.status = this.tabPanes[label]
+      this.fetchData()
+    },
     addTank() {
       this.$router.push('/home')
     },
@@ -124,9 +139,14 @@ export default {
         })
       })
     },
-    fetchData(page = 1) {
+    fetchData(pageNum = 1) {
       this.loading = true
-      this.currentPage = page
+      this.currentPage = pageNum
+      const queries = {
+        pageNum,
+        pageSize,
+        ...omitBy(this.searchQueries, isEmpty)
+      }
       getTankList(page).then(res => {
         console.log(res)
         this.tankList = res.data.list
