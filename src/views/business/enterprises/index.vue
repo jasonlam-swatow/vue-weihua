@@ -6,8 +6,8 @@
           <el-col :span="20">
             <el-input  style="width:200px" placeholder="企业名称" v-model="name"></el-input>
             <el-input  style="width:200px" placeholder="信用代码" v-model="registrationNo"></el-input>
-            <el-date-picker v-model="gmtCreateBegin" type="date" size="mdeium" style="width:200px;height:36px" placeholder="创建开始时间"></el-date-picker>
-            <el-date-picker v-model="gmtCreateEnd" type="date" size="mdeium" style="width:200px;height:36px" placeholder="创建结束时间"></el-date-picker>
+            <el-date-picker v-model="gmtCreateBegin" type="date" size="medium" style="width:200px;height:36px" placeholder="创建开始时间"></el-date-picker>
+            <el-date-picker v-model="gmtCreateEnd" type="date" size="medium" style="width:200px;height:36px" placeholder="创建结束时间"></el-date-picker>
             <el-button  type="primary" plain round icon="el-icon-search" @click="onSearch"></el-button>
           </el-col>
         </el-row>

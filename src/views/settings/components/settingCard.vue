@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { saveSettings } from '@/api/settings'
+import { saveSystemSettings } from '@/api/settings/system'
 export default {
   name: 'settingCard',
 
@@ -41,7 +41,7 @@ export default {
   methods: {
     onChange(item) {
       this.loading = true
-      saveSettings(item, item.id).then(res => {
+      saveSystemSettings(item, item.id).then(res => {
         this.loading = false
         this.$message.success('已修改！')
       })

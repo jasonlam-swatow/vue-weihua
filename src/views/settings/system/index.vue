@@ -22,7 +22,7 @@
 
 <script>
 import settingCard from './../components/settingCard'
-import { getSettingList } from '@/api/settings'
+import { getSystemSettingList } from '@/api/settings/system'
 // import values from 'lodash/values'
 // import flatten from 'lodash/flatten'
 
@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     fetchData() {
-      getSettingList().then(res => {
+      getSystemSettingList().then(res => {
         const { list } = res.data
         this.settings = this.$_.groupBy(list, 'type')
       })

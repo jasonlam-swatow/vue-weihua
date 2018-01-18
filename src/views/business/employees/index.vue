@@ -95,14 +95,14 @@
       </el-tab-pane> 
     </el-tabs>
     <div class="fr" style="margin-top:12px">
-    <el-pagination
-      @current-change="fetchData"
-      :current-page="currentPage"
-      :page-size="10"
-      layout="total, prev, pager, next, jumper"
-      :total="total">
-    </el-pagination>
-  </div>
+      <el-pagination
+        @current-change="fetchData"
+        :current-page="currentPage"
+        :page-size="10"
+        layout="total, prev, pager, next, jumper"
+        :total="total">
+      </el-pagination>
+    </div>
   </div>
 </template>
 <script>

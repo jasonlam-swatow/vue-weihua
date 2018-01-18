@@ -182,6 +182,16 @@ export const asyncRouterMap = [
     meta: { title: '其他', icon: 'stacks' },
     children: [
       {
+        path: 'roles',
+        name: '角色配置',
+        component: _import('settings/roles/index'),
+        meta: { title: '角色配置', icon: 'setting' }
+      }, {
+        path: 'users',
+        name: '用户配置',
+        component: _import('settings/users/index'),
+        meta: { title: '用户配置', icon: 'setting' }
+      }, {
         path: 'system',
         name: '系统消息配置',
         component: _import('settings/system/index'),
