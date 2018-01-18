@@ -95,8 +95,7 @@ export default {
     return {
       searchQueries: {
         type: '',
-        tankerNo: '',
-        status: ''
+        tankerNo: ''
       },
       tankList: [],
       currentPage: 1,
@@ -131,10 +130,10 @@ export default {
       this.fetchData()
     },
     addTank() {
-      this.$router.push('/home')
+      this.$router.push('/business/tanks/add')
     },
     editTank(id) {
-      console.log(id)
+      this.$router.push({path:'/business/tanks/edit', query: { id }})
     },
     deleteTank(id) {
       this.$confirm('此操作将永久删除该罐体，是否继续？', '提示', {

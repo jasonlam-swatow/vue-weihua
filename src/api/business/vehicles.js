@@ -17,22 +17,22 @@ export function deleteVehicle(id) {
 
 export function getTrailerInfo(id) {
   return request({
-    url: `/trailers/${id}`,
+    url: `/v1/trailers/${id}`,
     method: 'get'
   })
 }
 
 export function createTrailer(data) {
   return request({
-    url: '/trailers/',
-    method: 'get',
+    url: '/v1/trailers/',
+    method: 'post',
     data: data
   })
 }
 
 export function editTrailer(id, data) {
   return request({
-    url: `/trailers/${id}`,
+    url: `/v1/trailers/${id}`,
     method: 'put',
     data: data
   })

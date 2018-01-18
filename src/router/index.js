@@ -109,6 +109,18 @@ export const asyncRouterMap = [
         name: '罐体管理',
         component: _import('business/tanks/index'),
         meta: { title: '罐体管理', icon: 'tanks' }
+      }, {
+        path: 'tanks/edit',
+        name: '罐体管理新增/修改',
+        component: _import('business/tanks/edit'),
+        meta: { title: '罐体管理', icon: 'tanks' },
+        hidden: true
+      }, {
+        path: 'tanks/add',
+        name: '罐体管理新增/修改',
+        component: _import('business/tanks/edit'),
+        meta: { title: '罐体管理', icon: 'tanks' },
+        hidden: true
       }
     ]
   }, {

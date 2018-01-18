@@ -170,11 +170,6 @@ export default {
         })
       })
     },
-    onPaginate(val) {
-      console.log(`当前页: ${val}`)
-      this.currentPage = val
-      this.fetchData()
-    },
     fetchData(pageNum = 1) {
       this.loading = true
       this.currentPage = pageNum
