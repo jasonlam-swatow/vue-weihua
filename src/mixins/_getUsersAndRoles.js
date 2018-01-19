@@ -15,17 +15,15 @@ export default {
               resolve(res)
             })
           })
-          break
         case 'users':
           return new Promise(resolve => {
             getUserList(queries).then(res => {
               resolve(res)
             })
           })
-          break
         default:
           break
       }
-    } 
+    }
   }
 }

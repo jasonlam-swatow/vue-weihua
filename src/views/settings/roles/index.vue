@@ -68,13 +68,13 @@
           <el-input v-model="tempRow.descr" type="textarea"></el-input>
         </el-form-item>
         <el-form-item label="麾下用户">
-          <el-select v-model="tempRow.users" multiple placeholder="请选择用户">
+          <el-select v-model="tempRow.users" multiple placeholder="请选择用户" value-key="id">
             <el-option
               v-for="user in unpaginatedUserList"
               :key="user.id"
               :value="user"
               :label="user.username || 'null'"
-              value-key="id"></el-option>
+              ></el-option>
           </el-select>
         </el-form-item>
       </el-form>

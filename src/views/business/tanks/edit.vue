@@ -78,7 +78,7 @@
               </el-form-item>
               <el-form-item label="上传报告" class="full-width">
                 <el-upload
-                  action="/v1/files/upload"
+                  action="/v1/files/upload/"
                   class="license-uploader"
                   :on-success="onUploadPaperA">
                   <img
@@ -93,7 +93,7 @@
                   </div>
                 </el-upload>
                 <el-upload
-                  action="/v1/files/upload"
+                  action="/v1/files/upload/"
                   class="license-uploader"
                   :on-success="onUploadPaperB">
                   <img
@@ -134,9 +134,9 @@
               </el-form-item>
               <el-form-item label="上传报告" class="full-width">
                 <el-upload
-                  action="/v1/files/upload"
+                  action="/v1/files/upload/"
                   class="license-uploader"
-                  :on-success="onUploadlicenseA">
+                  :on-success="onUploadLicenseA">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '压力罐容器登记证' && _.type === 'A').path"
                     :src="tabData.content.certifications.find(_ => _.title === '压力罐容器登记证' && _.type === 'A').path"
@@ -149,7 +149,7 @@
                   </div>
                 </el-upload>
                 <el-upload
-                  action="/v1/files/upload"
+                  action="/v1/files/upload/"
                   class="license-uploader"
                   :on-success="onUploadLicenseB">
                   <img
@@ -164,7 +164,7 @@
                   </div>
                 </el-upload>
                 <el-upload
-                  action="/v1/files/upload"
+                  action="/v1/files/upload/"
                   class="license-uploader"
                   :on-success="onUploadLicenseC">
                   <img
