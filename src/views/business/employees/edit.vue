@@ -82,6 +82,7 @@
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader"
+                  :headers="header"                
                   :on-success="onUploadIdA">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'A').path"
@@ -97,6 +98,7 @@
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader"
+                  :headers="header"                
                   :on-success="onUploadIdB">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'B').path"
@@ -132,6 +134,7 @@
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader"
+                  :headers="header"                
                   :on-success="onUploadContractA">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'A').path"
@@ -147,6 +150,7 @@
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader"
+                  :headers="header"                
                   :on-success="onUploadContractB">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'B').path"
@@ -162,6 +166,7 @@
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader"
+                  :headers="header"                
                   :on-success="onUploadContractC">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'C').path"
@@ -197,6 +202,7 @@
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader "
+                  :headers="header" 
                   :on-success="onUploadLicenseA">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'A').path"
@@ -212,6 +218,7 @@
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader"
+                  :headers="header"                
                   :on-success="onUploadLicenseB">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'B').path"
@@ -227,6 +234,7 @@
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader"
+                  :headers="header"                
                   :on-success="onUploadLicenseC">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'C').path"
@@ -242,6 +250,7 @@
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader"
+                  :headers="header"                
                   :on-success="onUploadLicenseD">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'D').path"
@@ -277,6 +286,7 @@
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader"
+                  :headers="header"                
                   :on-success="onUploadDriverPermit">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '驾驶员从业资格证').path"
@@ -312,6 +322,7 @@
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader"
+                  :headers="header"                
                   :on-success="onUploadEscortPermit">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '押运员从业资格证').path"
@@ -346,6 +357,7 @@
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader"
+                  :headers="header"                
                   :on-success="onUploadCommitmentA">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'A').path"
@@ -361,6 +373,7 @@
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader"
+                  :headers="header"                
                   :on-success="onUploadCommitmentB">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'B').path"
@@ -395,6 +408,7 @@ import {
   createEmployee,
   editEmployee
 } from '@/api/business/employees'
+import { mapGetters } from 'vuex'
 
 export default {
   data() {
@@ -520,6 +534,10 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['token']),
+    header() {
+      return { 'Authorization': `Bearer ${this.token}` }
+    },
     isAdd() {
       return this.$route.path.indexOf('add') >= 0
     }

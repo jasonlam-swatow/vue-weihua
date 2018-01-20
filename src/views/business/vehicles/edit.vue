@@ -87,11 +87,11 @@
         </el-tabs>
 
         <!-- 上传身分证 -->
-        <!-- <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
+        <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
           <el-tab-pane name="first">
             <span slot="label" class="span-with-svg">
               <svg-icon icon-class="id-card"></svg-icon>
-              身分证
+              车辆道路运输证
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="有效期" class="full-width">
@@ -134,7 +134,7 @@
               </el-form-item>
             </el-form>
           </el-tab-pane>
-        </el-tabs> -->
+        </el-tabs>
 
         <div class="button_area">
           <el-button type="primary" @click="onSubmit" v-loading="submitting" icon="el-icon-check">

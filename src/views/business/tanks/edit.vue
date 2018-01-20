@@ -79,6 +79,7 @@
               <el-form-item label="上传报告" class="full-width">
                 <el-upload
                   action="/v1/files/upload/"
+                  :headers="header"
                   class="license-uploader"
                   :on-success="onUploadPaperA">
                   <img
@@ -95,6 +96,7 @@
                 <el-upload
                   action="/v1/files/upload/"
                   class="license-uploader"
+                  :headers="header"                  
                   :on-success="onUploadPaperB">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '罐体检验报告' && _.type === 'B').path"
@@ -134,6 +136,7 @@
               </el-form-item>
               <el-form-item label="上传报告" class="full-width">
                 <el-upload
+                  :headers="header"                
                   action="/v1/files/upload/"
                   class="license-uploader"
                   :on-success="onUploadLicenseA">
@@ -149,6 +152,7 @@
                   </div>
                 </el-upload>
                 <el-upload
+                  :headers="header"                
                   action="/v1/files/upload/"
                   class="license-uploader"
                   :on-success="onUploadLicenseB">
@@ -164,6 +168,7 @@
                   </div>
                 </el-upload>
                 <el-upload
+                  :headers="header"                
                   action="/v1/files/upload/"
                   class="license-uploader"
                   :on-success="onUploadLicenseC">
@@ -211,6 +216,7 @@ export default {
           type: '',
           plateNo: '',
           volume: '',
+          enterpriseId: 1,
           certifications: [{
             fkTable: 'TAN',
             title: '罐体检验报告',
@@ -248,7 +254,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['tankerTypes']),
+    ...mapGetters(['tankerTypes', 'token']),
+    header() {
+      return { 'Authorization': `Bearer ${this.token}` }
+    },
     isAdd() {
       return this.$route.path.indexOf('add') >= 0
     }
