@@ -11,17 +11,11 @@
               {{tabData.label}}
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
-              <el-form-item
-                label="车牌号"
-                >
-                <el-input
-                  v-model="tabData.content.plateNo"
-                  ></el-input>
+              <el-form-item label="车牌号">
+                <el-input v-model="tabData.content.plateNo"></el-input>
               </el-form-item>
-              <el-form-item
-                label="车辆类型"
-                >
-                <el-select  v-model="tabData.content.plateType">
+              <el-form-item label="车辆类型">
+                <el-select v-model="tabData.content.plateType">
                 <el-option-group
                   v-for="group in vehicleTypes"
                   :key="group.id"
@@ -35,53 +29,29 @@
                 </el-option-group>
                 </el-select>
               </el-form-item>
-              <el-form-item
-                label="道路运输证号"
-                >
-                <el-input
-                  v-model="tabData.content.licenseNo"
-                  ></el-input>
+              <el-form-item label="道路运输证号">
+                <el-input v-model="tabData.content.licenseNo"></el-input>
               </el-form-item>
-              <el-form-item
-                label="车架号"
-                >
-                <el-input
-                  v-model="tabData.content.vin"
-                  ></el-input>
+              <el-form-item label="车架号">
+                <el-input v-model="tabData.content.vin"></el-input>
               </el-form-item>              
-              <el-form-item
-                label="整备质量"
-                >
-                <el-input
-                  v-model="tabData.content.curbWeight"
-                  ></el-input>
+              <el-form-item label="整备质量">
+                <el-input v-model="tabData.content.curbWeight"></el-input>
               </el-form-item>
-              <el-form-item
-                label="核载/准牵引质量"
-                >
-                <el-input
-                  v-model="tabData.content.tractionMass"
-                  ></el-input>
+              <el-form-item label="核载/准牵引质量">
+                <el-input v-model="tabData.content.tractionMass"></el-input>
               </el-form-item>
-              <!-- <el-form-item
-                label="车牌类型"
-                >
-                <el-select
-                  v-model="tabData.content.position">
-                    <el-option label="黄牌" value="yellow"></el-option>
-                    <el-option label="蓝牌" value="blue"></el-option>
-                </el-select>
-              </el-form-item> -->
-              <!-- <el-form-item 
-               label="经营类型" class="full-width">
-                <el-tree
-                :props="props"
-                :load="loadNode"
-                lazy
-                show-checkbox
-                @check-change="handleCheckChange">
-              </el-tree>
-              </el-form-item> -->
+              <el-form-item label="经营类型" class="full-width">
+                <div style="max-height: 280px; overflow: scroll; border: 1px solid #eee; padding-top: 12px;">
+                  <el-tree
+                    :data="vehicleBusinessTypes"
+                    show-checkbox
+                    node-key="id"
+                    @check-change="onTreeCheck"
+                    :default-expand-all="true"
+                    :default-expanded-checked-keys="tabData.content.businessType"></el-tree>
+                </div>
+              </el-form-item>
             </el-form>
           </el-tab-pane>
         </el-tabs>
@@ -94,24 +64,18 @@
               车辆道路运输证
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
-              <el-form-item
-                label="道路运输证号"
-                >
-                <el-input
-                  v-model="tabData.content.certifications.find(_ => _.title === '车辆道路运输证' && _.type === 'A').licenseNo"
-                  ></el-input>
+              <el-form-item label="道路运输证号">
+                <el-input v-model="tabData.content.certifications.find(_ => _.title === '车辆道路运输证' && _.type === 'A').licenseNo"></el-input>
               </el-form-item>
               <el-form-item label="车辆有效期">
                 <el-date-picker
                   v-model="tabData.content.certifications.find(_ => _.title === '车辆道路运输证' && _.type === 'A').expireDate"
-                  type="date"
-                  ></el-date-picker>
+                  type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="等级评定有效期">
                 <el-date-picker
                   v-model="tabData.content.certifications.find(_ => _.title === '车辆道路运输证' && _.type === 'A').restsDate"
-                  type="date"
-                  ></el-date-picker>
+                  type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="上传" class="full-width">
                 <el-upload
@@ -493,6 +457,8 @@
 <script>
 import { mapGetters } from 'vuex'
 import { getTrailerInfo, createTrailer, editTrailer } from '@/api/business/vehicles'
+import remove from 'lodash/remove'
+
 export default {
   data() {
     return {
@@ -511,6 +477,7 @@ export default {
           vin: '',
           licenseNo: '',
           enterpriseId: 1,
+          businessType: [],
           certifications: [{
             fkTable: 'TRA',
             title: '车辆道路运输证',
@@ -653,7 +620,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['vehicleTypes', 'token']),
+    ...mapGetters([
+      'vehicleTypes',
+      'vehicleBusinessTypes',
+      'token'
+    ]),
     isAdd() {
       return this.$route.path.indexOf('add') >= 0
     },
@@ -669,6 +640,14 @@ export default {
       const that = this
       return function(res) {
         that.$_.find(that.tabData.content.certifications, { 'title': title, 'type': type }).path = res.data
+      }
+    },
+    onTreeCheck(data, checked, interminate) {
+      console.log(data, checked, interminate)
+      if (!checked) {
+        remove(this.tabData.content.businessType, (t) => t === data.id)
+      } else {
+        this.tabData.content.businessType.push(data.id)
       }
     },
     fetchData() {
