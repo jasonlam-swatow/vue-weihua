@@ -111,14 +111,13 @@ import {
   getEmployeeList,
   deleteEmployee
 } from '@/api/business/employees'
+import mappingCertifications from '@/mixins/_mappingCertifications'
+
 import omitBy from 'lodash/omitBy'
 import isEmpty from 'lodash/isEmpty'
-import mapValues from 'lodash/mapValues'
-import intersection from 'lodash/intersection'
-import values from 'lodash/values'
-import flattenDeep from 'lodash/flattenDeep'
 
 export default {
+  mixins: [mappingCertifications],
   data() {
     return {
       loading: true,
@@ -169,15 +168,6 @@ export default {
       this._resetSearch()
       this.searchQueries.status = this.tabPanes[label]
       this.fetchData()
-    },
-    shortenCertifications(certifications, certMap) {
-      const certNames = this.$_.map(certifications, 'title')
-      return mapValues(certMap, (cert) => {
-        return intersection(cert, certNames)
-      })
-    },
-    flattenCertifications(shortenedCertifications) {
-      return flattenDeep(values(shortenedCertifications))
     },
     addEmployee() {
       this.$router.push('/business/employees/add')

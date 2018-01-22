@@ -51,11 +51,22 @@
             </template>
           </el-table-column>
           <el-table-column label="证照有效期状态" width="240">
-            <!-- <template slot-scope="scope">
-              <span v-for="(item, key) in scope.row.certifications" :key="key">
-                <el-tag class="adjacent" :type="item.status === '已上传' ? 'success': 'warning' ">{{item.name}}</el-tag>
-              </span>
-            </template> -->
+            <template slot-scope="scope">
+              <el-tooltip placement="right" effect="light">
+                <div slot="content" class="text-success" style="font-size: 14px">
+                  <p v-for="cert in flattenCertifications(shortenCertifications(scope.row.certifications, certtificationMap))" :key="cert">
+                    <b>{{cert}}：</b>审核通过
+                  </p>
+                </div>
+                <div>
+                  <el-tag
+                    v-for="(cert, key) in shortenCertifications(scope.row.certifications, certtificationMap)"
+                    :key="key"
+                    v-if="cert.length"
+                    size="small" type="success" class="adjacent">{{key}}</el-tag>
+                </div>
+              </el-tooltip>
+            </template>
           </el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
@@ -86,11 +97,14 @@ import {
   getTankList,
   deleteTank
 } from '@/api/business/tanks'
+import mappingCertifications from '@/mixins/_mappingCertifications'
+
 import omitBy from 'lodash/omitBy'
 import isEmpty from 'lodash/isEmpty'
 import { mapGetters } from 'vuex'
 
 export default {
+  mixins: [mappingCertifications],
   data() {
     return {
       searchQueries: {
@@ -103,6 +117,10 @@ export default {
       loading: true,
       statusSelected: '',
       carTypeSelected: '',
+      certtificationMap: {
+        '检': ['罐体检验报告'],
+        '登': ['压力罐容器登记证']
+      },
       tabPanes: {
         '全部罐体': '',
         '待审核': 'PENDING',
@@ -111,7 +129,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['statusTypes', 'tankerTypes'])
+    ...mapGetters([
+      'statusTypes',
+      'tankerTypes'
+    ])
   },
   created() {
     this.fetchData()
