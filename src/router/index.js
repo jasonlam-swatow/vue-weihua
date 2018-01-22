@@ -189,7 +189,7 @@ export const asyncRouterMap = [
   }, {
     path: '/settings',
     component: Layout,
-    redirect: '/settings/systemg',
+    redirect: '/settings/system',
     name: '其他',
     meta: { title: '其他', icon: 'stacks' },
     children: [

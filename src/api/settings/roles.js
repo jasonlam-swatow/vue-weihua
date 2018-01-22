@@ -15,6 +15,23 @@ export function getRoleInfo(id) {
   })
 }
 
+export function createRole(data) {
+  return request({
+    url: '/v1/roles/',
+    method: 'post',
+    data
+  })
+}
+
+export function updateRoleInfo(data) {
+  const action = data.isEnabled ? 'enable' : 'disable'
+  return request({
+    url: `/v1/roles/${data.id}?action=${action}`,
+    method: 'put',
+    data
+  })
+}
+
 export function deleteRole(id) {
   return request({
     url: `/v1/roles/${id}`,
