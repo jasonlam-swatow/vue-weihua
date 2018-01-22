@@ -82,17 +82,17 @@
         <el-form-item label="备注">
           <el-input v-model="tempRow.descr" type="textarea"></el-input>
         </el-form-item>
-        <!-- <el-form-item label="麾下用户">
+        <el-form-item label="麾下用户">
           <el-select
-            v-model="tempRow.users" multiple
-            value-key="id" placeholder="请选择用户">
+            v-model="tempUserIds" multiple
+            placeholder="请选择用户">
             <el-option
               v-for="user in unpaginatedUserList"
               :key="user.id"
-              :value="user"
+              :value="user.id"
               :label="user.username || 'null'"></el-option>
           </el-select>
-        </el-form-item> -->
+        </el-form-item>
         <el-form-item label="状态">
           <el-switch
             v-model="tempRow.isEnabled"
@@ -117,6 +117,7 @@ import {
   getRoleInfo,
   createRole,
   updateRoleInfo,
+  linkUsersToRole,
   deleteRole } from '@/api/settings/roles'
 import getUsersAndRolesMixin from '@/mixins/_getUsersAndRoles'
 import omit from 'lodash/omit'
@@ -144,6 +145,7 @@ export default {
         code: '',
         isEnabled: false
       },
+      tempUserIds: [],
       dialogVisible: false
     }
   },
@@ -200,14 +202,17 @@ export default {
     onEditRole(id) {
       getRoleInfo(id).then(res => {
         this.tempRow = pick(res.data, ['id', 'name', 'code', 'descr', 'isEnabled'])
+        this.tempUserIds = this.$_.map(res.data.users, u => u.id) || []
         this.dialogVisible = true
       })
     },
     onUpdateRole(isEdit = true) {
       if (isEdit) {
         updateRoleInfo(this.tempRow).then(res => {
-          this.$message.success('已修改！')
-          _done()
+          linkUsersToRole(this.tempUserIds, this.tempRow.id).then(res => {
+            this.$message.success('已修改！')
+            _done()
+          })
         })
       } else {
         const params = omit(this.tempRow, 'id')
@@ -219,7 +224,7 @@ export default {
       const _this = this
       function _done() {
         _this.dialogVisible = false
-        this._resetTempRow()
+        _this._resetTempRow()
         _this.fetchData()
         _this.fetchUsersOrRoles('users')
       }

@@ -3,7 +3,7 @@
     <el-tabs type="card" class="customized denser mgb0">
       <el-tab-pane label="用户配置">        
         <el-row type="flex" class="mgb12 strange-input">
-          <el-col :span="16">
+          <el-col :span="20">
             <el-date-picker
               v-model="searchQueries.gmtCreateBegin"
               type="date" size="medium" placeholder="创建开始时间"
@@ -12,39 +12,36 @@
             <el-input style="width:200px" placeholder="用户名称" v-model="searchQueries.name"></el-input>
             <el-button size="medium" type="primary" plain round icon="el-icon-search" @click="onSearch"></el-button>
           </el-col>
+          <el-col :span="4">
+            <el-button class="fr" size="medium" icon="el-icon-plus" type="primary" @click="onAddUser">新增用户</el-button>
+          </el-col>
         </el-row>
 
         <el-table :data="userList" border stripe v-loading="loading">
-          <!-- <el-table-column label="用户">
+          <el-table-column label="用户" prop="username"></el-table-column>
+          <el-table-column label="电子邮箱" prop="email"></el-table-column>>
+          <el-table-column label="手机号" prop="mobile"></el-table-column>
+          <el-table-column label="注册 IP">
             <template slot-scope="scope">
-              <span>{{scope.row.name}}</span>
-              <el-tooltip placement="right" :content="scope.row.descr">
-                <i class="el-icon-info text-info"></i>
-              </el-tooltip>
+              <code>{{scope.row.registerIp}}</code>
             </template>
           </el-table-column>
-          <el-table-column prop="gmtCreate" label="创建时间">
+          <el-table-column label="创建时间">
             <template slot-scope="scope">
               <span>{{scope.row.gmtCreate/1000 | moment('YYYY/MM/DD')}}</span>
             </template>
           </el-table-column>
-          <el-table-column label="麾下用户">
-            <template slot-scope="scope">
-              <span
-                v-for="user in scope.row.users"
-                :key="user.id">{{user.name}}</span>
-            </template>
-          </el-table-column>
+          <el-table-column label="状态" prop="status"></el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
               <el-tooltip content="编辑" placement="top">
-                <el-button type="text" icon="el-icon-edit-outline" @click="onEditUser(scope.row.id)"></el-button>
+                <el-button type="text" icon="el-icon-setting" @click="onEditUser(scope.row.id)"></el-button>
               </el-tooltip>
               <el-tooltip content="删除" placement="top">
                 <el-button type="text" icon="el-icon-delete"  @click="onDeleteUser(scope.row.id)"></el-button>
               </el-tooltip>
             </template>
-          </el-table-column> -->
+          </el-table-column>
         </el-table>
       </el-tab-pane>
     </el-tabs>
@@ -59,20 +56,27 @@
       </el-pagination>
     </div>
 
-    <!-- <el-dialog title="编辑用户" width="30%" :visible.sync="dialogVisible">
+    <el-dialog :title="tempRow.name" width="30%" :visible.sync="dialogVisible">
       <el-form :model="tempRow" label-width="80px">
         <el-form-item label="用户名称">
-          <el-input v-model="tempRow.name"></el-input>
+          <el-input v-model="tempRow.username"></el-input>
         </el-form-item>
-        <el-form-item label="备注">
-          <el-input v-model="tempRow.descr" type="textarea"></el-input>
+        <el-form-item label="电子邮箱">
+          <el-input v-model="tempRow.email"></el-input>
+        </el-form-item>
+        <el-form-item label="手机号">
+          <el-input v-model="tempRow.mobile" type="textarea"></el-input>
+        </el-form-item>
+        <el-form-item label="状态">
+          <el-input v-model="tempRow.status"></el-input>
         </el-form-item>
       </el-form>
       <div class="dialog-footer" slot="footer">
         <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" icon="el-icon-check" @click="onUpdateUser">确认修改</el-button>
+        <el-button v-if="tempRow.id" type="primary" icon="el-icon-check" @click="onUpdateUser">确认修改</el-button>
+        <el-button v-else type="primary" icon="el-icon-check" @click="onUpdateUser(false)">确认新增</el-button>
       </div>
-    </el-dialog> -->
+    </el-dialog>
   </div>
 </template>
 
@@ -80,9 +84,12 @@
 import {
   getUserList,
   getUserInfo,
+  createUser,
+  updateUserInfo,
   deleteUser } from '@/api/settings/users'
 import omitBy from 'lodash/omitBy'
 import isEmpty from 'lodash/isEmpty'
+import pick from 'lodash/pick'
 
 export default {
   data() {
@@ -96,7 +103,12 @@ export default {
         gmtCreateBegin: '',
         gmtCreateEnd: ''
       },
-      tempRow: {},
+      tempRow: {
+        name: '新用户',
+        email: '',
+        mobile: '',
+        status: 1
+      },
       dialogVisible: false
     }
   },
@@ -135,13 +147,44 @@ export default {
         })
       })
     },
+    _resetTempUser() {
+      this.tempRow = {
+        name: '新用户',
+        email: '',
+        mobile: '',
+        status: 1
+      }
+    },
+    onAddRole() {
+      this._resetTempUser()
+      this.dialogVisible = true
+    },
     onEditUser(id) {
       getUserInfo(id).then(res => {
-        this.tempRow = res.data
+        this.tempRow = pick(res.data, ['id', 'username', 'email', 'mobile', 'status'])
         this.dialogVisible = true
       })
     },
-    onUpdateUser(user) {}
+    onUpdateUser(isEdit = true) {
+      if (isEdit) {
+        updateUserInfo(this.tempRow).then(res => {
+          this.$message.success('已修改！')
+          _done()
+        })
+      } else {
+        const params = omit(this.tempRow, 'id')
+        createUser(params).then(res => {
+          this.$message.success('已新增！')
+          _done()
+        })
+      }
+      const _this = this
+      function _done() {
+        _this.dialogVisible = false
+        _this._resetTempRow()
+        _this.fetchData()
+      }
+    }
   }
 }
 </script>

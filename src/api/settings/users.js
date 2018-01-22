@@ -15,6 +15,22 @@ export function getUserInfo(id) {
   })
 }
 
+export function createUser(data) {
+  return request({
+    url: '/v1/users/',
+    method: 'post',
+    data
+  })
+}
+
+export function updateUserInfo(data) {
+  return request({
+    url: `/v1/roles/${data.id}`,
+    method: 'put',
+    data
+  })
+}
+
 export function deleteUser(id) {
   return request({
     url: `/v1/users/${id}`,

@@ -32,6 +32,14 @@ export function updateRoleInfo(data) {
   })
 }
 
+export function linkUsersToRole(users, id) {
+  return request({
+    url: `/v1/roles/${id}/users`,
+    method: 'post',
+    data: users
+  })
+}
+
 export function deleteRole(id) {
   return request({
     url: `/v1/roles/${id}`,
