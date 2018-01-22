@@ -211,7 +211,7 @@ export default {
         })
       } else {
         const params = omit(this.tempRow, 'id')
-        createRole(this.tempRow).then(res => {
+        createRole(params).then(res => {
           this.$message.success('已新增！')
           _done()
         })

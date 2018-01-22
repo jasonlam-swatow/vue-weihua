@@ -9,6 +9,7 @@ const getters = {
   basicInfo: state => state.business.basicInfo,
   certInfo: state => state.business.certInfo,
   vehicleTypes: state => state.dict.vehicleTypes,
+  vehicleBusinessTypes: state => state.dict.vehicleBusinessTypes,
   licensePlateTypes: state => state.dict.licensePlateTypes,
   statusTypes: state => state.dict.statusTypes,
   positionTypes: state => state.dict.positionTypes,
