@@ -4,20 +4,20 @@
       <el-tab-pane v-for="(item, index) in tabPaneTitles" :label="item" :key="index">
         <el-row type="flex" class="mgb12 strange-input">
           <el-col :span="20">
-            <el-input  style="width:200px" placeholder="企业名称" v-model="name"></el-input>
-            <el-input  style="width:200px" placeholder="信用代码" v-model="registrationNo"></el-input>
-            <el-date-picker v-model="gmtCreateBegin" type="date" size="medium" style="width:200px;height:36px" placeholder="创建开始时间"></el-date-picker>
-            <el-date-picker v-model="gmtCreateEnd" type="date" size="medium" style="width:200px;height:36px" placeholder="创建结束时间"></el-date-picker>
-            <el-button  type="primary" plain round icon="el-icon-search" @click="onSearch"></el-button>
+            <el-input style="width:200px" placeholder="企业名称" v-model="searchQueries.name"></el-input>
+            <el-input style="width:200px" placeholder="信用代码" v-model="searchQueries.registrationNo"></el-input>
+            <el-date-picker v-model="searchQueries.gmtCreateBegin" type="date" size="medium" style="width:200px;height:36px" placeholder="创建开始时间"></el-date-picker>
+            <el-date-picker v-model="searchQueries.gmtCreateEnd" type="date" size="medium" style="width:200px;height:36px" placeholder="创建结束时间"></el-date-picker>
+            <el-button type="primary" plain round icon="el-icon-search" @click="onSearch"></el-button>
           </el-col>
         </el-row>
-        <el-table :data="enterprisesList" border>
+        <el-table :data="enterpriseList" border>
           <el-table-column prop="name" label="企业名称"></el-table-column>
-          <el-table-column prop="plateType" label="统一社会信用代码" width="140"></el-table-column>
+          <el-table-column prop="registrationNo" label="统一社会信用代码" width="140"></el-table-column>
           <el-table-column prop="licenseNo" label="相关运单"></el-table-column>
-          <el-table-column prop="registrationAuthority" label="企业注册地址"></el-table-column>
-          <el-table-column prop="contactName" label="紧急联系人"></el-table-column>
-          <el-table-column prop="contactMobile" label="联系电话"></el-table-column>
+          <el-table-column prop="address" label="企业注册地址"></el-table-column>
+          <el-table-column prop="contactName" label="紧急联系人" width="120"></el-table-column>
+          <el-table-column prop="contactMobile" label="联系电话" width="180"></el-table-column>
           <el-table-column  label="企业资质" width="100">
             <template>
               <el-button type="text" @click="onViewEnterprise(scope.row)">点击查看</el-button>
@@ -38,19 +38,29 @@
   </div>
 </template>
 <script>
-import { getEnterpriseInfo } from '@/api/business/enterprise'
+import {
+  getEnterpriseList,
+  deleteEnterprise
+} from '@/api/business/enterprises'
+
+import omitBy from 'lodash/omitBy'
+import isEmpty from 'lodash/isEmpty'
 
 export default {
   data() {
     return {
-      gmtCreateBegin: '',
-      gmtCreateEnd: '',
       vehicleList: [],
+      loading: true,
       currentPage: 1,
       total: 0,
-      loading: true,
       tabPaneTitles: ['全部企业'],
-      enterprisesList: []
+      enterpriseList: [],
+      searchQueries: {
+        gmtCreateBegin: '',
+        gmtCreateEnd: '',
+        name: '',
+        registrationNo: ''
+      }
     }
   },
   created() {
@@ -63,23 +73,31 @@ export default {
     onViewEnterprise(info) {
       console.log(info)
     },
-    onPaginate(val) {
-      console.log(`当前页: ${val}`)
-      this.currentPage = val
-      this.fetchData()
+    deleteEnterprise(id) {
+      this.$confirm('此操作将永久删除该企业，是否继续？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteEnterprise(id).then(() => {
+          this.$message.success('已删除企业！')
+          this.fetchData(this.currentPage)
+        })
+      })
     },
     fetchData(pageNum = 1) {
-      const pageSize = 10
-      const name = this.name
-      const gmtCreateBegin = this.gmtCreateBegin
-      const gmtCreateEnd = this.gmtCreateEnd
       this.loading = true
       this.currentPage = pageNum
-      getEnterpriseInfo({ pageNum, name, gmtCreateBegin, gmtCreateEnd, pageSize }).then(res => {
+      const queries = {
+        pageNum,
+        pageSize: 10,
+        ...omitBy(this.searchQueries, isEmpty)
+      }
+      getEnterpriseList(queries).then(res => {
         console.log(res)
-        this.enterprisesList = res.data.list
+        this.enterpriseList = res.data.list
+        this.total = res.data.total
         this.loading = false
-        this.total = res.data.list.length
       })
     }
   }

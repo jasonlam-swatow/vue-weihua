@@ -23,9 +23,11 @@
             <el-button size="medium" type="primary" plain round icon="el-icon-search" @click="onSearch"></el-button>
           </el-col>
           <el-col :span="8" class="fr">
-            <el-button size="medium" icon="el-icon-plus" type="primary" @click="addTank">新增罐体</el-button>
-            <el-button size="medium" icon="el-icon-upload2">批量导入</el-button>
-            <el-button type="text" icon="el-icon-document">下载模板</el-button>
+            <div class="fr">
+              <el-button size="medium" icon="el-icon-plus" type="primary" @click="addTank">新增罐体</el-button>
+              <el-button size="medium" icon="el-icon-upload2">批量导入</el-button>
+              <el-button type="text" icon="el-icon-document">下载模板</el-button>
+            </div>
           </el-col>
         </el-row>
         <el-table :data="tankList" border>

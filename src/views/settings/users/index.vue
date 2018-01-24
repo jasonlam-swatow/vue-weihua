@@ -87,6 +87,7 @@ import {
   createUser,
   updateUserInfo,
   deleteUser } from '@/api/settings/users'
+import omit from 'lodash/omit'
 import omitBy from 'lodash/omitBy'
 import isEmpty from 'lodash/isEmpty'
 import pick from 'lodash/pick'
@@ -155,7 +156,7 @@ export default {
         status: 1
       }
     },
-    onAddRole() {
+    onAddUser() {
       this._resetTempUser()
       this.dialogVisible = true
     },
