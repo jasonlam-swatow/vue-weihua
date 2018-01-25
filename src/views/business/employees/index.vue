@@ -43,14 +43,14 @@
           <el-table-column label="性别" width="80">
             <template slot-scope="scope">
               {{$_.find(genderTypes, ['code', scope.row.gender]) &&
-              $_.find(genderTypes, ['code', scope.row.gender]).value}}
+                $_.find(genderTypes, ['code', scope.row.gender]).value}}
             </template>
           </el-table-column>
           <el-table-column prop="idCard" label="身份证"></el-table-column>
           <el-table-column label="主要岗位">
             <template slot-scope="scope">
               {{$_.find(positionTypes, ['code', scope.row.position]) &&
-              $_.find(positionTypes, ['code', scope.row.position]).value}}
+                $_.find(positionTypes, ['code', scope.row.position]).value}}
             </template>
           </el-table-column>
           <el-table-column prop="phone" label="联系电话"></el-table-column>
@@ -62,7 +62,7 @@
           <el-table-column label="审核状态" width="100">
             <template slot-scope="scope">
               {{$_.find(statusTypes, ['code', scope.row.status]) &&
-              $_.find(statusTypes, ['code', scope.row.status]).value}}
+                $_.find(statusTypes, ['code', scope.row.status]).value}}
             </template>
           </el-table-column>
           <el-table-column label="证照有效期状态" width="200">
@@ -85,6 +85,9 @@
           </el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
+              <el-tooltip content="查看" placement="top">
+                <el-button type="text" icon="el-icon-view" @click="viewEmployee(scope.row.id)"></el-button>
+              </el-tooltip>
               <el-tooltip content="编辑" placement="top">
                 <el-button type="text" icon="el-icon-edit-outline" @click="editEmployee(scope.row.id)"></el-button>
               </el-tooltip>
@@ -105,12 +108,123 @@
         :total="total">
       </el-pagination>
     </div>
+
+    <el-dialog
+      :title="tempEmployeeInfo.name"
+      width="50%" top="4vh"
+      :visible.sync="dialogVisible">
+      <el-form
+        :model="tempEmployeeInfo"
+        class="view-form"
+        label-width="100px"
+        :inline="true">
+        <el-form-item label="姓名">{{tempEmployeeInfo.name}}</el-form-item>
+        <el-form-item label="性别">
+          {{$_.find(genderTypes, ['code', tempEmployeeInfo.gender]) &&
+            $_.find(genderTypes, ['code', tempEmployeeInfo.gender]).value}}
+        </el-form-item>
+        <el-form-item label="主要岗位">
+          {{$_.find(positionTypes, ['code', tempEmployeeInfo.position]) &&
+            $_.find(positionTypes, ['code', tempEmployeeInfo.position]).value}}
+        </el-form-item>
+        <el-form-item label="入职时间">{{tempEmployeeInfo.entryDate/1000 | moment('YYYY/MM/DD')}}</el-form-item>
+        <el-form-item label="联系电话">{{tempEmployeeInfo.phone}}</el-form-item>
+        <el-form-item label="身份证号码">{{tempEmployeeInfo.idCard}}</el-form-item>
+        <el-form-item label="审核状态">
+          {{$_.find(statusTypes, ['code', tempEmployeeInfo.status]) &&
+            $_.find(statusTypes, ['code', tempEmployeeInfo.status]).value}}
+        </el-form-item>
+        <el-form-item
+          v-if="$_.find(tempEmployeeInfo.certifications, ['title', '身分证'])"
+          label="身分证"
+          class="full-width">
+          <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '身分证', type: 'A' })">
+            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '身分证', type: 'A' }).path">
+            <figcaption>正面</figcaption>
+          </figure>
+          <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '身分证', type: 'B' })">
+            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '身分证', type: 'B' }).path">
+            <figcaption>反面</figcaption>
+          </figure>
+        </el-form-item>
+        <el-form-item
+          v-if="$_.find(tempEmployeeInfo.certifications, ['title', '劳动合同'])"
+          label="劳动合同"
+          class="full-width">
+          <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '劳动合同', type: 'A' })">
+            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '劳动合同', type: 'A' }).path">
+            <figcaption>封面（含甲乙方名称）</figcaption>
+          </figure>
+          <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '劳动合同', type: 'B' })">
+            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '劳动合同', type: 'B' }).path">
+            <figcaption>内页（含劳动合约时间页）</figcaption>
+          </figure>
+          <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '劳动合同', type: 'C' })">
+            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '劳动合同', type: 'C' }).path">
+            <figcaption>内页（含甲乙方签字）</figcaption>
+          </figure>
+        </el-form-item>
+        <el-form-item
+          v-if="$_.find(tempEmployeeInfo.certifications, ['title', '驾驶证'])"
+          label="驾驶证"
+          class="full-width">
+          <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '驾驶证', type: 'A' })">
+            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '驾驶证', type: 'A' }).path">
+            <figcaption>正本正面</figcaption>
+          </figure>
+          <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '驾驶证', type: 'B' })">
+            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '驾驶证', type: 'B' }).path">
+            <figcaption>正本反面</figcaption>
+          </figure>
+          <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '驾驶证', type: 'C' })">
+            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '驾驶证', type: 'C' }).path">
+            <figcaption>副本正面</figcaption>
+          </figure>
+          <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '驾驶证', type: 'D' })">
+            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '驾驶证', type: 'D' }).path">
+            <figcaption>副本反面</figcaption>
+          </figure>
+        </el-form-item>
+        <el-form-item
+          v-if="$_.find(tempEmployeeInfo.certifications, ['title', '驾驶员从业资格证'])"
+          label="驾驶员从业资格证"
+          class="full-width">
+          <figure v-if="$_.find(tempEmployeeInfo.certifications, ['title', '驾驶员从业资格证'])">
+            <img :src="$_.find(tempEmployeeInfo.certifications, ['title', '驾驶员从业资格证']).path">
+            <figcaption>基本信息页</figcaption>
+          </figure>
+        </el-form-item>
+        <el-form-item
+          v-if="$_.find(tempEmployeeInfo.certifications, ['title', '押运员从业资格证'])"
+          label="押运员从业资格证"
+          class="full-width">
+          <figure v-if="$_.find(tempEmployeeInfo.certifications, ['title', '押运员从业资格证'])">
+            <img :src="$_.find(tempEmployeeInfo.certifications, ['title', '押运员从业资格证']).path">
+            <figcaption>基本信息页</figcaption>
+          </figure>
+        </el-form-item>
+        <el-form-item
+          v-if="$_.find(tempEmployeeInfo.certifications, ['title', '安全责任状'])"
+          label="安全责任状"
+          class="full-width">
+          <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '安全责任状', type: 'A' })">
+            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '安全责任状', type: 'A' }).path">
+            <figcaption>含甲乙方名称页</figcaption>
+          </figure>
+          <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '安全责任状', type: 'B' })">
+            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '安全责任状', type: 'B' }).path">
+            <figcaption>含甲乙方签章页</figcaption>
+          </figure>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
 import {
   getEmployeeList,
+  getEmployeeInfo,
   deleteEmployee
 } from '@/api/business/employees'
 import mappingCertifications from '@/mixins/_mappingCertifications'
@@ -142,7 +256,9 @@ export default {
         '全部员工': '',
         '待审核': 'PENDING',
         '审核未通过': 'UNAUDITED'
-      }
+      },
+      dialogVisible: false,
+      tempEmployeeInfo: {}
     }
   },
   computed: {
@@ -203,6 +319,12 @@ export default {
         this.employeeList = res.data.list
         this.total = res.data.total
         this.loading = false
+      })
+    },
+    viewEmployee(id) {
+      this.dialogVisible = true
+      getEmployeeInfo(id).then(res => {
+        this.tempEmployeeInfo = res.data
       })
     }
   }

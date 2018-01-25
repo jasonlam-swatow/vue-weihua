@@ -110,6 +110,27 @@
 }
 
 .el-form {
+  &.view-form {
+    .el-form-item:not(.full-width) {
+      &__content {
+        width: 100px;
+      }
+    }
+    figure {
+      display: inline-block;
+      margin: 0 12px 0 0;
+      img {
+        width: 120px;
+        height: 120px;
+      }
+      figcaption {
+        text-align: center;
+        font-size: 12px;
+        line-height: 12px;
+        color: map-get($palette, info)
+      }
+    }
+  }
   .el-form-item.full-width {
     width: 100%;
     &.with-control {
