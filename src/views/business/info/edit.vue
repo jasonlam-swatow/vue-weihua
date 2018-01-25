@@ -7,123 +7,197 @@
           type="warning"
           show-icon
           class="mgb12"></el-alert>
-        <el-tabs v-model="activeTab" type="card" class="customized denser">
+        <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
           <el-tab-pane
-            v-for="tab in basicTabList"
-            :key="tab.name"
-            :name="tab.name">
+            :key="tabData.name"
+            :name="tabData.name">
             <span slot="label" class="span-with-svg">
-              <svg-icon :icon-class="tab.icon"></svg-icon>
-              {{tab.label}}
+              <svg-icon :icon-class="tabData.icon"></svg-icon>
+              {{tabData.label}}
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="企业名称" class="full-width">
                 <el-input v-model="companyName" disabled></el-input>
                 <span class="sub-text input-warning"><i class="el-icon-info"></i> 不可修改，如需修改，请联系平台客服人员！</span>
               </el-form-item>
-              <el-form-item
-                v-for="(item, key) in tab.content"
-                :key="key"
-                :label="item.label"
-                :class="[{ 'full-width': ['business_range', 'lisence'].includes(key) },
-                         { 'with-control': ['business_range', 'lisence'].includes(key) }]">
-                <el-select
-                  v-if="['status', 'company_type', 'business_type'].includes(key)"
-                  v-model="item.value">
-                  <template v-if="key === 'status'">
-                    <el-option label="存续" value="存续"></el-option>
-                    <el-option label="注销" value="注销"></el-option>
-                    <el-option label="迁出" value="迁出"></el-option>
-                  </template>
-                  <template v-else-if="key === 'company_type'">
-                    <el-option label="一人有限责任公司（自然人投资）" value="一人有限责任公司（自然人投资）"></el-option>
-                    <el-option label="有限公司" value="有限公司"></el-option>
-                  </template>
-                  <template v-else="key === 'business_type'">
-                    <el-option label="运输企业" value="运输企业"></el-option>
-                    <el-option label="仓储企业" value="仓储企业"></el-option>
-                    <el-option label="生产企业" value="生产企业"></el-option>
-                  </template>
+              <el-form-item label="统一社会信用代码">
+                <el-input v-model="tabData.content.tankerNo"></el-input>
+              </el-form-item>
+              <el-form-item label="经营状态">
+                <el-select  v-model="tabData.content.type">
+                  <el-option
+                    v-for="tank in tankerTypes"
+                    :key="tank.seq"
+                    :label="tank.value"
+                    :value="tank.code">
+                  </el-option>
                 </el-select>
+              </el-form-item>
+               <el-form-item label="公司类型">
+                <el-select  v-model="tabData.content.type">
+                  <el-option
+                    v-for="tank in tankerTypes"
+                    :key="tank.seq"
+                    :label="tank.value"
+                    :value="tank.code">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+               <el-form-item label="成立日期">
                 <el-date-picker
-                  v-else-if="['found_date', 'end_date'].includes(key)"
-                  v-model="item.value"
+                  v-model="tabData.content.startDate"
                   type="date"
-                  value-format="yyyy-MM-dd"></el-date-picker>
+                  ></el-date-picker>
+              </el-form-item>
+              <el-form-item label="法定代表人">
+                <el-input v-model="tabData.content.tankerNo"></el-input>
+              </el-form-item>
+              <el-form-item label="注册资本">
+                <el-input v-model="tabData.content.tankerNo"></el-input>
+              </el-form-item>
+              <el-form-item label="营业期限">
+                <el-date-picker
+                  v-model="tabData.content.startDate"
+                  type="date"
+                  ></el-date-picker>
+              </el-form-item>
+              <el-form-item label="企业业务类型">
+                <el-select  v-model="tabData.content.type">
+                  <el-option
+                    v-for="tank in tankerTypes"
+                    :key="tank.seq"
+                    :label="tank.value"
+                    :value="tank.code">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="登记机关">
                 <el-input
-                  v-else-if="key === 'business_range'"
-                  v-model="item.value"
-                  type="textarea"></el-input>
+                  v-model="tabData.content.tankerNo"
+                  ></el-input>
+              </el-form-item>
+              <el-form-item label="紧急联系人">
+                <el-input
+                  v-model="tabData.content.tankerNo"
+                  ></el-input>
+              </el-form-item>
+              <el-form-item label="企业地址">
+                <el-input
+                  v-model="tabData.content.tankerNo"
+                  ></el-input>
+              </el-form-item>
+              <el-form-item label="紧急联系电话">
+                <el-input
+                  v-model="tabData.content.tankerNo"
+                  ></el-input>
+              </el-form-item>
+              <el-form-item label="营业执照经营范围" class="full-width">
+                <el-input
+                  type="textarea"
+                  :rows="8"
+                  placeholder="请输入内容"
+                  v-model="textarea">
+                </el-input>
+              </el-form-item>
+              <el-form-item label="上传企业营业执照" class="full-width">
                 <el-upload
-                  v-else-if="key === 'lisence'"
-                  action="https://up.uploadfiles.io/upload"
-                  list-type="picture-card"
-                  :file-list="lisenceFileList">
-                  <i class="el-icon-plus"></i>
+                  :headers="header"                
+                  action="/v1/files/upload/"
+                  class="license-uploader"
+                  :on-success="onUploadLicenseA">
+                  <img
+                    v-if="tabData.content.certifications.find(_ => _.title === '压力罐容器登记证' && _.type === 'A').path"
+                    :src="tabData.content.certifications.find(_ => _.title === '压力罐容器登记证' && _.type === 'A').path"
+                    class="license">
+                  <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div
                     slot="tip"
-                    class="el-upload__tip"
-                    style="line-height: 14px; margin: 0;">
-                    <i class="el-icon-info"> 彩色扫描件或彩色照片，内容清晰可见。如非三证合一，请另行上传企业组织机构代码证、企业税务登记证</i>
+                    class="el-upload__tip">
+                    <p>管理页</p>
                   </div>
                 </el-upload>
-                <el-input
-                  v-else
-                  v-model="item.value"></el-input>
               </el-form-item>
             </el-form>
           </el-tab-pane>
         </el-tabs>
-
-        <el-tabs v-model="activeTab" type="card">
-          <el-tab-pane
-            v-for="tab in certTabList"
-            :key="tab.name"
-            :name="tab.name">
+        <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
+          <el-tab-pane name="first">
             <span slot="label" class="span-with-svg">
-              <svg-icon :icon-class="tab.icon"></svg-icon>
-              {{tab.label}}
+              <svg-icon icon-class="id-card"></svg-icon>
+              企业道路运输经营许可证
             </span>
-            <el-card
-              v-for="(item, key) in tab.content"
-              :key="key"
-              class="box-card mgb12">
-              <div slot="header" class="clearfix">
-                <span>{{item.name}}</span>
-              </div>
-              <div>
-                <el-row type="flex" justify="space-around">
-                  <el-col :span="16">
-                    <el-form class="readonly-form">
-                      <template v-if="key === 'business_permit'">
-                        <el-form-item label="道路运输经营许可证">
-                          <el-input v-model="item.permit_num"></el-input>
-                        </el-form-item>
-                        <el-form-item label="有效期">
-                          <el-date-picker
-                            v-model="item.validity"
-                            type="date"
-                            value-format="yyyy-MM-dd"></el-date-picker>
-                        </el-form-item>
-                      </template>
-                      <template v-if="key === 'safety_commitment'">
-                        <el-form-item label="要求">
-                          <span class="sub-text">下载→填写→盖公章→彩色件扫描上传</span>
-                        </el-form-item>
-                        <el-form-item label="下载证件">
-                          <el-button type="text" icon="el-icon-tickets">{{item.file_name}}</el-button>
-                        </el-form-item>
-                      </template>
-                    </el-form>
-                  </el-col>
-                  <el-col :span="8">
-                    <div style="width: 200px; height: 180px; border: 1px solid red"></div>
-                  </el-col>
-                </el-row>
-              </div>
-            </el-card>
+             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
+              <el-form-item
+                label="道路运输经营许可证号"
+                >
+                <el-input
+                  v-model="tabData.content.certifications.find(_ => _.title === '压力罐容器登记证' && _.type === 'A').licenseNo"
+                  ></el-input>
+              </el-form-item>
+              <el-form-item
+                label="有效期"
+                >
+                <el-date-picker
+                  v-model="tabData.content.startDate"
+                  type="date"
+                  ></el-date-picker>
+              </el-form-item>
+              <el-form-item label="上传报告" class="full-width">
+                <el-upload
+                  :headers="header"                
+                  action="/v1/files/upload/"
+                  class="license-uploader"
+                  :on-success="onUploadLicenseA">
+                  <img
+                    v-if="tabData.content.certifications.find(_ => _.title === '压力罐容器登记证' && _.type === 'A').path"
+                    :src="tabData.content.certifications.find(_ => _.title === '压力罐容器登记证' && _.type === 'A').path"
+                    class="license">
+                  <i v-else class="el-icon-plus license-uploader-icon"></i>
+                  <div
+                    slot="tip"
+                    class="el-upload__tip">
+                    <p>管理页</p>
+                  </div>
+                </el-upload>
+              </el-form-item>
+             </el-form>
           </el-tab-pane>
         </el-tabs>
+        <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
+          <el-tab-pane name="first">
+            <span slot="label" class="span-with-svg">
+              <svg-icon icon-class="id-card"></svg-icon>
+              企业安全责任承诺书
+            </span>
+             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
+              <el-form-item label="上传报告" class="full-width">
+                <el-upload
+                  :headers="header"                
+                  action="/v1/files/upload/"
+                  class="license-uploader"
+                  :on-success="onUploadLicenseA">
+                  <img
+                    v-if="tabData.content.certifications.find(_ => _.title === '压力罐容器登记证' && _.type === 'A').path"
+                    :src="tabData.content.certifications.find(_ => _.title === '压力罐容器登记证' && _.type === 'A').path"
+                    class="license">
+                  <i v-else class="el-icon-plus license-uploader-icon"></i>
+                  <div
+                    slot="tip"
+                    class="el-upload__tip">
+                    <p>要求：下载->填写->盖公章->彩色件扫描上传</p>
+                    <div><a href="">点击此处下载</a> 道路危险货物运输企业安全承诺书.pdf</div>
+                  </div>
+                </el-upload>
+              </el-form-item>
+             </el-form>
+          </el-tab-pane>
+        </el-tabs>
+        <div class="button_area">
+          <el-button type="primary" @click="onSubmit" v-loading="submitting" icon="el-icon-check">
+            确认{{ isAdd ? '新增' : '修改' }}
+          </el-button>
+          <!-- <el-button type="primary" @click="handleFailed">审核不通过</el-button>          -->
+        </div>
       </el-col>
     </el-row>
   </div>
@@ -133,7 +207,69 @@
 export default {
   data() {
     return {
-      activeTab: 'first'
+      activeTab: 'first',
+      loading: false,
+      submitting: false,
+      tabData: {
+        label: '基本信息',
+        name: 'first',
+        icon: 'id-card',
+        content: {
+          abbrName: '',
+          address: '',
+          businessType: '',
+          businessTerm: '',
+          comment: '',
+          contactMobile: '',
+          contactName: '',
+          createUser: '',
+          enterpriseType: '',
+          fundationDate: '',
+          id: 0,
+          isDeleted: true,
+          legalPerson: '',
+          modifiedUser: '',
+          name: '',
+          operationScope: '',
+          registeredCapital: 0,
+          registrationAuthority: '',
+          registrationNo: '',
+          registrationStatus: 0,
+          status: '',
+          certifications: [{
+            fkTable: 'TAN',
+            title: '罐体检验报告',
+            path: '',
+            type: 'A',
+            restsDate: '',
+            licenseNo: ''
+          }, {
+            fkTable: 'TAN',
+            title: '罐体检验报告',
+            path: '',
+            type: 'B',
+            restsDate: ''
+          }, {
+            fkTable: 'TAN',
+            title: '压力罐容器登记证',
+            path: '',
+            type: 'A',
+            restsDate: ''
+          }, {
+            fkTable: 'TAN',
+            title: '压力罐容器登记证',
+            path: '',
+            type: 'B',
+            restsDate: ''
+          }, {
+            fkTable: 'TAN',
+            title: '压力罐容器登记证',
+            path: '',
+            type: 'C',
+            restsDate: ''
+          }]
+        }
+      }
     }
   },
 
