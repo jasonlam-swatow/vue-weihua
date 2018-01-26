@@ -74,6 +74,9 @@
           </el-table-column>
           <el-table-column prop="contact" label="操作">
             <template slot-scope="scope">
+              <el-tooltip content="查看" placement="top">
+                <el-button type="text" icon="el-icon-view" @click="viewTank(scope.row.id)"></el-button>
+              </el-tooltip>
               <el-tooltip content="编辑" placement="top">
                 <el-button type="text" icon="el-icon-edit-outline" @click="editVehicle(scope.row.plateNo)"></el-button>
               </el-tooltip>
@@ -94,13 +97,164 @@
       :total="total">
     </el-pagination>
   </div>
+      <el-dialog
+      :title="tempVehicleInfo.plateNo"
+      width="50%" top="4vh"
+      :visible.sync="dialogVisible">
+      <el-form
+        :model="tempVehicleInfo"
+        class="view-form"
+        label-width="100px"
+        :inline="true">
+        <el-form-item label="车牌号">{{tempVehicleInfo.plateNo}}</el-form-item>
+        <el-form-item label="车辆类型">
+          {{$_.find(vehicleTypes, ['code', tempVehicleInfo.type]) &&
+            $_.find(vehicleTypes, ['code', tempVehicleInfo.type]).value}}
+        </el-form-item>
+        <el-form-item label="道路运输证号">
+          {{tempVehicleInfo.licenseNo}}
+        </el-form-item>
+        <el-form-item label="车架号">
+          {{tempVehicleInfo.vin}}
+        </el-form-item>
+        <el-form-item label="整备质量">
+          {{tempVehicleInfo.curbWeight}}          
+        </el-form-item>
+         <el-form-item label="核载/准牵引质量">
+          {{tempVehicleInfo.tractionMass}}          
+        </el-form-item>     
+         <el-form-item label="经营类型">
+          {{tempVehicleInfo.businessType}}          
+        </el-form-item>          
+        <el-form-item
+          v-if="$_.find(tempVehicleInfo.certifications, ['title', '车辆道路运输证'])"
+          label="车辆道路运输证"
+          class="full-width">
+          <!-- <el-form-item label="关联挂车号">{{tempVehicleInfo.plateNo}}</el-form-item> -->
+          <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'A' })">
+            <img :src="$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'A' }).path">
+            <figcaption>营运证正本正本正面</figcaption>
+          </figure>
+          <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'B' })">
+            <img :src="$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'B' }).path">
+            <figcaption>代理证正面</figcaption>
+          </figure>
+          <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'C' })">
+            <img :src="$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'C' }).path">
+            <figcaption>代理证反面</figcaption>
+          </figure>
+          <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'D' })">
+            <img :src="$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'D' }).path">
+            <figcaption>等级评定卡（挂车不需要）</figcaption>
+          </figure>
+           <h5 class="sub-title">
+             <span>道路运输证号: {{$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'A' }).licenseNo}}</span>
+             <span>车辆有效期: {{$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'A' }).expireDate}}</span>
+             <span>等级评定有效期: {{$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'A' }).restsDate}}</span>
+            </h5>
+        </el-form-item>
+        <el-form-item
+          v-if="$_.find(tempVehicleInfo.certifications, ['title', '机动车登记证'])"
+          label="机动车登记证"
+          class="full-width">
+          <!-- <el-form-item label="关联挂车号">{{tempVehicleInfo.plateNo}}</el-form-item> -->
+          <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '机动车登记证', type: 'A' })">
+            <img :src="$_.find(tempVehicleInfo.certifications, { title: '机动车登记证', type: 'A' }).path">
+            <figcaption>机动车登记信息证</figcaption>
+          </figure>
+          <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '机动车登记证', type: 'B' })">
+            <img :src="$_.find(tempVehicleInfo.certifications, { title: '机动车登记证', type: 'B' }).path">
+            <figcaption>机动车登记证登记栏（最近一次登记）</figcaption>
+          </figure>
+        </el-form-item>
+        <el-form-item
+          v-if="$_.find(tempVehicleInfo.certifications, ['title', '车辆行驶证'])"
+          label="车辆行驶证"
+          class="full-width">
+          <!-- <el-form-item label="关联挂车号">{{tempVehicleInfo.plateNo}}</el-form-item> -->
+          <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '车辆行驶证', type: 'A' })">
+            <img :src="$_.find(tempVehicleInfo.certifications, { title: '车辆行驶证', type: 'A' }).path">
+            <figcaption>行驶证正本正面</figcaption>
+          </figure>
+          <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '车辆行驶证', type: 'B' })">
+            <img :src="$_.find(tempVehicleInfo.certifications, { title: '车辆行驶证', type: 'B' }).path">
+            <figcaption>行驶证正本反面</figcaption>
+          </figure>
+          <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '车辆行驶证', type: 'C' })">
+            <img :src="$_.find(tempVehicleInfo.certifications, { title: '车辆行驶证', type: 'C' }).path">
+            <figcaption>行驶证副本正面</figcaption>
+          </figure>
+          <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '车辆行驶证', type: 'D' })">
+            <img :src="$_.find(tempVehicleInfo.certifications, { title: '车辆行驶证', type: 'D' }).path">
+            <figcaption>行驶证副本反面</figcaption>
+          </figure>
+           <h5 class="sub-title">
+             <span>检测有效期: {{$_.find(tempVehicleInfo.certifications, { title: '车辆行驶证', type: 'A' }).expireDate}}</span>
+            </h5>
+        </el-form-item>
+        <el-form-item
+          v-if="$_.find(tempVehicleInfo.certifications, ['title', '卫星定位终端安装证书'])"
+          label="卫星定位终端安装证书"
+          class="full-width">
+          <!-- <el-form-item label="关联挂车号">{{tempVehicleInfo.plateNo}}</el-form-item> -->
+          <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '卫星定位终端安装证书', type: 'A' })">
+            <img :src="$_.find(tempVehicleInfo.certifications, { title: '卫星定位终端安装证书', type: 'A' }).path">
+            <figcaption>卫星定位终端安装证书</figcaption>
+          </figure>
+           <h5 class="sub-title">
+             <span>从业资格证号: {{$_.find(tempVehicleInfo.certifications, { title: '卫星定位终端安装证书', type: 'A' }).licenseNo}}</span>
+             <span>有效期截止日期: {{$_.find(tempVehicleInfo.certifications, { title: '卫星定位终端安装证书', type: 'A' }).restsDate}}</span>             
+            </h5>
+        </el-form-item>
+        <el-form-item
+          v-if="$_.find(tempVehicleInfo.certifications, ['title', '道路危险货物承运人责任保险单'])"
+          label="道路危险货物承运人责任保险单"
+          class="full-width">
+          <!-- <el-form-item label="关联挂车号">{{tempVehicleInfo.plateNo}}</el-form-item> -->
+          <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '道路危险货物承运人责任保险单', type: 'A' })">
+            <img :src="$_.find(tempVehicleInfo.certifications, { title: '道路危险货物承运人责任保险单', type: 'A' }).path">
+            <figcaption>道路危险货物承运人责任保险单</figcaption>
+          </figure>
+          <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '道路危险货物承运人责任保险单', type: 'B' })">
+            <img :src="$_.find(tempVehicleInfo.certifications, { title: '道路危险货物承运人责任保险单', type: 'B' }).path">
+            <figcaption>道路危险货物承运人责任保险单（附</figcaption>
+          </figure>
+           <h5 class="sub-title">
+             <span>保险有效期: {{$_.find(tempVehicleInfo.certifications, { title: '道路危险货物承运人责任保险单', type: 'A' }).expireDate}}</span>
+            </h5>
+        </el-form-item>
+        <el-form-item
+          v-if="$_.find(tempVehicleInfo.certifications, ['title', '车辆安全设备配备照'])"
+          label="车辆安全设备配备照"
+          class="full-width">
+          <!-- <el-form-item label="关联挂车号">{{tempVehicleInfo.plateNo}}</el-form-item> -->
+          <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '车辆安全设备配备照', type: 'A' })">
+            <img :src="$_.find(tempVehicleInfo.certifications, { title: '车辆安全设备配备照', type: 'A' }).path">
+            <figcaption>车辆安全设备配备照片</figcaption>
+          </figure>
+          <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '车辆安全设备配备照', type: 'B' })">
+            <img :src="$_.find(tempVehicleInfo.certifications, { title: '车辆安全设备配备照', type: 'B' }).path">
+            <figcaption>车辆安全设备配备照片</figcaption>
+          </figure>
+          <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '车辆安全设备配备照', type: 'C' })">
+            <img :src="$_.find(tempVehicleInfo.certifications, { title: '车辆安全设备配备照', type: 'C' }).path">
+            <figcaption>车辆安全设备配备照片</figcaption>
+          </figure>
+          <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '车辆安全设备配备照', type: 'D' })">
+            <img :src="$_.find(tempVehicleInfo.certifications, { title: '车辆安全设备配备照', type: 'D' }).path">
+            <figcaption>车辆安全设备配备照片</figcaption>
+          </figure>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
 import {
   getVehicleList,
-  deleteVehicle
+  deleteVehicle,
+  getTrailerInfo
 } from '@/api/business/vehicles'
 import omitBy from 'lodash/omitBy'
 import isEmpty from 'lodash/isEmpty'
@@ -109,6 +263,8 @@ import isEmpty from 'lodash/isEmpty'
 export default {
   data() {
     return {
+      dialogVisible: false,
+      tempVehicleInfo: {},
       vehicleList: [],
       currentPage: 1,
       total: 0,
@@ -186,6 +342,12 @@ export default {
         this.vehicleList = res.data.list
         this.total = res.data.total
         this.loading = false
+      })
+    },
+    viewTank(id) {
+      this.dialogVisible = true
+      getTrailerInfo(id).then(res => {
+        this.tempVehicleInfo = res.data
       })
     }
   }

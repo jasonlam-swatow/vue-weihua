@@ -30,3 +30,10 @@ export function editEnterprise(id, data) {
     data: data
   })
 }
+
+export function getEnterpriseInfo(id) {
+  return request({
+    url: `/v1/enterprise/${id}`,
+    method: 'get'
+  })
+}

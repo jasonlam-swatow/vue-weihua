@@ -72,6 +72,9 @@
           </el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
+              <el-tooltip content="查看" placement="top">
+                <el-button type="text" icon="el-icon-view" @click="viewTank(scope.row.id)"></el-button>
+              </el-tooltip>
               <el-tooltip content="编辑" placement="top">
                 <el-button type="text" icon="el-icon-edit-outline" @click="editTank(scope.row.id)"></el-button>
               </el-tooltip>
@@ -92,15 +95,77 @@
       :total="total">
     </el-pagination>
   </div>
+
+    <el-dialog
+      :title="tempTankInfo.name"
+      width="50%" top="4vh"
+      :visible.sync="dialogVisible">
+      <el-form
+        :model="tempTankInfo"
+        class="view-form"
+        label-width="100px"
+        :inline="true">
+        <el-form-item label="罐体编号">{{tempTankInfo.tankerNo}}</el-form-item>
+        <el-form-item label="罐体类型">
+          {{$_.find(tankerTypes, ['code', tempTankInfo.type]) &&
+            $_.find(tankerTypes, ['code', tempTankInfo.type]).value}}
+        </el-form-item>
+        <el-form-item label="容积">
+          {{tempTankInfo.volume}}
+        </el-form-item>
+        <el-form-item label="投运日期">{{tempTankInfo.startDate/1000 | moment('YYYY/MM/DD')}}</el-form-item>
+        <el-form-item label="关联挂车号">{{tempTankInfo.plateNo}}</el-form-item>
+        <el-form-item
+          v-if="$_.find(tempTankInfo.certifications, ['title', '罐体检验报告'])"
+          label="罐体校验报告"
+          class="full-width">
+          <!-- <el-form-item label="关联挂车号">{{tempTankInfo.plateNo}}</el-form-item> -->
+          <figure v-if="$_.find(tempTankInfo.certifications, { title: '罐体检验报告', type: 'A' })">
+            <img :src="$_.find(tempTankInfo.certifications, { title: '罐体检验报告', type: 'A' }).path">
+            <figcaption>检验报告封面页</figcaption>
+          </figure>
+          <figure v-if="$_.find(tempTankInfo.certifications, { title: '罐体检验报告', type: 'B' })">
+            <img :src="$_.find(tempTankInfo.certifications, { title: '罐体检验报告', type: 'B' }).path">
+            <figcaption>检验报告细节液</figcaption>
+          </figure>
+           <h5 class="sub-title">
+             <span>报告编号：{{$_.find(tempTankInfo.certifications, { title: '罐体检验报告', type: 'A' }).licenseNo}}</span>
+             <span>下次检验日期：{{$_.find(tempTankInfo.certifications, { title: '罐体检验报告', type: 'A' }).restsDate}}</span>
+            </h5>
+        </el-form-item>
+        <el-form-item
+          v-if="$_.find(tempTankInfo.certifications, ['title', '压力罐容器登记证'])"
+          label="压力罐容器登记证（压力罐容器必须）"
+          class="full-width">
+          <!-- <el-form-item label="关联挂车号">{{tempTankInfo.plateNo}}</el-form-item> -->
+          <figure v-if="$_.find(tempTankInfo.certifications, { title: '压力罐容器登记证', type: 'A' })">
+            <img :src="$_.find(tempTankInfo.certifications, { title: '压力罐容器登记证', type: 'A' }).path">
+            <figcaption>管理页</figcaption>
+          </figure>
+          <figure v-if="$_.find(tempTankInfo.certifications, { title: '压力罐容器登记证', type: 'B' })">
+            <img :src="$_.find(tempTankInfo.certifications, { title: '压力罐容器登记证', type: 'B' }).path">
+            <figcaption>检验页</figcaption>
+          </figure>
+          <figure v-if="$_.find(tempTankInfo.certifications, { title: '压力罐容器登记证', type: 'C' })">
+            <img :src="$_.find(tempTankInfo.certifications, { title: '压力罐容器登记证', type: 'C' }).path">
+            <figcaption>特性页</figcaption>
+          </figure>
+           <h5 class="sub-title">
+             <span>使用登记证编号: {{$_.find(tempTankInfo.certifications, { title: '压力罐容器登记证', type: 'A' }).licenseNo}}</span>
+             <span>下次检验日期：{{$_.find(tempTankInfo.certifications, { title: '压力罐容器登记证', type: 'A' }).restsDate}}</span>
+            </h5>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 <script>
 import {
   getTankList,
-  deleteTank
+  deleteTank,
+  getTankInfo
 } from '@/api/business/tanks'
 import mappingCertifications from '@/mixins/_mappingCertifications'
-
 import omitBy from 'lodash/omitBy'
 import isEmpty from 'lodash/isEmpty'
 import { mapGetters } from 'vuex'
@@ -109,6 +174,8 @@ export default {
   mixins: [mappingCertifications],
   data() {
     return {
+      dialogVisible: false,
+      tempTankInfo: {},
       searchQueries: {
         type: '',
         tankerNo: ''
@@ -184,6 +251,12 @@ export default {
         this.tankList = res.data.list
         this.total = res.data.total
         this.loading = false
+      })
+    },
+    viewTank(id) {
+      this.dialogVisible = true
+      getTankInfo(id).then(res => {
+        this.tempTankInfo = res.data
       })
     }
   }

@@ -2,7 +2,7 @@ import mapValues from 'lodash/mapValues'
 import intersection from 'lodash/intersection'
 import values from 'lodash/values'
 import flattenDeep from 'lodash/flattenDeep'
-
+// intersection 返回交集
 export default {
   methods: {
     shortenCertifications(certifications, certMap) {
@@ -11,6 +11,7 @@ export default {
         return intersection(cert, certNames)
       })
     },
+    // 枚举属性的一维数组
     flattenCertifications(shortenedCertifications) {
       return flattenDeep(values(shortenedCertifications))
     }

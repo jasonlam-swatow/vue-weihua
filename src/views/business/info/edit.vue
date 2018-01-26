@@ -241,7 +241,7 @@ export default {
           registrationAuthority: '',
           registrationNo: '',
           registrationStatus: 0,
-          status: '',
+          status: ''
           // certifications: [{
           //   fkTable: 'TAN',
           //   title: '罐体检验报告',
@@ -276,15 +276,6 @@ export default {
           // }]
         }
       }
-    }
-  },
-
-  created() {
-    if (this.$store.getters.basicInfo === null) {
-      this.$store.dispatch('GetBasicInfo')
-    }
-    if (this.$store.getters.certInfo === null) {
-      this.$store.dispatch('GetCertInfo')
     }
   },
   created() {

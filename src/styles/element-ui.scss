@@ -116,6 +116,10 @@
         width: 100px;
       }
     }
+    h5.sub-title {
+      margin: 0;
+      color: map-get($palette, sub)
+    }
     figure {
       display: inline-block;
       margin: 0 12px 0 0;
