@@ -11,54 +11,30 @@
               {{tabData.label}}
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
-              <el-form-item
-                label="姓名"
-                >
-                <el-input
-                  v-model="tabData.content.name"
-                  ></el-input>
+              <el-form-item label="姓名">
+                <el-input v-model="tabData.content.name"></el-input>
               </el-form-item>
-              <el-form-item
-                label="性别"
-                >
-                <el-radio-group
-                  v-model="tabData.content.gender"
-                  >
+              <el-form-item label="性别">
+                <el-radio-group v-model="tabData.content.gender">
                   <el-radio label="MALE">男</el-radio>
                   <el-radio label="FEMALE">女</el-radio>
-                  </el-radio-group>
+                </el-radio-group>
               </el-form-item>
-              <el-form-item
-                label="主要岗位"
-                >
-                <el-select
-                  v-model="tabData.content.position">
-                    <el-option label="驾驶员" value="PILOT"></el-option>
-                    <el-option label="押运员" value="ESCORT"></el-option>
-                    <el-option label="驾驶员/押运员" value="BOTH"></el-option>
+              <el-form-item label="主要岗位">
+                <el-select v-model="tabData.content.position">
+                  <el-option label="驾驶员" value="PILOT"></el-option>
+                  <el-option label="押运员" value="ESCORT"></el-option>
+                  <el-option label="驾驶员/押运员" value="BOTH"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item
-                label="入职时间"
-                >
-                <el-date-picker
-                  v-model="tabData.content.entryDate"
-                  type="date"
-                  ></el-date-picker>
+              <el-form-item label="入职时间">
+                <el-date-picker v-model="tabData.content.entryDate" type="date"></el-date-picker>
               </el-form-item>
-              <el-form-item
-                label="联系电话"
-                >
-                <el-input
-                  v-model="tabData.content.phone"
-                  ></el-input>
+              <el-form-item label="联系电话">
+                <el-input v-model="tabData.content.phone"></el-input>
               </el-form-item>
-              <el-form-item
-                label="身份证号码"
-                >
-                <el-input
-                  v-model="tabData.content.idCard"
-                  ></el-input>
+              <el-form-item label="身份证号码">
+                <el-input v-model="tabData.content.idCard"></el-input>
               </el-form-item>
             </el-form>
           </el-tab-pane>
@@ -73,10 +49,7 @@
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="有效期" class="full-width">
-                <el-date-picker
-                  v-model="tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'A').expireDate"
-                  type="date"
-                  ></el-date-picker>
+                <el-date-picker v-model="tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'A').expireDate" type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="上传身分证" class="full-width">
                 <el-upload
@@ -89,9 +62,7 @@
                     :src="tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'A').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
-                  <div
-                    slot="tip"
-                    class="el-upload__tip">
+                  <div slot="tip" class="el-upload__tip">
                     <p>正面</p>
                   </div>
                 </el-upload>
@@ -105,9 +76,7 @@
                     :src="tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'B').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
-                  <div
-                    slot="tip"
-                    class="el-upload__tip">
+                  <div slot="tip" class="el-upload__tip">
                     <p>反面</p>
                   </div>
                 </el-upload>
@@ -125,10 +94,7 @@
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="有效期" class="full-width">
-                <el-date-picker
-                  v-model="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'A').expireDate"
-                  type="date"
-                  ></el-date-picker>
+                <el-date-picker v-model="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'A').expireDate" type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="上传劳动合同" class="full-width">
                 <el-upload
@@ -141,9 +107,7 @@
                     :src="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'A').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
-                  <div
-                    slot="tip"
-                    class="el-upload__tip">
+                  <div slot="tip" class="el-upload__tip">
                     <p>封面，含甲乙方名称</p>
                   </div>
                 </el-upload>
@@ -157,9 +121,7 @@
                     :src="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'B').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
-                  <div
-                    slot="tip"
-                    class="el-upload__tip">
+                  <div slot="tip" class="el-upload__tip">
                     <p>内页，含劳动合约时间页</p>
                   </div>
                 </el-upload>
@@ -173,9 +135,7 @@
                     :src="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'C').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
-                  <div
-                    slot="tip"
-                    class="el-upload__tip">
+                  <div slot="tip" class="el-upload__tip">
                     <p>内页，含甲乙方签字</p>
                   </div>
                 </el-upload>
@@ -193,10 +153,7 @@
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="有效期" class="full-width">
-                <el-date-picker
-                  v-model="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'A').expireDate"
-                  type="date"
-                  ></el-date-picker>
+                <el-date-picker v-model="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'A').expireDate" type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="上传驾驶证" class="full-width">
                 <el-upload
@@ -209,9 +166,7 @@
                     :src="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'A').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
-                  <div
-                    slot="tip"
-                    class="el-upload__tip">
+                  <div slot="tip" class="el-upload__tip">
                     <p>正本正面</p>
                   </div>
                 </el-upload>
@@ -225,9 +180,7 @@
                     :src="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'B').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
-                  <div
-                    slot="tip"
-                    class="el-upload__tip">
+                  <div slot="tip" class="el-upload__tip">
                     <p>正本反面</p>
                   </div>
                 </el-upload>
@@ -241,9 +194,7 @@
                     :src="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'C').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
-                  <div
-                    slot="tip"
-                    class="el-upload__tip">
+                  <div slot="tip" class="el-upload__tip">
                     <p>副本正面</p>
                   </div>
                 </el-upload>
@@ -257,9 +208,7 @@
                     :src="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'D').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
-                  <div
-                    slot="tip"
-                    class="el-upload__tip">
+                  <div slot="tip" class="el-upload__tip">
                     <p>副本反面</p>
                   </div>
                 </el-upload>
@@ -277,10 +226,7 @@
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="有效期" class="full-width">
-                <el-date-picker
-                  v-model="tabData.content.certifications.find(_ => _.title === '驾驶员从业资格证').expireDate"
-                  type="date"
-                  ></el-date-picker>
+                <el-date-picker v-model="tabData.content.certifications.find(_ => _.title === '驾驶员从业资格证').expireDate" type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="上传驾驶员从业资格证" class="full-width">
                 <el-upload
@@ -293,9 +239,7 @@
                     :src="tabData.content.certifications.find(_ => _.title === '驾驶员从业资格证').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
-                  <div
-                    slot="tip"
-                    class="el-upload__tip">
+                  <div slot="tip" class="el-upload__tip">
                     <p>基本信息页</p>
                   </div>
                 </el-upload>
@@ -313,10 +257,7 @@
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="有效期" class="full-width">
-                <el-date-picker
-                  v-model="tabData.content.certifications.find(_ => _.title === '押运员从业资格证').expireDate"
-                  type="date"
-                  ></el-date-picker>
+                <el-date-picker v-model="tabData.content.certifications.find(_ => _.title === '押运员从业资格证').expireDate" type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="上传押运员从业资格证" class="full-width">
                 <el-upload
@@ -329,9 +270,7 @@
                     :src="tabData.content.certifications.find(_ => _.title === '押运员从业资格证').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
-                  <div
-                    slot="tip"
-                    class="el-upload__tip">
+                  <div slot="tip" class="el-upload__tip">
                     <p>基本信息页</p>
                   </div>
                 </el-upload>
@@ -348,10 +287,7 @@
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="有效期" class="full-width">
-                <el-date-picker
-                  v-model="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'A').expireDate"
-                  type="date"
-                  ></el-date-picker>
+                <el-date-picker v-model="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'A').expireDate" type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="上传安全责任状" class="full-width">
                 <el-upload
@@ -364,9 +300,7 @@
                     :src="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'A').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
-                  <div
-                    slot="tip"
-                    class="el-upload__tip">
+                  <div slot="tip" class="el-upload__tip">
                     <p>含甲乙方名称页</p>
                   </div>
                 </el-upload>
@@ -380,9 +314,7 @@
                     :src="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'B').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
-                  <div
-                    slot="tip"
-                    class="el-upload__tip">
+                  <div slot="tip" class="el-upload__tip">
                     <p>含甲乙方签章页</p>
                   </div>
                 </el-upload>
