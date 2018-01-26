@@ -7,6 +7,20 @@ const dict = {
     statusTypes: [],
     positionTypes: [],
     tankerTypes: [],
+    enterpriseStatusTypes: [
+      { code: 'PERSISTANT', value: '存续' },
+      { code: 'CANCELED', value: '注销' },
+      { code: 'EMIGRATION', value: '迁出' }
+    ],
+    enterpriseTypes: [
+      { code: 'A', value: '一人责任有限公司（自然人独资）' },
+      { code: 'B', value: '有限公司' }
+    ],
+    businessTypes: [
+      { code: 'TRANSPORT', value: '运输企业' },
+      { code: 'PRODUCTION', value: '生产企业' },
+      { code: 'STORAGE', value: '仓储企业' }
+    ],
     genderTypes: [
       { code: 'FEMALE', value: '女' },
       { code: 'MALE', value: '男' }

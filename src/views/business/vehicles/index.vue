@@ -158,7 +158,7 @@ export default {
       this.$router.push('/business/vehicles/add')
     },
     editVehicle(id) {
-      this.$router.push({ path: '/business//edit', query: { id }})
+      this.$router.push({ path: '/business/vehicles/edit', query: { id }})
     },
     deleteVehicle(id) {
       this.$confirm('此操作将永久删除该车辆，是否继续？', '提示', {

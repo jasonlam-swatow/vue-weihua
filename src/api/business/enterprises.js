@@ -14,3 +14,19 @@ export function deleteEnterprise(id) {
     method: 'delete'
   })
 }
+
+export function createEnterprise(data) {
+  return request({
+    url: '/v1/enterprises/',
+    method: 'post',
+    data: data
+  })
+}
+
+export function editEnterprise(id, data) {
+  return request({
+    url: `/v1/enterprise/${id}`,
+    method: 'put',
+    data: data
+  })
+}

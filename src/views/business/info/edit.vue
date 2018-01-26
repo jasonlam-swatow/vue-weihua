@@ -17,89 +17,92 @@
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="企业名称" class="full-width">
-                <el-input v-model="companyName" disabled></el-input>
+                <el-input v-model="tabData.content.abbrName" disabled></el-input>
                 <span class="sub-text input-warning"><i class="el-icon-info"></i> 不可修改，如需修改，请联系平台客服人员！</span>
               </el-form-item>
               <el-form-item label="统一社会信用代码">
-                <el-input v-model="tabData.content.tankerNo"></el-input>
+                <el-input v-model="tabData.content.registrationNo"></el-input>
               </el-form-item>
               <el-form-item label="经营状态">
-                <el-select  v-model="tabData.content.type">
+                <el-select  v-model="tabData.content.status">
                   <el-option
-                    v-for="tank in tankerTypes"
-                    :key="tank.seq"
-                    :label="tank.value"
-                    :value="tank.code">
+                    v-for="status in enterpriseStatusTypes"
+                    :key="status.code"
+                    :label="status.value"
+                    :value="status.code">
                   </el-option>
                 </el-select>
               </el-form-item>
                <el-form-item label="公司类型">
-                <el-select  v-model="tabData.content.type">
+                <el-select  v-model="tabData.content.enterpriseType">
                   <el-option
-                    v-for="tank in tankerTypes"
-                    :key="tank.seq"
-                    :label="tank.value"
-                    :value="tank.code">
+                    v-for="etype in enterpriseTypes"
+                    :key="etype.code"
+                    :label="etype.value"
+                    :value="etype.code">
                   </el-option>
                 </el-select>
               </el-form-item>
                <el-form-item label="成立日期">
                 <el-date-picker
-                  v-model="tabData.content.startDate"
+                  v-model="tabData.content.fundationDate"
                   type="date"
                   ></el-date-picker>
               </el-form-item>
               <el-form-item label="法定代表人">
-                <el-input v-model="tabData.content.tankerNo"></el-input>
+                <el-input v-model="tabData.content.legalPerson"></el-input>
               </el-form-item>
               <el-form-item label="注册资本">
-                <el-input v-model="tabData.content.tankerNo"></el-input>
+                <el-input v-model="tabData.content.registeredCapital"></el-input>
               </el-form-item>
-              <el-form-item label="营业期限">
+              <!-- <el-form-item label="营业期限">
                 <el-date-picker
                   v-model="tabData.content.startDate"
                   type="date"
                   ></el-date-picker>
-              </el-form-item>
+              </el-form-item> -->
               <el-form-item label="企业业务类型">
-                <el-select  v-model="tabData.content.type">
+                <el-select  v-model="tabData.content.businessType">
                   <el-option
-                    v-for="tank in tankerTypes"
-                    :key="tank.seq"
-                    :label="tank.value"
-                    :value="tank.code">
+                    v-for="btype in businessTypes"
+                    :key="btype.code"
+                    :label="btype.value"
+                    :value="btype.code">
                   </el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="登记机关">
+              <!-- <el-form-item label="登记机关">
                 <el-input
                   v-model="tabData.content.tankerNo"
                   ></el-input>
-              </el-form-item>
+              </el-form-item> -->
               <el-form-item label="紧急联系人">
                 <el-input
-                  v-model="tabData.content.tankerNo"
+                  v-model="tabData.content.contactName"
                   ></el-input>
               </el-form-item>
               <el-form-item label="企业地址">
                 <el-input
-                  v-model="tabData.content.tankerNo"
+                  v-model="tabData.content.address"
                   ></el-input>
               </el-form-item>
               <el-form-item label="紧急联系电话">
                 <el-input
-                  v-model="tabData.content.tankerNo"
+                  v-model="tabData.content.contactMobile"
                   ></el-input>
               </el-form-item>
-              <el-form-item label="营业执照经营范围" class="full-width">
-                <el-input
-                  type="textarea"
-                  :rows="8"
-                  placeholder="请输入内容"
-                  v-model="textarea">
-                </el-input>
+              <el-form-item label="经营类型" class="full-width">
+                <div style="max-height: 280px; overflow: scroll; border: 1px solid #eee; padding-top: 12px;">
+                  <el-tree
+                    :data="vehicleBusinessTypes"
+                    show-checkbox
+                    node-key="id"
+                    @check-change="onTreeCheck"
+                    :default-expand-all="true"
+                    :default-expanded-checked-keys="tabData.content.businessTerm"></el-tree>
+                </div>
               </el-form-item>
-              <el-form-item label="上传企业营业执照" class="full-width">
+              <!-- <el-form-item label="上传企业营业执照" class="full-width">
                 <el-upload
                   :headers="header"                
                   action="/v1/files/upload/"
@@ -116,11 +119,11 @@
                     <p>管理页</p>
                   </div>
                 </el-upload>
-              </el-form-item>
+              </el-form-item> -->
             </el-form>
           </el-tab-pane>
         </el-tabs>
-        <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
+        <!-- <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
           <el-tab-pane name="first">
             <span slot="label" class="span-with-svg">
               <svg-icon icon-class="id-card"></svg-icon>
@@ -191,7 +194,7 @@
               </el-form-item>
              </el-form>
           </el-tab-pane>
-        </el-tabs>
+        </el-tabs> -->
         <div class="button_area">
           <el-button type="primary" @click="onSubmit" v-loading="submitting" icon="el-icon-check">
             确认{{ isAdd ? '新增' : '修改' }}
@@ -204,6 +207,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import { getEnterpriseInfo, createEnterprise, editEnterprise } from '@/api/business/enterprises'
+import remove from 'lodash/remove'
 export default {
   data() {
     return {
@@ -236,38 +242,38 @@ export default {
           registrationNo: '',
           registrationStatus: 0,
           status: '',
-          certifications: [{
-            fkTable: 'TAN',
-            title: '罐体检验报告',
-            path: '',
-            type: 'A',
-            restsDate: '',
-            licenseNo: ''
-          }, {
-            fkTable: 'TAN',
-            title: '罐体检验报告',
-            path: '',
-            type: 'B',
-            restsDate: ''
-          }, {
-            fkTable: 'TAN',
-            title: '压力罐容器登记证',
-            path: '',
-            type: 'A',
-            restsDate: ''
-          }, {
-            fkTable: 'TAN',
-            title: '压力罐容器登记证',
-            path: '',
-            type: 'B',
-            restsDate: ''
-          }, {
-            fkTable: 'TAN',
-            title: '压力罐容器登记证',
-            path: '',
-            type: 'C',
-            restsDate: ''
-          }]
+          // certifications: [{
+          //   fkTable: 'TAN',
+          //   title: '罐体检验报告',
+          //   path: '',
+          //   type: 'A',
+          //   restsDate: '',
+          //   licenseNo: ''
+          // }, {
+          //   fkTable: 'TAN',
+          //   title: '罐体检验报告',
+          //   path: '',
+          //   type: 'B',
+          //   restsDate: ''
+          // }, {
+          //   fkTable: 'TAN',
+          //   title: '压力罐容器登记证',
+          //   path: '',
+          //   type: 'A',
+          //   restsDate: ''
+          // }, {
+          //   fkTable: 'TAN',
+          //   title: '压力罐容器登记证',
+          //   path: '',
+          //   type: 'B',
+          //   restsDate: ''
+          // }, {
+          //   fkTable: 'TAN',
+          //   title: '压力罐容器登记证',
+          //   path: '',
+          //   type: 'C',
+          //   restsDate: ''
+          // }]
         }
       }
     }
@@ -281,37 +287,59 @@ export default {
       this.$store.dispatch('GetCertInfo')
     }
   },
-
+  created() {
+    if (!this.isAdd) this.fetchData()
+  },
   computed: {
-    companyName() {
-      return this.$store.getters.basicInfo
-        ? this.$store.getters.basicInfo.name
-        : ''
+    ...mapGetters([
+      'vehicleBusinessTypes', 'enterpriseStatusTypes', 'enterpriseTypes', 'businessTypes'
+    ]),
+    isAdd() {
+      return this.$route.path.indexOf('add') >= 0
     },
-    basicTabList() {
-      const info = this.$store.getters.basicInfo
-        ? this.$store.getters.basicInfo.info : null
-      return [{
-        label: '基本信息',
-        name: 'first',
-        icon: 'id-card',
-        content: info
-      }]
+    header() {
+      return { 'Authorization': `Bearer ${this.token}` }
+    }
+  },
+  methods: {
+    onTreeCheck(data, checked, interminate) {
+      console.log(data, checked, interminate)
+      if (!checked) {
+        remove(this.tabData.content.businessType, (t) => t === data.id)
+      } else {
+        this.tabData.content.businessType.push(data.id)
+      }
     },
-    lisenceFileList() {
-      return this.$store.getters.basicInfo
-        ? this.$store.getters.basicInfo.info.lisence.value : []
+    fetchData() {
+      const { plateNo } = this.$route.query
+      this.loading = true
+      getEnterpriseInfo(plateNo).then(res => {
+        this.tabData.content = res.data
+        this.loading = false
+      })
     },
-    certTabList() {
-      const { certInfo } = this.$store.getters
-      return [{
-        name: 'first',
-        label: '其他认证信息',
-        icon: 'approve',
-        content: certInfo
-      }]
+    onSubmit() {
+      this.submitting = true
+      const { content } = this.tabData
+      if (this.isAdd) {
+        createEnterprise(content).then(res => {
+          this.$message.success('已新增！')
+          _afterSubmit()
+        })
+      } else {
+        editEnterprise(this.$route.query.plateNo, { ...this.tabData.content }).then(res => {
+          this.$message.success('已修改！')
+          _afterSubmit()
+        })
+      }
+      const _this = this
+      function _afterSubmit() {
+        _this.submitting = false
+        _this.$router.push('/business/')
+      }
     }
   }
+
 }
 </script>
 

@@ -14,6 +14,9 @@ const getters = {
   statusTypes: state => state.dict.statusTypes,
   positionTypes: state => state.dict.positionTypes,
   tankerTypes: state => state.dict.tankerTypes,
-  genderTypes: state => state.dict.genderTypes
+  genderTypes: state => state.dict.genderTypes,
+  enterpriseStatusTypes: state => state.dict.enterpriseStatusTypes,
+  enterpriseTypes: state => state.dict.enterpriseTypes,
+  businessTypes: state => state.dict.businessTypes
 }
 export default getters
