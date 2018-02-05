@@ -18,7 +18,7 @@
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="企业名称" class="full-width">
-                <el-input v-model="tabData.content.abbrName" :disabled="!isAdd"></el-input>
+                <el-input v-model="tabData.content.name" :disabled="!isAdd"></el-input>
                 <span class="sub-text input-warning" v-if="!isAdd"><i class="el-icon-info"></i> 不可修改，如需修改，请联系平台客服人员！</span>
               </el-form-item>
               <el-form-item label="统一社会信用代码">
@@ -55,6 +55,15 @@
               </el-form-item>
               <el-form-item label="注册资本">
                 <el-input v-model="tabData.content.registeredCapital"></el-input>
+              </el-form-item>
+              <el-form-item label="注册地">
+                <el-input v-model="tabData.content.registrationAuthority"></el-input>
+              </el-form-item>
+              <el-form-item label="注册状态">
+                <el-input v-model="tabData.content.registrationStatus"></el-input>
+              </el-form-item>
+              <el-form-item label="操作范围" >
+                <el-input v-model="tabData.content.operationScope" ></el-input>
               </el-form-item>
               <el-form-item label="企业业务类型">
                 <el-select  v-model="tabData.content.businessType">
@@ -163,7 +172,7 @@
                 label="有效期"
                 >
                 <el-date-picker
-                  v-model="tabData.content.startDate"
+                  v-model="tabData.content.certifications.find(_ => _.title === '企业道路运输经营许可证' && _.type === 'A').expireDate"
                   type="date"
                   ></el-date-picker>
               </el-form-item>
@@ -246,23 +255,23 @@ export default {
           abbrName: '',
           address: '',
           businessTerm: [],
-          businessType: [],
+          businessType: '',
           comment: '',
           contactMobile: '',
           contactName: '',
-          createUser: '',
+          // createUser: '',
           enterpriseType: '',
           fundationDate: '',
-          id: 0,
-          isDeleted: true,
+          // id: 0,
+          // isDeleted: true,
           legalPerson: '',
-          modifiedUser: '',
+          // modifiedUser: '',
           name: '',
-          operationScope: '',
+          operationScope: '123',
           registeredCapital: 0,
           registrationAuthority: '',
           registrationNo: '',
-          registrationStatus: 0,
+          registrationStatus: '1',
           status: '',
           certifications: [{
             fkTable: 'INF',
@@ -270,7 +279,8 @@ export default {
             path: '',
             type: 'A',
             restsDate: '',
-            licenseNo: ''
+            licenseNo: '',
+            expireDate: ''
           }, {
             fkTable: 'INF',
             title: '企业营业执照',
@@ -288,7 +298,8 @@ export default {
             title: '企业道路运输经营许可证',
             path: '',
             type: 'A',
-            restsDate: ''
+            restsDate: '',
+            expireDate: ''
           }, {
             fkTable: 'INF',
             title: '企业安全责任承诺书',
