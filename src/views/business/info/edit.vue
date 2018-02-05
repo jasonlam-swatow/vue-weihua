@@ -24,8 +24,8 @@
               <el-form-item label="统一社会信用代码">
                 <el-input v-model="tabData.content.registrationNo"></el-input>
               </el-form-item>
-              <el-form-item label="经营状态">
-                <el-select  v-model="tabData.content.status">
+              <el-form-item label="注册状态">
+                <el-select  v-model="tabData.content.registrationStatus">
                   <el-option
                     v-for="status in enterpriseStatusTypes"
                     :key="status.code"
@@ -59,8 +59,15 @@
               <el-form-item label="注册地">
                 <el-input v-model="tabData.content.registrationAuthority"></el-input>
               </el-form-item>
-              <el-form-item label="注册状态">
-                <el-input v-model="tabData.content.registrationStatus"></el-input>
+              <el-form-item label="经营状态">
+                <el-select  v-model="tabData.content.status">
+                  <el-option
+                    v-for="status in enterpriseStatusTypes"
+                    :key="status.code"
+                    :label="status.value"
+                    :value="status.code">
+                  </el-option>
+                </el-select>
               </el-form-item>
               <el-form-item label="操作范围" >
                 <el-input v-model="tabData.content.operationScope" ></el-input>
