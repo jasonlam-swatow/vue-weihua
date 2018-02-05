@@ -251,7 +251,7 @@
                   <div
                     slot="tip"
                     class="el-upload__tip">
-                    <p>行驶证正本反面</p>
+                    <p>行驶证副本正面</p>
                   </div>
                 </el-upload>
                 <el-upload

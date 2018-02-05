@@ -25,7 +25,7 @@ export function createEnterprise(data) {
 
 export function editEnterprise(id, data) {
   return request({
-    url: `/v1/enterprise/${id}`,
+    url: `/v1/enterprises/${id}`,
     method: 'put',
     data: data
   })
@@ -33,7 +33,7 @@ export function editEnterprise(id, data) {
 
 export function getEnterpriseInfo(id) {
   return request({
-    url: `/v1/enterprise/${id}`,
+    url: `/v1/enterprises/${id}`,
     method: 'get'
   })
 }
