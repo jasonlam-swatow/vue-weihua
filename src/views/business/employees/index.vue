@@ -135,15 +135,15 @@
             $_.find(statusTypes, ['code', tempEmployeeInfo.status]).value}}
         </el-form-item>
         <el-form-item
-          v-if="$_.find(tempEmployeeInfo.certifications, ['title', '身分证'])"
-          label="身分证"
+          v-if="$_.find(tempEmployeeInfo.certifications, ['title', '身份证'])"
+          label="身份证"
           class="full-width">
-          <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '身分证', type: 'A' })">
-            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '身分证', type: 'A' }).path">
+          <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '身份证', type: 'A' })">
+            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '身份证', type: 'A' }).path">
             <figcaption>正面</figcaption>
           </figure>
-          <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '身分证', type: 'B' })">
-            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '身分证', type: 'B' }).path">
+          <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '身份证', type: 'B' })">
+            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '身份证', type: 'B' }).path">
             <figcaption>反面</figcaption>
           </figure>
         </el-form-item>
@@ -246,7 +246,7 @@ export default {
         idOrName: ''
       },
       certtificationMap: {
-        '基': ['身分证', '驾驶证'],
+        '基': ['身份证', '驾驶证'],
         '劳': ['劳动合同'],
         '驾': ['驾驶员从业资格证'],
         '押': ['押运员从业资格证'],

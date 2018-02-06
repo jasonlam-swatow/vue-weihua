@@ -43,26 +43,26 @@
           </el-tab-pane>
         </el-tabs>
 
-        <!-- 上传身分证 -->
+        <!-- 上传身份证 -->
         <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
           <el-tab-pane name="first">
             <span slot="label" class="span-with-svg">
               <svg-icon icon-class="id-card"></svg-icon>
-              身分证
+              身份证
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="有效期" class="full-width">
-                <el-date-picker v-model="tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'A').expireDate" type="date"></el-date-picker>
+                <el-date-picker v-model="tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'A').expireDate" type="date"></el-date-picker>
               </el-form-item>
-              <el-form-item label="上传身分证" class="full-width">
+              <el-form-item label="上传身份证" class="full-width">
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader"
                   :headers="header"                
                   :on-success="onUploadIdA">
                   <img
-                    v-if="tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'A').path"
-                    :src="tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'A').path"
+                    v-if="tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'A').path"
+                    :src="tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'A').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
@@ -75,8 +75,8 @@
                   :headers="header"                
                   :on-success="onUploadIdB">
                   <img
-                    v-if="tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'B').path"
-                    :src="tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'B').path"
+                    v-if="tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'B').path"
+                    :src="tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'B').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
@@ -366,14 +366,14 @@ export default {
           status: '',
           certifications: [{
             fkTable: 'EMP',
-            title: '身分证',
+            title: '身份证',
             code: 'TERM_OF_ID_CARD',
             path: '',
             type: 'A',
             expireDate: ''
           }, {
             fkTable: 'EMP',
-            title: '身分证',
+            title: '身份证',
             code: 'TERM_OF_ID_CARD',
             path: '',
             type: 'B',
@@ -480,10 +480,10 @@ export default {
       })
     },
     onUploadIdA(res) {
-      this.$_.find(this.tabData.content.certifications, { title: '身分证', type: 'A' }).path = res.data
+      this.$_.find(this.tabData.content.certifications, { title: '身份证', type: 'A' }).path = res.data
     },
     onUploadIdB(res) {
-      this.$_.find(this.tabData.content.certifications, { title: '身分证', type: 'B' }).path = res.data
+      this.$_.find(this.tabData.content.certifications, { title: '身份证', type: 'B' }).path = res.data
     },
     onUploadContractA(res) {
       this.$_.find(this.tabData.content.certifications, { title: '劳动合同', type: 'A' }).path = res.data
