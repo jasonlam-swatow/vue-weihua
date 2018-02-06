@@ -58,8 +58,13 @@ export const asyncRouterMap = [
         component: _import('business/enterprises/index'),
         meta: { title: '企业管理', icon: 'cubes' }
         // hidden:
-      },
-      {
+      }, {
+        path: 'enterprises/add',
+        name: '企业新增',
+        component: _import('business/info/edit'),
+        meta: { title: '企业新增' },
+        hidden: true
+      }, {
         path: 'info',
         name: '企业信息',
         component: _import('business/info/index'),
@@ -69,12 +74,6 @@ export const asyncRouterMap = [
         name: '企业信息修改',
         component: _import('business/info/edit'),
         meta: { title: '企业信息修改' },
-        hidden: true
-      }, {
-        path: 'info/add',
-        name: '企业新增',
-        component: _import('business/info/edit'),
-        meta: { title: '企业新增' },
         hidden: true
       }, {
         path: 'employees',

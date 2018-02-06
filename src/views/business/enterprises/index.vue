@@ -10,6 +10,11 @@
             <el-date-picker v-model="searchQueries.gmtCreateEnd" type="date" size="medium" style="width:200px;height:36px" placeholder="创建结束时间"></el-date-picker>
             <el-button type="primary" plain round icon="el-icon-search" @click="onSearch"></el-button>
           </el-col>
+          <el-col :span="4" class="fr">
+            <div class="fr">
+              <el-button size="medium" icon="el-icon-plus" type="primary" @click="addEnterprise">新增企业</el-button>
+            </div>
+          </el-col>
         </el-row>
         <el-table :data="enterpriseList" border>
           <el-table-column prop="name" label="企业名称"></el-table-column>
@@ -69,6 +74,9 @@ export default {
   methods: {
     onSearch() {
       this.fetchData()
+    },
+    addEnterprise() {
+      this.$router.push('/business/enterprises/add')
     },
     onViewEnterprise(info) {
       console.log(info)

@@ -8,9 +8,10 @@ const dict = {
     positionTypes: [],
     tankerTypes: [],
     enterpriseStatusTypes: [
-      { code: 'PERSISTANT', value: '存续' },
-      { code: 'CANCELED', value: '注销' },
-      { code: 'EMIGRATION', value: '迁出' }
+      { code: 'RESIDUAL', value: '存续' },
+      { code: 'CANCELLATION', value: '注销' },
+      { code: 'MIGRATION', value: '迁出' },
+      { code: 'RECOVATION', value: '吊销' }
     ],
     enterpriseTypes: [
       { code: 'A', value: '一人责任有限公司（自然人独资）' },
