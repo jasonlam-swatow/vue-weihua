@@ -2,12 +2,12 @@ import mapValues from 'lodash/mapValues'
 import intersection from 'lodash/intersection'
 import values from 'lodash/values'
 import flattenDeep from 'lodash/flattenDeep'
-import { mapGetters } from 'vuex'
+// import { mapGetters } from 'vuex'
 // intersection 返回交集
 export default {
-  computed: {
-    ...mapGetters(['certificationStatusTypes'])
-  },
+  // computed: {
+  //   ...mapGetters(['certificationStatusTypes'])
+  // },
   methods: {
     shortenCertifications(certifications, certMap) {
       const certNames = this.$_.map(certifications, 'title')
