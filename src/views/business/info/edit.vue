@@ -60,7 +60,7 @@
                 <el-input v-model="tabData.content.registrationAuthority"></el-input>
               </el-form-item>
               <el-form-item label="经营状态">
-                <el-select  v-model="tabData.content.registrationStatus">
+                <el-select v-model="tabData.content.registrationStatus">
                   <el-option
                     v-for="status in enterpriseStatusTypes"
                     :key="status.code"
@@ -73,7 +73,7 @@
                 <el-input v-model="tabData.content.operationScope" ></el-input>
               </el-form-item>
               <el-form-item label="企业业务类型">
-                <el-select  v-model="tabData.content.businessType">
+                <el-select v-model="tabData.content.businessType">
                   <el-option
                     v-for="btype in businessTypes"
                     :key="btype.code"
@@ -83,19 +83,13 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="紧急联系人">
-                <el-input
-                  v-model="tabData.content.contactName"
-                  ></el-input>
+                <el-input v-model="tabData.content.contactName"></el-input>
               </el-form-item>
               <el-form-item label="企业地址">
-                <el-input
-                  v-model="tabData.content.address"
-                  ></el-input>
+                <el-input v-model="tabData.content.address"></el-input>
               </el-form-item>
               <el-form-item label="紧急联系电话">
-                <el-input
-                  v-model="tabData.content.contactMobile"
-                  ></el-input>
+                <el-input v-model="tabData.content.contactMobile"></el-input>
               </el-form-item>
               <el-form-item label="经营类型" class="full-width">
                 <div style="max-height: 280px; overflow: scroll; border: 1px solid #eee; padding-top: 12px;">
@@ -168,16 +162,11 @@
               企业道路运输经营许可证
             </span>
              <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
-              <el-form-item
-                label="道路运输经营许可证号"
-                >
+              <el-form-item label="道路运输经营许可证号">
                 <el-input
-                  v-model="tabData.content.certifications.find(_ => _.title === '企业道路运输经营许可证' && _.type === 'A').licenseNo"
-                  ></el-input>
+                  v-model="tabData.content.certifications.find(_ => _.title === '企业道路运输经营许可证' && _.type === 'A').licenseNo"></el-input>
               </el-form-item>
-              <el-form-item
-                label="有效期"
-                >
+              <el-form-item label="有效期">
                 <el-date-picker
                   v-model="tabData.content.certifications.find(_ => _.title === '企业道路运输经营许可证' && _.type === 'A').expireDate"
                   type="date"

@@ -22,9 +22,12 @@
               </el-form-item>
               <el-form-item label="主要岗位">
                 <el-select v-model="tabData.content.position">
-                  <el-option label="驾驶员" value="PILOT"></el-option>
-                  <el-option label="押运员" value="ESCORT"></el-option>
-                  <el-option label="驾驶员/押运员" value="BOTH"></el-option>
+                  <el-option
+                    v-for="position in positionTypes"
+                    :key="position.code"
+                    :label="position.value"
+                    :value="position.code">
+                  </el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="入职时间">
@@ -466,7 +469,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['token']),
+    ...mapGetters(['token', 'positionTypes']),
     header() {
       return { 'Authorization': `Bearer ${this.token}` }
     },

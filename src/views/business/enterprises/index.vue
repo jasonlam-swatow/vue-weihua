@@ -23,28 +23,123 @@
           <el-table-column prop="address" label="企业注册地址"></el-table-column>
           <el-table-column prop="contactName" label="紧急联系人" width="120"></el-table-column>
           <el-table-column prop="contactMobile" label="联系电话" width="180"></el-table-column>
-          <el-table-column  label="企业资质" width="100">
-            <template>
+          <!-- <el-table-column label="企业资质" width="100">
+            <template slot-scope="scope">
               <el-button type="text" @click="onViewEnterprise(scope.row)">点击查看</el-button>
+            </template>
+          </el-table-column> -->
+          <el-table-column label="操作">
+            <template slot-scope="scope">
+              <el-tooltip content="查看" placement="top">
+                <el-button type="text" icon="el-icon-view" @click="viewEnterprise(scope.row.id)"></el-button>
+              </el-tooltip>
+              <el-tooltip content="编辑" placement="top">
+                <el-button type="text" icon="el-icon-edit-outline" @click="editEnterprise(scope.row.id)"></el-button>
+              </el-tooltip>
+              <el-tooltip content="删除" placement="top">
+                <el-button type="text" icon="el-icon-delete"  @click="deleteEnterprise(scope.row.id)"></el-button>
+              </el-tooltip>
             </template>
           </el-table-column>
         </el-table>
       </el-tab-pane> 
     </el-tabs>
     <div class="fr" style="margin-top:12px">
-    <el-pagination
-      @current-change="fetchData"
-      :current-page="currentPage"
-      :page-size="10"
-      layout="total, prev, pager, next, jumper"
-      :total="total">
-    </el-pagination>
-  </div>
+      <el-pagination
+        @current-change="fetchData"
+        :current-page="currentPage"
+        :page-size="10"
+        layout="total, prev, pager, next, jumper"
+        :total="total">
+      </el-pagination>
+    </div>
+
+    <el-dialog
+      :title="tempEnterpriseInfo.name"
+      width="50%" top="4vh"
+      :visible.sync="dialogVisible">
+      <el-form
+        :model="tempEnterpriseInfo"
+        class="view-form"
+        label-width="100px"
+        :inline="true">
+        <el-form-item label="企业名称">{{tempEnterpriseInfo.name}}</el-form-item>
+        <el-form-item label="统一社会信用代码">{{tempEnterpriseInfo.registrationNo}}</el-form-item>
+        <el-form-item label="状态">
+          {{$_.find(statusTypes, ['code', tempEnterpriseInfo.enterpriseType]) &&
+            $_.find(statusTypes, ['code', tempEnterpriseInfo.enterpriseType]).value}}
+        </el-form-item>
+        <el-form-item label="公司类型">
+          {{$_.find(enterpriseType, ['code', tempEnterpriseInfo.status]) &&
+            $_.find(enterpriseType, ['code', tempEnterpriseInfo.status]).value}}
+        </el-form-item>
+        <el-form-item label="成立日期">{{tempEnterpriseInfo.fundationDate/1000 | moment('YYYY/MM/DD')}}</el-form-item>
+        <el-form-item label="法定代表人">{{tempEnterpriseInfo.legalPerson}}</el-form-item>
+        <el-form-item label="注册资本">{{tempEnterpriseInfo.registeredCapital}}</el-form-item>
+        <el-form-item label="注册地">{{tempEnterpriseInfo.registrationAuthority}}</el-form-item>
+        <el-form-item label="经营状态">
+          {{$_.find(enterpriseStatusTypes, ['code', tempEnterpriseInfo.registrationStatus]) &&
+            $_.find(enterpriseStatusTypes, ['code', tempEnterpriseInfo.registrationStatus]).value}}
+        </el-form-item>
+        <el-form-item label="操作范围">{{tempEnterpriseInfo.operationScope}}</el-form-item>
+        <el-form-item label="企业业务类型">
+          {{$_.find(businessTypes, ['code', tempEnterpriseInfo.businessType]) &&
+            $_.find(businessTypes, ['code', tempEnterpriseInfo.businessType]).value}}
+        </el-form-item>
+        <el-form-item label="紧急联系人">{{tempEnterpriseInfo.contactName}}</el-form-item>
+        <el-form-item label="企业地址">{{tempEnterpriseInfo.address}}</el-form-item>
+        <el-form-item label="紧急联系电话">{{tempEnterpriseInfo.contactMobile}}</el-form-item>
+        <el-form-item label="经营类型">
+          <!-- todo -->
+          {{tempEnterpriseInfo.businessTerm}}
+        </el-form-item>
+        <el-form-item
+          v-if="$_.find(tempEnterpriseInfo.certifications, ['title', '企业营业执照'])"
+          label="企业营业执照"
+          class="full-width">
+          <figure v-if="$_.find(tempEnterpriseInfo.certifications, { title: '企业营业执照', type: 'A' })">
+            <img :src="$_.find(tempEnterpriseInfo.certifications, { title: '企业营业执照', type: 'A' }).path">
+            <figcaption>企业营业执照</figcaption>
+          </figure>
+          <figure v-if="$_.find(tempEnterpriseInfo.certifications, { title: '企业营业执照', type: 'B' })">
+            <img :src="$_.find(tempEnterpriseInfo.certifications, { title: '企业营业执照', type: 'B' }).path">
+            <figcaption>企业组织机构代码证</figcaption>
+          </figure>
+          <figure v-if="$_.find(tempEnterpriseInfo.certifications, { title: '企业营业执照', type: 'C' })">
+            <img :src="$_.find(tempEnterpriseInfo.certifications, { title: '企业营业执照', type: 'C' }).path">
+            <figcaption>企业税务登记证</figcaption>
+          </figure>
+        </el-form-item>
+        <el-form-item
+          v-if="$_.find(tempEnterpriseInfo.certifications, ['title', '企业道路运输经营许可证'])"
+          label="企业道路运输经营许可证"
+          class="full-width">
+          <figure v-if="$_.find(tempEnterpriseInfo.certifications, { title: '企业道路运输经营许可证', type: 'A' })">
+            <img :src="$_.find(tempEnterpriseInfo.certifications, { title: '企业道路运输经营许可证', type: 'A' }).path">
+            <figcaption>企业道路运输经营许可证</figcaption>
+          </figure>
+          <h5 class="sub-title">
+            <span>有效期: {{$_.find(tempEnterpriseInfo.certifications, { title: '企业道路运输经营许可证', type: 'A' }).expireDate}}</span>
+          </h5>
+        </el-form-item>
+        <el-form-item
+          v-if="$_.find(tempEnterpriseInfo.certifications, ['title', '企业安全责任承诺书'])"
+          label="企业安全责任承诺书"
+          class="full-width">
+          <figure v-if="$_.find(tempEnterpriseInfo.certifications, { title: '企业安全责任承诺书', type: 'A' })">
+            <img :src="$_.find(tempEnterpriseInfo.certifications, { title: '企业安全责任承诺书', type: 'A' }).path">
+            <figcaption>企业安全责任承诺书</figcaption>
+          </figure>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import {
   getEnterpriseList,
+  getEnterpriseInfo,
   deleteEnterprise
 } from '@/api/business/enterprises'
 
@@ -54,6 +149,8 @@ import isEmpty from 'lodash/isEmpty'
 export default {
   data() {
     return {
+      dialogVisible: false,
+      tempEnterpriseInfo: {},
       vehicleList: [],
       loading: true,
       currentPage: 1,
@@ -71,6 +168,14 @@ export default {
   created() {
     this.fetchData()
   },
+  computed: {
+    ...mapGetters([
+      'statusTypes',
+      'enterpriseStatusTypes',
+      'businessTypes',
+      'enterpriseTypes'
+    ])
+  },
   methods: {
     onSearch() {
       this.fetchData()
@@ -78,8 +183,11 @@ export default {
     addEnterprise() {
       this.$router.push('/business/enterprises/add')
     },
-    onViewEnterprise(info) {
-      console.log(info)
+    viewEnterprise(id) {
+      this.dialogVisible = true
+      getEnterpriseInfo(id).then(res => {
+        this.tempEnterpriseInfo = res.data
+      })
     },
     deleteEnterprise(id) {
       this.$confirm('此操作将永久删除该企业，是否继续？', '提示', {
