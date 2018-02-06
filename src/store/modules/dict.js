@@ -17,6 +17,11 @@ const dict = {
       { code: 'A', value: '一人责任有限公司（自然人独资）' },
       { code: 'B', value: '有限公司' }
     ],
+    certificationStatusTypes: [
+      { code: 'NORMAL', value: '正常' },
+      { code: 'WILL_ABNORMAL', value: '将到期' },
+      { code: 'ABNORMAL', value: '到期' }
+    ],
     businessTypes: [
       { code: 'TRANSPORT', value: '运输企业' },
       { code: 'PRODUCTION', value: '生产企业' },

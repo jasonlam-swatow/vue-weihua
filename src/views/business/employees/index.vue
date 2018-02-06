@@ -58,7 +58,7 @@
             <template slot-scope="scope">
               <span>{{scope.row.entryDate/1000 | moment('YYYY/MM/DD')}}</span>
             </template>
-          </el-table-column>         
+          </el-table-column>
           <el-table-column label="审核状态" width="100">
             <template slot-scope="scope">
               {{$_.find(statusTypes, ['code', scope.row.status]) &&
@@ -81,6 +81,11 @@
                     size="small" type="success" class="adjacent">{{key}}</el-tag>
                 </div>
               </el-tooltip>
+            </template>
+          </el-table-column>
+          <el-table-column label="证件有效期状态" width="100">
+            <template slot-scope="scope">
+              {{checkValidity(scope.row.certifications)}}
             </template>
           </el-table-column>
           <el-table-column label="操作">
@@ -265,7 +270,8 @@ export default {
     ...mapGetters([
       'statusTypes',
       'positionTypes',
-      'genderTypes'
+      'genderTypes',
+      'certificationStatusTypes'
     ])
   },
   created() {
