@@ -87,14 +87,14 @@
       </el-tab-pane> 
     </el-tabs>
     <div class="fr" style="margin-top:12px">
-    <el-pagination
-      @current-change="fetchData"
-      :current-page="currentPage"
-      :page-size="10"
-      layout="total, prev, pager, next, jumper"
-      :total="total">
-    </el-pagination>
-  </div>
+      <el-pagination
+        @current-change="fetchData"
+        :current-page="currentPage"
+        :page-size="10"
+        layout="total, prev, pager, next, jumper"
+        :total="total">
+      </el-pagination>
+    </div>
 
     <el-dialog
       :title="tempTankInfo.name"
@@ -110,9 +110,7 @@
           {{$_.find(tankerTypes, ['code', tempTankInfo.type]) &&
             $_.find(tankerTypes, ['code', tempTankInfo.type]).value}}
         </el-form-item>
-        <el-form-item label="容积">
-          {{tempTankInfo.volume}}
-        </el-form-item>
+        <el-form-item label="罐体容积">{{tempTankInfo.volume}}</el-form-item>
         <el-form-item label="投运日期">{{tempTankInfo.startDate/1000 | moment('YYYY/MM/DD')}}</el-form-item>
         <el-form-item label="关联挂车号">{{tempTankInfo.plateNo}}</el-form-item>
         <el-form-item
@@ -126,7 +124,7 @@
           </figure>
           <figure v-if="$_.find(tempTankInfo.certifications, { title: '罐体检验报告', type: 'B' })">
             <img :src="$_.find(tempTankInfo.certifications, { title: '罐体检验报告', type: 'B' }).path">
-            <figcaption>检验报告细节液</figcaption>
+            <figcaption>检验报告细节页</figcaption>
           </figure>
            <h5 class="sub-title">
              <span>报告编号：{{$_.find(tempTankInfo.certifications, { title: '罐体检验报告', type: 'A' }).licenseNo}}</span>

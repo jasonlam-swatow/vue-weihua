@@ -11,17 +11,11 @@
               {{tabData.label}}
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
-              <el-form-item
-                label="罐体编号"
-                >
-                <el-input
-                  v-model="tabData.content.tankerNo"
-                  ></el-input>
+              <el-form-item label="罐体编号">
+                <el-input v-model="tabData.content.tankerNo"></el-input>
               </el-form-item>
-              <el-form-item
-                label="罐体类型"
-                >
-                <el-select  v-model="tabData.content.type">
+              <el-form-item label="罐体类型">
+                <el-select v-model="tabData.content.type">
                   <el-option
                     v-for="tank in tankerTypes"
                     :key="tank.seq"
@@ -30,27 +24,16 @@
                   </el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item
-                label="容积"
-                >
-                <el-input
-                  v-model="tabData.content.volume"
-                  ></el-input>
+              <el-form-item label="容积">
+                <el-input v-model="tabData.content.volume"></el-input>
               </el-form-item>
-              <el-form-item
-                label="投运日期"
-                >
+              <el-form-item label="投运日期">
                 <el-date-picker
                   v-model="tabData.content.startDate"
-                  type="date"
-                  ></el-date-picker>
+                  type="date"></el-date-picker>
               </el-form-item>              
-              <el-form-item
-                label="关联挂车号"
-                >
-                <el-input
-                  v-model="tabData.content.plateNo"
-                  ></el-input>
+              <el-form-item label="关联挂车号">
+                <el-input v-model="tabData.content.plateNo"></el-input>
               </el-form-item>
             </el-form>
           </el-tab-pane>
@@ -63,18 +46,13 @@
               罐体检验报告
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
-              <el-form-item
-                label="报告编号"
-                >
-                <el-input
-                  v-model="tabData.content.certifications.find(_ => _.title === '罐体检验报告' && _.type === 'A').licenseNo"
-                  ></el-input>
+              <el-form-item label="报告编号">
+                <el-input v-model="tabData.content.certifications.find(_ => _.title === '罐体检验报告' && _.type === 'A').licenseNo"></el-input>
               </el-form-item>
               <el-form-item label="下次检验日期">
                 <el-date-picker
                   v-model="tabData.content.certifications.find(_ => _.title === '罐体检验报告' && _.type === 'A').restsDate"
-                  type="date"
-                  ></el-date-picker>
+                  type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="上传报告" class="full-width">
                 <el-upload
@@ -121,18 +99,13 @@
               压力罐容器登记证（压力罐容器必须）
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
-              <el-form-item
-                label="使用登记证编号"
-                >
-                <el-input
-                  v-model="tabData.content.certifications.find(_ => _.title === '压力罐容器登记证' && _.type === 'A').licenseNo"
-                  ></el-input>
+              <el-form-item label="使用登记证编号">
+                <el-input v-model="tabData.content.certifications.find(_ => _.title === '压力罐容器登记证' && _.type === 'A').licenseNo"></el-input>
               </el-form-item>
               <el-form-item label="下次检验日期">
                 <el-date-picker
                   v-model="tabData.content.certifications.find(_ => _.title === '压力罐容器登记证' && _.type === 'A').restsDate"
-                  type="date"
-                  ></el-date-picker>
+                  type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="上传报告" class="full-width">
                 <el-upload
