@@ -272,6 +272,7 @@ export default {
           certifications: [{
             fkTable: 'INF',
             title: '企业营业执照',
+            code: 'TERM_OF_BUSINESS',
             path: '',
             type: 'A',
             restsDate: '',
@@ -280,18 +281,21 @@ export default {
           }, {
             fkTable: 'INF',
             title: '企业营业执照',
+            code: 'TERM_OF_BUSINESS',
             path: '',
             type: 'B',
             restsDate: ''
           }, {
             fkTable: 'INF',
             title: '企业营业执照',
+            code: 'TERM_OF_BUSINESS',
             path: '',
             type: 'C',
             restsDate: ''
           }, {
             fkTable: 'INF',
             title: '企业道路运输经营许可证',
+            code: 'TERM_OF_TRANSPORT_LICENSE',
             path: '',
             type: 'A',
             restsDate: '',
@@ -299,6 +303,7 @@ export default {
           }, {
             fkTable: 'INF',
             title: '企业安全责任承诺书',
+            code: 'TERM_OF_SAFETY_PRODUCTION_PERMIT',
             path: '',
             type: 'A',
             restsDate: '',

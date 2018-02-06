@@ -367,99 +367,89 @@ export default {
           certifications: [{
             fkTable: 'EMP',
             title: '身分证',
+            code: 'TERM_OF_ID_CARD',
             path: '',
             type: 'A',
             expireDate: ''
           }, {
             fkTable: 'EMP',
             title: '身分证',
+            code: 'TERM_OF_ID_CARD',
             path: '',
             type: 'B',
             expireDate: ''
           }, {
             fkTable: 'EMP',
             title: '劳动合同',
+            code: 'TERM_OF_LABOR_CONTRACT',
             path: '',
             type: 'A',
             expireDate: ''
           }, {
             fkTable: 'EMP',
             title: '劳动合同',
+            code: 'TERM_OF_LABOR_CONTRACT',
             path: '',
             type: 'B',
             expireDate: ''
           }, {
             fkTable: 'EMP',
             title: '劳动合同',
+            code: 'TERM_OF_LABOR_CONTRACT',
             path: '',
             type: 'C',
             expireDate: ''
           }, {
             fkTable: 'EMP',
             title: '驾驶证',
+            code: 'TERM_OF_DRIVING_LICENSE_INSPECTION',
             path: '',
             type: 'A',
             expireDate: ''
           }, {
             fkTable: 'EMP',
             title: '驾驶证',
+            code: 'TERM_OF_DRIVING_LICENSE_INSPECTION',
             path: '',
             type: 'B',
             expireDate: ''
           }, {
             fkTable: 'EMP',
             title: '驾驶证',
+            code: 'TERM_OF_DRIVING_LICENSE_INSPECTION',
             path: '',
             type: 'C',
             expireDate: ''
           }, {
             fkTable: 'EMP',
             title: '驾驶证',
+            code: 'TERM_OF_DRIVING_LICENSE_INSPECTION',
             path: '',
             type: 'D',
             expireDate: ''
           }, {
             fkTable: 'EMP',
             title: '驾驶员从业资格证',
+            code: 'TERM_OF_DRIVER_QUALIFICATION_CERTIFICATE',
             path: '',
             expireDate: ''
           }, {
             fkTable: 'EMP',
             title: '押运员从业资格证',
-            path: '',
-            type: 'D',
-            expireDate: ''
-          }, {
-            fkTable: 'EMP',
-            title: '驾驶员从业资格证',
-            path: '',
-            expireDate: ''
-          }, {
-            fkTable: 'EMP',
-            title: '押运员从业资格证',
+            code: 'TERM_OF_ESCORT_QUALIFICATION_CERTIFICATE',
             path: '',
             expireDate: ''
           }, {
             fkTable: 'EMP',
             title: '安全责任状',
+            code: 'TERM_OF_SAFETY_RESPONSIBILITY',
             path: '',
             type: 'A',
             expireDate: ''
           }, {
             fkTable: 'EMP',
             title: '安全责任状',
-            path: '',
-            type: 'B',
-            expireDate: ''
-          }, {
-            fkTable: 'EMP',
-            title: '安全责任状',
-            path: '',
-            type: 'A',
-            expireDate: ''
-          }, {
-            fkTable: 'EMP',
-            title: '安全责任状',
+            code: 'TERM_OF_SAFETY_RESPONSIBILITY',
             path: '',
             type: 'B',
             expireDate: ''

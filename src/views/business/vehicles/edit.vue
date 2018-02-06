@@ -481,6 +481,7 @@ export default {
           certifications: [{
             fkTable: 'TRA',
             title: '车辆道路运输证',
+            code: 'TERM_OF_VEHICLE_ROAD_TRANSPORT_CARD',
             path: '',
             type: 'A',
             restsDate: '',
@@ -489,6 +490,7 @@ export default {
           }, {
             fkTable: 'TRA',
             title: '车辆道路运输证',
+            code: 'TERM_OF_VEHICLE_ROAD_TRANSPORT_CARD',
             path: '',
             type: 'B',
             restsDate: '',
@@ -497,6 +499,7 @@ export default {
           }, {
             fkTable: 'TRA',
             title: '车辆道路运输证',
+            code: 'TERM_OF_VEHICLE_ROAD_TRANSPORT_CARD',
             path: '',
             type: 'C',
             restsDate: '',
@@ -505,6 +508,7 @@ export default {
           }, {
             fkTable: 'TRA',
             title: '车辆道路运输证',
+            code: 'TERM_OF_VEHICLE_ROAD_TRANSPORT_CARD',
             path: '',
             type: 'D',
             restsDate: '',
@@ -513,6 +517,7 @@ export default {
           }, {
             fkTable: 'TRA',
             title: '机动车登记证',
+            code: 'TERM_OF_VEHICLE_REGISTRATION_CARD',
             path: '',
             type: 'A',
             restsDate: '',
@@ -521,6 +526,7 @@ export default {
           }, {
             fkTable: 'TRA',
             title: '机动车登记证',
+            code: 'TERM_OF_VEHICLE_REGISTRATION_CARD',
             path: '',
             type: 'B',
             restsDate: '',
@@ -529,6 +535,7 @@ export default {
           }, {
             fkTable: 'TRA',
             title: '车辆行驶证',
+            code: 'TERM_OF_VEHICLE_DRIVING_LICENSE',
             path: '',
             type: 'A',
             restsDate: '',
@@ -537,6 +544,7 @@ export default {
           }, {
             fkTable: 'TRA',
             title: '车辆行驶证',
+            code: 'TERM_OF_VEHICLE_DRIVING_LICENSE',
             path: '',
             type: 'B',
             restsDate: '',
@@ -545,6 +553,7 @@ export default {
           }, {
             fkTable: 'TRA',
             title: '车辆行驶证',
+            code: 'TERM_OF_VEHICLE_DRIVING_LICENSE',
             path: '',
             type: 'C',
             restsDate: '',
@@ -553,6 +562,7 @@ export default {
           }, {
             fkTable: 'TRA',
             title: '车辆行驶证',
+            code: 'TERM_OF_VEHICLE_DRIVING_LICENSE',
             path: '',
             type: 'D',
             restsDate: '',
@@ -561,6 +571,7 @@ export default {
           }, {
             fkTable: 'TRA',
             title: '卫星定位终端安装证书',
+            code: 'TERM_OF_SPT_INSTALLATION_CERTIFICATE',
             path: '',
             type: 'A',
             restsDate: '',
@@ -569,6 +580,7 @@ export default {
           }, {
             fkTable: 'TRA',
             title: '道路危险货物承运人责任保险单',
+            code: 'TERM_OF_LIABILITY_INSURANCE',
             path: '',
             type: 'A',
             restsDate: '',
@@ -577,6 +589,7 @@ export default {
           }, {
             fkTable: 'TRA',
             title: '道路危险货物承运人责任保险单',
+            code: 'TERM_OF_LIABILITY_INSURANCE',
             path: '',
             type: 'B',
             restsDate: '',
@@ -585,6 +598,7 @@ export default {
           }, {
             fkTable: 'TRA',
             title: '车辆安全设备配备照',
+            code: 'TERM_OF_VEHICLE_SAFETY_EQUIPMENT',
             path: '',
             type: 'A',
             restsDate: '',
@@ -593,6 +607,7 @@ export default {
           }, {
             fkTable: 'TRA',
             title: '车辆安全设备配备照',
+            code: 'TERM_OF_VEHICLE_SAFETY_EQUIPMENT',
             path: '',
             type: 'B',
             restsDate: '',
@@ -601,6 +616,7 @@ export default {
           }, {
             fkTable: 'TRA',
             title: '车辆安全设备配备照',
+            code: 'TERM_OF_VEHICLE_SAFETY_EQUIPMENT',
             path: '',
             type: 'C',
             restsDate: '',
@@ -609,6 +625,7 @@ export default {
           }, {
             fkTable: 'TRA',
             title: '车辆安全设备配备照',
+            code: 'TERM_OF_VEHICLE_SAFETY_EQUIPMENT',
             path: '',
             type: 'D',
             restsDate: '',

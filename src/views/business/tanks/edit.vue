@@ -193,6 +193,7 @@ export default {
           certifications: [{
             fkTable: 'TAN',
             title: '罐体检验报告',
+            code: 'TERM_OF_TANKER_INSPECTION',
             path: '',
             type: 'A',
             restsDate: '',
@@ -200,24 +201,28 @@ export default {
           }, {
             fkTable: 'TAN',
             title: '罐体检验报告',
+            code: 'TERM_OF_TANKER_INSPECTION',
             path: '',
             type: 'B',
             restsDate: ''
           }, {
             fkTable: 'TAN',
             title: '压力罐容器登记证',
+            code: 'TERM_OF_PTC_REGISTRATION_CERTIFICATE',
             path: '',
             type: 'A',
             restsDate: ''
           }, {
             fkTable: 'TAN',
             title: '压力罐容器登记证',
+            code: 'TERM_OF_PTC_REGISTRATION_CERTIFICATE',
             path: '',
             type: 'B',
             restsDate: ''
           }, {
             fkTable: 'TAN',
             title: '压力罐容器登记证',
+            code: 'TERM_OF',
             path: '',
             type: 'C',
             restsDate: ''
