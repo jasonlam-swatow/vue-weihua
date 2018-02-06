@@ -46,6 +46,7 @@
               </el-form-item>
                <el-form-item label="成立日期">
                 <el-date-picker
+                  :picker-options="pickerOptions"
                   v-model="tabData.content.fundationDate"
                   type="date"
                   ></el-date-picker>
@@ -168,6 +169,7 @@
               </el-form-item>
               <el-form-item label="有效期">
                 <el-date-picker
+                  :picker-options="pickerOptions"
                   v-model="tabData.content.certifications.find(_ => _.title === '企业道路运输经营许可证' && _.type === 'A').expireDate"
                   type="date"
                   ></el-date-picker>
@@ -236,8 +238,11 @@
 <script>
 import { mapGetters } from 'vuex'
 import { getEnterpriseInfo, createEnterprise, editEnterprise } from '@/api/business/enterprises'
+import datepickerOptions from '@/mixins/_datepickerOptions'
+
 import remove from 'lodash/remove'
 export default {
+  mixins: [datepickerOptions],
   data() {
     return {
       activeTab: 'first',

@@ -65,7 +65,7 @@
                 $_.find(statusTypes, ['code', scope.row.status]).value}}
             </template>
           </el-table-column>
-          <el-table-column label="证照有效期状态" width="200">
+          <el-table-column label="证件展示" width="200">
             <template slot-scope="scope">
               <el-tooltip placement="right" effect="light">
                 <div slot="content" class="text-success" style="font-size: 14px">

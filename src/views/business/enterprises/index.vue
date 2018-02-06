@@ -6,8 +6,12 @@
           <el-col :span="20">
             <el-input style="width:200px" placeholder="企业名称" v-model="searchQueries.name"></el-input>
             <el-input style="width:200px" placeholder="信用代码" v-model="searchQueries.registrationNo"></el-input>
-            <el-date-picker v-model="searchQueries.gmtCreateBegin" type="date" size="medium" style="width:200px;height:36px" placeholder="创建开始时间"></el-date-picker>
-            <el-date-picker v-model="searchQueries.gmtCreateEnd" type="date" size="medium" style="width:200px;height:36px" placeholder="创建结束时间"></el-date-picker>
+            <el-date-picker
+              :picker-options="pickerOptions"
+              v-model="searchQueries.gmtCreateBegin" type="date" size="medium" style="width:200px;height:36px" placeholder="创建开始时间"></el-date-picker>
+            <el-date-picker
+              :picker-options="pickerOptions"
+              v-model="searchQueries.gmtCreateEnd" type="date" size="medium" style="width:200px;height:36px" placeholder="创建结束时间"></el-date-picker>
             <el-button type="primary" plain round icon="el-icon-search" @click="onSearch"></el-button>
           </el-col>
           <el-col :span="4" class="fr">
@@ -142,11 +146,13 @@ import {
   getEnterpriseInfo,
   deleteEnterprise
 } from '@/api/business/enterprises'
+import datepickerOptions from '@/mixins/_datepickerOptions'
 
 import omitBy from 'lodash/omitBy'
 import isEmpty from 'lodash/isEmpty'
 
 export default {
+  mixins: [datepickerOptions],
   data() {
     return {
       dialogVisible: false,

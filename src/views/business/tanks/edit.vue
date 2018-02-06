@@ -29,6 +29,7 @@
               </el-form-item>
               <el-form-item label="投运日期">
                 <el-date-picker
+                  :picker-options="pickerOptions"
                   v-model="tabData.content.startDate"
                   type="date"></el-date-picker>
               </el-form-item>              
@@ -51,6 +52,7 @@
               </el-form-item>
               <el-form-item label="下次检验日期">
                 <el-date-picker
+                  :picker-options="pickerOptions"
                   v-model="tabData.content.certifications.find(_ => _.title === '罐体检验报告' && _.type === 'A').restsDate"
                   type="date"></el-date-picker>
               </el-form-item>
@@ -104,6 +106,7 @@
               </el-form-item>
               <el-form-item label="下次检验日期">
                 <el-date-picker
+                  :picker-options="pickerOptions"
                   v-model="tabData.content.certifications.find(_ => _.title === '压力罐容器登记证' && _.type === 'A').restsDate"
                   type="date"></el-date-picker>
               </el-form-item>
@@ -173,7 +176,9 @@
 <script>
 import { mapGetters } from 'vuex'
 import { getTankInfo, createTank, editTank } from '@/api/business/tanks'
+import datepickerOptions from '@/mixins/_datepickerOptions'
 export default {
+  mixins: [datepickerOptions],
   data() {
     return {
       activeTab: 'first',

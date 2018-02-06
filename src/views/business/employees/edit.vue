@@ -31,7 +31,9 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="入职时间">
-                <el-date-picker v-model="tabData.content.entryDate" type="date"></el-date-picker>
+                <el-date-picker
+                  :picker-options="pickerOptions"
+                  v-model="tabData.content.entryDate" type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="联系电话">
                 <el-input v-model="tabData.content.phone"></el-input>
@@ -52,7 +54,9 @@
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="有效期" class="full-width">
-                <el-date-picker v-model="tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'A').expireDate" type="date"></el-date-picker>
+                <el-date-picker
+                  :picker-options="pickerOptions"
+                  v-model="tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'A').expireDate" type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="上传身份证" class="full-width">
                 <el-upload
@@ -97,7 +101,9 @@
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="有效期" class="full-width">
-                <el-date-picker v-model="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'A').expireDate" type="date"></el-date-picker>
+                <el-date-picker
+                  :picker-options="pickerOptions"
+                  v-model="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'A').expireDate" type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="上传劳动合同" class="full-width">
                 <el-upload
@@ -156,7 +162,9 @@
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="有效期" class="full-width">
-                <el-date-picker v-model="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'A').expireDate" type="date"></el-date-picker>
+                <el-date-picker
+                  :picker-options="pickerOptions"
+                  v-model="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'A').expireDate" type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="上传驾驶证" class="full-width">
                 <el-upload
@@ -229,7 +237,9 @@
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="有效期" class="full-width">
-                <el-date-picker v-model="tabData.content.certifications.find(_ => _.title === '驾驶员从业资格证').expireDate" type="date"></el-date-picker>
+                <el-date-picker
+                  :picker-options="pickerOptions"
+                  v-model="tabData.content.certifications.find(_ => _.title === '驾驶员从业资格证').expireDate" type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="上传驾驶员从业资格证" class="full-width">
                 <el-upload
@@ -260,7 +270,9 @@
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="有效期" class="full-width">
-                <el-date-picker v-model="tabData.content.certifications.find(_ => _.title === '押运员从业资格证').expireDate" type="date"></el-date-picker>
+                <el-date-picker
+                  :picker-options="pickerOptions"
+                  v-model="tabData.content.certifications.find(_ => _.title === '押运员从业资格证').expireDate" type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="上传押运员从业资格证" class="full-width">
                 <el-upload
@@ -290,7 +302,9 @@
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="有效期" class="full-width">
-                <el-date-picker v-model="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'A').expireDate" type="date"></el-date-picker>
+                <el-date-picker
+                  :picker-options="pickerOptions"
+                  v-model="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'A').expireDate" type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="上传安全责任状" class="full-width">
                 <el-upload
@@ -343,9 +357,11 @@ import {
   createEmployee,
   editEmployee
 } from '@/api/business/employees'
+import datepickerOptions from '@/mixins/_datepickerOptions'
 import { mapGetters } from 'vuex'
 
 export default {
+  mixins: [datepickerOptions],
   data() {
     return {
       activeTab: 'first',

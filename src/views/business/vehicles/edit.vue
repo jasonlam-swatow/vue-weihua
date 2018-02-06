@@ -69,11 +69,13 @@
               </el-form-item>
               <el-form-item label="车辆有效期">
                 <el-date-picker
+                  :picker-options="pickerOptions"
                   v-model="tabData.content.certifications.find(_ => _.title === '车辆道路运输证' && _.type === 'A').expireDate"
                   type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="等级评定有效期">
                 <el-date-picker
+                  :picker-options="pickerOptions"
                   v-model="tabData.content.certifications.find(_ => _.title === '车辆道路运输证' && _.type === 'A').restsDate"
                   type="date"></el-date-picker>
               </el-form-item>
@@ -201,6 +203,7 @@
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="检测有效期" class="full-width">
                 <el-date-picker
+                  :picker-options="pickerOptions"
                   v-model="tabData.content.certifications.find(_ => _.title === '车辆行驶证' && _.type === 'A').expireDate"
                   type="date"
                   ></el-date-picker>
@@ -291,6 +294,7 @@
               </el-form-item>
               <el-form-item label="有效期截止日期">
                 <el-date-picker
+                  :picker-options="pickerOptions"
                   v-model="tabData.content.certifications.find(_ => _.title === '卫星定位终端安装证书' && _.type === 'A').restsDate"
                   type="date"
                   ></el-date-picker>
@@ -326,6 +330,7 @@
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="保险有效期">
                 <el-date-picker
+                  :picker-options="pickerOptions"
                   v-model="tabData.content.certifications.find(_ => _.title === '道路危险货物承运人责任保险单' && _.type === 'A').expireDate"
                   type="date"
                   ></el-date-picker>
@@ -457,9 +462,11 @@
 <script>
 import { mapGetters } from 'vuex'
 import { getTrailerInfo, createTrailer, editTrailer } from '@/api/business/vehicles'
+import datepickerOptions from '@/mixins/_datepickerOptions'
 import remove from 'lodash/remove'
 
 export default {
+  mixins: [datepickerOptions],
   data() {
     return {
       activeTab: 'first',
