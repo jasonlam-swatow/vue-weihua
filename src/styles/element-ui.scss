@@ -154,6 +154,7 @@
 }
 
 .el-form--inline.prevent-uneven {
+  .el-input-number,
   .el-input__inner {
     width: 220px;
   }

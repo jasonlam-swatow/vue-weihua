@@ -25,7 +25,8 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="容积">
-                <el-input v-model="tabData.content.volume"></el-input>
+                <!-- <el-input v-model="tabData.content.volume"></el-input> -->
+                <el-input-number v-model="tabData.content.volume" :step="0.1"></el-input-number>
               </el-form-item>
               <el-form-item label="投运日期">
                 <el-date-picker
@@ -94,11 +95,14 @@
           </el-tab-pane>
         </el-tabs>
         <!-- 上传压力罐容器登记证-->
-        <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
+        <el-tabs
+          v-model="activeTab" v-if="tabData.content.type === 'OVERHEAD_TANK'"
+          type="card" class="customized denser"
+          v-loading="loading">
           <el-tab-pane name="first">
             <span slot="label" class="span-with-svg">
               <svg-icon icon-class="id-card"></svg-icon>
-              压力罐容器登记证（压力罐容器必须）
+              压力罐容器登记证
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="使用登记证编号">
@@ -193,7 +197,7 @@ export default {
           tankerNo: '',
           type: '',
           plateNo: '',
-          volume: '',
+          volume: '1.0',
           enterpriseId: 1,
           certifications: [{
             fkTable: 'TAN',
