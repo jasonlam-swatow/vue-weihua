@@ -8,6 +8,13 @@ export function getTankList(params) {
   })
 }
 
+export function getAssociatedPlateNumbers(plateNo) {
+  return request({
+    url: `/v1/trailers/plateNos/${plateNo}`,
+    method: 'get'
+  })
+}
+
 export function deleteTank(id) {
   return request({
     url: `/v1/tankers/${id}`,

@@ -35,7 +35,21 @@
                   type="date"></el-date-picker>
               </el-form-item>              
               <el-form-item label="关联挂车号">
-                <el-input v-model="tabData.content.plateNo"></el-input>
+                <el-select
+                  v-model="tabData.content.plateNo"
+                  filterable
+                  remote
+                  :loading="searching"
+                  placeholder="请搜索挂车号"
+                  :remote-method="searchAssociateVehicle"
+                  @change="onSelectAssociateVehicle">
+                  <el-option
+                    v-for="vehicle in associateVehicles"
+                    :key="vehicle.id"
+                    :label="vehicle.plateNo"
+                    :value="vehicle.plateNo"></el-option>
+                </el-select>
+                <!-- <el-input v-model="tabData.content.plateNo"></el-input> -->
               </el-form-item>
             </el-form>
           </el-tab-pane>
@@ -179,7 +193,12 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { getTankInfo, createTank, editTank } from '@/api/business/tanks'
+import {
+  getTankInfo,
+  getAssociatedPlateNumbers,
+  createTank,
+  editTank
+} from '@/api/business/tanks'
 import datepickerOptions from '@/mixins/_datepickerOptions'
 export default {
   mixins: [datepickerOptions],
@@ -187,6 +206,7 @@ export default {
     return {
       activeTab: 'first',
       loading: false,
+      searching: false,
       submitting: false,
       tabData: {
         label: '基本信息',
@@ -197,6 +217,7 @@ export default {
           tankerNo: '',
           type: '',
           plateNo: '',
+          trailerId: null,
           volume: '1.0',
           enterpriseId: 1,
           certifications: [{
@@ -237,7 +258,8 @@ export default {
             restsDate: ''
           }]
         }
-      }
+      },
+      associateVehicles: []
     }
   },
   computed: {
@@ -267,6 +289,20 @@ export default {
     },
     onUploadLicenseC(res) {
       this.$_.find(this.tabData.content.certifications, { title: '压力罐容器登记证', type: 'C' }).path = res.data
+    },
+    searchAssociateVehicle(query) {
+      if (query !== '') {
+        this.searching = true
+        getAssociatedPlateNumbers(query).then(res => {
+          this.associateVehicles = res.data
+          this.searching = false
+        })
+      } else {
+        this.associateVehicles = []
+      }
+    },
+    onSelectAssociateVehicle(val) {
+      this.tabData.content.trailerId = this.$_.find(this.associateVehicles, ['plateNo', val]).id
     },
     fetchData() {
       const { id } = this.$route.query
