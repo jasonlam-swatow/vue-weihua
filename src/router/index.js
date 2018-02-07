@@ -83,7 +83,7 @@ export const asyncRouterMap = [
         meta: { title: '员工管理', icon: 'group' }
       }, {
         path: 'employees/edit',
-        name: '员工信息新增/修改',
+        name: '员工信息修改/新增',
         component: _import('business/employees/edit'),
         meta: { title: '员工信息新增/修改' },
         hidden: true
@@ -100,7 +100,7 @@ export const asyncRouterMap = [
         meta: { title: '车辆管理', icon: 'vehicle' }
       }, {
         path: 'vehicles/edit',
-        name: '车辆信息新增/修改',
+        name: '车辆信息修改/新增',
         component: _import('business/vehicles/edit'),
         meta: { title: '车辆管理', icon: 'vehicle' },
         hidden: true

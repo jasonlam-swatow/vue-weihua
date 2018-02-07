@@ -9,55 +9,133 @@
           <el-button type="text" @click="dialogFormVisible = true">
             <svg-icon icon-class="user-o"></svg-icon>仅修改紧急联系人信息</el-button>
         </header>
-
-        <business-info :business-info="businessInfo" :loading="dataLoading.basic"></business-info>
-
-        <el-tabs v-model="activeTab" type="card" class="customized" v-loading="dataLoading.cert">
+        <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
           <el-tab-pane
-            v-for="tab in certTabList"
-            :key="tab.name"
-            :name="tab.name">
+            :key="tabData.name"
+            :name="tabData.name">
             <span slot="label" class="span-with-svg">
-              <svg-icon :icon-class="tab.icon"></svg-icon>
-              {{tab.label}}
+              <svg-icon :icon-class="tabData.icon"></svg-icon>
+              {{tabData.label}}
             </span>
-            <el-card
-              v-for="(item, key) in tab.content"
-              :key="key"
-              class="box-card mgb12">
-              <div slot="header" class="clearfix">
-                <span>{{item.name}}</span>
-              </div>
-              <div>
-                <el-row type="flex" justify="space-around">
-                  <el-col :span="16">
-                    <el-form class="readonly-form">
-                      <template v-if="key === 'business_permit'">
-                        <el-form-item label="道路运输经营许可证">
-                          <span>{{item.permit_num}}</span>
-                        </el-form-item>
-                        <el-form-item label="有效期">
-                          <span>{{item.validity}}</span>
-                        </el-form-item>
-                      </template>
-                      <template v-if="key === 'safety_commitment'">
-                        <el-form-item label="要求">
-                          <span class="sub-text">下载→填写→盖公章→彩色件扫描上传</span>
-                        </el-form-item>
-                        <el-form-item label="下载证件">
-                          <el-button type="text" icon="el-icon-tickets">{{item.file_name}}</el-button>
-                        </el-form-item>
-                      </template>
-                    </el-form>
-                  </el-col>
-                  <el-col :span="8">
-                    <div class="lisence-container">
-                      <img src="../../../assets/u159.png">
-                    </div>
-                  </el-col>
-                </el-row>
-              </div>
-            </el-card>
+            <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
+              <el-form-item label="企业名称" class="full-width">
+                {{tempInfo.content.name}}
+              </el-form-item>
+              <el-form-item label="统一社会信用代码">
+                {{tempInfo.content.registrationNo}}
+              </el-form-item>
+              <el-form-item label="状态">
+                {{$_.find(enterpriseStatusTypes, ['code', tempInfo.content.type]) &&
+            $_.find(enterpriseStatusTypes, ['code', tempInfo.content.type]).value}}
+              </el-form-item>
+               <el-form-item label="公司类型">
+                {{$_.find(enterpriseTypes, ['code', tempInfo.content.enterpriseType]) &&
+            $_.find(enterpriseStatusTypes, ['code', tempInfo.content.enterpriseType]).value}}
+              </el-form-item>
+               <el-form-item label="成立日期">
+                 {{tempInfo.content.fundationDate/1000 | moment('YYYY/MM/DD')}}
+              </el-form-item>
+              <el-form-item label="法定代表人">
+                 {{tempInfo.content.legalPerson}}
+              </el-form-item>
+              <el-form-item label="注册资本">
+                 {{tempInfo.content.registeredCapital}}
+              </el-form-item>
+              <el-form-item label="注册地">
+                 {{tempInfo.content.registrationAuthority}}
+              </el-form-item>
+              <el-form-item label="注册状态">
+                 {{$_.find(enterpriseStatusTypes, ['code', tempInfo.content.status]) &&
+            $_.find(enterpriseStatusTypes, ['code', tempInfo.content.status]).value}}
+              </el-form-item>
+              <el-form-item label="操作范围" >
+                 {{tempInfo.content.operationScope}}
+              </el-form-item>
+              <el-form-item label="企业业务类型">
+                 {{$_.find(businessTypes, ['code', tempInfo.content.businessType]) &&
+            $_.find(businessTypes, ['code', tempInfo.content.businessType]).value}}
+              </el-form-item>
+              <el-form-item label="紧急联系人">
+                 {{tempInfo.content.contactName}}               
+              </el-form-item>
+              <el-form-item label="企业地址">
+                 {{tempInfo.content.address}}
+              </el-form-item>
+              <el-form-item label="紧急联系电话">
+                 {{tempInfo.content.contactMobile}}
+              </el-form-item>
+              <el-form-item label="经营类型" class="full-width">
+                <div style="max-height: 280px; overflow: scroll; border: 1px solid #eee; padding-top: 12px;">
+                  <el-tree
+                    :data="vehicleBusinessTypes"
+                    show-checkbox
+                    node-key="id"
+                    @check-change="onTreeCheck"
+                    :default-expand-all="true"
+                    :default-expanded-checked-keys="tabData.content.businessTerm"></el-tree>
+                </div>
+              </el-form-item>
+              <el-form-item
+                v-if="$_.find(tabData.content.certifications, ['title', '企业营业执照'])"
+                label="企业营业执照"
+                class="full-width">
+                <figure v-if="$_.find(tempInfo.content.certifications, { title: '企业营业执照', type: 'A' })">
+                  <img :src="$_.find(tempInfo.content.certifications, { title: '企业营业执照', type: 'A' }).path">
+                </figure>
+                <figure v-if="$_.find(tempInfo.content.certifications, { title: '企业营业执照', type: 'B' })">
+                  <img :src="$_.find(tempInfo.content.certifications, { title: '企业营业执照', type: 'B' }).path">
+                </figure>
+                <figure v-if="$_.find(tempInfo.content.certifications, { title: '企业营业执照', type: 'C' })">
+                  <img :src="$_.find(tempInfo.content.certifications, { title: '企业营业执照', type: 'C' }).path">
+                </figure>
+              </el-form-item>
+            </el-form>
+          </el-tab-pane>
+        </el-tabs>
+        <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
+          <el-tab-pane name="first">
+            <span slot="label" class="span-with-svg">
+              <svg-icon icon-class="id-card"></svg-icon>
+              企业道路运输经营许可证
+            </span>
+             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
+              <el-form-item
+                v-if="$_.find(tempInfo.content.certifications, ['title', '企业道路运输经营许可证'])"
+                label="企业道路运输经营许可证"
+                class="full-width">
+                <!-- <el-form-item label="关联挂车号">{{tempInfo.content.plateNo}}</el-form-item> -->
+                <figure v-if="$_.find(tempInfo.content.certifications, { title: '企业道路运输经营许可证', type: 'A' })">
+                  <img :src="$_.find(tempInfo.content.certifications, { title: '企业道路运输经营许可证', type: 'A' }).path">
+                </figure>
+                <h5 class="sub-title">
+                     <span>道路运输经营许可证号: {{$_.find(tempInfo.content.certifications, { title: '企业道路运输经营许可证', type: 'A' }).licenseNo}}</span>
+                    <span>有效期: {{$_.find(tempInfo.content.certifications, { title: '企业道路运输经营许可证', type: 'A' }).expireDate}}</span>
+                  </h5>
+              </el-form-item>
+             </el-form>
+          </el-tab-pane>
+        </el-tabs>
+        <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
+          <el-tab-pane name="first">
+            <span slot="label" class="span-with-svg">
+              <svg-icon icon-class="id-card"></svg-icon>
+              企业安全责任承诺书
+            </span>
+             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
+              <el-form-item
+                v-if="$_.find(tempTankInfo.certifications, ['title', '企业安全责任承诺书'])"
+                label="企业安全责任承诺书"
+                class="full-width">
+                <!-- <el-form-item label="关联挂车号">{{tempTankInfo.plateNo}}</el-form-item> -->
+                <figure v-if="$_.find(tempTankInfo.certifications, { title: '企业安全责任承诺书', type: 'A' })">
+                  <img :src="$_.find(tempTankInfo.certifications, { title: '企业安全责任承诺书', type: 'A' }).path">
+                </figure>
+                <h5 class="sub-title">
+                    <p>要求：下载->填写->盖公章->彩色件扫描上传</p>
+                    <div><a href="">点击此处下载</a> 道路危险货物运输企业安全承诺书.pdf</div>
+                  </h5>
+              </el-form-item>
+             </el-form>
           </el-tab-pane>
         </el-tabs>
       </el-col>
@@ -86,12 +164,12 @@
 </template>
 
 <script>
-// import { getInfo } from '@/api/business/info'
-import businessInfo from '@/components/businessInfo'
-
+import { getEnterpriseInfo } from '@/api/business/enterprises'
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
+      tempInfo: {},
       dataLoading: {
         basic: true,
         cert: true
@@ -129,22 +207,18 @@ export default {
   created() {
     this.fetchData()
   },
-
+  computed: {
+    ...mapGetters([
+      'enterpriseStatusTypes',
+      'enterpriseTypes',
+      'businessTypes',
+      'basicInfo'
+    ])
+  },
   methods: {
     fetchData() {
       this.dataLoading.basic = true
-      this.$store.dispatch('GetBasicInfo').then(res => {
-        this.companyName = res.data.name
-        this.businessInfo = res.data.info
-        this.dataLoading.basic = false
-      })
-
-      this.dataLoading.cert = true
-      this.$store.dispatch('GetCertInfo').then(res => {
-        console.log(res.data.info)
-        this.certTabList[0].content = res.data.info
-        this.dataLoading.cert = false
-      })
+      getEnterpriseInfo()
     },
 
     onEditBusiness() {
@@ -158,8 +232,6 @@ export default {
         this.$message.info('已放弃修改')
       })
     }
-  },
-
-  components: { businessInfo }
+  }
 }
 </script>

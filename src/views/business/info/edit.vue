@@ -24,8 +24,8 @@
               <el-form-item label="统一社会信用代码">
                 <el-input v-model="tabData.content.registrationNo"></el-input>
               </el-form-item>
-              <el-form-item label="注册状态">
-                <el-select  v-model="tabData.content.registrationStatus">
+              <el-form-item label="状态">
+                <el-select  v-model="tabData.content.status">
                   <el-option
                     v-for="status in enterpriseStatusTypes"
                     :key="status.code"
@@ -59,7 +59,7 @@
               <el-form-item label="注册地">
                 <el-input v-model="tabData.content.registrationAuthority"></el-input>
               </el-form-item>
-              <el-form-item label="经营状态">
+              <el-form-item label="注册状态">
                 <el-select  v-model="tabData.content.status">
                   <el-option
                     v-for="status in enterpriseStatusTypes"
@@ -324,7 +324,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'vehicleBusinessTypes', 'enterpriseStatusTypes', 'enterpriseTypes', 'businessTypes','token'
+      'vehicleBusinessTypes', 'enterpriseStatusTypes', 'enterpriseTypes', 'businessTypes', 'token'
     ]),
     isAdd() {
       return this.$route.path.indexOf('add') >= 0

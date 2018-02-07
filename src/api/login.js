@@ -18,10 +18,14 @@ export function getInfo() {
   })
 }
 
-export function logout() {
+export function logout(username, password) {
   return request({
-    url: '/user/logout',
-    method: 'post'
+    url: '/v1/logout',
+    method: 'post',
+    data: {
+      username,
+      password
+    }
   })
 }
 
