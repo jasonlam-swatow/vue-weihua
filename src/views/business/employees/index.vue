@@ -316,7 +316,7 @@ export default {
       this.currentPage = pageNum
       const queries = {
         pageNum,
-        pageSize: 10,
+        pageSize: 15,
         ...omitBy(this.searchQueries, isEmpty)
       }
       console.log(queries)

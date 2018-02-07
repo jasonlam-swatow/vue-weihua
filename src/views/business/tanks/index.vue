@@ -39,7 +39,7 @@
             </div>
           </el-col>
         </el-row>
-        <el-table :data="tankList" border>
+        <el-table :data="tankList" border v-loading="loading">
           <el-table-column type="selection"></el-table-column>
           <el-table-column prop="tankerNo" label="罐体编号" width="100"></el-table-column>
           <el-table-column label="车辆类型" width="100">
