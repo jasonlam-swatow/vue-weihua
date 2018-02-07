@@ -26,7 +26,7 @@
                 :value="position.code">
               </el-option>
             </el-select>
-            <el-input style="width:200px" placeholder="身份证号或姓名" v-model="searchQueries.idOrName"></el-input>
+            <el-input style="width:200px" placeholder="身份证号或姓名" v-model="searchQueries.idOrName" @keyup.enter.native="onSearch"></el-input>
             <el-button size="medium" type="primary" plain round icon="el-icon-search" @click="onSearch"></el-button>
           </el-col>
           <el-col :span="8" class="fr">
@@ -58,14 +58,14 @@
             <template slot-scope="scope">
               <span>{{scope.row.entryDate/1000 | moment('YYYY/MM/DD')}}</span>
             </template>
-          </el-table-column>         
+          </el-table-column>
           <el-table-column label="审核状态" width="100">
             <template slot-scope="scope">
               {{$_.find(statusTypes, ['code', scope.row.status]) &&
                 $_.find(statusTypes, ['code', scope.row.status]).value}}
             </template>
           </el-table-column>
-          <el-table-column label="证照有效期状态" width="200">
+          <el-table-column label="证件展示" width="200">
             <template slot-scope="scope">
               <el-tooltip placement="right" effect="light">
                 <div slot="content" class="text-success" style="font-size: 14px">
@@ -81,6 +81,11 @@
                     size="small" type="success" class="adjacent">{{key}}</el-tag>
                 </div>
               </el-tooltip>
+            </template>
+          </el-table-column>
+          <el-table-column label="证件有效期状态" width="100">
+            <template slot-scope="scope">
+              {{checkValidity(scope.row.certifications)}}
             </template>
           </el-table-column>
           <el-table-column label="操作">
@@ -135,15 +140,15 @@
             $_.find(statusTypes, ['code', tempEmployeeInfo.status]).value}}
         </el-form-item>
         <el-form-item
-          v-if="$_.find(tempEmployeeInfo.certifications, ['title', '身分证'])"
-          label="身分证"
+          v-if="$_.find(tempEmployeeInfo.certifications, ['title', '身份证'])"
+          label="身份证"
           class="full-width">
-          <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '身分证', type: 'A' })">
-            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '身分证', type: 'A' }).path">
+          <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '身份证', type: 'A' })">
+            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '身份证', type: 'A' }).path">
             <figcaption>正面</figcaption>
           </figure>
-          <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '身分证', type: 'B' })">
-            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '身分证', type: 'B' }).path">
+          <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '身份证', type: 'B' })">
+            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '身份证', type: 'B' }).path">
             <figcaption>反面</figcaption>
           </figure>
         </el-form-item>
@@ -246,7 +251,7 @@ export default {
         idOrName: ''
       },
       certtificationMap: {
-        '基': ['身分证', '驾驶证'],
+        '基': ['身份证', '驾驶证'],
         '劳': ['劳动合同'],
         '驾': ['驾驶员从业资格证'],
         '押': ['押运员从业资格证'],
@@ -265,7 +270,8 @@ export default {
     ...mapGetters([
       'statusTypes',
       'positionTypes',
-      'genderTypes'
+      'genderTypes',
+      'certificationStatusTypes'
     ])
   },
   created() {

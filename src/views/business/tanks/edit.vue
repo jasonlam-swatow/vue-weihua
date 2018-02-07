@@ -11,17 +11,11 @@
               {{tabData.label}}
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
-              <el-form-item
-                label="罐体编号"
-                >
-                <el-input
-                  v-model="tabData.content.tankerNo"
-                  ></el-input>
+              <el-form-item label="罐体编号">
+                <el-input v-model="tabData.content.tankerNo"></el-input>
               </el-form-item>
-              <el-form-item
-                label="罐体类型"
-                >
-                <el-select  v-model="tabData.content.type">
+              <el-form-item label="罐体类型">
+                <el-select v-model="tabData.content.type">
                   <el-option
                     v-for="tank in tankerTypes"
                     :key="tank.seq"
@@ -30,27 +24,32 @@
                   </el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item
-                label="容积"
-                >
-                <el-input
-                  v-model="tabData.content.volume"
-                  ></el-input>
+              <el-form-item label="容积">
+                <!-- <el-input v-model="tabData.content.volume"></el-input> -->
+                <el-input-number v-model="tabData.content.volume" :step="0.1"></el-input-number>
               </el-form-item>
-              <el-form-item
-                label="投运日期"
-                >
+              <el-form-item label="投运日期">
                 <el-date-picker
+                  :picker-options="pickerOptions"
                   v-model="tabData.content.startDate"
-                  type="date"
-                  ></el-date-picker>
+                  type="date"></el-date-picker>
               </el-form-item>              
-              <el-form-item
-                label="关联挂车号"
-                >
-                <el-input
+              <el-form-item label="关联挂车号">
+                <el-select
                   v-model="tabData.content.plateNo"
-                  ></el-input>
+                  filterable
+                  remote
+                  :loading="searching"
+                  placeholder="请搜索挂车号"
+                  :remote-method="searchAssociateVehicle"
+                  @change="onSelectAssociateVehicle">
+                  <el-option
+                    v-for="vehicle in associateVehicles"
+                    :key="vehicle.id"
+                    :label="vehicle.plateNo"
+                    :value="vehicle.plateNo"></el-option>
+                </el-select>
+                <!-- <el-input v-model="tabData.content.plateNo"></el-input> -->
               </el-form-item>
             </el-form>
           </el-tab-pane>
@@ -63,18 +62,14 @@
               罐体检验报告
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
-              <el-form-item
-                label="报告编号"
-                >
-                <el-input
-                  v-model="tabData.content.certifications.find(_ => _.title === '罐体检验报告' && _.type === 'A').licenseNo"
-                  ></el-input>
+              <el-form-item label="报告编号">
+                <el-input v-model="tabData.content.certifications.find(_ => _.title === '罐体检验报告' && _.type === 'A').licenseNo"></el-input>
               </el-form-item>
               <el-form-item label="下次检验日期">
                 <el-date-picker
+                  :picker-options="pickerOptions"
                   v-model="tabData.content.certifications.find(_ => _.title === '罐体检验报告' && _.type === 'A').restsDate"
-                  type="date"
-                  ></el-date-picker>
+                  type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="上传报告" class="full-width">
                 <el-upload
@@ -114,25 +109,24 @@
           </el-tab-pane>
         </el-tabs>
         <!-- 上传压力罐容器登记证-->
-        <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
+        <el-tabs
+          v-model="activeTab" v-if="tabData.content.type === 'OVERHEAD_TANK'"
+          type="card" class="customized denser"
+          v-loading="loading">
           <el-tab-pane name="first">
             <span slot="label" class="span-with-svg">
               <svg-icon icon-class="id-card"></svg-icon>
-              压力罐容器登记证（压力罐容器必须）
+              压力罐容器登记证
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
-              <el-form-item
-                label="使用登记证编号"
-                >
-                <el-input
-                  v-model="tabData.content.certifications.find(_ => _.title === '压力罐容器登记证' && _.type === 'A').licenseNo"
-                  ></el-input>
+              <el-form-item label="使用登记证编号">
+                <el-input v-model="tabData.content.certifications.find(_ => _.title === '压力罐容器登记证' && _.type === 'A').licenseNo"></el-input>
               </el-form-item>
               <el-form-item label="下次检验日期">
                 <el-date-picker
+                  :picker-options="pickerOptions"
                   v-model="tabData.content.certifications.find(_ => _.title === '压力罐容器登记证' && _.type === 'A').restsDate"
-                  type="date"
-                  ></el-date-picker>
+                  type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="上传报告" class="full-width">
                 <el-upload
@@ -199,12 +193,20 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { getTankInfo, createTank, editTank } from '@/api/business/tanks'
+import {
+  getTankInfo,
+  getAssociatedPlateNumbers,
+  createTank,
+  editTank
+} from '@/api/business/tanks'
+import datepickerOptions from '@/mixins/_datepickerOptions'
 export default {
+  mixins: [datepickerOptions],
   data() {
     return {
       activeTab: 'first',
       loading: false,
+      searching: false,
       submitting: false,
       tabData: {
         label: '基本信息',
@@ -215,11 +217,13 @@ export default {
           tankerNo: '',
           type: '',
           plateNo: '',
-          volume: '',
+          trailerId: null,
+          volume: '1.0',
           enterpriseId: 1,
           certifications: [{
             fkTable: 'TAN',
             title: '罐体检验报告',
+            code: 'TERM_OF_TANKER_INSPECTION',
             path: '',
             type: 'A',
             restsDate: '',
@@ -227,30 +231,35 @@ export default {
           }, {
             fkTable: 'TAN',
             title: '罐体检验报告',
+            code: 'TERM_OF_TANKER_INSPECTION',
             path: '',
             type: 'B',
             restsDate: ''
           }, {
             fkTable: 'TAN',
             title: '压力罐容器登记证',
+            code: 'TERM_OF_PTC_REGISTRATION_CERTIFICATE',
             path: '',
             type: 'A',
             restsDate: ''
           }, {
             fkTable: 'TAN',
             title: '压力罐容器登记证',
+            code: 'TERM_OF_PTC_REGISTRATION_CERTIFICATE',
             path: '',
             type: 'B',
             restsDate: ''
           }, {
             fkTable: 'TAN',
             title: '压力罐容器登记证',
+            code: 'TERM_OF',
             path: '',
             type: 'C',
             restsDate: ''
           }]
         }
-      }
+      },
+      associateVehicles: []
     }
   },
   computed: {
@@ -280,6 +289,20 @@ export default {
     },
     onUploadLicenseC(res) {
       this.$_.find(this.tabData.content.certifications, { title: '压力罐容器登记证', type: 'C' }).path = res.data
+    },
+    searchAssociateVehicle(query) {
+      if (query !== '') {
+        this.searching = true
+        getAssociatedPlateNumbers(query).then(res => {
+          this.associateVehicles = res.data
+          this.searching = false
+        })
+      } else {
+        this.associateVehicles = []
+      }
+    },
+    onSelectAssociateVehicle(val) {
+      this.tabData.content.trailerId = this.$_.find(this.associateVehicles, ['plateNo', val]).id
     },
     fetchData() {
       const { id } = this.$route.query

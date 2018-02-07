@@ -8,13 +8,19 @@ const dict = {
     positionTypes: [],
     tankerTypes: [],
     enterpriseStatusTypes: [
-      { code: 'PERSISTANT', value: '存续' },
-      { code: 'CANCELED', value: '注销' },
-      { code: 'EMIGRATION', value: '迁出' }
+      { code: 'RESIDUAL', value: '存续' },
+      { code: 'CANCELLATION', value: '注销' },
+      { code: 'MIGRATION', value: '迁出' },
+      { code: 'RECOVATION', value: '吊销' }
     ],
     enterpriseTypes: [
       { code: 'A', value: '一人责任有限公司（自然人独资）' },
       { code: 'B', value: '有限公司' }
+    ],
+    certificationStatusTypes: [
+      { code: 'NORMAL', value: '正常' },
+      { code: 'WILL_ABNORMAL', value: '将到期' },
+      { code: 'ABNORMAL', value: '到期' }
     ],
     businessTypes: [
       { code: 'TRANSPORT', value: '运输企业' },

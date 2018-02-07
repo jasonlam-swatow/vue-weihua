@@ -25,9 +25,9 @@
                 <el-input v-model="tabData.content.registrationNo"></el-input>
               </el-form-item>
               <el-form-item label="状态">
-                <el-select  v-model="tabData.content.status">
+                <el-select v-model="tabData.content.status">
                   <el-option
-                    v-for="status in enterpriseStatusTypes"
+                    v-for="status in statusTypes"
                     :key="status.code"
                     :label="status.value"
                     :value="status.code">
@@ -46,6 +46,7 @@
               </el-form-item>
                <el-form-item label="成立日期">
                 <el-date-picker
+                  :picker-options="pickerOptions"
                   v-model="tabData.content.fundationDate"
                   type="date"
                   ></el-date-picker>
@@ -59,8 +60,8 @@
               <el-form-item label="注册地">
                 <el-input v-model="tabData.content.registrationAuthority"></el-input>
               </el-form-item>
-              <el-form-item label="注册状态">
-                <el-select  v-model="tabData.content.status">
+              <el-form-item label="经营状态">
+                <el-select v-model="tabData.content.registrationStatus">
                   <el-option
                     v-for="status in enterpriseStatusTypes"
                     :key="status.code"
@@ -73,7 +74,7 @@
                 <el-input v-model="tabData.content.operationScope" ></el-input>
               </el-form-item>
               <el-form-item label="企业业务类型">
-                <el-select  v-model="tabData.content.businessType">
+                <el-select v-model="tabData.content.businessType">
                   <el-option
                     v-for="btype in businessTypes"
                     :key="btype.code"
@@ -83,19 +84,13 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="紧急联系人">
-                <el-input
-                  v-model="tabData.content.contactName"
-                  ></el-input>
+                <el-input v-model="tabData.content.contactName"></el-input>
               </el-form-item>
               <el-form-item label="企业地址">
-                <el-input
-                  v-model="tabData.content.address"
-                  ></el-input>
+                <el-input v-model="tabData.content.address"></el-input>
               </el-form-item>
               <el-form-item label="紧急联系电话">
-                <el-input
-                  v-model="tabData.content.contactMobile"
-                  ></el-input>
+                <el-input v-model="tabData.content.contactMobile"></el-input>
               </el-form-item>
               <el-form-item label="经营类型" class="full-width">
                 <div style="max-height: 280px; overflow: scroll; border: 1px solid #eee; padding-top: 12px;">
@@ -168,17 +163,13 @@
               企业道路运输经营许可证
             </span>
              <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
-              <el-form-item
-                label="道路运输经营许可证号"
-                >
+              <el-form-item label="道路运输经营许可证号">
                 <el-input
-                  v-model="tabData.content.certifications.find(_ => _.title === '企业道路运输经营许可证' && _.type === 'A').licenseNo"
-                  ></el-input>
+                  v-model="tabData.content.certifications.find(_ => _.title === '企业道路运输经营许可证' && _.type === 'A').licenseNo"></el-input>
               </el-form-item>
-              <el-form-item
-                label="有效期"
-                >
+              <el-form-item label="有效期">
                 <el-date-picker
+                  :picker-options="pickerOptions"
                   v-model="tabData.content.certifications.find(_ => _.title === '企业道路运输经营许可证' && _.type === 'A').expireDate"
                   type="date"
                   ></el-date-picker>
@@ -247,8 +238,11 @@
 <script>
 import { mapGetters } from 'vuex'
 import { getEnterpriseInfo, createEnterprise, editEnterprise } from '@/api/business/enterprises'
+import datepickerOptions from '@/mixins/_datepickerOptions'
+
 import remove from 'lodash/remove'
 export default {
+  mixins: [datepickerOptions],
   data() {
     return {
       activeTab: 'first',
@@ -274,15 +268,16 @@ export default {
           legalPerson: '',
           // modifiedUser: '',
           name: '',
-          operationScope: '123',
+          operationScope: '',
           registeredCapital: 0,
           registrationAuthority: '',
           registrationNo: '',
-          registrationStatus: '1',
+          registrationStatus: '',
           status: '',
           certifications: [{
             fkTable: 'INF',
             title: '企业营业执照',
+            code: 'TERM_OF_BUSINESS',
             path: '',
             type: 'A',
             restsDate: '',
@@ -291,18 +286,21 @@ export default {
           }, {
             fkTable: 'INF',
             title: '企业营业执照',
+            code: 'TERM_OF_BUSINESS',
             path: '',
             type: 'B',
             restsDate: ''
           }, {
             fkTable: 'INF',
             title: '企业营业执照',
+            code: 'TERM_OF_BUSINESS',
             path: '',
             type: 'C',
             restsDate: ''
           }, {
             fkTable: 'INF',
             title: '企业道路运输经营许可证',
+            code: 'TERM_OF_TRANSPORT_LICENSE',
             path: '',
             type: 'A',
             restsDate: '',
@@ -310,6 +308,7 @@ export default {
           }, {
             fkTable: 'INF',
             title: '企业安全责任承诺书',
+            code: 'TERM_OF_SAFETY_PRODUCTION_PERMIT',
             path: '',
             type: 'A',
             restsDate: '',
@@ -324,7 +323,12 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'vehicleBusinessTypes', 'enterpriseStatusTypes', 'enterpriseTypes', 'businessTypes', 'token'
+      'vehicleBusinessTypes',
+      'enterpriseStatusTypes',
+      'enterpriseTypes',
+      'statusTypes',
+      'businessTypes',
+      'token'
     ]),
     isAdd() {
       return this.$route.path.indexOf('add') >= 0

@@ -13,14 +13,23 @@
               </el-option>
             </el-select> -->
             <el-select placeholder="全部罐体类型" v-model="searchQueries.type">
-            <el-option
-              v-for="tank in tankerTypes"
-              :key="tank.seq"
-              :label="tank.value" :value="tank.code">
+              <el-option label="全部罐体" value=""></el-option>
+              <el-option
+                v-for="tank in tankerTypes"
+                :key="tank.seq"
+                :label="tank.value" :value="tank.code">
               </el-option>
             </el-select>
-            <el-input size="medium" style="width:200px" placeholder="罐体编号 or 关联挂车号" v-model="searchQueries.tankerNo"></el-input>
-            <el-button size="medium" type="primary" plain round icon="el-icon-search" @click="onSearch"></el-button>
+            <el-input
+              size="medium" style="width:200px"
+              placeholder="罐体编号 or 关联挂车号"
+              @keyup.enter.native="onSearch"
+              v-model="searchQueries.tankerNo"></el-input>
+            <el-button
+              size="medium"
+              type="primary" plain round
+              icon="el-icon-search"
+              @click="onSearch"></el-button>
           </el-col>
           <el-col :span="8" class="fr">
             <div class="fr">
@@ -52,7 +61,7 @@
               $_.find(statusTypes, ['code', scope.row.status]).value}}
             </template>
           </el-table-column>
-          <el-table-column label="证照有效期状态" width="240">
+          <el-table-column label="证照展示" width="240">
             <template slot-scope="scope">
               <el-tooltip placement="right" effect="light">
                 <div slot="content" class="text-success" style="font-size: 14px">
@@ -68,6 +77,11 @@
                     size="small" type="success" class="adjacent">{{key}}</el-tag>
                 </div>
               </el-tooltip>
+            </template>
+          </el-table-column>
+          <el-table-column label="证件有效期状态" width="100">
+            <template slot-scope="scope">
+              {{checkValidity(scope.row.certifications)}}
             </template>
           </el-table-column>
           <el-table-column label="操作">
@@ -87,14 +101,14 @@
       </el-tab-pane> 
     </el-tabs>
     <div class="fr" style="margin-top:12px">
-    <el-pagination
-      @current-change="fetchData"
-      :current-page="currentPage"
-      :page-size="10"
-      layout="total, prev, pager, next, jumper"
-      :total="total">
-    </el-pagination>
-  </div>
+      <el-pagination
+        @current-change="fetchData"
+        :current-page="currentPage"
+        :page-size="10"
+        layout="total, prev, pager, next, jumper"
+        :total="total">
+      </el-pagination>
+    </div>
 
     <el-dialog
       :title="tempTankInfo.name"
@@ -110,9 +124,7 @@
           {{$_.find(tankerTypes, ['code', tempTankInfo.type]) &&
             $_.find(tankerTypes, ['code', tempTankInfo.type]).value}}
         </el-form-item>
-        <el-form-item label="容积">
-          {{tempTankInfo.volume}}
-        </el-form-item>
+        <el-form-item label="罐体容积">{{tempTankInfo.volume}}</el-form-item>
         <el-form-item label="投运日期">{{tempTankInfo.startDate/1000 | moment('YYYY/MM/DD')}}</el-form-item>
         <el-form-item label="关联挂车号">{{tempTankInfo.plateNo}}</el-form-item>
         <el-form-item
@@ -126,16 +138,16 @@
           </figure>
           <figure v-if="$_.find(tempTankInfo.certifications, { title: '罐体检验报告', type: 'B' })">
             <img :src="$_.find(tempTankInfo.certifications, { title: '罐体检验报告', type: 'B' }).path">
-            <figcaption>检验报告细节液</figcaption>
+            <figcaption>检验报告细节页</figcaption>
           </figure>
-           <h5 class="sub-title">
-             <span>报告编号：{{$_.find(tempTankInfo.certifications, { title: '罐体检验报告', type: 'A' }).licenseNo}}</span>
-             <span>下次检验日期：{{$_.find(tempTankInfo.certifications, { title: '罐体检验报告', type: 'A' }).restsDate}}</span>
-            </h5>
+          <h5 class="sub-title">
+            <span>报告编号：{{$_.find(tempTankInfo.certifications, { title: '罐体检验报告', type: 'A' }).licenseNo}}</span>
+            <span>下次检验日期：{{($_.find(tempTankInfo.certifications, { title: '罐体检验报告', type: 'A' }).restsDate)/1000 | moment('YYYY/MM/DD')}}</span>
+          </h5>
         </el-form-item>
         <el-form-item
-          v-if="$_.find(tempTankInfo.certifications, ['title', '压力罐容器登记证'])"
-          label="压力罐容器登记证（压力罐容器必须）"
+          v-if="tempTankInfo.type === 'OVERHEAD_TANK' && $_.find(tempTankInfo.certifications, ['title', '压力罐容器登记证'])"
+          label="压力罐容器登记证"
           class="full-width">
           <!-- <el-form-item label="关联挂车号">{{tempTankInfo.plateNo}}</el-form-item> -->
           <figure v-if="$_.find(tempTankInfo.certifications, { title: '压力罐容器登记证', type: 'A' })">

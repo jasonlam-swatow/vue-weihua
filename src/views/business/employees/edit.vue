@@ -22,13 +22,18 @@
               </el-form-item>
               <el-form-item label="主要岗位">
                 <el-select v-model="tabData.content.position">
-                  <el-option label="驾驶员" value="PILOT"></el-option>
-                  <el-option label="押运员" value="ESCORT"></el-option>
-                  <el-option label="驾驶员/押运员" value="BOTH"></el-option>
+                  <el-option
+                    v-for="position in positionTypes"
+                    :key="position.code"
+                    :label="position.value"
+                    :value="position.code">
+                  </el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="入职时间">
-                <el-date-picker v-model="tabData.content.entryDate" type="date"></el-date-picker>
+                <el-date-picker
+                  :picker-options="pickerOptions"
+                  v-model="tabData.content.entryDate" type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="联系电话">
                 <el-input v-model="tabData.content.phone"></el-input>
@@ -40,26 +45,28 @@
           </el-tab-pane>
         </el-tabs>
 
-        <!-- 上传身分证 -->
+        <!-- 上传身份证 -->
         <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
           <el-tab-pane name="first">
             <span slot="label" class="span-with-svg">
               <svg-icon icon-class="id-card"></svg-icon>
-              身分证
+              身份证
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="有效期" class="full-width">
-                <el-date-picker v-model="tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'A').expireDate" type="date"></el-date-picker>
+                <el-date-picker
+                  :picker-options="pickerOptions"
+                  v-model="tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'A').expireDate" type="date"></el-date-picker>
               </el-form-item>
-              <el-form-item label="上传身分证" class="full-width">
+              <el-form-item label="上传身份证" class="full-width">
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader"
                   :headers="header"                
                   :on-success="onUploadIdA">
                   <img
-                    v-if="tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'A').path"
-                    :src="tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'A').path"
+                    v-if="tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'A').path"
+                    :src="tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'A').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
@@ -72,8 +79,8 @@
                   :headers="header"                
                   :on-success="onUploadIdB">
                   <img
-                    v-if="tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'B').path"
-                    :src="tabData.content.certifications.find(_ => _.title === '身分证' && _.type === 'B').path"
+                    v-if="tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'B').path"
+                    :src="tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'B').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
@@ -94,7 +101,9 @@
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="有效期" class="full-width">
-                <el-date-picker v-model="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'A').expireDate" type="date"></el-date-picker>
+                <el-date-picker
+                  :picker-options="pickerOptions"
+                  v-model="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'A').expireDate" type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="上传劳动合同" class="full-width">
                 <el-upload
@@ -153,7 +162,9 @@
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="有效期" class="full-width">
-                <el-date-picker v-model="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'A').expireDate" type="date"></el-date-picker>
+                <el-date-picker
+                  :picker-options="pickerOptions"
+                  v-model="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'A').expireDate" type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="上传驾驶证" class="full-width">
                 <el-upload
@@ -226,7 +237,9 @@
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="有效期" class="full-width">
-                <el-date-picker v-model="tabData.content.certifications.find(_ => _.title === '驾驶员从业资格证').expireDate" type="date"></el-date-picker>
+                <el-date-picker
+                  :picker-options="pickerOptions"
+                  v-model="tabData.content.certifications.find(_ => _.title === '驾驶员从业资格证').expireDate" type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="上传驾驶员从业资格证" class="full-width">
                 <el-upload
@@ -257,7 +270,9 @@
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="有效期" class="full-width">
-                <el-date-picker v-model="tabData.content.certifications.find(_ => _.title === '押运员从业资格证').expireDate" type="date"></el-date-picker>
+                <el-date-picker
+                  :picker-options="pickerOptions"
+                  v-model="tabData.content.certifications.find(_ => _.title === '押运员从业资格证').expireDate" type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="上传押运员从业资格证" class="full-width">
                 <el-upload
@@ -287,7 +302,9 @@
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="有效期" class="full-width">
-                <el-date-picker v-model="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'A').expireDate" type="date"></el-date-picker>
+                <el-date-picker
+                  :picker-options="pickerOptions"
+                  v-model="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'A').expireDate" type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="上传安全责任状" class="full-width">
                 <el-upload
@@ -340,9 +357,11 @@ import {
   createEmployee,
   editEmployee
 } from '@/api/business/employees'
+import datepickerOptions from '@/mixins/_datepickerOptions'
 import { mapGetters } from 'vuex'
 
 export default {
+  mixins: [datepickerOptions],
   data() {
     return {
       activeTab: 'first',
@@ -363,100 +382,90 @@ export default {
           status: '',
           certifications: [{
             fkTable: 'EMP',
-            title: '身分证',
+            title: '身份证',
+            code: 'TERM_OF_ID_CARD',
             path: '',
             type: 'A',
             expireDate: ''
           }, {
             fkTable: 'EMP',
-            title: '身分证',
+            title: '身份证',
+            code: 'TERM_OF_ID_CARD',
             path: '',
             type: 'B',
             expireDate: ''
           }, {
             fkTable: 'EMP',
             title: '劳动合同',
+            code: 'TERM_OF_LABOR_CONTRACT',
             path: '',
             type: 'A',
             expireDate: ''
           }, {
             fkTable: 'EMP',
             title: '劳动合同',
+            code: 'TERM_OF_LABOR_CONTRACT',
             path: '',
             type: 'B',
             expireDate: ''
           }, {
             fkTable: 'EMP',
             title: '劳动合同',
+            code: 'TERM_OF_LABOR_CONTRACT',
             path: '',
             type: 'C',
             expireDate: ''
           }, {
             fkTable: 'EMP',
             title: '驾驶证',
+            code: 'TERM_OF_DRIVING_LICENSE_INSPECTION',
             path: '',
             type: 'A',
             expireDate: ''
           }, {
             fkTable: 'EMP',
             title: '驾驶证',
+            code: 'TERM_OF_DRIVING_LICENSE_INSPECTION',
             path: '',
             type: 'B',
             expireDate: ''
           }, {
             fkTable: 'EMP',
             title: '驾驶证',
+            code: 'TERM_OF_DRIVING_LICENSE_INSPECTION',
             path: '',
             type: 'C',
             expireDate: ''
           }, {
             fkTable: 'EMP',
             title: '驾驶证',
+            code: 'TERM_OF_DRIVING_LICENSE_INSPECTION',
             path: '',
             type: 'D',
             expireDate: ''
           }, {
             fkTable: 'EMP',
             title: '驾驶员从业资格证',
+            code: 'TERM_OF_DRIVER_QUALIFICATION_CERTIFICATE',
             path: '',
             expireDate: ''
           }, {
             fkTable: 'EMP',
             title: '押运员从业资格证',
-            path: '',
-            type: 'D',
-            expireDate: ''
-          }, {
-            fkTable: 'EMP',
-            title: '驾驶员从业资格证',
-            path: '',
-            expireDate: ''
-          }, {
-            fkTable: 'EMP',
-            title: '押运员从业资格证',
+            code: 'TERM_OF_ESCORT_QUALIFICATION_CERTIFICATE',
             path: '',
             expireDate: ''
           }, {
             fkTable: 'EMP',
             title: '安全责任状',
+            code: 'TERM_OF_SAFETY_RESPONSIBILITY',
             path: '',
             type: 'A',
             expireDate: ''
           }, {
             fkTable: 'EMP',
             title: '安全责任状',
-            path: '',
-            type: 'B',
-            expireDate: ''
-          }, {
-            fkTable: 'EMP',
-            title: '安全责任状',
-            path: '',
-            type: 'A',
-            expireDate: ''
-          }, {
-            fkTable: 'EMP',
-            title: '安全责任状',
+            code: 'TERM_OF_SAFETY_RESPONSIBILITY',
             path: '',
             type: 'B',
             expireDate: ''
@@ -466,7 +475,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['token']),
+    ...mapGetters(['token', 'positionTypes']),
     header() {
       return { 'Authorization': `Bearer ${this.token}` }
     },
@@ -487,10 +496,10 @@ export default {
       })
     },
     onUploadIdA(res) {
-      this.$_.find(this.tabData.content.certifications, { title: '身分证', type: 'A' }).path = res.data
+      this.$_.find(this.tabData.content.certifications, { title: '身份证', type: 'A' }).path = res.data
     },
     onUploadIdB(res) {
-      this.$_.find(this.tabData.content.certifications, { title: '身分证', type: 'B' }).path = res.data
+      this.$_.find(this.tabData.content.certifications, { title: '身份证', type: 'B' }).path = res.data
     },
     onUploadContractA(res) {
       this.$_.find(this.tabData.content.certifications, { title: '劳动合同', type: 'A' }).path = res.data

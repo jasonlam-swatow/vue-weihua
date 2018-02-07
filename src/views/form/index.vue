@@ -12,7 +12,7 @@
       </el-form-item>
       <el-form-item label="Activity time">
         <el-col :span="11">
-          <el-date-picker type="date" placeholder="Pick a date" v-model="form.date1" style="width: 100%;"></el-date-picker>
+          <el-date-picker :picker-options="pickerOptions" type="date" placeholder="Pick a date" v-model="form.date1" style="width: 100%;"></el-date-picker>
         </el-col>
         <el-col class="line" :span="2">-</el-col>
         <el-col :span="11">
@@ -48,7 +48,9 @@
 </template>
 
 <script>
+import datepickerOptions from '@/mixins/_datepickerOptions'
 export default {
+  mixins: [datepickerOptions],
   data() {
     return {
       form: {

@@ -4,11 +4,11 @@
       <el-tab-pane label="用户配置">        
         <el-row type="flex" class="mgb12 strange-input">
           <el-col :span="20">
-            <el-date-picker
+            <el-date-picker :picker-options="pickerOptions"
               v-model="searchQueries.gmtCreateBegin"
               type="date" size="medium" placeholder="创建开始时间"
               value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
-            <el-date-picker v-model="searchQueries.gmtCreateEnd" type="date" size="medium" placeholder="创建结束时间"></el-date-picker>
+            <el-date-picker :picker-options="pickerOptions" v-model="searchQueries.gmtCreateEnd" type="date" size="medium" placeholder="创建结束时间"></el-date-picker>
             <el-input style="width:200px" placeholder="用户名称" v-model="searchQueries.name"></el-input>
             <el-button size="medium" type="primary" plain round icon="el-icon-search" @click="onSearch"></el-button>
           </el-col>
@@ -87,12 +87,14 @@ import {
   createUser,
   updateUserInfo,
   deleteUser } from '@/api/settings/users'
+import datepickerOptions from '@/mixins/_datepickerOptions'
 import omit from 'lodash/omit'
 import omitBy from 'lodash/omitBy'
 import isEmpty from 'lodash/isEmpty'
 import pick from 'lodash/pick'
 
 export default {
+  mixins: [datepickerOptions],
   data() {
     return {
       loading: true,
