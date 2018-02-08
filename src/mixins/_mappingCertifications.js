@@ -1,25 +1,29 @@
 import mapValues from 'lodash/mapValues'
-import intersection from 'lodash/intersection'
 import values from 'lodash/values'
+import uniqBy from 'lodash/uniqBy'
+import omitBy from 'lodash/omitBy'
 import flattenDeep from 'lodash/flattenDeep'
-// import { mapGetters } from 'vuex'
-// intersection 返回交集
+
 export default {
-  // computed: {
-  //   ...mapGetters(['certificationStatusTypes'])
-  // },
   methods: {
-    shortenCertifications(certifications, certMap) {
-      const approved = this.$_.filter(certifications, cert => !!cert.code)
-      const certNames = this.$_.map(approved, 'title')
-      console.log(certNames)
-      console.log(certMap)
-      return mapValues(certMap, cert => intersection(cert, certNames))
+    getCertificationMaps(certifications, certMap) {
+      const uniqCertifications = uniqBy(certifications, 'title')
+      return mapValues(certMap, collection =>
+        this.$_.map(collection, item => ({
+          title: item,
+          code: this.$_.find(uniqCertifications, ['title', item]) && this.$_.find(uniqCertifications, ['title', item]).code,
+          status: this.$_.find(uniqCertifications, ['title', item]) && this.$_.find(uniqCertifications, ['title', item]).status
+        }))
+      )
+    },
+    shortenCertifications(certificationMaps) {
+      return omitBy(certificationMaps, certMap =>
+        this.$_.find(certMap, cert => !cert.code))
     },
     // 枚举属性的一维数组
-    flattenCertifications(shortenedCertifications) {
-      console.log(shortenedCertifications)
-      return flattenDeep(values(shortenedCertifications))
+    flattenCertifications(certificationMaps) {
+      // console.log(certificationMaps)
+      return flattenDeep(values(certificationMaps))
     },
     // 检查有没有组件已过期
     checkValidity(certifications) {

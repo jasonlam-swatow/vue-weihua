@@ -64,16 +64,24 @@
           <el-table-column label="证照展示" width="240">
             <template slot-scope="scope">
               <el-tooltip placement="right" effect="light">
-                <div slot="content" class="text-success" style="font-size: 14px">
-                  <p v-for="cert in flattenCertifications(shortenCertifications(scope.row.certifications, certtificationMap))" :key="cert">
-                    <b>{{cert}}：</b>审核通过
+                <div
+                  slot="content"
+                  class="text-success"
+                  style="font-size: 14px">
+                  <p
+                    v-for="(cert, key) in flattenCertifications(getCertificationMaps(scope.row.certifications, certtificationMap))"
+                    :key="key"
+                    :class="{ 'text-warning': cert.status === 'WILL_ABNORMAL', 'text-danger': cert.status === 'ABNORMAL', }">
+                    <b>{{cert.title}}</b>：
+                    <span v-if="cert.status ==='NORMAL'">未过期</span>
+                    <span v-else-if="cert.status ==='WILL_ABNORMAL'">将过期</span>
+                    <span v-else-if="cert.status ==='ABNORMAL'">已过期</span>
                   </p>
                 </div>
                 <div>
                   <el-tag
-                    v-for="(cert, key) in shortenCertifications(scope.row.certifications, certtificationMap)"
+                    v-for="(cert, key) in shortenCertifications(getCertificationMaps(scope.row.certifications, certtificationMap))"
                     :key="key"
-                    v-if="cert.length"
                     size="small" type="success" class="adjacent">{{key}}</el-tag>
                 </div>
               </el-tooltip>

@@ -65,11 +65,35 @@
               $_.find(statusTypes, ['code', scope.row.status]).value}}
             </template>
           </el-table-column>
-          <el-table-column label="证照有效期状态" width="240">
+          <el-table-column label="证照展示" width="240">
             <template slot-scope="scope">
-              <!-- <span v-for="(item, key) in scope.row.businessType" :key="key">
-                <el-tag class="adjacent" :type="item.status === '已上传' ? 'success': 'warning' ">{{item.name}}</el-tag>
-              </span> -->
+              <el-tooltip placement="right" effect="light">
+                <div
+                  slot="content"
+                  class="text-success"
+                  style="font-size: 14px">
+                  <p
+                    v-for="(cert, key) in flattenCertifications(getCertificationMaps(scope.row.certifications, certtificationMap))"
+                    :key="key"
+                    :class="{ 'text-warning': cert.status === 'WILL_ABNORMAL', 'text-danger': cert.status === 'ABNORMAL', }">
+                    <b>{{cert.title}}</b>：
+                    <span v-if="cert.status ==='NORMAL'">未过期</span>
+                    <span v-else-if="cert.status ==='WILL_ABNORMAL'">将过期</span>
+                    <span v-else-if="cert.status ==='ABNORMAL'">已过期</span>
+                  </p>
+                </div>
+                <div>
+                  <el-tag
+                    v-for="(cert, key) in shortenCertifications(getCertificationMaps(scope.row.certifications, certtificationMap))"
+                    :key="key"
+                    size="small" type="success" class="adjacent">{{key}}</el-tag>
+                </div>
+              </el-tooltip>
+            </template>
+          </el-table-column>
+          <el-table-column label="证件有效期状态" width="100">
+            <template slot-scope="scope">
+              {{checkValidity(scope.row.certifications)}}
             </template>
           </el-table-column>
           <el-table-column prop="contact" label="操作">
@@ -256,11 +280,13 @@ import {
   deleteVehicle,
   getTrailerInfo
 } from '@/api/business/vehicles'
+import mappingCertifications from '@/mixins/_mappingCertifications'
 import omitBy from 'lodash/omitBy'
 import isEmpty from 'lodash/isEmpty'
 // import find from 'lodash/find'
 
 export default {
+  mixins: [mappingCertifications],
   data() {
     return {
       dialogVisible: false,
