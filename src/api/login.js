@@ -18,10 +18,11 @@ export function getInfo() {
   })
 }
 
-export function logout() {
+export function logout(token) {
   return request({
-    url: '/user/logout',
-    method: 'post'
+    url: '/v1/logout',
+    method: 'post',
+    data: token
   })
 }
 
