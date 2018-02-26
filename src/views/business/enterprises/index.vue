@@ -74,8 +74,8 @@
             $_.find(statusTypes, ['code', tempEnterpriseInfo.enterpriseType]).value}}
         </el-form-item>
         <el-form-item label="公司类型">
-          {{$_.find(enterpriseType, ['code', tempEnterpriseInfo.status]) &&
-            $_.find(enterpriseType, ['code', tempEnterpriseInfo.status]).value}}
+          {{$_.find(enterpriseTypes, ['code', tempEnterpriseInfo.status]) &&
+            $_.find(enterpriseTypes, ['code', tempEnterpriseInfo.status]).value}}
         </el-form-item>
         <el-form-item label="成立日期">{{tempEnterpriseInfo.fundationDate/1000 | moment('YYYY/MM/DD')}}</el-form-item>
         <el-form-item label="法定代表人">{{tempEnterpriseInfo.legalPerson}}</el-form-item>
@@ -197,6 +197,9 @@ export default {
     },
     addEnterprise() {
       this.$router.push('/business/enterprises/add')
+    },
+    editEnterprise(id) {
+      this.$router.push({ path: '/business/info/edit', query: { id }})
     },
     viewEnterprise(id) {
       this.dialogVisible = true

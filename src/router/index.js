@@ -196,7 +196,7 @@ export const asyncRouterMap = [
     component: Layout,
     redirect: '/settings/system',
     name: '系统管理',
-    meta: { title: '系统管理', icon: 'stacks' },
+    meta: { title: '系统管理', icon: 'setting' },
     children: [
       {
         path: 'roles',
@@ -222,7 +222,7 @@ export const asyncRouterMap = [
         path: 'resources',
         name: '资源管理',
         component: _import('settings/system/index'),
-        meta: { title: '资源管理', icon: 'setting' }
+        meta: { title: '资源管理', icon: 'resource' }
       }, {
         path: 'privilege',
         name: '权限管理',

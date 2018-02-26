@@ -353,9 +353,9 @@ export default {
       }
     },
     fetchData() {
-      const { plateNo } = this.$route.query
+      const { id } = this.$route.query
       this.loading = true
-      getEnterpriseInfo(plateNo).then(res => {
+      getEnterpriseInfo(id).then(res => {
         this.tabData.content = res.data
         this.loading = false
       })
