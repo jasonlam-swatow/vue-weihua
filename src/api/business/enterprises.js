@@ -37,3 +37,11 @@ export function getEnterpriseInfo(id) {
     method: 'get'
   })
 }
+
+export function reviewEnterprise(id, data) {
+  return request({
+    url: `/v1/enterprises/${id}/audit`,
+    method: 'put',
+    data
+  })
+}

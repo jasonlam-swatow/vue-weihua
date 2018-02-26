@@ -230,6 +230,14 @@
           </figure>
         </el-form-item>
       </el-form>
+      <span slot="footer" class="dialog-footer" v-if="tempEmployeeInfo.status === 'PENDING'">
+        <el-button
+          type="success"
+          @click="reviewEmployee(tempEmployeeInfo.id, true)">审核通过</el-button>
+        <el-button
+          type="danger"
+          @click="reviewEmployee(tempEmployeeInfo.id, false)">审核不通过</el-button>
+      </span>
     </el-dialog>
   </div>
 </template>
@@ -238,6 +246,7 @@ import { mapGetters } from 'vuex'
 import {
   getEmployeeList,
   getEmployeeInfo,
+  reviewEmployee,
   deleteEmployee
 } from '@/api/business/employees'
 import mappingCertifications from '@/mixins/_mappingCertifications'
@@ -340,6 +349,33 @@ export default {
       getEmployeeInfo(id).then(res => {
         this.tempEmployeeInfo = res.data
       })
+    },
+    reviewEmployee(id, passedOrNot) {
+      if (passedOrNot) {
+        this.$confirm('确定审核通过此员工？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          reviewEmployee(id, { status: 'AUDITED' }).then(res => {
+            this.$message.success('已审核通过！')
+            this.dialogVisible = false
+            this.fetchData()
+          })
+        })
+      } else {
+        this.$prompt('请表明审核不通过理由', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'info'
+        }).then(({ value }) => {
+          reviewEmployee(id, { status: 'UNAUDITED', comment: value }).then(res => {
+            this.$message.info('已审核不通过！')
+            this.dialogVisible = false
+            this.fetchData()
+          })
+        })
+      }
     }
   }
 }

@@ -195,24 +195,39 @@ export const asyncRouterMap = [
     path: '/settings',
     component: Layout,
     redirect: '/settings/system',
-    name: '其他',
-    meta: { title: '其他', icon: 'stacks' },
+    name: '系统管理',
+    meta: { title: '系统管理', icon: 'stacks' },
     children: [
       {
         path: 'roles',
-        name: '角色配置',
+        name: '角色管理',
         component: _import('settings/roles/index'),
-        meta: { title: '角色配置', icon: 'setting' }
+        meta: { title: '角色管理', icon: 'group' }
       }, {
         path: 'users',
-        name: '用户配置',
+        name: '账号管理',
         component: _import('settings/users/index'),
-        meta: { title: '用户配置', icon: 'setting' }
+        meta: { title: '账号管理', icon: 'user-o' }
       }, {
         path: 'system',
         name: '系统消息配置',
         component: _import('settings/system/index'),
-        meta: { title: '系统消息配置', icon: 'setting' }
+        meta: { title: '系统消息配置', icon: 'bell-o' }
+      }, {
+        path: 'menus',
+        name: '菜单管理',
+        component: _import('settings/system/index'),
+        meta: { title: '菜单管理', icon: 'info' }
+      }, {
+        path: 'resources',
+        name: '资源管理',
+        component: _import('settings/system/index'),
+        meta: { title: '资源管理', icon: 'setting' }
+      }, {
+        path: 'privilege',
+        name: '权限管理',
+        component: _import('settings/system/index'),
+        meta: { title: '权限管理', icon: 'setting' }
       }, {
         path: 'messages',
         name: '我的消息',

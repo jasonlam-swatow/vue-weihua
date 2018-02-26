@@ -136,6 +136,14 @@
           </figure>
         </el-form-item>
       </el-form>
+      <span slot="footer" class="dialog-footer" v-if="tempEnterpriseInfo.status === 'PENDING'">
+        <el-button
+          type="success"
+          @click="reviewEnterprise(tempEnterpriseInfo.id, true)">审核通过</el-button>
+        <el-button
+          type="danger"
+          @click="reviewEnterprise(tempEnterpriseInfo.id, false)">审核不通过</el-button>
+      </span>
     </el-dialog>
   </div>
 </template>
@@ -144,6 +152,7 @@ import { mapGetters } from 'vuex'
 import {
   getEnterpriseList,
   getEnterpriseInfo,
+  reviewEnterprise,
   deleteEnterprise
 } from '@/api/business/enterprises'
 import datepickerOptions from '@/mixins/_datepickerOptions'
@@ -221,6 +230,33 @@ export default {
         this.total = res.data.total
         this.loading = false
       })
+    },
+    reviewEnterprise(id, passedOrNot) {
+      if (passedOrNot) {
+        this.$confirm('确定审核通过此企业？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          reviewEnterprise(id, { status: 'AUDITED' }).then(res => {
+            this.$message.success('已审核通过！')
+            this.dialogVisible = false
+            this.fetchData()
+          })
+        })
+      } else {
+        this.$prompt('请表明审核不通过理由', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'info'
+        }).then(({ value }) => {
+          reviewEnterprise(id, { status: 'UNAUDITED', comment: value }).then(res => {
+            this.$message.info('已审核不通过！')
+            this.dialogVisible = false
+            this.fetchData()
+          })
+        })
+      }
     }
   }
 }

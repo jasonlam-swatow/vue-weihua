@@ -26,7 +26,7 @@ export function createEmployee(data) {
   return request({
     url: '/v1/employees/',
     method: 'post',
-    data: data
+    data
   })
 }
 
@@ -34,6 +34,14 @@ export function editEmployee(id, data) {
   return request({
     url: `/v1/employees/${id}`,
     method: 'put',
-    data: data
+    data
+  })
+}
+
+export function reviewEmployee(id, data) {
+  return request({
+    url: `/v1/employees/${id}/audit`,
+    method: 'put',
+    data
   })
 }
