@@ -30,7 +30,7 @@ service.interceptors.response.use(
       case 204:
         break
       case 401:
-        // console.log(MessageBox)
+      case 405:
         MessageBox.confirm('你已被登出，可以取消继续留在该页面，或者重新登录', '确定登出', {
           confirmButtonText: '重新登录',
           cancelButtonText: '取消',
