@@ -11,6 +11,15 @@
               {{tabData.label}}
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
+              <el-form-item v-if="isAdd" label="企业" class="full-width">
+                <el-select v-model="tabData.content.enterpriseId">
+                  <el-option
+                    v-for="ent in enterpriseList"
+                    :key="ent.id"
+                    :value="ent.id"
+                    :label="ent.name"></el-option>
+                </el-select>
+              </el-form-item>
               <el-form-item label="罐体编号">
                 <el-input v-model="tabData.content.tankerNo"></el-input>
               </el-form-item>
@@ -199,6 +208,7 @@ import {
   createTank,
   editTank
 } from '@/api/business/tanks'
+import { getEnterpriseList } from '@/api/business/enterprises'
 import datepickerOptions from '@/mixins/_datepickerOptions'
 export default {
   mixins: [datepickerOptions],
@@ -208,6 +218,7 @@ export default {
       loading: false,
       searching: false,
       submitting: false,
+      enterpriseList: [],
       tabData: {
         label: '基本信息',
         name: 'first',
@@ -219,7 +230,7 @@ export default {
           plateNo: '',
           trailerId: null,
           volume: '1.0',
-          enterpriseId: 1,
+          enterpriseId: '',
           certifications: [{
             fkTable: 'TAN',
             title: '罐体检验报告',
@@ -273,6 +284,9 @@ export default {
   },
   created() {
     if (!this.isAdd) this.fetchData()
+    getEnterpriseList({ pageNum: 1, pageSize: 250 }).then(res => {
+      this.enterpriseList = res.data.list
+    })
   },
   methods: {
     onUploadPaperA(res) {

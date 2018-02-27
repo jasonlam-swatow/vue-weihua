@@ -12,7 +12,7 @@
             <el-date-picker
               :picker-options="pickerOptions"
               v-model="searchQueries.gmtCreateEnd" type="date" size="medium" style="width:200px;height:36px" placeholder="创建结束时间"></el-date-picker>
-            <el-button type="primary" plain round icon="el-icon-search" @click="onSearch"></el-button>
+            <el-button type="primary" plain round icon="el-icon-search" @click="fetchData"></el-button>
           </el-col>
           <el-col :span="4" class="fr">
             <div class="fr">
@@ -60,12 +60,12 @@
 
     <el-dialog
       :title="tempEnterpriseInfo.name"
-      width="50%" top="4vh"
+      width="70%" top="4vh"
       :visible.sync="dialogVisible">
       <el-form
         :model="tempEnterpriseInfo"
         class="view-form"
-        label-width="100px"
+        label-width="120px"
         :inline="true">
         <el-form-item label="企业名称">{{tempEnterpriseInfo.name}}</el-form-item>
         <el-form-item label="统一社会信用代码">{{tempEnterpriseInfo.registrationNo}}</el-form-item>
@@ -94,8 +94,10 @@
         <el-form-item label="企业地址">{{tempEnterpriseInfo.address}}</el-form-item>
         <el-form-item label="紧急联系电话">{{tempEnterpriseInfo.contactMobile}}</el-form-item>
         <el-form-item label="经营类型">
-          <!-- todo -->
-          {{tempEnterpriseInfo.businessTerm}}
+          <div style="max-height: 280px; overflow: scroll; border: 1px solid #eee; padding-top: 12px;">
+            <el-tree
+              :data="tempVehicleBusinessTypes"></el-tree>
+          </div>
         </el-form-item>
         <el-form-item
           v-if="$_.find(tempEnterpriseInfo.certifications, ['title', '企业营业执照'])"
@@ -123,7 +125,7 @@
             <figcaption>企业道路运输经营许可证</figcaption>
           </figure>
           <h5 class="sub-title">
-            <span>有效期: {{$_.find(tempEnterpriseInfo.certifications, { title: '企业道路运输经营许可证', type: 'A' }).expireDate}}</span>
+            <span>有效期: {{($_.find(tempEnterpriseInfo.certifications, { title: '企业道路运输经营许可证', type: 'A' }).expireDate)/1000 | moment('YYYY/MM/DD')}}</span>
           </h5>
         </el-form-item>
         <el-form-item
@@ -157,6 +159,7 @@ import {
 } from '@/api/business/enterprises'
 import datepickerOptions from '@/mixins/_datepickerOptions'
 
+import reduce from 'lodash/reduce'
 import omitBy from 'lodash/omitBy'
 import isEmpty from 'lodash/isEmpty'
 
@@ -166,6 +169,7 @@ export default {
     return {
       dialogVisible: false,
       tempEnterpriseInfo: {},
+      tempVehicleBusinessTypes: [],
       vehicleList: [],
       loading: true,
       currentPage: 1,
@@ -188,13 +192,11 @@ export default {
       'statusTypes',
       'enterpriseStatusTypes',
       'businessTypes',
-      'enterpriseTypes'
+      'enterpriseTypes',
+      'vehicleBusinessTypes'
     ])
   },
   methods: {
-    onSearch() {
-      this.fetchData()
-    },
     addEnterprise() {
       this.$router.push('/business/enterprises/add')
     },
@@ -205,6 +207,17 @@ export default {
       this.dialogVisible = true
       getEnterpriseInfo(id).then(res => {
         this.tempEnterpriseInfo = res.data
+        // this.tempVehicleBusinessTypes = this.$_.map(this.vehicleBusinessTypes, item => {
+        //   item.children = this.$_.filter(item.children, c => this.tempEnterpriseInfo.businessTerm.includes(String(c.id)))
+        //   return item
+        // })
+        const matcher = (collection, selected) => reduce(collection, (result, item) => {
+          if (selected.includes(item.id)) {
+            result.push({ id: item.id, children: matcher(item.children, selected) })
+          }
+          return result
+        }, [])
+        this.tempVehicleBusinessTypes = matcher(this.vehicleBusinessTypes, this.tempEnterpriseInfo.businessTerm)
       })
     },
     deleteEnterprise(id) {

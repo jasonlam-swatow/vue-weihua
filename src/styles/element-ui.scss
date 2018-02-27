@@ -111,9 +111,22 @@
 
 .el-form {
   &.view-form {
-    .el-form-item:not(.full-width) {
+    .el-form-item__label {
+      font-weight: bold;
+    }
+    .el-form-item {
       &__content {
-        width: 100px;
+        width: 120px;
+      }
+    }
+    .el-form-item.full-width {
+      .el-form-item__label {
+        width: 100% !important;
+        text-align: left;
+      }
+      .el-form-item__content {
+        width: 100%;
+        padding-left: 80px;
       }
     }
     h5.sub-title {
@@ -160,6 +173,9 @@
   }
   .el-radio-group {
     width: 220px
+  }
+  .el-form-item__content {
+    width: auto;
   }
 }
 

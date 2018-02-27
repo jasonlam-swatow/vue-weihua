@@ -11,6 +11,15 @@
               {{tabData.label}}
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
+              <el-form-item v-if="isAdd" label="企业" class="full-width">
+                <el-select v-model="tabData.content.enterpriseId">
+                  <el-option
+                    v-for="ent in enterpriseList"
+                    :key="ent.id"
+                    :value="ent.id"
+                    :label="ent.name"></el-option>
+                </el-select>
+              </el-form-item>
               <el-form-item label="姓名">
                 <el-input v-model="tabData.content.name"></el-input>
               </el-form-item>
@@ -357,6 +366,7 @@ import {
   createEmployee,
   editEmployee
 } from '@/api/business/employees'
+import { getEnterpriseList } from '@/api/business/enterprises'
 import datepickerOptions from '@/mixins/_datepickerOptions'
 import { mapGetters } from 'vuex'
 
@@ -367,7 +377,7 @@ export default {
       activeTab: 'first',
       loading: false,
       submitting: false,
-      num: 1,
+      enterpriseList: [],
       tabData: {
         label: '基本信息',
         name: 'first',
@@ -378,7 +388,7 @@ export default {
           position: '',
           entryDate: '',
           phone: '',
-          enterpriseId: 1,
+          enterpriseId: '',
           status: '',
           certifications: [{
             fkTable: 'EMP',
@@ -485,6 +495,9 @@ export default {
   },
   created() {
     if (!this.isAdd) this.fetchData()
+    getEnterpriseList({ pageNum: 1, pageSize: 250 }).then(res => {
+      this.enterpriseList = res.data.list
+    })
   },
   methods: {
     fetchData() {

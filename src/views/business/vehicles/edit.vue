@@ -11,6 +11,15 @@
               {{tabData.label}}
             </span>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
+              <el-form-item v-if="isAdd" label="企业" class="full-width">
+                <el-select v-model="tabData.content.enterpriseId">
+                  <el-option
+                    v-for="ent in enterpriseList"
+                    :key="ent.id"
+                    :value="ent.id"
+                    :label="ent.name"></el-option>
+                </el-select>
+              </el-form-item>
               <el-form-item label="车牌号">
                 <el-input v-model="tabData.content.plateNo"></el-input>
               </el-form-item>
@@ -461,7 +470,11 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { getTrailerInfo, createTrailer, editTrailer } from '@/api/business/vehicles'
+import {
+  getTrailerInfo,
+  createTrailer,
+  editTrailer } from '@/api/business/vehicles'
+import { getEnterpriseList } from '@/api/business/enterprises'
 import datepickerOptions from '@/mixins/_datepickerOptions'
 import remove from 'lodash/remove'
 
@@ -472,6 +485,7 @@ export default {
       activeTab: 'first',
       loading: false,
       submitting: false,
+      enterpriseList: [],
       tabData: {
         label: '基本信息',
         name: 'first',
@@ -483,7 +497,7 @@ export default {
           tractionMass: 0,
           vin: '',
           licenseNo: '',
-          enterpriseId: 1,
+          enterpriseId: '',
           businessType: [],
           certifications: [{
             fkTable: 'TRA',
@@ -658,6 +672,9 @@ export default {
   },
   created() {
     if (!this.isAdd) this.fetchData()
+    getEnterpriseList({ pageNum: 1, pageSize: 250 }).then(res => {
+      this.enterpriseList = res.data.list
+    })
   },
   methods: {
     onUpload(title, type) {
