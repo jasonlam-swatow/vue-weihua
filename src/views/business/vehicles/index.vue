@@ -102,7 +102,7 @@
                 <el-button type="text" icon="el-icon-view" @click="viewTank(scope.row.id)"></el-button>
               </el-tooltip>
               <el-tooltip content="编辑" placement="top">
-                <el-button type="text" icon="el-icon-edit-outline" @click="editVehicle(scope.row.plateNo)"></el-button>
+                <el-button type="text" icon="el-icon-edit-outline" @click="editVehicle(scope.row.id)"></el-button>
               </el-tooltip>
               <el-tooltip content="删除" placement="top">
                 <el-button type="text" icon="el-icon-delete"  @click="deleteVehicle(scope.row)"></el-button>

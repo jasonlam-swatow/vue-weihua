@@ -692,9 +692,9 @@ export default {
       }
     },
     fetchData() {
-      const { plateNo } = this.$route.query
+      const { id } = this.$route.query
       this.loading = true
-      getTrailerInfo(plateNo).then(res => {
+      getTrailerInfo(id).then(res => {
         this.tabData.content = res.data
         this.loading = false
       })
@@ -722,9 +722,3 @@ export default {
   }
 }
 </script>
-<style rel="stylesheet/scss" lang="scss" scoped>
- .button_area {
-   display: flex;
-   justify-content: flex-end;
- }
-</style>

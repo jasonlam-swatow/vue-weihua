@@ -56,7 +56,7 @@
           <el-table-column prop="phone" label="联系电话"></el-table-column>
           <el-table-column label="入职日期">
             <template slot-scope="scope">
-              <span>{{scope.row.entryDate/1000 | moment('YYYY/MM/DD')}}</span>
+              <span>{{scope.row.entryDate/1000 | moment('YYYY-MM-DD')}}</span>
             </template>
           </el-table-column>
           <el-table-column label="审核状态" width="100">
@@ -140,7 +140,7 @@
           {{$_.find(positionTypes, ['code', tempEmployeeInfo.position]) &&
             $_.find(positionTypes, ['code', tempEmployeeInfo.position]).value}}
         </el-form-item>
-        <el-form-item label="入职时间">{{tempEmployeeInfo.entryDate/1000 | moment('YYYY/MM/DD')}}</el-form-item>
+        <el-form-item label="入职时间">{{tempEmployeeInfo.entryDate/1000 | moment('YYYY-MM-DD')}}</el-form-item>
         <el-form-item label="联系电话">{{tempEmployeeInfo.phone}}</el-form-item>
         <el-form-item label="身份证号码">{{tempEmployeeInfo.idCard}}</el-form-item>
         <el-form-item label="审核状态">

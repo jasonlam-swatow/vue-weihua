@@ -28,7 +28,7 @@
           </el-table-column>
           <el-table-column label="创建时间">
             <template slot-scope="scope">
-              <span>{{scope.row.gmtCreate/1000 | moment('YYYY/MM/DD')}}</span>
+              <span>{{scope.row.gmtCreate/1000 | moment('YYYY-MM-DD')}}</span>
             </template>
           </el-table-column>
           <el-table-column label="状态" prop="status"></el-table-column>

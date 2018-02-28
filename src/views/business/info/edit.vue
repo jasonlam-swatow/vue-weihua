@@ -100,7 +100,7 @@
                     node-key="id"
                     @check-change="onTreeCheck"
                     :default-expand-all="true"
-                    :default-expanded-checked-keys="tabData.content.businessTerm"></el-tree>
+                    :default-checked-keys="tabData.content.businessTerm"></el-tree>
                 </div>
               </el-form-item>
               <el-form-item label="上传企业营业执照" class="full-width">

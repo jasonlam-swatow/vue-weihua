@@ -52,7 +52,7 @@
           <el-table-column prop="plateNo" label="关联挂车号"></el-table-column>
           <el-table-column label="投运日期">
             <template slot-scope="scope">
-              <span>{{scope.row.startDate/1000 | moment('YYYY/MM/DD')}}</span>
+              <span>{{scope.row.startDate/1000 | moment('YYYY-MM-DD')}}</span>
             </template>
           </el-table-column>       
           <el-table-column label="审核状态" width="100">
@@ -133,7 +133,7 @@
             $_.find(tankerTypes, ['code', tempTankInfo.type]).value}}
         </el-form-item>
         <el-form-item label="罐体容积">{{tempTankInfo.volume}}</el-form-item>
-        <el-form-item label="投运日期">{{tempTankInfo.startDate/1000 | moment('YYYY/MM/DD')}}</el-form-item>
+        <el-form-item label="投运日期">{{tempTankInfo.startDate/1000 | moment('YYYY-MM-DD')}}</el-form-item>
         <el-form-item label="关联挂车号">{{tempTankInfo.plateNo}}</el-form-item>
         <el-form-item
           v-if="$_.find(tempTankInfo.certifications, ['title', '罐体检验报告'])"
@@ -150,7 +150,7 @@
           </figure>
           <h5 class="sub-title">
             <span>报告编号：{{$_.find(tempTankInfo.certifications, { title: '罐体检验报告', type: 'A' }).licenseNo}}</span>
-            <span>下次检验日期：{{($_.find(tempTankInfo.certifications, { title: '罐体检验报告', type: 'A' }).restsDate)/1000 | moment('YYYY/MM/DD')}}</span>
+            <span>下次检验日期：{{($_.find(tempTankInfo.certifications, { title: '罐体检验报告', type: 'A' }).restsDate)/1000 | moment('YYYY-MM-DD')}}</span>
           </h5>
         </el-form-item>
         <el-form-item

@@ -349,9 +349,3 @@ export default {
   }
 }
 </script>
-<style rel="stylesheet/scss" lang="scss" scoped>
- .button_area {
-   display: flex;
-   justify-content: flex-end;
- }
-</style>

@@ -1,14 +1,8 @@
 import request from '@/utils/request'
 
-const typeMap = {
-  '在册车辆': 'vehicles',
-  '在册罐体': 'tanks',
-  '在册员工': 'employees'
-}
-
-export function getStatistics(type) {
+export function getStatistics(id) {
   return request({
-    url: `/dashboard/${typeMap[type]}`,
+    url: `/v1/enterprises/${id}/statistics/`,
     method: 'get'
   })
 }

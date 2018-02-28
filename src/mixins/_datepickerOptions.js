@@ -3,9 +3,11 @@ export default {
     return {
       pickerOptions: {
         disabledDate(time) {
-          var today = new Date()
-          var yesterday = today.setDate(today.getDate() - 1)
-          return time.getTime() < yesterday
+          // 禁选今日以前的日期
+          // var today = new Date()
+          // var yesterday = today.setDate(today.getDate() - 1)
+          // return time.getTime() < yesterday
+          return null
         }
       }
     }

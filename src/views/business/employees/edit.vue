@@ -571,21 +571,17 @@ export default {
 }
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
-.title {
-  color: #606266;
-  margin-bottom:5px; 
-}
- .logContainer {
-   color: #606266;
-   background-color: #e9f6ff;
-   height: 200px;
-   overflow-y: scroll;
-   .logInfo {
-     padding: 5px 0px;
-   }
- }
- .button_area {
-   display: flex;
-   justify-content: flex-end;
- }
+  .title {
+    color: #606266;
+    margin-bottom:5px; 
+  }
+  .logContainer {
+    color: #606266;
+    background-color: #e9f6ff;
+    height: 200px;
+    overflow-y: scroll;
+    .logInfo {
+      padding: 5px 0px;
+    }
+  }
 </style>

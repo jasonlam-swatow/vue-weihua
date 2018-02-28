@@ -149,3 +149,8 @@ a:hover {
 // ::-webkit-scrollbar-thumb {
 //     background: #FF0000;
 // }
+
+.button_area {
+  display: flex;
+  justify-content: flex-end;
+}

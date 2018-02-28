@@ -26,7 +26,7 @@
                 {{$_.find(enterpriseTypes, ['code', enterpriseData.status]) &&
                   $_.find(enterpriseTypes, ['code', enterpriseData.status]).value}}
               </el-form-item>
-              <el-form-item label="成立日期">{{enterpriseData.fundationDate/1000 | moment('YYYY/MM/DD')}}</el-form-item>
+              <el-form-item label="成立日期">{{enterpriseData.fundationDate/1000 | moment('YYYY-MM-DD')}}</el-form-item>
               <el-form-item label="法定代表人">{{enterpriseData.legalPerson}}</el-form-item>
               <el-form-item label="注册资本">{{enterpriseData.registeredCapital}}</el-form-item>
               <el-form-item label="注册地">{{enterpriseData.registrationAuthority}}</el-form-item>
@@ -94,7 +94,7 @@
                   <figcaption>企业道路运输经营许可证</figcaption>
                 </figure>
                 <h5 class="sub-title">
-                  <span>有效期: {{($_.find(enterpriseData.certifications, { title: '企业道路运输经营许可证', type: 'A' }).expireDate)/1000 | moment('YYYY/MM/DD')}}</span>
+                  <span>有效期: {{($_.find(enterpriseData.certifications, { title: '企业道路运输经营许可证', type: 'A' }).expireDate)/1000 | moment('YYYY-MM-DD')}}</span>
                 </h5>
               </el-form-item>
               <el-form-item
