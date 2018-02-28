@@ -72,7 +72,7 @@
 
 登录视图（`login/index.vue`）中 dispatch `Login` action 后（详见代码及 [Vuex 文档](https://vuex.vuejs.org/)），`@/store/modules` 下的 `Login` action 定义进行处理——用接收到的 `username` 和 `password` 请求登录接口，获得 token 后即 commit 一个 `SET_TOKEN` mutation，该 mutation 定义中将 token 写入 state。（上述为本项目典型的 Vuex 工作流程，可作其他类似逻辑参考）。
 
-现在路由层面权限的控制代码都在 `@/permission.js` 中，如果想修改逻辑，直接在适当的判断逻辑中 next() 释放钩子即可。
+现在路由层面权限的控制代码都在 `@/permission.js` 中，如果想修改逻辑，直接在适当的判断逻辑中 `next()` 释放钩子即可。
 
 `@/permission.js` 会在登录页面以外的所有页面中，拦截路由跳转并检查权限。当 store 中没有角色信息，首先 dispatch `GetInfo` 来获取用户信息，再根据其所属角色 dispatch `GenerateRoutes` 以生成对应的可访问路由。同时也会执行一系列对全局字典数据的请求，以供取用。
 
@@ -131,11 +131,11 @@
     │   ├── transition.scss          # vue transition 动画
     │   └── variables.scss           # 全局变量
 
-常见的工作流程是，全局样式都写在 `@styles` 目录下，每个页面自己对应的样式都写在各自的 `.vue` 文件中。
+常见的工作流程是，全局样式都写在 `@/styles` 目录下，每个页面自己对应的样式都写在各自的 `.vue` 文件中。
 
 ### 图标
 
-在 [iconfont.cn](http://iconfont.cn/) 上寻找所需的 SVG 图标，放在 `@/icons/svg` 中，便会自动导入。使用方式：
+在 [iconfont.cn](http://iconfont.cn/) 上（或随便哪里）寻找 SVG 图标，放入 `@/icons/svg`，便会自动导入。使用方式：
 
     <svg-icon icon-class="password" /> // icon-class 为 icon 的名字
     
@@ -147,7 +147,7 @@
     
 ## 跨域问题
 
-在 dev 开发模式下可以下使用 webpack 的 `proxy` 来进行跨域（[文档](https://doc.webpack-china.org/configuration/dev-server/#devserver-proxy)。在生产环境下则需要使用 nginx 反向代理。不管是 proxy 和 nginx 的原理都是一样的，通过搭建一个中转服务器来转发请求规避跨域的问题。
+在 dev 开发模式下可以下使用 Webpack 的 `proxy` 来进行跨域（[文档](https://doc.webpack-china.org/configuration/dev-server/#devserver-proxy)。在生产环境下则需要使用 nginx 反向代理。不管是 proxy 和 nginx 的原理都是一样的，通过搭建一个中转服务器来转发请求规避跨域的问题。
 
 ## 构建和发布
 
@@ -167,5 +167,5 @@
 
     assetsPublicPath: '/'   // 请根据自己路径来配置更改
 
-
+Peace out.
 
