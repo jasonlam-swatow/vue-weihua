@@ -10,7 +10,7 @@
               <svg-icon icon-class="document"></svg-icon>
               {{tabData.label}}
             </span> 
-            <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input" :rules="rules" ref="tabData.content">
+            <el-form :inline="true" label-width="130px":model="tabData.content" class="prevent-uneven strange-input" :rules="rules" ref="tabData.content" >
               <el-form-item v-if="isAdd" label="企业" class="full-width">
                 <el-select v-model="tabData.content.enterpriseId">
                   <el-option
@@ -483,20 +483,22 @@ export default {
   mixins: [datepickerOptions],
   data() {
     var checkPlateNo = (rule, value, callback) => {
+      console.log(value)
       var reg = /^[京,津,渝,沪,冀,晋,辽,吉,黑,苏,浙,皖,闽,赣,鲁,豫,鄂,湘,粤,琼,川,贵,云,陕,秦,甘,陇,青,台,内蒙古,桂,宁,新,藏,澳,军,海,航,警][A-Z][0-9,A-Z]{5}$/
       if (!reg.test(value)) {
         return callback(new Error('车牌号格式不正确'))
       } else { return callback() }
     }
     var checkLicenseNo = (rule, value, callback) => {
-      if (!(typeof value === 'number' && value.length === 11)) {
+      if (!(Number.isInteger(value) && value.length === 11)) {
         return callback(new Error('道路运输证号格式不正确'))
       } else { return callback() }
     }
     var checkVin = (rule, value, callback) => {
-      if (!(value.length === 17)) {
-        return callback(new Error('车架号格式不正确'))
-      } else { return callback() }
+      console.log(value)
+      // if (!(value.length === 17)) {
+      //   return callback(new Error('车架号格式不正确'))
+      // } else { return callback() }
     }
     return {
       rules: {
