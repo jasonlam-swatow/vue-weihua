@@ -163,7 +163,7 @@
 import {
   getEnterpriseList,
   getEnterpriseInfo,
-  reviewEmployee
+  reviewEnterprise
 } from '@/api/business/enterprises'
 import { mapGetters } from 'vuex'
 import reduce from 'lodash/reduce'
@@ -233,15 +233,14 @@ export default {
         this.$message.info('已放弃修改')
       })
     },
-
-    reviewEmployee(id, passedOrNot) {
+    reviewEnterprise(id, passedOrNot) {
       if (passedOrNot) {
-        this.$confirm('确定审核通过此员工？', '提示', {
+        this.$confirm('确定审核通过此企业？', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          reviewEmployee(id, { status: 'AUDITED' }).then(res => {
+          reviewEnterprise(id, { status: 'AUDITED' }).then(res => {
             this.$message.success('已审核通过！')
             this.dialogVisible = false
             this.fetchData()
@@ -253,7 +252,7 @@ export default {
           cancelButtonText: '取消',
           type: 'info'
         }).then(({ value }) => {
-          reviewEmployee(id, { status: 'UNAUDITED', comment: value }).then(res => {
+          reviewEnterprise(id, { status: 'UNAUDITED', comment: value }).then(res => {
             this.$message.info('已审核不通过！')
             this.dialogVisible = false
             this.fetchData()
