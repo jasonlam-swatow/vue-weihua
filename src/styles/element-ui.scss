@@ -111,19 +111,20 @@
 
 .el-form {
   &.view-form {
-    .el-form-item__label {
-      font-weight: bold;
-    }
     .el-form-item {
       &__content {
         width: 120px;
+        color: map-get($palette, sub);
+      }
+      &__label {
+        font-weight: bold;
       }
     }
     .el-form-item.full-width {
-      .el-form-item__label {
-        width: 100% !important;
-        text-align: left;
-      }
+      // .el-form-item__label {
+      //   width: 100% !important;
+      //   text-align: left;
+      // }
       .el-form-item__content {
         width: 100%;
         padding-left: 80px;

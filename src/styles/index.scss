@@ -102,10 +102,10 @@ a:hover {
   .el-button {
     color: #fff;
     padding: 0 6px;
+    border: 1px solid #fff;
     &:hover,
     &:focus {
       font-weight: bold;
-      border: 1px solid #fff;
       // border-bottom: 1px solid #fff;
     }
     > span {

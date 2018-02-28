@@ -198,7 +198,7 @@
         <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
           <el-tab-pane name="first">
             <span slot="label" class="span-with-svg">
-              <svg-icon icon-class="id-card"></svg-icon>
+              <svg-icon icon-class="approve"></svg-icon>
               企业安全责任承诺书
             </span>
              <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
@@ -251,7 +251,7 @@ export default {
       tabData: {
         label: '基本信息',
         name: 'first',
-        icon: 'id-card',
+        icon: 'cubes',
         content: {
           abbrName: '',
           address: '',

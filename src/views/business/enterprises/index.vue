@@ -58,7 +58,7 @@
       </el-pagination>
     </div>
 
-    <el-dialog
+    <!-- <el-dialog
       :title="tempEnterpriseInfo.name"
       width="70%" top="4vh"
       :visible.sync="dialogVisible">
@@ -146,20 +146,20 @@
           type="danger"
           @click="reviewEnterprise(tempEnterpriseInfo.id, false)">审核不通过</el-button>
       </span>
-    </el-dialog>
+    </el-dialog> -->
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
 import {
   getEnterpriseList,
-  getEnterpriseInfo,
+  // getEnterpriseInfo,
   reviewEnterprise,
   deleteEnterprise
 } from '@/api/business/enterprises'
 import datepickerOptions from '@/mixins/_datepickerOptions'
 
-import reduce from 'lodash/reduce'
+// import reduce from 'lodash/reduce'
 import omitBy from 'lodash/omitBy'
 import isEmpty from 'lodash/isEmpty'
 
@@ -167,7 +167,7 @@ export default {
   mixins: [datepickerOptions],
   data() {
     return {
-      dialogVisible: false,
+      // dialogVisible: false,
       tempEnterpriseInfo: {},
       tempVehicleBusinessTypes: [],
       vehicleList: [],
@@ -204,21 +204,22 @@ export default {
       this.$router.push({ path: '/business/info/edit', query: { id }})
     },
     viewEnterprise(id) {
-      this.dialogVisible = true
-      getEnterpriseInfo(id).then(res => {
-        this.tempEnterpriseInfo = res.data
-        // this.tempVehicleBusinessTypes = this.$_.map(this.vehicleBusinessTypes, item => {
-        //   item.children = this.$_.filter(item.children, c => this.tempEnterpriseInfo.businessTerm.includes(String(c.id)))
-        //   return item
-        // })
-        const matcher = (collection, selected) => reduce(collection, (result, item) => {
-          if (selected.includes(item.id)) {
-            result.push({ id: item.id, children: matcher(item.children, selected) })
-          }
-          return result
-        }, [])
-        this.tempVehicleBusinessTypes = matcher(this.vehicleBusinessTypes, this.tempEnterpriseInfo.businessTerm)
-      })
+      // this.dialogVisible = true
+      // getEnterpriseInfo(id).then(res => {
+      //   this.tempEnterpriseInfo = res.data
+      //   // this.tempVehicleBusinessTypes = this.$_.map(this.vehicleBusinessTypes, item => {
+      //   //   item.children = this.$_.filter(item.children, c => this.tempEnterpriseInfo.businessTerm.includes(String(c.id)))
+      //   //   return item
+      //   // })
+      //   const matcher = (collection, selected) => reduce(collection, (result, item) => {
+      //     if (selected.includes(item.id)) {
+      //       result.push({ id: item.id, children: matcher(item.children, selected) })
+      //     }
+      //     return result
+      //   }, [])
+      //   this.tempVehicleBusinessTypes = matcher(this.vehicleBusinessTypes, this.tempEnterpriseInfo.businessTerm)
+      // })
+      this.$router.push({ path: '/business/info', query: { view: true, id }})
     },
     deleteEnterprise(id) {
       this.$confirm('此操作将永久删除该企业，是否继续？', '提示', {
