@@ -494,7 +494,7 @@ export default {
       } else { return callback() }
     }
     var checkVin = (rule, value, callback) => {
-      if (!(value === 17)) {
+      if (!(value.length === 17)) {
         return callback(new Error('车架号格式不正确'))
       } else { return callback() }
     }
