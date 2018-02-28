@@ -109,6 +109,15 @@
              </el-form>
           </el-tab-pane>
         </el-tabs>
+
+        <div class="button_area"v-if="enterpriseData.status !== 'AUDITED'">
+          <el-button
+            type="success"
+            @click="reviewEnterprise(enterpriseData.id, true)">审核通过</el-button>
+          <el-button
+            type="danger"
+            @click="reviewEnterprise(enterpriseData.id, false)">审核不通过</el-button>
+        </div>
       </el-col>
     </el-row>
     <!-- <el-dialog title="修改紧急救援联系人信息" :visible.sync="dialogFormVisible">
@@ -151,7 +160,11 @@
 </template>
 
 <script>
-import { getEnterpriseList, getEnterpriseInfo } from '@/api/business/enterprises'
+import {
+  getEnterpriseList,
+  getEnterpriseInfo,
+  reviewEmployee
+} from '@/api/business/enterprises'
 import { mapGetters } from 'vuex'
 import reduce from 'lodash/reduce'
 export default {
@@ -219,6 +232,34 @@ export default {
       }).catch(() => {
         this.$message.info('已放弃修改')
       })
+    },
+
+    reviewEmployee(id, passedOrNot) {
+      if (passedOrNot) {
+        this.$confirm('确定审核通过此员工？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          reviewEmployee(id, { status: 'AUDITED' }).then(res => {
+            this.$message.success('已审核通过！')
+            this.dialogVisible = false
+            this.fetchData()
+          })
+        })
+      } else {
+        this.$prompt('请表明审核不通过理由', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'info'
+        }).then(({ value }) => {
+          reviewEmployee(id, { status: 'UNAUDITED', comment: value }).then(res => {
+            this.$message.info('已审核不通过！')
+            this.dialogVisible = false
+            this.fetchData()
+          })
+        })
+      }
     }
   }
 }
