@@ -95,6 +95,7 @@
               <el-form-item label="经营类型" class="full-width">
                 <div style="max-height: 280px; overflow: scroll; border: 1px solid #eee; padding-top: 12px;">
                   <el-tree
+                    ref="tree"
                     :data="vehicleBusinessTypes"
                     show-checkbox
                     node-key="id"
@@ -358,6 +359,8 @@ export default {
       getEnterpriseInfo(id).then(res => {
         this.tabData.content = res.data
         this.loading = false
+        // this.$forceUpdate()
+        this.$refs.tree.setCheckedKeys(this.tabData.content.businessTerm)
       })
     },
     onSubmit() {
