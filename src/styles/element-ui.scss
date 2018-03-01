@@ -178,8 +178,9 @@
     }
     .el-input-group__append,
     .el-input-group__prepend {
+      border-radius: 0;
       width: 40px;
-      padding: 0 12px;
+      padding: 0 10px;
     }
   }
   .el-radio-group {

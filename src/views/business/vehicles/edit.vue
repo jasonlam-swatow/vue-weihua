@@ -303,8 +303,13 @@
           <el-tab-pane name="first">
             <span slot="label" class="span-with-svg">
               <svg-icon icon-class="id-card"></svg-icon>
-              卫星定位终端安装证书（牵引车必填）
+              卫星定位终端安装证书
             </span>
+            <el-alert
+              title="牵引车必填"
+              type="info"
+              show-icon
+              class="mgb12"></el-alert>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item
                 label="从业资格证号"
@@ -398,8 +403,13 @@
           <el-tab-pane name="first">
             <span slot="label" class="span-with-svg">
               <svg-icon icon-class="id-card"></svg-icon>
-              车辆安全设备配备照片（牵引车必填，至少一张）
+              车辆安全设备配备照片
             </span>
+            <el-alert
+              title="牵引车必填，至少上传一张"
+              type="info"
+              show-icon
+              class="mgb12"></el-alert>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="上传" class="full-width">
                 <el-upload

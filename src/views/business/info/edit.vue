@@ -398,7 +398,7 @@ export default {
           _afterSubmit()
         })
       } else {
-        editEnterprise(this.$route.query.plateNo, { ...this.tabData.content }).then(res => {
+        editEnterprise(this.$route.query.id, { ...this.tabData.content }).then(res => {
           this.$message.success('已修改！')
           _afterSubmit()
         })
