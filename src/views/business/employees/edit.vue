@@ -10,7 +10,7 @@
               <svg-icon icon-class="document"></svg-icon>
               {{tabData.label}}
             </span>
-            <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input" :rules="formRules" ref="tabData.content">
+            <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input" :rules="rulesCheck" ref="tabData.content" :model="tabData.content">
               <el-form-item v-if="isAdd" label="企业" class="full-width">
                 <el-select v-model="tabData.content.enterpriseId">
                   <el-option
@@ -47,7 +47,7 @@
               <el-form-item label="联系电话" prop="phone">
                 <el-input v-model="tabData.content.phone"></el-input>
               </el-form-item>
-              <el-form-item label="身份证号码" prop="id">
+              <el-form-item label="身份证号码" prop="idCard">
                 <el-input v-model="tabData.content.idCard"></el-input>
               </el-form-item>
             </el-form>
@@ -374,6 +374,7 @@ export default {
   mixins: [datepickerOptions],
   data() {
     var checkId = (rule, value, callback) => {
+      console.log(value)
       var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
       if (!reg.test(value)) {
         return callback(new Error('身份证格式不正确'))
@@ -386,8 +387,8 @@ export default {
       } else { return callback() }
     }
     return {
-      formRules: {
-        id: [
+      rulesCheck: {
+        idCard: [
           { validator: checkId, trigger: 'blur' }
         ],
         phone: [

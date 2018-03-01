@@ -17,7 +17,7 @@
               {{tabData.label}}
             </span>
             <el-form
-              :inline="true" :rule="formRules"
+              :inline="true" :rules="formRules"
               ref="tabData.content"
               :model="tabData.content"
               label-width="130px"
@@ -61,7 +61,7 @@
               </el-form-item>
               <el-form-item label="注册资本" prop="registeredCapital">
                 <el-input v-model="tabData.content.registeredCapital">
-                  <template slot="append">￥</template>
+                  <template slot="append">万</template>
                 </el-input>
                 <!-- <el-input v-model="tabData.content.registeredCapital"></el-input> -->
               </el-form-item>
@@ -257,14 +257,21 @@ import remove from 'lodash/remove'
 export default {
   mixins: [datepickerOptions],
   data() {
+    const floatValidator = (rule, value, callback) => {
+      const reg = /^(-)?(([1-9]{1}\d*)|([0]{1}))(\.(\d){1,2})$/
+      if (!reg.test(value)) {
+        return callback(new Error('请输入数字，精确至小数点后两位'))
+      } else {
+        return callback()
+      }
+    }
     return {
       activeTab: 'first',
       loading: false,
       submitting: false,
       formRules: {
         registeredCapital: [{
-          type: 'float',
-          message: '请输入数字，精确至小数点后两位',
+          validator: floatValidator,
           trigger: 'change'
         }]
       },
