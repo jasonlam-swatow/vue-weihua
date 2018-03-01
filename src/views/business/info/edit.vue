@@ -327,7 +327,7 @@ export default {
       formRules: {
         address: [
           { required: true, message: '请填写企业地址', trigger: 'blur' },
-          { max: 50, message: '不超过 50 个字符', trigger: 'blur' },
+          { max: 50, message: '不超过 50 个字符', trigger: 'blur' }
         ],
         contactMobile: [
           { required: true, message: '请填写手机号码', trigger: 'blur' },
