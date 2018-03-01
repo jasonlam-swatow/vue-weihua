@@ -37,3 +37,11 @@ export function editTrailer(id, data) {
     data: data
   })
 }
+
+export function reviewVehicle(id, data) {
+  return request({
+    url: `/v1/trailers/${id}/audit`,
+    method: 'put',
+    data
+  })
+}

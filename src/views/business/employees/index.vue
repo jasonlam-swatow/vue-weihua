@@ -73,7 +73,7 @@
                   class="text-success"
                   style="font-size: 14px">
                   <p
-                    v-for="(cert, key) in flattenCertifications(getCertificationMaps(scope.row.certifications, certtificationMap))"
+                    v-for="(cert, key) in flattenCertifications(getCertificationMaps(scope.row.certifications, certificationMap))"
                     :key="key"
                     :class="{ 'text-warning': cert.status === 'WILL_ABNORMAL', 'text-danger': cert.status === 'ABNORMAL', }">
                     <b>{{cert.title}}</b>：
@@ -84,7 +84,7 @@
                 </div>
                 <div>
                   <el-tag
-                    v-for="(cert, key) in shortenCertifications(getCertificationMaps(scope.row.certifications, certtificationMap))"
+                    v-for="(cert, key) in shortenCertifications(getCertificationMaps(scope.row.certifications, certificationMap))"
                     :key="key"
                     size="small" type="success" class="adjacent">{{key}}</el-tag>
                 </div>
@@ -274,7 +274,7 @@ export default {
         position: '',
         idOrName: ''
       },
-      certtificationMap: {
+      certificationMap: {
         '基': ['身份证', '驾驶证'],
         '劳': ['劳动合同'],
         '驾': ['驾驶员从业资格证'],

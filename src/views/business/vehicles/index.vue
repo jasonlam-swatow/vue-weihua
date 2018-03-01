@@ -51,6 +51,13 @@
           <el-table-column prop="plateNo" label="车号" width="100"></el-table-column>
           <el-table-column label="车辆类型" width="100">
             <template slot-scope="scope">
+              {{findVehicleType(scope.row.type, vehicleTypes)}}
+              <!-- {{$_.find(vehicleTypes, ['code', scope.row.type]) &&
+              $_.find(vehicleTypes, ['code', scope.row.type]).value}} -->
+            </template>
+          </el-table-column>
+          <el-table-column label="车牌类型" width="100">
+            <template slot-scope="scope">
               {{$_.find(licensePlateTypes, ['code', scope.row.plateType]) &&
               $_.find(licensePlateTypes, ['code', scope.row.plateType]).value}}
             </template>
@@ -59,7 +66,7 @@
           <el-table-column prop="gps_time" label="GPS更新时间"></el-table-column>
           <el-table-column prop="curbWeight" label="整备质量（KG）"></el-table-column>
           <el-table-column prop="tractionMass" label="核载/准牵引（KG）"></el-table-column>         
-          <el-table-column label="审核状态" width="100">
+          <el-table-column label="审核状态" width="90">
             <template slot-scope="scope">
               {{$_.find(statusTypes, ['code', scope.row.status]) &&
               $_.find(statusTypes, ['code', scope.row.status]).value}}
@@ -73,7 +80,7 @@
                   class="text-success"
                   style="font-size: 14px">
                   <p
-                    v-for="(cert, key) in flattenCertifications(getCertificationMaps(scope.row.certifications, certtificationMap))"
+                    v-for="(cert, key) in flattenCertifications(getCertificationMaps(scope.row.certifications, certificationMap))"
                     :key="key"
                     :class="{ 'text-warning': cert.status === 'WILL_ABNORMAL', 'text-danger': cert.status === 'ABNORMAL', }">
                     <b>{{cert.title}}</b>：
@@ -84,7 +91,7 @@
                 </div>
                 <div>
                   <el-tag
-                    v-for="(cert, key) in shortenCertifications(getCertificationMaps(scope.row.certifications, certtificationMap))"
+                    v-for="(cert, key) in shortenCertifications(getCertificationMaps(scope.row.certifications, certificationMap))"
                     :key="key"
                     size="small" type="success" class="adjacent">{{key}}</el-tag>
                 </div>
@@ -136,8 +143,11 @@
         :inline="true">
         <el-form-item label="车牌号">{{tempVehicleInfo.plateNo}}</el-form-item>
         <el-form-item label="车辆类型">
-          {{$_.find(vehicleTypes, ['code', tempVehicleInfo.type]) &&
-            $_.find(vehicleTypes, ['code', tempVehicleInfo.type]).value}}
+          {{findVehicleType(tempVehicleInfo.type, vehicleTypes)}}
+        </el-form-item>
+        <el-form-item label="车牌类型">
+          {{$_.find(licensePlateTypes, ['code', tempVehicleInfo.plateType]) &&
+            $_.find(licensePlateTypes, ['code', tempVehicleInfo.plateType]).value}}
         </el-form-item>
         <el-form-item label="道路运输证号">
           {{tempVehicleInfo.licenseNo}}
@@ -146,13 +156,18 @@
           {{tempVehicleInfo.vin}}
         </el-form-item>
         <el-form-item label="整备质量">
-          {{tempVehicleInfo.curbWeight}}          
+          {{tempVehicleInfo.curbWeight}} KG
         </el-form-item>
          <el-form-item label="核载/准牵引质量">
-          {{tempVehicleInfo.tractionMass}}          
+          {{tempVehicleInfo.tractionMass}} KG
         </el-form-item>     
-         <el-form-item label="经营类型">
-          {{tempVehicleInfo.businessType}}          
+          <el-form-item label="经营类型" class="full-width">
+            <div style="max-height: 280px; overflow: scroll; border: 1px solid #eee; padding-top: 12px;">
+              <el-tree
+                :data="tempVehicleBusinessTypes"
+                :default-expand-all="true"
+                ></el-tree>
+            </div>
         </el-form-item>          
         <el-form-item
           v-if="$_.find(tempVehicleInfo.certifications, ['title', '车辆道路运输证'])"
@@ -177,8 +192,8 @@
           </figure>
            <h5 class="sub-title">
              <span>道路运输证号: {{$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'A' }).licenseNo}}</span>
-             <span>车辆有效期: {{$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'A' }).expireDate}}</span>
-             <span>等级评定有效期: {{$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'A' }).restsDate}}</span>
+             <span>车辆有效期: {{$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'A' }).expireDate/1000 | moment('YYYY-MM-DD')}}</span>
+             <span>等级评定有效期: {{$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'A' }).restsDate/1000 | moment('YYYY-MM-DD')}}</span>
             </h5>
         </el-form-item>
         <el-form-item
@@ -217,7 +232,7 @@
             <figcaption>行驶证副本反面</figcaption>
           </figure>
            <h5 class="sub-title">
-             <span>检测有效期: {{$_.find(tempVehicleInfo.certifications, { title: '车辆行驶证', type: 'A' }).expireDate}}</span>
+             <span>检测有效期: {{$_.find(tempVehicleInfo.certifications, { title: '车辆行驶证', type: 'A' }).expireDate/1000 | moment('YYYY-MM-DD')}}</span>
             </h5>
         </el-form-item>
         <el-form-item
@@ -231,7 +246,7 @@
           </figure>
            <h5 class="sub-title">
              <span>从业资格证号: {{$_.find(tempVehicleInfo.certifications, { title: '卫星定位终端安装证书', type: 'A' }).licenseNo}}</span>
-             <span>有效期截止日期: {{$_.find(tempVehicleInfo.certifications, { title: '卫星定位终端安装证书', type: 'A' }).restsDate}}</span>             
+             <span>有效期截止日期: {{$_.find(tempVehicleInfo.certifications, { title: '卫星定位终端安装证书', type: 'A' }).restsDate/1000 | moment('YYYY-MM-DD')}}</span>             
             </h5>
         </el-form-item>
         <el-form-item
@@ -248,7 +263,7 @@
             <figcaption>道路危险货物承运人责任保险单（附</figcaption>
           </figure>
            <h5 class="sub-title">
-             <span>保险有效期: {{$_.find(tempVehicleInfo.certifications, { title: '道路危险货物承运人责任保险单', type: 'A' }).expireDate}}</span>
+             <span>保险有效期: {{$_.find(tempVehicleInfo.certifications, { title: '道路危险货物承运人责任保险单', type: 'A' }).expireDate/1000 | moment('YYYY-MM-DD')}}</span>
             </h5>
         </el-form-item>
         <el-form-item
@@ -274,6 +289,14 @@
           </figure>
         </el-form-item>
       </el-form>
+      <span slot="footer" class="dialog-footer" v-if="tempVehicleInfo.status !== 'AUDITED'">
+        <el-button
+          type="success"
+          @click="reviewVehicle(tempVehicleInfo.id, true)">审核通过</el-button>
+        <el-button
+          type="danger"
+          @click="reviewVehicle(tempVehicleInfo.id, false)">审核不通过</el-button>
+      </span>
     </el-dialog>
   </div>
 </template>
@@ -282,12 +305,16 @@ import { mapGetters } from 'vuex'
 import {
   getVehicleList,
   deleteVehicle,
-  getTrailerInfo
+  getTrailerInfo,
+  reviewVehicle
 } from '@/api/business/vehicles'
 import mappingCertifications from '@/mixins/_mappingCertifications'
 
 import stamp_pic from '@/assets/stamp.png'
 
+import flatten from 'lodash/flatten'
+import thru from 'lodash/thru'
+import union from 'lodash/union'
 import omitBy from 'lodash/omitBy'
 import isEmpty from 'lodash/isEmpty'
 // import find from 'lodash/find'
@@ -310,18 +337,27 @@ export default {
         vehicleType: '',
         number: ''
       },
+      certificationMap: {
+        '基': ['身份证', '驾驶证'],
+        '劳': ['劳动合同'],
+        '驾': ['驾驶员从业资格证'],
+        '押': ['押运员从业资格证'],
+        '安': ['安全责任状']
+      },
       tabPanes: {
         '全部员工': '',
         '待审核': 'PENDING',
         '审核未通过': 'UNAUDITED'
-      }
+      },
+      tempVehicleBusinessTypes: []
     }
   },
   computed: {
     ...mapGetters([
       'vehicleTypes',
       'statusTypes',
-      'licensePlateTypes'
+      'licensePlateTypes',
+      'vehicleBusinessTypes'
     ])
     // find() { return find }
   },
@@ -329,6 +365,12 @@ export default {
     this.fetchData()
   },
   methods: {
+    findVehicleType(type, vehicleTypes) {
+      const flattened = flatten(thru(vehicleTypes, coll =>
+        union(coll, this.$_.map(coll, 'children'))
+      ))
+      return this.$_.find(flattened, { code: type }) ? this.$_.find(flattened, { code: type }).value : null
+    },
     onSearch() {
       this.fetchData()
     },
@@ -382,7 +424,38 @@ export default {
       this.dialogVisible = true
       getTrailerInfo(id).then(res => {
         this.tempVehicleInfo = res.data
+        this.tempVehicleBusinessTypes = this.$_.filter(this.$_.map(this.vehicleBusinessTypes, item => {
+          const children = this.$_.filter(item.children, child => this.tempVehicleInfo.businessType.includes(child.id))
+          return Object.assign({}, item, { children })
+        }), elem => elem.children.length > 0)
       })
+    },
+    reviewVehicle(id, passedOrNot) {
+      if (passedOrNot) {
+        this.$confirm('确定审核通过此车辆？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          reviewVehicle(id, { status: 'AUDITED' }).then(res => {
+            this.$message.success('已审核通过！')
+            this.dialogVisible = false
+            this.fetchData()
+          })
+        })
+      } else {
+        this.$prompt('请表明审核不通过理由', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'info'
+        }).then(({ value }) => {
+          reviewVehicle(id, { status: 'UNAUDITED', comment: value }).then(res => {
+            this.$message.info('已审核不通过！')
+            this.dialogVisible = false
+            this.fetchData()
+          })
+        })
+      }
     }
   }
 }
