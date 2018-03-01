@@ -389,9 +389,11 @@ export default {
     return {
       rulesCheck: {
         idCard: [
+          { required: true, message: '请填写身份证号', trigger: 'blur' },
           { validator: checkId, trigger: 'blur' }
         ],
         phone: [
+          { required: true, message: '请填写手机号', trigger: 'blur' },
           { validator: checkPhone, trigger: 'blur' }
         ]
       },
@@ -590,8 +592,9 @@ export default {
         }
       })
       const _this = this
+      this.submitting = false
       function _afterSubmit() {
-        _this.submitting = false
+        // _this.submitting = false
         _this.$router.push('/business/employees')
       }
     }

@@ -341,8 +341,9 @@ export default {
         })
       }
       const _this = this
+      this.submitting = false
       function _afterSubmit() {
-        _this.submitting = false
+        // _this.submitting = false
         _this.$router.push('/business/tanks')
       }
     }

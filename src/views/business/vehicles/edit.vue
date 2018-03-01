@@ -71,7 +71,7 @@
                 </el-input>
                 <!-- <el-input v-model="tabData.content.tractionMass"></el-input> -->
               </el-form-item>
-              <el-form-item label="经营类型" class="full-width">
+              <el-form-item label="经营类型" class="full-width" prop="businessType">
                 <div style="max-height: 280px; overflow: scroll; border: 1px solid #eee; padding-top: 12px;">
                   <el-tree
                     ref="tree"
@@ -540,16 +540,26 @@ export default {
     return {
       rules: {
         plateNo: [
+          { required: true, message: '请填写车牌号', trigger: 'blur' },
           { validator: checkPlateNo, trigger: 'blur' }
         ],
         licenseNo: [
+          { required: true, message: '请填写道路运输证号', trigger: 'blur' },
           { validator: checkLicenseNo, trigger: 'blur' }
         ],
         vin: [
+          { required: true, message: '请填写车架号', trigger: 'blur' },
           { validator: checkVin, trigger: 'blur' }
         ],
-        curbWeight: [{ validator: checkWeight, trigger: 'change' }],
-        tractionMass: [{ validator: checkWeight, trigger: 'change' }]
+        curbWeight: [
+          { required: true, message: '请填写整备质量', trigger: 'blur' },
+          { validator: checkWeight, trigger: 'change' }
+        ],
+        tractionMass: [
+          { required: true, message: '请填写核载/准牵引质量', trigger: 'blur' },
+          { validator: checkWeight, trigger: 'change' }
+        ],
+        businessType: [{ required: true, message: '请选择经营类型', trigger: 'blur' }]
       },
       activeTab: 'first',
       loading: false,
@@ -774,6 +784,10 @@ export default {
     onSubmit() {
       this.submitting = true
       const { content } = this.tabData
+      if (!this.tabData.content.businessType.length) {
+        this.$message.error('请勾选经营范围')
+        return
+      }
       this.$refs['tabData.content'].validate((valid) => {
         if (valid) {
           if (this.isAdd) {
@@ -793,8 +807,9 @@ export default {
         }
       })
       const _this = this
+      this.submitting = false
       function _afterSubmit() {
-        _this.submitting = false
+        // _this.submitting = false
         _this.$router.push('/business/vehicles')
       }
     }

@@ -65,7 +65,7 @@
                 </el-input>
                 <!-- <el-input v-model="tabData.content.registeredCapital"></el-input> -->
               </el-form-item>
-              <el-form-item label="注册地" prop="registrationAuthority">
+              <el-form-item label="登记机关" prop="registrationAuthority">
                 <el-input v-model="tabData.content.registrationAuthority"></el-input>
               </el-form-item>
               <el-form-item label="经营状态">
@@ -78,9 +78,9 @@
                   </el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="操作范围" >
+              <!-- <el-form-item label="操作范围" >
                 <el-input v-model="tabData.content.operationScope" ></el-input>
-              </el-form-item>
+              </el-form-item> -->
               <el-form-item label="企业业务类型">
                 <el-select v-model="tabData.content.businessType">
                   <el-option
@@ -94,13 +94,13 @@
               <el-form-item label="紧急联系人" prop="contactName">
                 <el-input v-model="tabData.content.contactName"></el-input>
               </el-form-item>
-              <el-form-item label="企业地址">
+              <el-form-item label="企业地址" prop="address">
                 <el-input v-model="tabData.content.address"></el-input>
               </el-form-item>
               <el-form-item label="紧急联系电话" prop="contactMobile">
                 <el-input v-model="tabData.content.contactMobile"></el-input>
               </el-form-item>
-              <el-form-item label="经营类型" class="full-width">
+              <el-form-item label="经营类型" class="full-width" prop="businessTerm">
                 <div style="max-height: 280px; overflow: scroll; border: 1px solid #eee; padding-top: 12px;">
                   <el-tree
                     ref="tree"
@@ -325,34 +325,47 @@ export default {
       loading: false,
       submitting: false,
       formRules: {
+        address: [
+          { required: true, message: '请填写企业地址', trigger: 'blur' },
+          { max: 50, message: '不超过 50 个字符', trigger: 'blur' },
+        ],
         contactMobile: [
+          { required: true, message: '请填写手机号码', trigger: 'blur' },
           { validator: contactMobileNoValidator, trigger: 'blur' }
         ],
         contactName: [
+          { required: true, message: '请填写联系人姓名', trigger: 'blur' },
           { validator: contactNameValidator, trigger: 'blur' }
         ],
         registrationAuthority: [
+          { required: true, message: '请填写登记机关', trigger: 'blur' },
           { validator: registrationAuthorityValidator, trigger: 'blur' }
         ],
         legalPerson: [
+          { required: true, message: '请填写法人', trigger: 'blur' },
           { validator: legalPersonValidator, trigger: 'blur' }
         ],
         fundationDate: [
+          { required: true, message: '请填写成立日期', trigger: 'blur' },
           { validator: fundationDateValidator, trigger: 'blur' }
         ],
         enterpriseType: [
+          { required: true, message: '请勾选公司类型', trigger: 'blur' },
           { validator: enterpriseTypeValidator, trigger: 'blur' }
         ],
         name: [
+          { required: true, message: '请填写企业名称', trigger: 'blur' },
           { validator: nameValidator, trigger: 'blur' }
         ],
         registrationNo: [
+          { required: true, message: '请填写统一社会信用代码', trigger: 'blur' },
           { validator: registrationNoValidator, trigger: 'blur' }
         ],
         registeredCapital: [{
           validator: floatValidator,
           trigger: 'change'
-        }]
+        }],
+        businessTerm: [{ required: true, message: '请勾选经营类型', trigger: 'blur' }]
       },
       tabData: {
         label: '基本信息',
@@ -374,7 +387,7 @@ export default {
           legalPerson: '',
           // modifiedUser: '',
           name: '',
-          operationScope: '',
+          // operationScope: '',
           registeredCapital: 0,
           registrationAuthority: '',
           registrationNo: '',
@@ -474,6 +487,10 @@ export default {
     onSubmit() {
       this.submitting = true
       const { content } = this.tabData
+      if (!this.tabData.content.businessTerm.length) {
+        this.$message.error('请勾选经营范围')
+        return
+      }
       this.$refs['tabData.content'].validate((valid) => {
         if (valid) {
           if (this.isAdd) {
@@ -493,8 +510,9 @@ export default {
         }
       })
       const _this = this
+      this.submitting = false
       function _afterSubmit() {
-        _this.submitting = false
+        // _this.submitting = false
         _this.$router.push('/business/enterprises')
       }
     }

@@ -34,7 +34,7 @@
                 {{$_.find(enterpriseStatusTypes, ['code', enterpriseData.registrationStatus]) &&
                   $_.find(enterpriseStatusTypes, ['code', enterpriseData.registrationStatus]).value}}
               </el-form-item>
-              <el-form-item label="操作范围">{{enterpriseData.operationScope}}</el-form-item>
+              <!-- <el-form-item label="操作范围">{{enterpriseData.operationScope}}</el-form-item> -->
               <el-form-item label="企业业务类型">
                 {{$_.find(businessTypes, ['code', enterpriseData.businessType]) &&
                   $_.find(businessTypes, ['code', enterpriseData.businessType]).value}}
