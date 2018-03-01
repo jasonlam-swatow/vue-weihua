@@ -230,7 +230,7 @@
                     slot="tip"
                     class="el-upload__tip">
                     <p>要求：下载->填写->盖公章->彩色件扫描上传</p>
-                    <div><a class="download-link" href="static/safety_commitment.pdf">下载 <i class="el-icon-document"></i>道路危险货物运输企业安全承诺书.pdf</a></div>
+                    <div><a class="download-link" href="/static/templates/safety_commitment.pdf">下载 <i class="el-icon-document"></i>道路危险货物运输企业安全承诺书.pdf</a></div>
                   </div>
                 </el-upload>
               </el-form-item>
