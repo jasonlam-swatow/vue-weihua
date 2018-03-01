@@ -47,7 +47,8 @@ service.interceptors.response.use(
           Message({
             message: `请求错误：${JSON.stringify(data)}`,
             type: 'error',
-            duration: 5 * 1000
+            duration: 5 * 1000,
+            showClose: true
           })
           return Promise.reject('error')
         } else {
@@ -74,7 +75,8 @@ service.interceptors.response.use(
         Message({
           message: `${status} ${code}: ${message}`,
           type: 'error',
-          duration: 5 * 1000
+          duration: 5 * 1000,
+          showClose: true
         })
     }
     // console.log('err' + error)// for debug
