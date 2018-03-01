@@ -45,7 +45,16 @@
               <el-form-item label="经营类型" class="full-width">
                 <div style="max-height: 280px; overflow: scroll; border: 1px solid #eee; padding-top: 12px;">
                   <el-tree
-                    :data="tempVehicleBusinessTypes"></el-tree>
+                    :data="tempVehicleBusinessTypes"
+                    :default-expand-all="true"
+                    ></el-tree>
+                  <!-- <el-tree
+                    ref="tree"
+                    :data="vehicleBusinessTypes"
+                    show-checkbox
+                    node-key="id"
+                    :default-expand-all="true"
+                    :default-checked-keys="enterpriseData.businessTerm"></el-tree> -->
                 </div>
               </el-form-item>
             </el-form>
@@ -197,6 +206,7 @@ export default {
   computed: {
     ...mapGetters([
       'enterpriseStatusTypes',
+      'vehicleBusinessTypes',
       'enterpriseTypes',
       'businessTypes',
       'basicInfo',
@@ -212,13 +222,11 @@ export default {
       getEnterpriseInfo(id).then(res => {
         this.enterpriseData = res.data
         this.loading = false
-        const matcher = (collection, selected) => reduce(collection, (result, item) => {
-          if (selected.includes(item.id)) {
-            result.push({ id: item.id, children: matcher(item.children, selected) })
-          }
-          return result
-        }, [])
-        this.tempVehicleBusinessTypes = matcher(this.vehicleBusinessTypes, this.tempEnterpriseInfo.businessTerm)
+        // this.$refs.tree.setCheckedKeys(this.enterpriseData.businessTerm)
+        this.tempVehicleBusinessTypes = this.$_.filter(this.$_.map(this.vehicleBusinessTypes, item => {
+          let children = this.$_.filter(item.children, child => this.enterpriseData.businessTerm.includes(child.id))
+          return Object.assign({}, item, { children })
+        }), elem => elem.children.length > 0)
       })
     },
 

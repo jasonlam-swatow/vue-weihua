@@ -269,7 +269,7 @@
                   :on-success="onUpload('车辆行驶证', 'C')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '车辆行驶证' && _.type === 'C').path"
-                    :src="taCData.content.certifications.find(_ => _.title === '车辆行驶证' && _.type === 'C').path"
+                    :src="tabData.content.certifications.find(_ => _.title === '车辆行驶证' && _.type === 'C').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div
