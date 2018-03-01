@@ -585,7 +585,7 @@ export default {
             })
           }
         } else {
-          alert('表单提交失败有错误项')
+          this.$message.warning('表单提交失败有错误项')
           return false
         }
       })

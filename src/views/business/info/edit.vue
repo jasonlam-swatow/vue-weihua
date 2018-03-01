@@ -265,21 +265,21 @@ export default {
     }
     const contactNameValidator = (rule, value, callback) => {
       if (!(value && value.length < 20)) {
-        return callback(new Error('不能为空,且不超过20个字符'))
+        return callback(new Error('不能为空，且不超过 20 个字符'))
       } else {
         return callback()
       }
     }
     const registrationAuthorityValidator = (rule, value, callback) => {
       if (!(value && value.length < 30)) {
-        return callback(new Error('不能为空,且不超过30个字符'))
+        return callback(new Error('不能为空，且不超过 30 个字符'))
       } else {
         return callback()
       }
     }
     const legalPersonValidator = (rule, value, callback) => {
       if (!(value && value.length < 10)) {
-        return callback(new Error('不能为空,且不超过10个字符'))
+        return callback(new Error('不能为空，且不超过 10 个字符'))
       } else {
         return callback()
       }
@@ -300,14 +300,14 @@ export default {
     }
     const registrationNoValidator = (rule, value, callback) => {
       if (!(value && value.length < 20)) {
-        return callback(new Error('不能为空,且不超过20个字符'))
+        return callback(new Error('不能为空，且不超过 20 个字符'))
       } else {
         return callback()
       }
     }
     const nameValidator = (rule, value, callback) => {
       if (!(value && value.length < 30)) {
-        return callback(new Error('不能为空,且不超过30个字符'))
+        return callback(new Error('不能为空，且不超过 30 个字符'))
       } else {
         return callback()
       }
@@ -488,7 +488,7 @@ export default {
             })
           }
         } else {
-          alert('表单提交失败有错误项')
+          this.$message.error('表单提交失败有错误项')
           return false
         }
       })
