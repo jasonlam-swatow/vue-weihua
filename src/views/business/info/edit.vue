@@ -29,7 +29,7 @@
               <el-form-item label="统一社会信用代码">
                 <el-input v-model="tabData.content.registrationNo"></el-input>
               </el-form-item>
-              <el-form-item label="状态">
+              <!-- <el-form-item label="状态">
                 <el-select v-model="tabData.content.status">
                   <el-option
                     v-for="status in statusTypes"
@@ -38,7 +38,7 @@
                     :value="status.code">
                   </el-option>
                 </el-select>
-              </el-form-item>
+              </el-form-item> -->
                <el-form-item label="公司类型">
                 <el-select  v-model="tabData.content.enterpriseType">
                   <el-option
