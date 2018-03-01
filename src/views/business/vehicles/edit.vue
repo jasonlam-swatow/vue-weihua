@@ -43,6 +43,16 @@
                 </el-option-group>
                 </el-select>
               </el-form-item>
+              <el-form-item label="车牌类型">
+                <el-select v-model="tabData.content.plateType">
+                  <el-option
+                    v-for="item in licensePlateTypes"
+                    :key="item.id"
+                    :label="item.value"
+                    :value="item.code">
+                  </el-option>
+                </el-select>
+              </el-form-item>
               <el-form-item label="道路运输证号" prop="licenseNo">
                 <el-input v-model="tabData.content.licenseNo"></el-input>
               </el-form-item>
@@ -553,6 +563,7 @@ export default {
           curbWeight: 0,
           plateNo: '',
           type: '',
+          plateType: '',
           tractionMass: 0,
           vin: '',
           licenseNo: '',
@@ -719,6 +730,7 @@ export default {
   computed: {
     ...mapGetters([
       'vehicleTypes',
+      'licensePlateTypes',
       'vehicleBusinessTypes',
       'token'
     ]),
