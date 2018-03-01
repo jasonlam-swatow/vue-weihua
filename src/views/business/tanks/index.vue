@@ -122,6 +122,10 @@
       :title="tempTankInfo.name"
       width="50%" top="4vh"
       :visible.sync="dialogVisible">
+      <img
+        v-if="tempTankInfo.status === 'AUDITED'"
+        :src="stamp_pic"
+        class="approved-stamp">
       <el-form
         :model="tempTankInfo"
         class="view-form"
@@ -186,6 +190,9 @@ import {
   getTankInfo
 } from '@/api/business/tanks'
 import mappingCertifications from '@/mixins/_mappingCertifications'
+
+import stamp_pic from '@/assets/stamp.png'
+
 import omitBy from 'lodash/omitBy'
 import isEmpty from 'lodash/isEmpty'
 import { mapGetters } from 'vuex'
@@ -194,6 +201,7 @@ export default {
   mixins: [mappingCertifications],
   data() {
     return {
+      stamp_pic,
       dialogVisible: false,
       tempTankInfo: {},
       searchQueries: {

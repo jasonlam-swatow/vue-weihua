@@ -16,7 +16,12 @@
               <svg-icon :icon-class="tabData.icon"></svg-icon>
               {{tabData.label}}
             </span>
-            <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
+            <el-form
+              :inline="true" :rule="formRules"
+              ref="tabData.content"
+              :model="tabData.content"
+              label-width="130px"
+              class="prevent-uneven strange-input">
               <el-form-item label="企业名称" class="full-width">
                 <el-input v-model="tabData.content.name" :disabled="!isAdd"></el-input>
                 <span class="sub-text input-warning" v-if="!isAdd"><i class="el-icon-info"></i> 不可修改，如需修改，请联系平台客服人员！</span>
@@ -54,8 +59,11 @@
               <el-form-item label="法定代表人">
                 <el-input v-model="tabData.content.legalPerson"></el-input>
               </el-form-item>
-              <el-form-item label="注册资本">
-                <el-input v-model="tabData.content.registeredCapital"></el-input>
+              <el-form-item label="注册资本" prop="registeredCapital">
+                <el-input v-model="tabData.content.registeredCapital">
+                  <template slot="append">￥</template>
+                </el-input>
+                <!-- <el-input v-model="tabData.content.registeredCapital"></el-input> -->
               </el-form-item>
               <el-form-item label="注册地">
                 <el-input v-model="tabData.content.registrationAuthority"></el-input>
@@ -118,7 +126,7 @@
                   <div
                     slot="tip"
                     class="el-upload__tip">
-                    <p style="width:150px">要求：彩色扫描件或彩色照片，内容清晰可见。如果非三证合一，请另行上传企业组织机构代码证、 企业税务登记证</p>
+                    <p style="width:150px">企业营业执照</p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -154,6 +162,10 @@
                   </div>
                 </el-upload>
               </el-form-item>
+              <p style="font-size: 12px; margin: 0 0 0 130px; color: #909399;">
+                <i class="el-icon-info"></i>
+                彩色扫描件或彩色照片，内容清晰可见。若非三证合一，请另行上传企业组织机构代码证、 企业税务登记证。
+              </p>
             </el-form>
           </el-tab-pane>
         </el-tabs>
@@ -218,7 +230,7 @@
                     slot="tip"
                     class="el-upload__tip">
                     <p>要求：下载->填写->盖公章->彩色件扫描上传</p>
-                    <div><a href="">点击此处下载</a> 道路危险货物运输企业安全承诺书.pdf</div>
+                    <div><a class="download-link" href="static/safety_commitment.pdf">下载 <i class="el-icon-document"></i>道路危险货物运输企业安全承诺书.pdf</a></div>
                   </div>
                 </el-upload>
               </el-form-item>
@@ -249,6 +261,13 @@ export default {
       activeTab: 'first',
       loading: false,
       submitting: false,
+      formRules: {
+        registeredCapital: [{
+          type: 'float',
+          message: '请输入数字，精确至小数点后两位',
+          trigger: 'change'
+        }]
+      },
       tabData: {
         label: '基本信息',
         name: 'first',
@@ -380,7 +399,7 @@ export default {
       const _this = this
       function _afterSubmit() {
         _this.submitting = false
-        _this.$router.push('/business/')
+        _this.$router.push('/business/enterprises')
       }
     }
   }
@@ -389,11 +408,17 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
+@import "src/styles/variables.scss";
   .input-warning {
     line-height: 14px;
     font-size: 13px;
     position: absolute;
     top: 14px;
     right: -286px;
+  }
+  .download-link {
+    margin-top: 12px;
+    display: block;
+    color: map-get($palette, primary);
   }
 </style>

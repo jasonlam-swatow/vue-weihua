@@ -10,7 +10,7 @@
               <svg-icon icon-class="document"></svg-icon>
               {{tabData.label}}
             </span>
-            <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input" :rules="rulesCheck" ref="tabData.content">
+            <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input" :rules="formRules" ref="tabData.content">
               <el-form-item v-if="isAdd" label="企业" class="full-width">
                 <el-select v-model="tabData.content.enterpriseId">
                   <el-option
@@ -386,7 +386,7 @@ export default {
       } else { return callback() }
     }
     return {
-      rulesCheck: {
+      formRules: {
         id: [
           { validator: checkId, trigger: 'blur' }
         ],

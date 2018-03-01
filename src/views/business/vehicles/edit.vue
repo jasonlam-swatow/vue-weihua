@@ -45,10 +45,16 @@
                 <el-input v-model="tabData.content.vin"></el-input>
               </el-form-item>              
               <el-form-item label="整备质量">
-                <el-input v-model="tabData.content.curbWeight"></el-input>
+                <el-input v-model="tabData.content.curbWeight">
+                  <template slot="append">KG</template>
+                </el-input>
+                <!-- <el-input v-model="tabData.content.curbWeight"></el-input> -->
               </el-form-item>
               <el-form-item label="核载/准牵引质量">
-                <el-input v-model="tabData.content.tractionMass"></el-input>
+                <el-input v-model="tabData.content.tractionMass">
+                  <template slot="append">KG</template>
+                </el-input>
+                <!-- <el-input v-model="tabData.content.tractionMass"></el-input> -->
               </el-form-item>
               <el-form-item label="经营类型" class="full-width">
                 <div style="max-height: 280px; overflow: scroll; border: 1px solid #eee; padding-top: 12px;">

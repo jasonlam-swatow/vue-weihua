@@ -23,7 +23,7 @@
         <el-table :data="enterpriseList" border>
           <el-table-column prop="name" label="企业名称"></el-table-column>
           <el-table-column prop="registrationNo" label="统一社会信用代码" width="140"></el-table-column>
-          <el-table-column prop="licenseNo" label="相关运单"></el-table-column>
+          <!-- <el-table-column prop="licenseNo" label="相关运单"></el-table-column> -->
           <el-table-column prop="address" label="企业注册地址"></el-table-column>
           <el-table-column prop="contactName" label="紧急联系人" width="120"></el-table-column>
           <el-table-column prop="contactMobile" label="联系电话" width="180"></el-table-column>

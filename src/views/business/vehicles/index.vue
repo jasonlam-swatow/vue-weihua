@@ -125,6 +125,10 @@
       :title="tempVehicleInfo.plateNo"
       width="50%" top="4vh"
       :visible.sync="dialogVisible">
+      <img
+        v-if="tempVehicleInfo.status === 'AUDITED'"
+        :src="stamp_pic"
+        class="approved-stamp">
       <el-form
         :model="tempVehicleInfo"
         class="view-form"
@@ -281,6 +285,9 @@ import {
   getTrailerInfo
 } from '@/api/business/vehicles'
 import mappingCertifications from '@/mixins/_mappingCertifications'
+
+import stamp_pic from '@/assets/stamp.png'
+
 import omitBy from 'lodash/omitBy'
 import isEmpty from 'lodash/isEmpty'
 // import find from 'lodash/find'
@@ -289,6 +296,7 @@ export default {
   mixins: [mappingCertifications],
   data() {
     return {
+      stamp_pic,
       dialogVisible: false,
       tempVehicleInfo: {},
       vehicleList: [],
