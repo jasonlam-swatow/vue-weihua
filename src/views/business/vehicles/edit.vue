@@ -29,7 +29,7 @@
                 <el-input v-model="tabData.content.plateNo"></el-input>
               </el-form-item>
               <el-form-item label="车辆类型">
-                <el-select v-model="tabData.content.plateType">
+                <el-select v-model="tabData.content.type">
                 <el-option-group
                   v-for="group in vehicleTypes"
                   :key="group.id"
@@ -542,7 +542,7 @@ export default {
         content: {
           curbWeight: 0,
           plateNo: '',
-          plateType: '',
+          type: '',
           tractionMass: 0,
           vin: '',
           licenseNo: '',
