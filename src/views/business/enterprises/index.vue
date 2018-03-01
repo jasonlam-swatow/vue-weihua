@@ -12,7 +12,7 @@
             <el-date-picker
               :picker-options="pickerOptions"
               v-model="searchQueries.gmtCreateEnd" type="date" size="medium" style="width:200px;height:36px" placeholder="创建结束时间"></el-date-picker>
-            <el-button type="primary" plain round icon="el-icon-search" @click="fetchData"></el-button>
+            <el-button type="primary" plain round icon="el-icon-search" @click="onSearch"></el-button>
           </el-col>
           <el-col :span="4" class="fr">
             <div class="fr">
@@ -23,7 +23,7 @@
         <el-table :data="enterpriseList" border>
           <el-table-column prop="name" label="企业名称"></el-table-column>
           <el-table-column prop="registrationNo" label="统一社会信用代码" width="140"></el-table-column>
-          <el-table-column prop="licenseNo" label="相关运单"></el-table-column>
+          <!-- <el-table-column prop="licenseNo" label="相关运单"></el-table-column> -->
           <el-table-column prop="address" label="企业注册地址"></el-table-column>
           <el-table-column prop="contactName" label="紧急联系人" width="120"></el-table-column>
           <el-table-column prop="contactMobile" label="联系电话" width="180"></el-table-column>
@@ -154,7 +154,7 @@ import { mapGetters } from 'vuex'
 import {
   getEnterpriseList,
   // getEnterpriseInfo,
-  reviewEnterprise,
+  // reviewEnterprise,
   deleteEnterprise
 } from '@/api/business/enterprises'
 import datepickerOptions from '@/mixins/_datepickerOptions'
@@ -197,6 +197,9 @@ export default {
     ])
   },
   methods: {
+    onSearch() {
+      this.fetchData()
+    },
     addEnterprise() {
       this.$router.push('/business/enterprises/add')
     },
@@ -247,33 +250,6 @@ export default {
         this.total = res.data.total
         this.loading = false
       })
-    },
-    reviewEnterprise(id, passedOrNot) {
-      if (passedOrNot) {
-        this.$confirm('确定审核通过此企业？', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          reviewEnterprise(id, { status: 'AUDITED' }).then(res => {
-            this.$message.success('已审核通过！')
-            this.dialogVisible = false
-            this.fetchData()
-          })
-        })
-      } else {
-        this.$prompt('请表明审核不通过理由', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'info'
-        }).then(({ value }) => {
-          reviewEnterprise(id, { status: 'UNAUDITED', comment: value }).then(res => {
-            this.$message.info('已审核不通过！')
-            this.dialogVisible = false
-            this.fetchData()
-          })
-        })
-      }
     }
   }
 }

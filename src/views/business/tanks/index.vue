@@ -122,6 +122,10 @@
       :title="tempTankInfo.name"
       width="50%" top="4vh"
       :visible.sync="dialogVisible">
+      <img
+        v-if="tempTankInfo.status === 'AUDITED'"
+        :src="stamp_pic"
+        class="approved-stamp">
       <el-form
         :model="tempTankInfo"
         class="view-form"
@@ -176,6 +180,14 @@
             </h5>
         </el-form-item>
       </el-form>
+      <span slot="footer" class="dialog-footer" v-if="tempTankInfo.status !== 'AUDITED'">
+        <el-button
+          type="success"
+          @click="reviewTank(tempTankInfo.id, true)">审核通过</el-button>
+        <el-button
+          type="danger"
+          @click="reviewTank(tempTankInfo.id, false)">审核不通过</el-button>
+      </span>
     </el-dialog>
   </div>
 </template>
@@ -183,9 +195,13 @@
 import {
   getTankList,
   deleteTank,
-  getTankInfo
+  getTankInfo,
+  reviewTank
 } from '@/api/business/tanks'
 import mappingCertifications from '@/mixins/_mappingCertifications'
+
+import stamp_pic from '@/assets/stamp.png'
+
 import omitBy from 'lodash/omitBy'
 import isEmpty from 'lodash/isEmpty'
 import { mapGetters } from 'vuex'
@@ -194,6 +210,7 @@ export default {
   mixins: [mappingCertifications],
   data() {
     return {
+      stamp_pic,
       dialogVisible: false,
       tempTankInfo: {},
       searchQueries: {
@@ -278,6 +295,33 @@ export default {
       getTankInfo(id).then(res => {
         this.tempTankInfo = res.data
       })
+    },
+    reviewTank(id, passedOrNot) {
+      if (passedOrNot) {
+        this.$confirm('确定审核通过此罐体？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          reviewTank(id, { status: 'AUDITED' }).then(res => {
+            this.$message.success('已审核通过！')
+            this.dialogVisible = false
+            this.fetchData()
+          })
+        })
+      } else {
+        this.$prompt('请表明审核不通过理由', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'info'
+        }).then(({ value }) => {
+          reviewTank(id, { status: 'UNAUDITED', comment: value }).then(res => {
+            this.$message.info('已审核不通过！')
+            this.dialogVisible = false
+            this.fetchData()
+          })
+        })
+      }
     }
   }
 }

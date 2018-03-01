@@ -9,7 +9,7 @@
         :label="key"
         :key="value">
         <el-row type="flex" class="mgb12 strange-input">
-          <el-col :span="16">
+          <el-col :span="18">
             <el-select placeholder="按证照状态筛选" v-model="searchQueries.status" clearable>
               <el-option
                 v-for="status in statusTypes"
@@ -29,11 +29,11 @@
             <el-input style="width:200px" placeholder="身份证号或姓名" v-model="searchQueries.idOrName" @keyup.enter.native="onSearch"></el-input>
             <el-button size="medium" type="primary" plain round icon="el-icon-search" @click="onSearch"></el-button>
           </el-col>
-          <el-col :span="8" class="fr">
+          <el-col :span="6" class="fr">
             <div class="fr">
               <el-button size="medium" icon="el-icon-plus" type="primary" @click="addEmployee">新增员工</el-button>
-              <el-button size="medium" icon="el-icon-upload2">批量导入</el-button>
-              <el-button type="text" icon="el-icon-document">下载模板</el-button>
+              <!-- <el-button size="medium" icon="el-icon-upload2">批量导入</el-button>
+              <el-button type="text" icon="el-icon-document">下载模板</el-button> -->
             </div>
           </el-col>
         </el-row>
@@ -73,7 +73,7 @@
                   class="text-success"
                   style="font-size: 14px">
                   <p
-                    v-for="(cert, key) in flattenCertifications(getCertificationMaps(scope.row.certifications, certtificationMap))"
+                    v-for="(cert, key) in flattenCertifications(getCertificationMaps(scope.row.certifications, certificationMap))"
                     :key="key"
                     :class="{ 'text-warning': cert.status === 'WILL_ABNORMAL', 'text-danger': cert.status === 'ABNORMAL', }">
                     <b>{{cert.title}}</b>：
@@ -84,7 +84,7 @@
                 </div>
                 <div>
                   <el-tag
-                    v-for="(cert, key) in shortenCertifications(getCertificationMaps(scope.row.certifications, certtificationMap))"
+                    v-for="(cert, key) in shortenCertifications(getCertificationMaps(scope.row.certifications, certificationMap))"
                     :key="key"
                     size="small" type="success" class="adjacent">{{key}}</el-tag>
                 </div>
@@ -126,6 +126,10 @@
       :title="tempEmployeeInfo.name"
       width="50%" top="4vh"
       :visible.sync="dialogVisible">
+      <img
+        v-if="tempEmployeeInfo.status === 'AUDITED'"
+        :src="stamp_pic"
+        class="approved-stamp">
       <el-form
         :model="tempEmployeeInfo"
         class="view-form"
@@ -230,7 +234,7 @@
           </figure>
         </el-form-item>
       </el-form>
-      <span slot="footer" class="dialog-footer" v-if="tempEmployeeInfo.status === 'PENDING'">
+      <span slot="footer" class="dialog-footer" v-if="tempEmployeeInfo.status !== 'AUDITED'">
         <el-button
           type="success"
           @click="reviewEmployee(tempEmployeeInfo.id, true)">审核通过</el-button>
@@ -251,6 +255,8 @@ import {
 } from '@/api/business/employees'
 import mappingCertifications from '@/mixins/_mappingCertifications'
 
+import stamp_pic from '@/assets/stamp.png'
+
 import omitBy from 'lodash/omitBy'
 import isEmpty from 'lodash/isEmpty'
 
@@ -258,6 +264,7 @@ export default {
   mixins: [mappingCertifications],
   data() {
     return {
+      stamp_pic,
       loading: true,
       employeeList: [],
       currentPage: 1,
@@ -267,7 +274,7 @@ export default {
         position: '',
         idOrName: ''
       },
-      certtificationMap: {
+      certificationMap: {
         '基': ['身份证', '驾驶证'],
         '劳': ['劳动合同'],
         '驾': ['驾驶员从业资格证'],

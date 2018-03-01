@@ -44,3 +44,11 @@ export function editTank(id, data) {
     data: data
   })
 }
+
+export function reviewTank(id, data) {
+  return request({
+    url: `/v1/tankers/${id}/audit`,
+    method: 'put',
+    data
+  })
+}

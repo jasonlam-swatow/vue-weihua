@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-row>
-      <el-col :md="20" :sm="24">
+      <el-col :span="24">
         <el-alert
           v-if="!isAdd"
           title="你正在修改企业信息，保存后将会更新内容并等待重新审核"
@@ -16,15 +16,20 @@
               <svg-icon :icon-class="tabData.icon"></svg-icon>
               {{tabData.label}}
             </span>
-            <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
-              <el-form-item label="企业名称" class="full-width">
+            <el-form
+              :inline="true" :rules="formRules"
+              ref="tabData.content"
+              :model="tabData.content"
+              label-width="130px"
+              class="prevent-uneven strange-input">
+              <el-form-item label="企业名称" class="full-width" prop="name">
                 <el-input v-model="tabData.content.name" :disabled="!isAdd"></el-input>
                 <span class="sub-text input-warning" v-if="!isAdd"><i class="el-icon-info"></i> 不可修改，如需修改，请联系平台客服人员！</span>
               </el-form-item>
-              <el-form-item label="统一社会信用代码">
+              <el-form-item label="统一社会信用代码" prop="registrationNo">
                 <el-input v-model="tabData.content.registrationNo"></el-input>
               </el-form-item>
-              <el-form-item label="状态">
+              <!-- <el-form-item label="状态">
                 <el-select v-model="tabData.content.status">
                   <el-option
                     v-for="status in statusTypes"
@@ -33,8 +38,8 @@
                     :value="status.code">
                   </el-option>
                 </el-select>
-              </el-form-item>
-               <el-form-item label="公司类型">
+              </el-form-item> -->
+               <el-form-item label="公司类型" prop="enterpriseType">
                 <el-select  v-model="tabData.content.enterpriseType">
                   <el-option
                     v-for="etype in enterpriseTypes"
@@ -44,20 +49,23 @@
                   </el-option>
                 </el-select>
               </el-form-item>
-               <el-form-item label="成立日期">
+               <el-form-item label="成立日期" prop="fundationDate">
                 <el-date-picker
                   :picker-options="pickerOptions"
                   v-model="tabData.content.fundationDate"
                   type="date"
                   ></el-date-picker>
               </el-form-item>
-              <el-form-item label="法定代表人">
+              <el-form-item label="法定代表人" prop="legalPerson">
                 <el-input v-model="tabData.content.legalPerson"></el-input>
               </el-form-item>
-              <el-form-item label="注册资本">
-                <el-input v-model="tabData.content.registeredCapital"></el-input>
+              <el-form-item label="注册资本" prop="registeredCapital">
+                <el-input v-model="tabData.content.registeredCapital">
+                  <template slot="append">万</template>
+                </el-input>
+                <!-- <el-input v-model="tabData.content.registeredCapital"></el-input> -->
               </el-form-item>
-              <el-form-item label="注册地">
+              <el-form-item label="注册地" prop="registrationAuthority">
                 <el-input v-model="tabData.content.registrationAuthority"></el-input>
               </el-form-item>
               <el-form-item label="经营状态">
@@ -83,19 +91,19 @@
                   </el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="紧急联系人">
+              <el-form-item label="紧急联系人" prop="contactName">
                 <el-input v-model="tabData.content.contactName"></el-input>
               </el-form-item>
               <el-form-item label="企业地址">
                 <el-input v-model="tabData.content.address"></el-input>
               </el-form-item>
-              <el-form-item label="紧急联系电话">
+              <el-form-item label="紧急联系电话" prop="contactMobile">
                 <el-input v-model="tabData.content.contactMobile"></el-input>
               </el-form-item>
               <el-form-item label="经营类型" class="full-width">
                 <div style="max-height: 280px; overflow: scroll; border: 1px solid #eee; padding-top: 12px;">
                   <el-tree
-                    ref="mo"
+                    ref="tree"
                     :data="vehicleBusinessTypes"
                     show-checkbox
                     node-key="id"
@@ -118,7 +126,7 @@
                   <div
                     slot="tip"
                     class="el-upload__tip">
-                    <p style="width:150px">要求：彩色扫描件或彩色照片，内容清晰可见。如果非三证合一，请另行上传企业组织机构代码证、 企业税务登记证</p>
+                    <p style="width:150px">企业营业执照</p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -154,6 +162,10 @@
                   </div>
                 </el-upload>
               </el-form-item>
+              <p style="font-size: 12px; margin: 0 0 0 130px; color: #909399;">
+                <i class="el-icon-info"></i>
+                彩色扫描件或彩色照片，内容清晰可见。若非三证合一，请另行上传企业组织机构代码证、 企业税务登记证。
+              </p>
             </el-form>
           </el-tab-pane>
         </el-tabs>
@@ -218,7 +230,7 @@
                     slot="tip"
                     class="el-upload__tip">
                     <p>要求：下载->填写->盖公章->彩色件扫描上传</p>
-                    <div><a href="">点击此处下载</a> 道路危险货物运输企业安全承诺书.pdf</div>
+                    <div><a class="download-link" href="/static/samples/safety_commitment.pdf">下载 <i class="el-icon-document"></i>道路危险货物运输企业安全承诺书.pdf</a></div>
                   </div>
                 </el-upload>
               </el-form-item>
@@ -245,10 +257,103 @@ import remove from 'lodash/remove'
 export default {
   mixins: [datepickerOptions],
   data() {
+    const contactMobileNoValidator = (rule, value, callback) => {
+      var reg = /^[1][3,4,5,7,8][0-9]{9}$/
+      if (!reg.test(value)) {
+        return callback(new Error('手机格式不正确'))
+      } else { return callback() }
+    }
+    const contactNameValidator = (rule, value, callback) => {
+      if (!(value && value.length < 20)) {
+        return callback(new Error('不能为空,且不超过20个字符'))
+      } else {
+        return callback()
+      }
+    }
+    const registrationAuthorityValidator = (rule, value, callback) => {
+      if (!(value && value.length < 30)) {
+        return callback(new Error('不能为空,且不超过30个字符'))
+      } else {
+        return callback()
+      }
+    }
+    const legalPersonValidator = (rule, value, callback) => {
+      if (!(value && value.length < 10)) {
+        return callback(new Error('不能为空,且不超过10个字符'))
+      } else {
+        return callback()
+      }
+    }
+    const fundationDateValidator = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('不能为空'))
+      } else {
+        return callback()
+      }
+    }
+    const enterpriseTypeValidator = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('不能为空'))
+      } else {
+        return callback()
+      }
+    }
+    const registrationNoValidator = (rule, value, callback) => {
+      if (!(value && value.length < 20)) {
+        return callback(new Error('不能为空,且不超过20个字符'))
+      } else {
+        return callback()
+      }
+    }
+    const nameValidator = (rule, value, callback) => {
+      if (!(value && value.length < 30)) {
+        return callback(new Error('不能为空,且不超过30个字符'))
+      } else {
+        return callback()
+      }
+    }
+    const floatValidator = (rule, value, callback) => {
+      const reg = /^(-)?(([1-9]{1}\d{0,8})|([0]{1}))(\.(\d){1,2})?$/
+      if (!reg.test(value)) {
+        return callback(new Error('请输入整数、或精确到小数点后两位的数字'))
+      } else {
+        return callback()
+      }
+    }
     return {
       activeTab: 'first',
       loading: false,
       submitting: false,
+      formRules: {
+        contactMobile: [
+          { validator: contactMobileNoValidator, trigger: 'blur' }
+        ],
+        contactName: [
+          { validator: contactNameValidator, trigger: 'blur' }
+        ],
+        registrationAuthority: [
+          { validator: registrationAuthorityValidator, trigger: 'blur' }
+        ],
+        legalPerson: [
+          { validator: legalPersonValidator, trigger: 'blur' }
+        ],
+        fundationDate: [
+          { validator: fundationDateValidator, trigger: 'blur' }
+        ],
+        enterpriseType: [
+          { validator: enterpriseTypeValidator, trigger: 'blur' }
+        ],
+        name: [
+          { validator: nameValidator, trigger: 'blur' }
+        ],
+        registrationNo: [
+          { validator: registrationNoValidator, trigger: 'blur' }
+        ],
+        registeredCapital: [{
+          validator: floatValidator,
+          trigger: 'change'
+        }]
+      },
       tabData: {
         label: '基本信息',
         name: 'first',
@@ -362,26 +467,35 @@ export default {
       getEnterpriseInfo(id).then(res => {
         this.tabData.content = res.data
         this.loading = false
+        // this.$forceUpdate()
+        this.$refs.tree.setCheckedKeys(this.tabData.content.businessTerm)
       })
     },
     onSubmit() {
       this.submitting = true
       const { content } = this.tabData
-      if (this.isAdd) {
-        createEnterprise(content).then(res => {
-          this.$message.success('已新增！')
-          _afterSubmit()
-        })
-      } else {
-        editEnterprise(this.$route.query.plateNo, { ...this.tabData.content }).then(res => {
-          this.$message.success('已修改！')
-          _afterSubmit()
-        })
-      }
+      this.$refs['tabData.content'].validate((valid) => {
+        if (valid) {
+          if (this.isAdd) {
+            createEnterprise(content).then(res => {
+              this.$message.success('已新增！')
+              _afterSubmit()
+            })
+          } else {
+            editEnterprise(this.$route.query.id, { ...this.tabData.content }).then(res => {
+              this.$message.success('已修改！')
+              _afterSubmit()
+            })
+          }
+        } else {
+          alert('表单提交失败有错误项')
+          return false
+        }
+      })
       const _this = this
       function _afterSubmit() {
         _this.submitting = false
-        _this.$router.push('/business/')
+        _this.$router.push('/business/enterprises')
       }
     }
   }
@@ -390,11 +504,17 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
+@import "src/styles/variables.scss";
   .input-warning {
     line-height: 14px;
     font-size: 13px;
     position: absolute;
     top: 14px;
     right: -286px;
+  }
+  .download-link {
+    margin-top: 12px;
+    display: block;
+    color: map-get($palette, primary);
   }
 </style>

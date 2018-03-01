@@ -31,28 +31,28 @@
             type="flex"
             justify="space-between"
             class="kanban-row">
-            <el-col :span="10">牵引车</el-col>
+            <el-col :span="8">牵引车</el-col>
             <el-col
               style="text-align: right"
-              :span="14">{{statistics.tvTras}}</el-col>
+              :span="16">{{statistics.tvTras}}</el-col>
           </el-row>
           <el-row
             type="flex"
             justify="space-between"
             class="kanban-row">
-            <el-col :span="10">挂车</el-col>
+            <el-col :span="8">挂车</el-col>
             <el-col
               style="text-align: right"
-              :span="14">{{statistics.semiTras}}</el-col>
+              :span="16">{{statistics.semiTras}}</el-col>
           </el-row>
           <el-row
             type="flex"
             justify="space-between"
             class="kanban-row">
-            <el-col :span="10">车辆运输证</el-col>
+            <el-col :span="8">车辆运输证</el-col>
             <el-col
               style="text-align: right"
-              :span="14">
+              :span="16">
               <span class="text-warning">即将过期</span>
               <el-tag type="warning" size="small">{{statistics.transportWillAbnor}}</el-tag>
               <span class="text-danger">已过期</span>
@@ -63,10 +63,10 @@
             type="flex"
             justify="space-between"
             class="kanban-row">
-            <el-col :span="10">承运人责任险</el-col>
+            <el-col :span="8">承运人责任险</el-col>
             <el-col
               style="text-align: right"
-              :span="14">
+              :span="16">
               <span class="text-warning">即将过期</span>
               <el-tag type="warning" size="small">{{statistics.roadWillAbnor}}</el-tag>
               <span class="text-danger">已过期</span>
@@ -77,10 +77,10 @@
             type="flex"
             justify="space-between"
             class="kanban-row">
-            <el-col :span="10">车辆行驶证</el-col>
+            <el-col :span="8">车辆行驶证</el-col>
             <el-col
               style="text-align: right"
-              :span="14">
+              :span="16">
               <span class="text-warning">即将过期</span>
               <el-tag type="warning" size="small">{{statistics.drivingWillAbnor}}</el-tag>
               <span class="text-danger">已过期</span>
@@ -91,7 +91,7 @@
             type="flex"
             justify="space-between"
             class="kanban-row">
-            <el-col :span="10">待认证审核</el-col>
+            <el-col :span="8">待认证审核</el-col>
             <el-col
               style="text-align: right"
               :span="16">
@@ -133,28 +133,28 @@
             type="flex"
             justify="space-between"
             class="kanban-row">
-            <el-col :span="10">常压罐</el-col>
+            <el-col :span="8">常压罐</el-col>
             <el-col
               style="text-align: right"
-              :span="14">{{statistics.atmTans}}</el-col>
+              :span="16">{{statistics.atmTans}}</el-col>
           </el-row>
           <el-row
             type="flex"
             justify="space-between"
             class="kanban-row">
-            <el-col :span="10">压力罐</el-col>
+            <el-col :span="8">压力罐</el-col>
             <el-col
               style="text-align: right"
-              :span="14">{{statistics.oveTans}}</el-col>
+              :span="16">{{statistics.oveTans}}</el-col>
           </el-row>
           <el-row
             type="flex"
             justify="space-between"
             class="kanban-row">
-            <el-col :span="10">罐体检测报告</el-col>
+            <el-col :span="8">罐体检测报告</el-col>
             <el-col
               style="text-align: right"
-              :span="14">
+              :span="16">
               <span class="text-warning">即将过期</span>
               <el-tag type="warning" size="small">{{statistics.tanInsWillAbnor}}</el-tag>
               <span class="text-danger">已过期</span>
@@ -165,10 +165,10 @@
             type="flex"
             justify="space-between"
             class="kanban-row">
-            <el-col :span="10">压力罐容器登记证</el-col>
+            <el-col :span="8">压力罐容器登记证</el-col>
             <el-col
               style="text-align: right"
-              :span="14">
+              :span="16">
               <span class="text-warning">即将过期</span>
               <el-tag type="warning" size="small">{{statistics.tanPreInsWillAbnor}}</el-tag>
               <span class="text-danger">已过期</span>
@@ -179,7 +179,7 @@
             type="flex"
             justify="space-between"
             class="kanban-row">
-            <el-col :span="10">待认证审核</el-col>
+            <el-col :span="8">待认证审核</el-col>
             <el-col
               style="text-align: right"
               :span="16">
@@ -221,28 +221,28 @@
             type="flex"
             justify="space-between"
             class="kanban-row">
-            <el-col :span="10">司机</el-col>
+            <el-col :span="8">司机</el-col>
             <el-col
               style="text-align: right"
-              :span="14">{{statistics.drivers}}</el-col>
+              :span="16">{{statistics.drivers}}</el-col>
           </el-row>
           <el-row
             type="flex"
             justify="space-between"
             class="kanban-row">
-            <el-col :span="10">押运员</el-col>
+            <el-col :span="8">押运员</el-col>
             <el-col
               style="text-align: right"
-              :span="14">{{statistics.escorts}}</el-col>
+              :span="16">{{statistics.escorts}}</el-col>
           </el-row>
           <el-row
             type="flex"
             justify="space-between"
             class="kanban-row">
-            <el-col :span="10">身份证</el-col>
+            <el-col :span="8">身份证</el-col>
             <el-col
               style="text-align: right"
-              :span="14">
+              :span="16">
               <span class="text-warning">即将过期</span>
               <el-tag type="warning" size="small">{{statistics.idCardWillAbnor}}</el-tag>
               <span class="text-danger">已过期</span>
@@ -253,10 +253,10 @@
             type="flex"
             justify="space-between"
             class="kanban-row">
-            <el-col :span="10">劳动合同</el-col>
+            <el-col :span="8">劳动合同</el-col>
             <el-col
               style="text-align: right"
-              :span="14">
+              :span="16">
               <span class="text-warning">即将过期</span>
               <el-tag type="warning" size="small">{{statistics.laborContractWillAbnor}}</el-tag>
               <span class="text-danger">已过期</span>
@@ -267,10 +267,10 @@
             type="flex"
             justify="space-between"
             class="kanban-row">
-            <el-col :span="10">从业资格证</el-col>
+            <el-col :span="8">从业资格证</el-col>
             <el-col
               style="text-align: right"
-              :span="14">
+              :span="16">
               <span class="text-warning">即将过期</span>
               <el-tag type="warning" size="small">{{statistics.quaCerWillAbnor}}</el-tag>
               <span class="text-danger">已过期</span>
@@ -281,10 +281,10 @@
             type="flex"
             justify="space-between"
             class="kanban-row">
-            <el-col :span="10">驾驶证</el-col>
+            <el-col :span="8">驾驶证</el-col>
             <el-col
               style="text-align: right"
-              :span="14">
+              :span="16">
               <span class="text-warning">即将过期</span>
               <el-tag type="warning" size="small">{{statistics.dirLicWillAbnor}}</el-tag>
               <span class="text-danger">已过期</span>
@@ -295,7 +295,7 @@
             type="flex"
             justify="space-between"
             class="kanban-row">
-            <el-col :span="10">待认证审核</el-col>
+            <el-col :span="8">待认证审核</el-col>
             <el-col
               style="text-align: right"
               :span="16">

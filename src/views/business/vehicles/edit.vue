@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-row>
-      <el-col :md="20" :sm="24">
+      <el-col :span="24">
         <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
           <el-tab-pane
             :key="tabData.name"
@@ -9,8 +9,13 @@
             <span slot="label" class="span-with-svg">
               <svg-icon icon-class="document"></svg-icon>
               {{tabData.label}}
-            </span>
-            <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
+            </span> 
+            <el-form
+              :inline="true"
+              label-width="130px"
+              :model="tabData.content"
+              class="prevent-uneven strange-input"
+              :rules="rules" ref="tabData.content" >
               <el-form-item v-if="isAdd" label="企业" class="full-width">
                 <el-select v-model="tabData.content.enterpriseId">
                   <el-option
@@ -20,11 +25,11 @@
                     :label="ent.name"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="车牌号">
+              <el-form-item label="车牌号" prop="plateNo">
                 <el-input v-model="tabData.content.plateNo"></el-input>
               </el-form-item>
               <el-form-item label="车辆类型">
-                <el-select v-model="tabData.content.plateType">
+                <el-select v-model="tabData.content.type">
                 <el-option-group
                   v-for="group in vehicleTypes"
                   :key="group.id"
@@ -38,21 +43,38 @@
                 </el-option-group>
                 </el-select>
               </el-form-item>
-              <el-form-item label="道路运输证号">
+              <el-form-item label="车牌类型">
+                <el-select v-model="tabData.content.plateType">
+                  <el-option
+                    v-for="item in licensePlateTypes"
+                    :key="item.id"
+                    :label="item.value"
+                    :value="item.code">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="道路运输证号" prop="licenseNo">
                 <el-input v-model="tabData.content.licenseNo"></el-input>
               </el-form-item>
-              <el-form-item label="车架号">
+              <el-form-item label="车架号" prop="vin">
                 <el-input v-model="tabData.content.vin"></el-input>
               </el-form-item>              
-              <el-form-item label="整备质量">
-                <el-input v-model="tabData.content.curbWeight"></el-input>
+              <el-form-item label="整备质量" prop="curbWeight">
+                <el-input v-model="tabData.content.curbWeight">
+                  <template slot="append">KG</template>
+                </el-input>
+                <!-- <el-input v-model="tabData.content.curbWeight"></el-input> -->
               </el-form-item>
-              <el-form-item label="核载/准牵引质量">
-                <el-input v-model="tabData.content.tractionMass"></el-input>
+              <el-form-item label="核载/准牵引质量" prop="tractionMass">
+                <el-input v-model="tabData.content.tractionMass">
+                  <template slot="append">KG</template>
+                </el-input>
+                <!-- <el-input v-model="tabData.content.tractionMass"></el-input> -->
               </el-form-item>
               <el-form-item label="经营类型" class="full-width">
                 <div style="max-height: 280px; overflow: scroll; border: 1px solid #eee; padding-top: 12px;">
                   <el-tree
+                    ref="tree"
                     :data="vehicleBusinessTypes"
                     show-checkbox
                     node-key="id"
@@ -128,7 +150,7 @@
                   :on-success="onUpload('车辆道路运输证', 'C')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '车辆道路运输证' && _.type === 'C').path"
-                    :src="taCData.content.certifications.find(_ => _.title === '车辆道路运输证' && _.type === 'C').path"
+                    :src="tabData.content.certifications.find(_ => _.title === '车辆道路运输证' && _.type === 'C').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div
@@ -257,7 +279,7 @@
                   :on-success="onUpload('车辆行驶证', 'C')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '车辆行驶证' && _.type === 'C').path"
-                    :src="taCData.content.certifications.find(_ => _.title === '车辆行驶证' && _.type === 'C').path"
+                    :src="tabData.content.certifications.find(_ => _.title === '车辆行驶证' && _.type === 'C').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div
@@ -291,8 +313,13 @@
           <el-tab-pane name="first">
             <span slot="label" class="span-with-svg">
               <svg-icon icon-class="id-card"></svg-icon>
-              卫星定位终端安装证书（牵引车必填）
+              卫星定位终端安装证书
             </span>
+            <el-alert
+              title="牵引车必填"
+              type="info"
+              show-icon
+              class="mgb12"></el-alert>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item
                 label="从业资格证号"
@@ -386,8 +413,13 @@
           <el-tab-pane name="first">
             <span slot="label" class="span-with-svg">
               <svg-icon icon-class="id-card"></svg-icon>
-              车辆安全设备配备照片（牵引车必填，至少一张）
+              车辆安全设备配备照片
             </span>
+            <el-alert
+              title="牵引车必填，至少上传一张"
+              type="info"
+              show-icon
+              class="mgb12"></el-alert>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="上传" class="full-width">
                 <el-upload
@@ -481,7 +513,44 @@ import remove from 'lodash/remove'
 export default {
   mixins: [datepickerOptions],
   data() {
+    var checkPlateNo = (rule, value, callback) => {
+      console.log(value)
+      var reg = /^[京,津,渝,沪,冀,晋,辽,吉,黑,苏,浙,皖,闽,赣,鲁,豫,鄂,湘,粤,琼,川,贵,云,陕,秦,甘,陇,青,台,内蒙古,桂,宁,新,藏,澳,军,海,航,警][A-Z][0-9,A-Z]{5}$/
+      if (!reg.test(value)) {
+        return callback(new Error('车牌号格式不正确'))
+      } else { return callback() }
+    }
+    var checkLicenseNo = (rule, value, callback) => {
+      if (!(Number.isInteger(value) || value.length === 11)) {
+        return callback(new Error('道路运输证号应为 11 位数字'))
+      } else { return callback() }
+    }
+    var checkVin = (rule, value, callback) => {
+      // console.log(value)
+      if (!(value.length === 17)) {
+        return callback(new Error('车架号应为 17 位字母+数字'))
+      } else { return callback() }
+    }
+    var checkWeight = (rule, value, callback) => {
+      var reg = /^(-)?(([1-9]{1}\d*)|([0]{1}))(\.(\d){1,2})?$/
+      if (!reg.test(value)) {
+        return callback(new Error('质量应为数字或浮点数格式'))
+      } else { return callback() }
+    }
     return {
+      rules: {
+        plateNo: [
+          { validator: checkPlateNo, trigger: 'blur' }
+        ],
+        licenseNo: [
+          { validator: checkLicenseNo, trigger: 'blur' }
+        ],
+        vin: [
+          { validator: checkVin, trigger: 'blur' }
+        ],
+        curbWeight: [{ validator: checkWeight, trigger: 'change' }],
+        tractionMass: [{ validator: checkWeight, trigger: 'change' }]
+      },
       activeTab: 'first',
       loading: false,
       submitting: false,
@@ -493,6 +562,7 @@ export default {
         content: {
           curbWeight: 0,
           plateNo: '',
+          type: '',
           plateType: '',
           tractionMass: 0,
           vin: '',
@@ -660,6 +730,7 @@ export default {
   computed: {
     ...mapGetters([
       'vehicleTypes',
+      'licensePlateTypes',
       'vehicleBusinessTypes',
       'token'
     ]),
@@ -697,22 +768,30 @@ export default {
       getTrailerInfo(id).then(res => {
         this.tabData.content = res.data
         this.loading = false
+        this.$refs.tree.setCheckedKeys(this.tabData.content.businessType)
       })
     },
     onSubmit() {
       this.submitting = true
       const { content } = this.tabData
-      if (this.isAdd) {
-        createTrailer(content).then(res => {
-          this.$message.success('已新增！')
-          _afterSubmit()
-        })
-      } else {
-        editTrailer(this.$route.query.plateNo, { ...this.tabData.content }).then(res => {
-          this.$message.success('已修改！')
-          _afterSubmit()
-        })
-      }
+      this.$refs['tabData.content'].validate((valid) => {
+        if (valid) {
+          if (this.isAdd) {
+            createTrailer(content).then(res => {
+              this.$message.success('已新增！')
+              _afterSubmit()
+            })
+          } else {
+            editTrailer(this.$route.query.id, { ...this.tabData.content }).then(res => {
+              this.$message.success('已修改！')
+              _afterSubmit()
+            })
+          }
+        } else {
+          alert('表单提交失败有错误项')
+          return false
+        }
+      })
       const _this = this
       function _afterSubmit() {
         _this.submitting = false

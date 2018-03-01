@@ -21,8 +21,8 @@
           :label="ent.name"></el-option>
       </el-select>
       <span slot="footer" class="dialog-footer">
-        <el-button
-          @click="dialogSelectVisible = false; $router.go(-1)">返回</el-button>
+        <!-- <el-button
+          @click="dialogSelectVisible = false; $router.go(-1)">返回</el-button> -->
         <el-button
           type="primary"
           @click="fetchData(enterpriseId)">确定</el-button>

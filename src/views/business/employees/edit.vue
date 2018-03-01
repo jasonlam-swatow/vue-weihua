@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-row>
-      <el-col :md="20" :sm="24">
+      <el-col :span="24">
         <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
           <el-tab-pane
             :key="tabData.name"
@@ -10,7 +10,7 @@
               <svg-icon icon-class="document"></svg-icon>
               {{tabData.label}}
             </span>
-            <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
+            <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input" :rules="rulesCheck" ref="tabData.content" :model="tabData.content">
               <el-form-item v-if="isAdd" label="企业" class="full-width">
                 <el-select v-model="tabData.content.enterpriseId">
                   <el-option
@@ -44,10 +44,10 @@
                   :picker-options="pickerOptions"
                   v-model="tabData.content.entryDate" type="date"></el-date-picker>
               </el-form-item>
-              <el-form-item label="联系电话">
+              <el-form-item label="联系电话" prop="phone">
                 <el-input v-model="tabData.content.phone"></el-input>
               </el-form-item>
-              <el-form-item label="身份证号码">
+              <el-form-item label="身份证号码" prop="idCard">
                 <el-input v-model="tabData.content.idCard"></el-input>
               </el-form-item>
             </el-form>
@@ -373,7 +373,28 @@ import { mapGetters } from 'vuex'
 export default {
   mixins: [datepickerOptions],
   data() {
+    var checkId = (rule, value, callback) => {
+      console.log(value)
+      var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
+      if (!reg.test(value)) {
+        return callback(new Error('身份证格式不正确'))
+      } else { return callback() }
+    }
+    var checkPhone = (rule, value, callback) => {
+      var reg = /^[1][3,4,5,7,8][0-9]{9}$/
+      if (!reg.test(value)) {
+        return callback(new Error('手机格式不正确'))
+      } else { return callback() }
+    }
     return {
+      rulesCheck: {
+        idCard: [
+          { validator: checkId, trigger: 'blur' }
+        ],
+        phone: [
+          { validator: checkPhone, trigger: 'blur' }
+        ]
+      },
       activeTab: 'first',
       loading: false,
       submitting: false,
@@ -550,17 +571,24 @@ export default {
     onSubmit() {
       this.submitting = true
       const { content } = this.tabData
-      if (this.isAdd) {
-        createEmployee(content).then(res => {
-          this.$message.success('已新增！')
-          _afterSubmit()
-        })
-      } else {
-        editEmployee(this.$route.query.id, { ...this.tabData.content }).then(res => {
-          this.$message.success('已修改！')
-          _afterSubmit()
-        })
-      }
+      this.$refs['tabData.content'].validate((valid) => {
+        if (valid) {
+          if (this.isAdd) {
+            createEmployee(content).then(res => {
+              this.$message.success('已新增！')
+              _afterSubmit()
+            })
+          } else {
+            editEmployee(this.$route.query.id, { ...this.tabData.content }).then(res => {
+              this.$message.success('已修改！')
+              _afterSubmit()
+            })
+          }
+        } else {
+          alert('表单提交失败有错误项')
+          return false
+        }
+      })
       const _this = this
       function _afterSubmit() {
         _this.submitting = false

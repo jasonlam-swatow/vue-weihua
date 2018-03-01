@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-row>
-      <el-col v-if="enterpriseId && !dialogSelectVisible" :md="20" :sm="24">
+      <el-col v-if="enterpriseId && !dialogSelectVisible" :span="24">
         <header class="info-header">
           <h4>{{companyName}}</h4>
           <el-button type="text" @click="onEditBusiness">
@@ -45,7 +45,16 @@
               <el-form-item label="经营类型" class="full-width">
                 <div style="max-height: 280px; overflow: scroll; border: 1px solid #eee; padding-top: 12px;">
                   <el-tree
-                    :data="tempVehicleBusinessTypes"></el-tree>
+                    :data="tempVehicleBusinessTypes"
+                    :default-expand-all="true"
+                    ></el-tree>
+                  <!-- <el-tree
+                    ref="tree"
+                    :data="vehicleBusinessTypes"
+                    show-checkbox
+                    node-key="id"
+                    :default-expand-all="true"
+                    :default-checked-keys="enterpriseData.businessTerm"></el-tree> -->
                 </div>
               </el-form-item>
             </el-form>
@@ -109,6 +118,15 @@
              </el-form>
           </el-tab-pane>
         </el-tabs>
+
+        <div class="button_area"v-if="enterpriseData.status !== 'AUDITED'">
+          <el-button
+            type="success"
+            @click="reviewEnterprise(enterpriseData.id, true)">审核通过</el-button>
+          <el-button
+            type="danger"
+            @click="reviewEnterprise(enterpriseData.id, false)">审核不通过</el-button>
+        </div>
       </el-col>
     </el-row>
     <!-- <el-dialog title="修改紧急救援联系人信息" :visible.sync="dialogFormVisible">
@@ -140,8 +158,8 @@
           :label="ent.name"></el-option>
       </el-select>
       <span slot="footer" class="dialog-footer">
-        <el-button
-          @click="dialogSelectVisible = false; $router.go(-1)">返回</el-button>
+        <!-- <el-button
+          @click="dialogSelectVisible = false; $router.go(-1)">返回</el-button> -->
         <el-button
           type="primary"
           @click="fetchData(enterpriseId)">确定</el-button>
@@ -151,9 +169,13 @@
 </template>
 
 <script>
-import { getEnterpriseList, getEnterpriseInfo } from '@/api/business/enterprises'
+import {
+  getEnterpriseList,
+  getEnterpriseInfo,
+  reviewEnterprise
+} from '@/api/business/enterprises'
 import { mapGetters } from 'vuex'
-import reduce from 'lodash/reduce'
+// import reduce from 'lodash/reduce'
 export default {
   data() {
     return {
@@ -184,6 +206,7 @@ export default {
   computed: {
     ...mapGetters([
       'enterpriseStatusTypes',
+      'vehicleBusinessTypes',
       'enterpriseTypes',
       'businessTypes',
       'basicInfo',
@@ -199,13 +222,11 @@ export default {
       getEnterpriseInfo(id).then(res => {
         this.enterpriseData = res.data
         this.loading = false
-        const matcher = (collection, selected) => reduce(collection, (result, item) => {
-          if (selected.includes(item.id)) {
-            result.push({ id: item.id, children: matcher(item.children, selected) })
-          }
-          return result
-        }, [])
-        this.tempVehicleBusinessTypes = matcher(this.vehicleBusinessTypes, this.tempEnterpriseInfo.businessTerm)
+        // this.$refs.tree.setCheckedKeys(this.enterpriseData.businessTerm)
+        this.tempVehicleBusinessTypes = this.$_.filter(this.$_.map(this.vehicleBusinessTypes, item => {
+          const children = this.$_.filter(item.children, child => this.enterpriseData.businessTerm.includes(child.id))
+          return Object.assign({}, item, { children })
+        }), elem => elem.children.length > 0)
       })
     },
 
@@ -219,6 +240,33 @@ export default {
       }).catch(() => {
         this.$message.info('已放弃修改')
       })
+    },
+    reviewEnterprise(id, passedOrNot) {
+      if (passedOrNot) {
+        this.$confirm('确定审核通过此企业？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          reviewEnterprise(id, { status: 'AUDITED' }).then(res => {
+            this.$message.success('已审核通过！')
+            this.dialogVisible = false
+            this.fetchData()
+          })
+        })
+      } else {
+        this.$prompt('请表明审核不通过理由', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'info'
+        }).then(({ value }) => {
+          reviewEnterprise(id, { status: 'UNAUDITED', comment: value }).then(res => {
+            this.$message.info('已审核不通过！')
+            this.dialogVisible = false
+            this.fetchData()
+          })
+        })
+      }
     }
   }
 }
