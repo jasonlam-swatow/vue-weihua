@@ -502,7 +502,7 @@ export default {
     }
     var checkLicenseNo = (rule, value, callback) => {
       if (!(Number.isInteger(value) && value.length === 11)) {
-        return callback(new Error('车架号应为 11 位数字'))
+        return callback(new Error('道路运输证号应为 11 位数字'))
       } else { return callback() }
     }
     var checkVin = (rule, value, callback) => {
