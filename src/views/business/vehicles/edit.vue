@@ -501,14 +501,14 @@ export default {
       } else { return callback() }
     }
     var checkLicenseNo = (rule, value, callback) => {
-      if (!(Number.isInteger(value) && value.length === 11)) {
+      if (!(Number.isInteger(value) || value.length === 11)) {
         return callback(new Error('道路运输证号应为 11 位数字'))
       } else { return callback() }
     }
     var checkVin = (rule, value, callback) => {
       // console.log(value)
       if (!(value.length === 17)) {
-        return callback(new Error('车架号应为 11 位字母+数字'))
+        return callback(new Error('车架号应为 17 位字母+数字'))
       } else { return callback() }
     }
     var checkWeight = (rule, value, callback) => {
