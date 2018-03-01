@@ -175,7 +175,7 @@ import {
   reviewEnterprise
 } from '@/api/business/enterprises'
 import { mapGetters } from 'vuex'
-import reduce from 'lodash/reduce'
+// import reduce from 'lodash/reduce'
 export default {
   data() {
     return {
@@ -224,7 +224,7 @@ export default {
         this.loading = false
         // this.$refs.tree.setCheckedKeys(this.enterpriseData.businessTerm)
         this.tempVehicleBusinessTypes = this.$_.filter(this.$_.map(this.vehicleBusinessTypes, item => {
-          let children = this.$_.filter(item.children, child => this.enterpriseData.businessTerm.includes(child.id))
+          const children = this.$_.filter(item.children, child => this.enterpriseData.businessTerm.includes(child.id))
           return Object.assign({}, item, { children })
         }), elem => elem.children.length > 0)
       })
