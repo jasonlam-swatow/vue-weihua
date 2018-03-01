@@ -258,9 +258,9 @@ export default {
   mixins: [datepickerOptions],
   data() {
     const floatValidator = (rule, value, callback) => {
-      const reg = /^(-)?(([1-9]{1}\d*)|([0]{1}))(\.(\d){1,2})$/
+      const reg = /^(-)?(([1-9]{1}\d*)|([0]{1}))(\.(\d){1,2})?$/
       if (!reg.test(value)) {
-        return callback(new Error('请输入数字，精确至小数点后两位'))
+        return callback(new Error('请输入整数、或精确到小数点后两位的数字'))
       } else {
         return callback()
       }
