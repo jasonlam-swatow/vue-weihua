@@ -768,7 +768,7 @@ export default {
           _afterSubmit()
         })
       } else {
-        editTrailer(this.$route.query.plateNo, { ...this.tabData.content }).then(res => {
+        editTrailer(this.$route.query.id, { ...this.tabData.content }).then(res => {
           this.$message.success('已修改！')
           _afterSubmit()
         })
