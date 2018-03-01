@@ -19,6 +19,7 @@ router.beforeEach((to, from, next) => {
             router.addRoutes(store.getters.addRouters)
             console.log(router)
             // 获取各类基础定义
+            store.dispatch('GetEnterpriseTypes')
             store.dispatch('GetVehicleTypes')
             store.dispatch('GetLicensePlateTypes')
             store.dispatch('GetStatusType')

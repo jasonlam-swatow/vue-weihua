@@ -8,6 +8,7 @@ const getters = {
   permittedRouters: state => state.permission.routers,
   basicInfo: state => state.business.basicInfo,
   certInfo: state => state.business.certInfo,
+  enterpriseTypes: state => state.dict.enterpriseTypes,
   vehicleTypes: state => state.dict.vehicleTypes,
   vehicleBusinessTypes: state => state.dict.vehicleBusinessTypes,
   licensePlateTypes: state => state.dict.licensePlateTypes,

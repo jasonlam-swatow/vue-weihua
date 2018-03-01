@@ -13,10 +13,7 @@ const dict = {
       { code: 'MIGRATION', value: '迁出' },
       { code: 'RECOVATION', value: '吊销' }
     ],
-    enterpriseTypes: [
-      { code: 'A', value: '一人责任有限公司（自然人独资）' },
-      { code: 'B', value: '有限公司' }
-    ],
+    enterpriseTypes: [],
     certificationStatusTypes: [
       { code: 'NORMAL', value: '正常' },
       { code: 'WILL_ABNORMAL', value: '将到期' },
@@ -119,6 +116,9 @@ const dict = {
   },
 
   mutations: {
+    GET_ENTERPRISE_TYPES: (state, enterpriseTypes) => {
+      state.enterpriseTypes = enterpriseTypes
+    },
     GET_VEHICLE_TYPES: (state, vehicleTypes) => {
       state.vehicleTypes = vehicleTypes
     },
@@ -137,6 +137,17 @@ const dict = {
   },
 
   actions: {
+    // 获取企业类型定义
+    GetEnterpriseTypes({ commit, state }) {
+      return new Promise((resolve, reject) => {
+        getDict('ENTERPRISE_TYPE').then(response => {
+          commit('GET_ENTERPRISE_TYPES', response.data)
+          resolve(response)
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
     // 获取车辆定义
     GetVehicleTypes({ commit, state }) {
       return new Promise((resolve, reject) => {
