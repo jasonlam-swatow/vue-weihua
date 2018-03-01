@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-row>
-      <el-col v-if="enterpriseId && !dialogSelectVisible" :md="20" :sm="24">
+      <el-col v-if="enterpriseId && !dialogSelectVisible" :span="24">
         <header class="info-header">
           <h4>{{companyName}}</h4>
           <el-button type="text" @click="onEditBusiness">

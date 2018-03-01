@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-row>
-      <el-col :md="20" :sm="24">
+      <el-col :span="24">
         <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
           <el-tab-pane
             :key="tabData.name"

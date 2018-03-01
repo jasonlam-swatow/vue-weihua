@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-row>
-      <el-col :md="20" :sm="24">
+      <el-col :span="24">
         <el-alert
           v-if="!isAdd"
           title="你正在修改企业信息，保存后将会更新内容并等待重新审核"
