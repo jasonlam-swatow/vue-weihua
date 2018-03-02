@@ -15,7 +15,7 @@
               label-width="130px"
               :model="tabData.content"
               class="prevent-uneven strange-input"
-              :rules="rules" ref="tabData.content" >
+              :rules="formRules" ref="tabData.content" >
               <el-form-item v-if="isAdd" label="企业" class="full-width">
                 <el-select v-model="tabData.content.enterpriseId">
                   <el-option
@@ -28,7 +28,7 @@
               <el-form-item label="车牌号" prop="plateNo">
                 <el-input v-model="tabData.content.plateNo"></el-input>
               </el-form-item>
-              <el-form-item label="车辆类型">
+              <el-form-item label="车辆类型" prop="type">
                 <el-select v-model="tabData.content.type">
                 <el-option-group
                   v-for="group in vehicleTypes"
@@ -43,7 +43,7 @@
                 </el-option-group>
                 </el-select>
               </el-form-item>
-              <el-form-item label="车牌类型">
+              <el-form-item label="车牌类型" prop="plateType">
                 <el-select v-model="tabData.content.plateType">
                   <el-option
                     v-for="item in licensePlateTypes"
@@ -538,11 +538,13 @@ export default {
       } else { return callback() }
     }
     return {
-      rules: {
+      formRules: {
         plateNo: [
           { required: true, message: '请填写车牌号', trigger: 'blur' },
           { validator: checkPlateNo, trigger: 'blur' }
         ],
+        type: [{ required: true, message: '请选择车辆类型', trigger: 'blur' }],
+        plateType: [{ required: true, message: '请填写车牌号', trigger: 'blur' }],
         licenseNo: [
           { required: true, message: '请填写道路运输证号', trigger: 'blur' },
           { validator: checkLicenseNo, trigger: 'blur' }

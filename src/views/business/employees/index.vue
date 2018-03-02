@@ -96,7 +96,7 @@
               {{checkValidity(scope.row.certifications)}}
             </template>
           </el-table-column>
-          <el-table-column label="操作">
+          <el-table-column label="操作" fixed="right" width="120">
             <template slot-scope="scope">
               <el-tooltip content="查看" placement="top">
                 <el-button type="text" icon="el-icon-view" @click="viewEmployee(scope.row.id)"></el-button>

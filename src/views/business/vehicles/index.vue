@@ -63,7 +63,7 @@
             </template>
           </el-table-column>
           <el-table-column prop="licenseNo" label="道路运输证号"></el-table-column>
-          <el-table-column prop="gps_time" label="GPS更新时间"></el-table-column>
+          <!-- <el-table-column prop="gps_time" label="GPS更新时间"></el-table-column> -->
           <el-table-column prop="curbWeight" label="整备质量（KG）"></el-table-column>
           <el-table-column prop="tractionMass" label="核载/准牵引（KG）"></el-table-column>         
           <el-table-column label="审核状态" width="90">
@@ -103,7 +103,7 @@
               {{checkValidity(scope.row.certifications)}}
             </template>
           </el-table-column>
-          <el-table-column prop="contact" label="操作">
+          <el-table-column prop="contact" label="操作" fixed="right" width="120">
             <template slot-scope="scope">
               <el-tooltip content="查看" placement="top">
                 <el-button type="text" icon="el-icon-view" @click="viewTank(scope.row.id)"></el-button>

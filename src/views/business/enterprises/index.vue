@@ -32,7 +32,7 @@
               <el-button type="text" @click="onViewEnterprise(scope.row)">点击查看</el-button>
             </template>
           </el-table-column> -->
-          <el-table-column label="操作">
+          <el-table-column label="操作" fixed="right" width="120">
             <template slot-scope="scope">
               <el-tooltip content="查看" placement="top">
                 <el-button type="text" icon="el-icon-view" @click="viewEnterprise(scope.row.id)"></el-button>

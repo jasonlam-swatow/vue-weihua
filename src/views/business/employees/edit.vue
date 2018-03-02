@@ -10,7 +10,12 @@
               <svg-icon icon-class="document"></svg-icon>
               {{tabData.label}}
             </span>
-            <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input" :rules="rulesCheck" ref="tabData.content" :model="tabData.content">
+            <el-form
+              :inline="true"
+              label-width="130px"
+              class="prevent-uneven strange-input"
+              :rules="formRules"
+              ref="tabData.content" :model="tabData.content">
               <el-form-item v-if="isAdd" label="企业" class="full-width">
                 <el-select v-model="tabData.content.enterpriseId">
                   <el-option
@@ -20,16 +25,16 @@
                     :label="ent.name"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="姓名">
+              <el-form-item label="姓名" prop="name">
                 <el-input v-model="tabData.content.name"></el-input>
               </el-form-item>
-              <el-form-item label="性别">
+              <el-form-item label="性别" prop="gender">
                 <el-radio-group v-model="tabData.content.gender">
                   <el-radio label="MALE">男</el-radio>
                   <el-radio label="FEMALE">女</el-radio>
                 </el-radio-group>
               </el-form-item>
-              <el-form-item label="主要岗位">
+              <el-form-item label="主要岗位" prop="position">
                 <el-select v-model="tabData.content.position">
                   <el-option
                     v-for="position in positionTypes"
@@ -39,7 +44,7 @@
                   </el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="入职时间">
+              <el-form-item label="入职时间" prop="entryDate">
                 <el-date-picker
                   :picker-options="pickerOptions"
                   v-model="tabData.content.entryDate" type="date"></el-date-picker>
@@ -387,13 +392,21 @@ export default {
       } else { return callback() }
     }
     return {
-      rulesCheck: {
+      formRules: {
+        name: [
+          { required: true, message: '请填写姓名', trigger: 'blur' },
+          { max: 10, message: '姓名不超过 10 个字符', trigger: 'change' }
+        ],
+        gender: [
+          { required: true, message: '请填写性别', trigger: 'blur' },
+          { max: 6, message: '性别不超过 6 个字符', trigger: 'change' }
+        ],
+        gender: [{ required: true, message: '请选择岗位', trigger: 'blur' }],
+        entryDate: [{ required: true, message: '请选择入职日期', trigger: 'blur' }],
         idCard: [
-          { required: true, message: '请填写身份证号', trigger: 'blur' },
           { validator: checkId, trigger: 'blur' }
         ],
         phone: [
-          { required: true, message: '请填写手机号', trigger: 'blur' },
           { validator: checkPhone, trigger: 'blur' }
         ]
       },

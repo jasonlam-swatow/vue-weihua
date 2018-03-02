@@ -3,7 +3,7 @@
     <el-tabs type="card" class="customized denser mgb0" @tab-click="onTabChange">
       <el-tab-pane v-for="(value, key) in tabPanes" :label="key" :key="value">
         <el-row type="flex" class="mgb12 strange-input">
-          <el-col :span="16">
+          <el-col :span="18">
             <!-- <el-select placeholder="按证照状态筛选" v-model="statusSelected">
               <el-option 
                 v-for="status in statusTypes" 
@@ -31,11 +31,11 @@
               icon="el-icon-search"
               @click="onSearch"></el-button>
           </el-col>
-          <el-col :span="8" class="fr">
+          <el-col :span="6" class="fr">
             <div class="fr">
               <el-button size="medium" icon="el-icon-plus" type="primary" @click="addTank">新增罐体</el-button>
-              <el-button size="medium" icon="el-icon-upload2">批量导入</el-button>
-              <el-button type="text" icon="el-icon-document">下载模板</el-button>
+              <!-- <el-button size="medium" icon="el-icon-upload2">批量导入</el-button>
+              <el-button type="text" icon="el-icon-document">下载模板</el-button> -->
             </div>
           </el-col>
         </el-row>
@@ -92,7 +92,7 @@
               {{checkValidity(scope.row.certifications)}}
             </template>
           </el-table-column>
-          <el-table-column label="操作">
+          <el-table-column label="操作" fixed="right" width="120">
             <template slot-scope="scope">
               <el-tooltip content="查看" placement="top">
                 <el-button type="text" icon="el-icon-view" @click="viewTank(scope.row.id)"></el-button>

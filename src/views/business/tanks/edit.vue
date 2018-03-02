@@ -10,7 +10,12 @@
               <svg-icon icon-class="document"></svg-icon>
               {{tabData.label}}
             </span>
-            <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
+            <el-form
+              :inline="true"
+              label-width="130px"
+              class="prevent-uneven strange-input"
+              :rules="formRules"
+              ref="tabData.content" :model="tabData.content">
               <el-form-item v-if="isAdd" label="企业" class="full-width">
                 <el-select v-model="tabData.content.enterpriseId">
                   <el-option
@@ -20,10 +25,10 @@
                     :label="ent.name"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="罐体编号">
+              <el-form-item label="罐体编号" prop="tankerNo">
                 <el-input v-model="tabData.content.tankerNo"></el-input>
               </el-form-item>
-              <el-form-item label="罐体类型">
+              <el-form-item label="罐体类型" prop="type">
                 <el-select v-model="tabData.content.type">
                   <el-option
                     v-for="tank in tankerTypes"
@@ -43,7 +48,7 @@
                   v-model="tabData.content.startDate"
                   type="date"></el-date-picker>
               </el-form-item>              
-              <el-form-item label="关联挂车号">
+              <el-form-item label="关联挂车号" prop="plateNo">
                 <el-select
                   v-model="tabData.content.plateNo"
                   filterable
@@ -270,7 +275,15 @@ export default {
           }]
         }
       },
-      associateVehicles: []
+      associateVehicles: [],
+      formRules: {
+        tankerNo: [
+          { required: true, message: '请填写罐体编号', trigger: 'blur' },
+          { max: 17, message: '请填写不超过 17 个字符的字母+数字', trigger: 'change' }
+        ],
+        type: [{ required: true, message: '请选择罐体类型', trigger: 'blur' }],
+        plateNo: [{ required: true, message: '请填写关联挂车号', trigger: 'blur' }]
+      }
     }
   },
   computed: {
