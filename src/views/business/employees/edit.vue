@@ -401,7 +401,6 @@ export default {
           { required: true, message: '请填写性别', trigger: 'blur' },
           { max: 6, message: '性别不超过 6 个字符', trigger: 'change' }
         ],
-        gender: [{ required: true, message: '请选择岗位', trigger: 'blur' }],
         entryDate: [{ required: true, message: '请选择入职日期', trigger: 'blur' }],
         idCard: [
           { validator: checkId, trigger: 'blur' }
