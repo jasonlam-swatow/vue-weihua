@@ -788,6 +788,7 @@ export default {
       const { content } = this.tabData
       if (!this.tabData.content.businessType.length) {
         this.$message.error('请勾选经营范围')
+        this.submitting = false
         return
       }
       this.$refs['tabData.content'].validate((valid) => {
@@ -805,6 +806,7 @@ export default {
           }
         } else {
           this.$message.warning('表单提交失败有错误项')
+          this.submitting = false
           return false
         }
       })

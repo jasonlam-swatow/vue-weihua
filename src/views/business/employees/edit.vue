@@ -600,6 +600,7 @@ export default {
           }
         } else {
           this.$message.warning('表单提交失败有错误项')
+          this.submitting = false
           return false
         }
       })

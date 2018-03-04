@@ -342,17 +342,25 @@ export default {
     onSubmit() {
       this.submitting = true
       const { content } = this.tabData
-      if (this.isAdd) {
-        createTank(content).then(res => {
-          this.$message.success('已新增！')
-          _afterSubmit()
-        })
-      } else {
-        editTank(this.$route.query.id, { ...this.tabData.content }).then(res => {
-          this.$message.success('已修改！')
-          _afterSubmit()
-        })
-      }
+      this.$refs['tabData.content'].validate((valid) => {
+        if (valid) {
+          if (this.isAdd) {
+            createTank(content).then(res => {
+              this.$message.success('已新增！')
+              _afterSubmit()
+            })
+          } else {
+            editTank(this.$route.query.id, { ...this.tabData.content }).then(res => {
+              this.$message.success('已修改！')
+              _afterSubmit()
+            })
+          }
+        } else {
+          this.$message.warning('表单提交失败有错误项')
+          this.submitting = false
+          return false
+        }
+      })
       const _this = this
       this.submitting = false
       function _afterSubmit() {
