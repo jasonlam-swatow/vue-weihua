@@ -124,7 +124,7 @@
 
     <el-dialog
       :title="tempEmployeeInfo.name"
-      width="50%" top="4vh"
+      width="70%" top="4vh"
       :visible.sync="dialogVisible">
       <img
         v-if="tempEmployeeInfo.status === 'AUDITED'"
@@ -205,7 +205,7 @@
         <el-form-item
           v-if="$_.find(tempEmployeeInfo.certifications, ['title', '驾驶员从业资格证'])"
           label="驾驶员从业资格证"
-          class="full-width">
+          class="full-width wider-label-140">
           <figure v-if="$_.find(tempEmployeeInfo.certifications, ['title', '驾驶员从业资格证'])">
             <img :src="$_.find(tempEmployeeInfo.certifications, ['title', '驾驶员从业资格证']).path">
             <figcaption>基本信息页</figcaption>
@@ -214,7 +214,7 @@
         <el-form-item
           v-if="$_.find(tempEmployeeInfo.certifications, ['title', '押运员从业资格证'])"
           label="押运员从业资格证"
-          class="full-width">
+          class="full-width wider-label-140">
           <figure v-if="$_.find(tempEmployeeInfo.certifications, ['title', '押运员从业资格证'])">
             <img :src="$_.find(tempEmployeeInfo.certifications, ['title', '押运员从业资格证']).path">
             <figcaption>基本信息页</figcaption>

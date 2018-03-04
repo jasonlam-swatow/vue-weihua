@@ -249,7 +249,7 @@
               <svg-icon icon-class="qualification"></svg-icon>
               驾驶员从业资格证
             </span>
-            <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
+            <el-form :inline="true" label-width="160px" class="prevent-uneven strange-input">
               <el-form-item label="有效期" class="full-width">
                 <el-date-picker
                   :picker-options="pickerOptions"
@@ -282,7 +282,7 @@
               <svg-icon icon-class="qualification"></svg-icon>
               押运员从业资格证
             </span>
-            <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
+            <el-form :inline="true" label-width="160px" class="prevent-uneven strange-input">
               <el-form-item label="有效期" class="full-width">
                 <el-date-picker
                   :picker-options="pickerOptions"

@@ -130,7 +130,7 @@
   </div>
       <el-dialog
       :title="tempVehicleInfo.plateNo"
-      width="50%" top="4vh"
+      width="70%" top="4vh"
       :visible.sync="dialogVisible">
       <img
         v-if="tempVehicleInfo.status === 'AUDITED'"
@@ -172,7 +172,7 @@
         <el-form-item
           v-if="$_.find(tempVehicleInfo.certifications, ['title', '车辆道路运输证'])"
           label="车辆道路运输证"
-          class="full-width">
+          class="full-width wider-label-140">
           <!-- <el-form-item label="关联挂车号">{{tempVehicleInfo.plateNo}}</el-form-item> -->
           <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'A' })">
             <img :src="$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'A' }).path">
@@ -199,7 +199,7 @@
         <el-form-item
           v-if="$_.find(tempVehicleInfo.certifications, ['title', '机动车登记证'])"
           label="机动车登记证"
-          class="full-width">
+          class="full-width wider-label-120">
           <!-- <el-form-item label="关联挂车号">{{tempVehicleInfo.plateNo}}</el-form-item> -->
           <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '机动车登记证', type: 'A' })">
             <img :src="$_.find(tempVehicleInfo.certifications, { title: '机动车登记证', type: 'A' }).path">
@@ -238,7 +238,7 @@
         <el-form-item
           v-if="$_.find(tempVehicleInfo.certifications, ['title', '卫星定位终端安装证书'])"
           label="卫星定位终端安装证书"
-          class="full-width">
+          class="full-width wider-label-160">
           <!-- <el-form-item label="关联挂车号">{{tempVehicleInfo.plateNo}}</el-form-item> -->
           <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '卫星定位终端安装证书', type: 'A' })">
             <img :src="$_.find(tempVehicleInfo.certifications, { title: '卫星定位终端安装证书', type: 'A' }).path">
@@ -252,7 +252,7 @@
         <el-form-item
           v-if="$_.find(tempVehicleInfo.certifications, ['title', '道路危险货物承运人责任保险单'])"
           label="道路危险货物承运人责任保险单"
-          class="full-width">
+          class="full-width wider-label-210">
           <!-- <el-form-item label="关联挂车号">{{tempVehicleInfo.plateNo}}</el-form-item> -->
           <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '道路危险货物承运人责任保险单', type: 'A' })">
             <img :src="$_.find(tempVehicleInfo.certifications, { title: '道路危险货物承运人责任保险单', type: 'A' }).path">
@@ -269,7 +269,7 @@
         <el-form-item
           v-if="$_.find(tempVehicleInfo.certifications, ['title', '车辆安全设备配备照'])"
           label="车辆安全设备配备照"
-          class="full-width">
+          class="full-width wider-label-160">
           <!-- <el-form-item label="关联挂车号">{{tempVehicleInfo.plateNo}}</el-form-item> -->
           <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '车辆安全设备配备照', type: 'A' })">
             <img :src="$_.find(tempVehicleInfo.certifications, { title: '车辆安全设备配备照', type: 'A' }).path">

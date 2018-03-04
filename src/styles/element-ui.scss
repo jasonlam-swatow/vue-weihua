@@ -125,6 +125,26 @@
       //   width: 100% !important;
       //   text-align: left;
       // }
+      &.wider-label-120 {
+        .el-form-item__label {
+          width: 120px !important;
+        }
+      }
+      &.wider-label-140 {
+        .el-form-item__label {
+          width: 140px !important;
+        }
+      }
+      &.wider-label-160 {
+        .el-form-item__label {
+          width: 160px !important;
+        }
+      }
+      &.wider-label-210 {
+        .el-form-item__label {
+          width: 210px !important;
+        }
+      }
       .el-form-item__content {
         width: 100%;
         padding-left: 80px;

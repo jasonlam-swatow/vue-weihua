@@ -120,7 +120,7 @@
 
     <el-dialog
       :title="tempTankInfo.name"
-      width="50%" top="4vh"
+      width="70%" top="4vh"
       :visible.sync="dialogVisible">
       <img
         v-if="tempTankInfo.status === 'AUDITED'"
@@ -129,7 +129,7 @@
       <el-form
         :model="tempTankInfo"
         class="view-form"
-        label-width="100px"
+        label-width="120px"
         :inline="true">
         <el-form-item label="罐体编号">{{tempTankInfo.tankerNo}}</el-form-item>
         <el-form-item label="罐体类型">
@@ -160,7 +160,7 @@
         <el-form-item
           v-if="tempTankInfo.type === 'OVERHEAD_TANK' && $_.find(tempTankInfo.certifications, ['title', '压力罐容器登记证'])"
           label="压力罐容器登记证"
-          class="full-width">
+          class="full-width wider-label-140">
           <!-- <el-form-item label="关联挂车号">{{tempTankInfo.plateNo}}</el-form-item> -->
           <figure v-if="$_.find(tempTankInfo.certifications, { title: '压力罐容器登记证', type: 'A' })">
             <img :src="$_.find(tempTankInfo.certifications, { title: '压力罐容器登记证', type: 'A' }).path">

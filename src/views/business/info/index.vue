@@ -93,7 +93,7 @@
               <svg-icon icon-class="approve"></svg-icon>
               企业道路运输经营许可证
             </span>
-             <el-form :inline="true" label-width="130px" class="strange-input view-form">
+             <el-form :inline="true" label-width="170px" class="strange-input view-form">
               <el-form-item
                 v-if="$_.find(enterpriseData.certifications, ['title', '企业道路运输经营许可证'])"
                 label="企业道路运输经营许可证"

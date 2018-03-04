@@ -20,7 +20,7 @@
               :inline="true" :rules="formRules"
               ref="tabData.content"
               :model="tabData.content"
-              label-width="130px"
+              label-width="140px"
               class="prevent-uneven strange-input">
               <el-form-item label="企业名称" class="full-width" prop="name">
                 <el-input v-model="tabData.content.name" :disabled="!isAdd"></el-input>
@@ -175,7 +175,7 @@
               <svg-icon icon-class="id-card"></svg-icon>
               企业道路运输经营许可证
             </span>
-             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
+             <el-form :inline="true" label-width="160px" class="prevent-uneven strange-input">
               <el-form-item label="道路运输经营许可证号">
                 <el-input
                   v-model="tabData.content.certifications.find(_ => _.title === '企业道路运输经营许可证' && _.type === 'A').licenseNo"></el-input>
