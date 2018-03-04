@@ -49,23 +49,23 @@
         <el-table :data="vehicleList" border>
           <el-table-column type="selection"></el-table-column>
           <el-table-column prop="plateNo" label="车号" width="100"></el-table-column>
-          <el-table-column label="车辆类型" width="100">
+          <el-table-column label="车辆类型">
             <template slot-scope="scope">
               {{findVehicleType(scope.row.type, vehicleTypes)}}
               <!-- {{$_.find(vehicleTypes, ['code', scope.row.type]) &&
               $_.find(vehicleTypes, ['code', scope.row.type]).value}} -->
             </template>
           </el-table-column>
-          <el-table-column label="车牌类型" width="100">
+          <el-table-column label="车牌类型">
             <template slot-scope="scope">
               {{$_.find(licensePlateTypes, ['code', scope.row.plateType]) &&
               $_.find(licensePlateTypes, ['code', scope.row.plateType]).value}}
             </template>
           </el-table-column>
-          <el-table-column prop="licenseNo" label="道路运输证号"></el-table-column>
+          <el-table-column prop="licenseNo" label="道路运输证号" width="140"></el-table-column>
           <!-- <el-table-column prop="gps_time" label="GPS更新时间"></el-table-column> -->
-          <el-table-column prop="curbWeight" label="整备质量（KG）"></el-table-column>
-          <el-table-column prop="tractionMass" label="核载/准牵引（KG）"></el-table-column>         
+          <el-table-column prop="curbWeight" label="整备质量（KG）" width="130"></el-table-column>
+          <el-table-column prop="tractionMass" label="核载/准牵引（KG）" width="150"></el-table-column>         
           <el-table-column label="审核状态" width="90">
             <template slot-scope="scope">
               {{$_.find(statusTypes, ['code', scope.row.status]) &&
@@ -98,7 +98,7 @@
               </el-tooltip>
             </template>
           </el-table-column>
-          <el-table-column label="证件有效期状态" width="100">
+          <el-table-column label="证件有效期状态" width="140">
             <template slot-scope="scope">
               {{checkValidity(scope.row.certifications)}}
             </template>

@@ -41,21 +41,21 @@
         </el-row>
         <el-table :data="tankList" border v-loading="loading">
           <el-table-column type="selection"></el-table-column>
-          <el-table-column prop="tankerNo" label="罐体编号" width="100"></el-table-column>
+          <el-table-column prop="tankerNo" label="罐体编号" width="180"></el-table-column>
           <el-table-column label="车辆类型" width="100">
             <template slot-scope="scope">
               {{$_.find(tankerTypes, ['code', scope.row.type]) &&
               $_.find(tankerTypes, ['code', scope.row.type]).value}}
             </template>
           </el-table-column>
-          <el-table-column prop="volume" label="罐体容积 m3"></el-table-column>
-          <el-table-column prop="plateNo" label="关联挂车号"></el-table-column>
+          <el-table-column prop="volume" label="罐体容积 m3" width="110"></el-table-column>
+          <el-table-column prop="plateNo" label="关联挂车号" width="110"></el-table-column>
           <el-table-column label="投运日期">
             <template slot-scope="scope">
               <span>{{scope.row.startDate/1000 | moment('YYYY-MM-DD')}}</span>
             </template>
           </el-table-column>       
-          <el-table-column label="审核状态" width="100">
+          <el-table-column label="审核状态">
             <template slot-scope="scope">
               {{$_.find(statusTypes, ['code', scope.row.status]) &&
               $_.find(statusTypes, ['code', scope.row.status]).value}}
@@ -87,7 +87,7 @@
               </el-tooltip>
             </template>
           </el-table-column>
-          <el-table-column label="证件有效期状态" width="100">
+          <el-table-column label="证件有效期状态" width="120">
             <template slot-scope="scope">
               {{checkValidity(scope.row.certifications)}}
             </template>
