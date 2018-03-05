@@ -116,7 +116,7 @@
       <el-pagination
         @current-change="fetchData"
         :current-page="currentPage"
-        :page-size="10"
+        :page-size="15"
         layout="total, prev, pager, next, jumper"
         :total="total">
       </el-pagination>
