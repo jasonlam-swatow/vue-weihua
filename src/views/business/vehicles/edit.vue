@@ -162,7 +162,7 @@
                 </el-upload>
                 <!-- 挂车不需要等级评定卡 -->
                 <el-upload
-                  v-if="!tabData.content.type.includes('TRAILER')"
+                  v-if="!(tabData.content.type.includes('TRAILER') && !tabData.content.type.includes('VEHICLE'))"
                   :headers="header"
                   action="/v1/files/upload"
                   class="license-uploader"
@@ -533,9 +533,15 @@ export default {
       } else { return callback() }
     }
     var checkLicenseNo = (rule, value, callback) => {
-      if (!(Number.isInteger(value) || value.length === 11)) {
-        return callback(new Error('道路运输证号应为 11 位数字'))
-      } else { return callback() }
+      if (this.tabData.content.type.includes('TRAILER') && !this.tabData.content.type.includes('VEHICLE')) {
+        if (!(Number.isInteger(value) || value.length === 12)) {
+          return callback(new Error('挂车道路运输证号应为 12 位数字'))
+        } else { return callback() }
+      } else {
+        if (!(Number.isInteger(value) || value.length === 11)) {
+          return callback(new Error('非挂车道路运输证号应为 11 位数字'))
+        } else { return callback() }
+      }
     }
     var checkVin = (rule, value, callback) => {
       // console.log(value)
