@@ -10,14 +10,14 @@
         :key="value">
         <el-row type="flex" class="mgb12 strange-input">
           <el-col :span="18">
-            <el-select placeholder="按证照状态筛选" v-model="searchQueries.status" clearable>
+            <!-- <el-select placeholder="按证照状态筛选" v-model="searchQueries.status" clearable>
               <el-option
                 v-for="status in statusTypes"
                 :key="status.code"
                 :label="status.value"
                 :value="status.code">
               </el-option>
-            </el-select>
+            </el-select> -->
             <el-select placeholder="主要岗位" v-model="searchQueries.position" clearable>
               <el-option
                 v-for="position in positionTypes"

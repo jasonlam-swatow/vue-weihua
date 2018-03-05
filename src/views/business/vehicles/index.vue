@@ -10,14 +10,14 @@
         :key="value">
         <el-row type="flex" class="mgb12 strange-input">
           <el-col :span="18">
-            <el-select placeholder="按证照状态筛选" v-model="searchQueries.status">
+            <!-- <el-select placeholder="按证照状态筛选" v-model="searchQueries.status">
               <el-option
                 v-for="status in statusTypes"
                 :key="status.code"
                 :label="status.value"
                 :value="status.code">
               </el-option>
-            </el-select>
+            </el-select> -->
             <el-select placeholder="车辆类型" v-model="searchQueries.vehicleType">
             <el-option-group
               v-for="group in vehicleTypes"
@@ -47,7 +47,7 @@
           </el-col>
         </el-row>
         <el-table :data="vehicleList" border>
-          <el-table-column type="selection"></el-table-column>
+          <!-- <el-table-column type="selection"></el-table-column> -->
           <el-table-column prop="plateNo" label="车号" width="100"></el-table-column>
           <el-table-column label="车辆类型">
             <template slot-scope="scope">
