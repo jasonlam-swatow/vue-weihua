@@ -85,6 +85,11 @@
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
                     <p>正面</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/id_card_1.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -99,6 +104,11 @@
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
                     <p>反面</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/id_card_2.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
               </el-form-item>
@@ -137,6 +147,11 @@
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
                     <p>封面，含甲乙方名称</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/labor_1.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -151,6 +166,11 @@
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
                     <p>内页，含劳动合约时间页</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/labor_2.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -165,6 +185,11 @@
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
                     <p>内页，含甲乙方签字</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/labor_2.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
               </el-form-item>
@@ -207,6 +232,11 @@
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
                     <p>正本正面</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/driver_1.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -221,6 +251,11 @@
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
                     <p>正本反面</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/driver_2.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -235,6 +270,11 @@
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
                     <p>副本正面</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/driver_3.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -249,6 +289,11 @@
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
                     <p>副本反面</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/driver_4.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
               </el-form-item>
@@ -291,6 +336,11 @@
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
                     <p>基本信息页</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/driver_quali.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
               </el-form-item>
@@ -333,6 +383,11 @@
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
                     <p>基本信息页</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/escort_quali.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
               </el-form-item>
@@ -370,6 +425,11 @@
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
                     <p>含甲乙方名称页</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/responsibility_1.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -384,6 +444,11 @@
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
                     <p>含甲乙方签章页</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/responsibility_2.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
               </el-form-item>

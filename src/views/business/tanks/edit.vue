@@ -100,6 +100,11 @@
                     slot="tip"
                     class="el-upload__tip">
                     <p>检验报告封面页</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/tank_report_1.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -116,6 +121,11 @@
                     slot="tip"
                     class="el-upload__tip">
                     <p>检验报告细节页</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/tank_report_2.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
               </el-form-item>
@@ -162,6 +172,11 @@
                     slot="tip"
                     class="el-upload__tip">
                     <p>管理页</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/tank_reg_1.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -178,6 +193,11 @@
                     slot="tip"
                     class="el-upload__tip">
                     <p>检验页</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/tank_reg_2.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -194,6 +214,11 @@
                     slot="tip"
                     class="el-upload__tip">
                     <p>特性页</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/tank_reg_3.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
               </el-form-item>

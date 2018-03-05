@@ -161,3 +161,13 @@ a:hover {
   right: 24px;
   width: 120px;
 }
+
+.sample-link {
+  color: map-get($palette, primary);
+  margin-top: 6px;
+  display: block;
+  &:hover {
+    color: map-get($palette, primary);
+    text-decoration: underline;
+  }
+}
