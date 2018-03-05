@@ -85,6 +85,11 @@
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
                     <p>正面</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/id_card_1.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -99,9 +104,19 @@
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
                     <p>反面</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/id_card_2.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
               </el-form-item>
+              <el-alert
+                title="彩色扫描件或彩色照片，内容清晰可见"
+                type="info"
+                show-icon
+                style="margin-left: 130px"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>
@@ -132,6 +147,11 @@
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
                     <p>封面，含甲乙方名称</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/labor_1.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -146,6 +166,11 @@
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
                     <p>内页，含劳动合约时间页</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/labor_2.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -160,15 +185,29 @@
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
                     <p>内页，含甲乙方签字</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/labor_2.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
               </el-form-item>
+              <el-alert
+                title="彩色扫描件或彩色照片，内容清晰可见"
+                type="info"
+                show-icon
+                style="margin-left: 130px"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>
         
         <!-- 上传驾驶证 -->
-        <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
+        <el-tabs
+          v-if="tabData.content.position !== 'ESCORT'"
+          v-model="activeTab"
+          type="card" class="customized denser"
+          v-loading="loading">
           <el-tab-pane name="first">
             <span slot="label" class="span-with-svg">
               <svg-icon icon-class="driver"></svg-icon>
@@ -193,6 +232,11 @@
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
                     <p>正本正面</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/driver_1.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -207,6 +251,11 @@
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
                     <p>正本反面</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/driver_2.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -221,6 +270,11 @@
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
                     <p>副本正面</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/driver_3.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -235,15 +289,29 @@
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
                     <p>副本反面</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/driver_4.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
               </el-form-item>
+              <el-alert
+                title="彩色扫描件或彩色照片，内容清晰可见"
+                type="info"
+                show-icon
+                style="margin-left: 130px"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>
         
         <!-- 上传驾驶员从业资格证 -->
-        <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
+        <el-tabs
+          v-if="tabData.content.position !== 'ESCORT'"
+          v-model="activeTab"
+          type="card" class="customized denser"
+          v-loading="loading">
           <el-tab-pane name="first">
             <span slot="label" class="span-with-svg">
               <svg-icon icon-class="qualification"></svg-icon>
@@ -268,15 +336,29 @@
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
                     <p>基本信息页</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/driver_quali.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
               </el-form-item>
+              <el-alert
+                title="彩色扫描件或彩色照片，内容清晰可见"
+                type="info"
+                show-icon
+                style="margin-left: 160px"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>
         
         <!-- 上传押运员从业资格证 -->
-        <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
+        <el-tabs
+          v-if="tabData.content.position === 'ESCORT'"
+          v-model="activeTab"
+          type="card" class="customized denser"
+          v-loading="loading">
           <el-tab-pane name="first">
             <span slot="label" class="span-with-svg">
               <svg-icon icon-class="qualification"></svg-icon>
@@ -301,9 +383,19 @@
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
                     <p>基本信息页</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/escort_quali.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
               </el-form-item>
+              <el-alert
+                title="彩色扫描件或彩色照片，内容清晰可见"
+                type="info"
+                show-icon
+                style="margin-left: 160px"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>
@@ -333,6 +425,11 @@
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
                     <p>含甲乙方名称页</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/responsibility_1.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -347,14 +444,25 @@
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
                     <p>含甲乙方签章页</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/responsibility_2.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
               </el-form-item>
+              <el-alert
+                title="彩色扫描件或彩色照片，内容清晰可见"
+                type="info"
+                show-icon
+                style="margin-left: 130px"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>
 
         <div class="button_area">
+          <el-button @click="$router.go(-1)" icon="el-icon-back">取消</el-button>
           <el-button type="primary" @click="onSubmit" v-loading="submitting" icon="el-icon-check">
             确认{{ isAdd ? '新增' : '修改' }}
           </el-button>
@@ -406,6 +514,7 @@ export default {
           { validator: checkId, trigger: 'blur' }
         ],
         phone: [
+          { required: true, message: '请输入联系电话', trigger: 'blur' },
           { validator: checkPhone, trigger: 'blur' }
         ]
       },

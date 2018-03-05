@@ -32,6 +32,7 @@
                 <el-select v-model="tabData.content.type">
                 <el-option-group
                   v-for="group in vehicleTypes"
+                  v-if="group.code !== 'OTHER'"
                   :key="group.id"
                   :label="group.value">
                   <el-option
@@ -125,6 +126,11 @@
                     slot="tip"
                     class="el-upload__tip">
                     <p>营运证正本正本正面</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/road_transport_1.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -141,6 +147,11 @@
                     slot="tip"
                     class="el-upload__tip">
                     <p>代理证正面</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/road_transport_2.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -157,11 +168,16 @@
                     slot="tip"
                     class="el-upload__tip">
                     <p>代理证反面</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/road_transport_3.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <!-- 挂车不需要等级评定卡 -->
                 <el-upload
-                  v-if="!tabData.content.type.includes('TRAILER')"
+                  v-if="!(tabData.content.type.includes('TRAILER') && !tabData.content.type.includes('VEHICLE'))"
                   :headers="header"
                   action="/v1/files/upload"
                   class="license-uploader"
@@ -175,9 +191,19 @@
                     slot="tip"
                     class="el-upload__tip">
                     <p>等级评定卡</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/road_transport_4.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
               </el-form-item>
+              <el-alert
+                title="彩色扫描件或彩色照片，内容清晰可见"
+                type="info"
+                show-icon
+                style="margin-left: 130px"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>
@@ -204,6 +230,11 @@
                     slot="tip"
                     class="el-upload__tip">
                     <p>机动车登记信息证</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/mobile_reg_1.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -220,9 +251,19 @@
                     slot="tip"
                     class="el-upload__tip">
                     <p>机动车登记证登记栏（最近一次登记）</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/mobile_reg_2.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
               </el-form-item>
+              <el-alert
+                title="彩色扫描件或彩色照片，内容清晰可见"
+                type="info"
+                show-icon
+                style="margin-left: 130px"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>
@@ -256,6 +297,11 @@
                     slot="tip"
                     class="el-upload__tip">
                     <p>行驶证正本正面</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/driver_1.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -272,6 +318,11 @@
                     slot="tip"
                     class="el-upload__tip">
                     <p>行驶证正本反面</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/driver_2.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -288,6 +339,11 @@
                     slot="tip"
                     class="el-upload__tip">
                     <p>行驶证副本正面</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/driver_3.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -304,9 +360,19 @@
                     slot="tip"
                     class="el-upload__tip">
                     <p>行驶证副本反面</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/driver_4.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
               </el-form-item>
+              <el-alert
+                title="彩色扫描件或彩色照片，内容清晰可见"
+                type="info"
+                show-icon
+                style="margin-left: 130px"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>
@@ -321,11 +387,6 @@
               <svg-icon icon-class="id-card"></svg-icon>
               卫星定位终端安装证书
             </span>
-            <el-alert
-              title="牵引车必填"
-              type="info"
-              show-icon
-              class="mgb12"></el-alert>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item
                 label="从业资格证号"
@@ -356,9 +417,20 @@
                     slot="tip"
                     class="el-upload__tip">
                     <p>卫星定位终端安装证书</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/satellite_cert.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
               </el-form-item>
+              <el-alert
+                title="彩色扫描件或彩色照片，内容清晰可见"
+                description="牵引车必填"
+                type="info"
+                show-icon
+                style="margin-left: 130px"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>
@@ -392,6 +464,11 @@
                     slot="tip"
                     class="el-upload__tip">
                     <p>道路危险货物承运人责任保险单</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/safety_permit_1.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -407,10 +484,20 @@
                   <div
                     slot="tip"
                     class="el-upload__tip">
-                    <p>道路危险货物承运人责任保险单（附</p>
+                    <p>道路危险货物承运人责任保险单（附加页）</p>
+                    <p style="width: 150px">
+                      <a
+                        target="_blank" href="/static/samples/safety_permit_2.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
               </el-form-item>
+              <el-alert
+                title="彩色扫描件或彩色照片，内容清晰可见"
+                type="info"
+                show-icon
+                style="margin-left: 130px"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>
@@ -425,11 +512,6 @@
               <svg-icon icon-class="id-card"></svg-icon>
               车辆安全设备配备照片
             </span>
-            <el-alert
-              title="牵引车必填，至少上传一张"
-              type="info"
-              show-icon
-              class="mgb12"></el-alert>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="上传" class="full-width">
                 <el-upload
@@ -497,10 +579,17 @@
                   </div>
                 </el-upload>
               </el-form-item>
+              <el-alert
+                title="彩色扫描件或彩色照片，内容清晰可见"
+                description="牵引车必填，至少上传一张"
+                type="info"
+                show-icon
+                style="margin-left: 130px"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>
         <div class="button_area">
+          <el-button @click="$router.go(-1)" icon="el-icon-back">取消</el-button>
           <el-button type="primary" @click="onSubmit" v-loading="submitting" icon="el-icon-check">
             确认{{ isAdd ? '新增' : '修改' }}
           </el-button>
@@ -525,15 +614,21 @@ export default {
   data() {
     var checkPlateNo = (rule, value, callback) => {
       console.log(value)
-      var reg = /^[京,津,渝,沪,冀,晋,辽,吉,黑,苏,浙,皖,闽,赣,鲁,豫,鄂,湘,粤,琼,川,贵,云,陕,秦,甘,陇,青,台,内蒙古,桂,宁,新,藏,澳,军,海,航,警][A-Z][0-9,A-Z]{5}$/
+      var reg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9学警港澳]{1}$/
       if (!reg.test(value)) {
         return callback(new Error('车牌号格式不正确'))
       } else { return callback() }
     }
     var checkLicenseNo = (rule, value, callback) => {
-      if (!(Number.isInteger(value) || value.length === 11)) {
-        return callback(new Error('道路运输证号应为 11 位数字'))
-      } else { return callback() }
+      if (this.tabData.content.type.includes('TRAILER') && !this.tabData.content.type.includes('VEHICLE')) {
+        if (!(Number.isInteger(value) || value.length === 12)) {
+          return callback(new Error('挂车道路运输证号应为 12 位数字'))
+        } else { return callback() }
+      } else {
+        if (!(Number.isInteger(value) || value.length === 11)) {
+          return callback(new Error('非挂车道路运输证号应为 11 位数字'))
+        } else { return callback() }
+      }
     }
     var checkVin = (rule, value, callback) => {
       // console.log(value)

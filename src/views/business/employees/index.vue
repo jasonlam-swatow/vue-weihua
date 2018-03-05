@@ -10,14 +10,14 @@
         :key="value">
         <el-row type="flex" class="mgb12 strange-input">
           <el-col :span="18">
-            <el-select placeholder="按证照状态筛选" v-model="searchQueries.status" clearable>
+            <!-- <el-select placeholder="按证照状态筛选" v-model="searchQueries.status" clearable>
               <el-option
                 v-for="status in statusTypes"
                 :key="status.code"
                 :label="status.value"
                 :value="status.code">
               </el-option>
-            </el-select>
+            </el-select> -->
             <el-select placeholder="主要岗位" v-model="searchQueries.position" clearable>
               <el-option
                 v-for="position in positionTypes"
@@ -38,7 +38,7 @@
           </el-col>
         </el-row>
         <el-table :data="employeeList" border stripe v-loading="loading">
-          <el-table-column type="selection"></el-table-column>
+          <!-- <el-table-column type="selection"></el-table-column> -->
           <el-table-column prop="name" label="姓名" width="100"></el-table-column>
           <el-table-column label="性别" width="80">
             <template slot-scope="scope">
@@ -116,7 +116,7 @@
       <el-pagination
         @current-change="fetchData"
         :current-page="currentPage"
-        :page-size="10"
+        :page-size="15"
         layout="total, prev, pager, next, jumper"
         :total="total">
       </el-pagination>

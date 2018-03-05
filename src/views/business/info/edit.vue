@@ -127,6 +127,11 @@
                     slot="tip"
                     class="el-upload__tip">
                     <p style="width:150px">企业营业执照</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/business_cert_1.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -143,6 +148,11 @@
                     slot="tip"
                     class="el-upload__tip">
                     <p>企业组织机构代码证</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/business_cert_2.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -159,13 +169,20 @@
                     slot="tip"
                     class="el-upload__tip">
                     <p>企业税务登记证</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/business_cert_3.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
               </el-form-item>
-              <p style="font-size: 12px; margin: 0 0 0 130px; color: #909399;">
-                <i class="el-icon-info"></i>
-                彩色扫描件或彩色照片，内容清晰可见。若非三证合一，请另行上传企业组织机构代码证、 企业税务登记证。
-              </p>
+              <el-alert
+                title="彩色扫描件或彩色照片，内容清晰可见"
+                description="若为三证合一企业，此三个文件应上传统一社会信用代码证"
+                type="info"
+                show-icon
+                style="margin-left: 140px"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>
@@ -201,10 +218,20 @@
                   <div
                     slot="tip"
                     class="el-upload__tip">
-                    <p></p>
+                    <p>企业道路运输经营许可证</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/road_permit.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
               </el-form-item>
+              <el-alert
+                title="彩色扫描件或彩色照片，内容清晰可见"
+                type="info"
+                show-icon
+                style="margin-left: 160px"></el-alert>
              </el-form>
           </el-tab-pane>
         </el-tabs>
@@ -229,15 +256,21 @@
                   <div
                     slot="tip"
                     class="el-upload__tip">
-                    <p>要求：下载→填写→盖公章→彩色件扫描上传</p>
-                    <div><a class="download-link" target="_blank" href="/static/samples/safety_commitment.pdf">下载 <i class="el-icon-document"></i>道路危险货物运输企业安全承诺书.pdf</a></div>
+                    <p><a class="sample-link" target="_blank" href="/static/samples/safety_commitment.pdf">点此下载模板 <i class="el-icon-document"></i>道路危险货物运输企业安全承诺书.pdf</a></p>
                   </div>
                 </el-upload>
               </el-form-item>
+              <el-alert
+                title="彩色扫描件或彩色照片，内容清晰可见"
+                description="要求：下载→填写→盖公章→彩色件扫描上传"
+                type="info"
+                show-icon
+                style="margin-left: 130px"></el-alert>
              </el-form>
           </el-tab-pane>
         </el-tabs>
         <div class="button_area">
+          <el-button @click="$router.go(-1)" icon="el-icon-back">取消</el-button>
           <el-button type="primary" @click="onSubmit" v-loading="submitting" icon="el-icon-check">
             确认{{ isAdd ? '新增' : '修改' }}
           </el-button>
@@ -531,10 +564,5 @@ export default {
     position: absolute;
     top: 14px;
     right: -286px;
-  }
-  .download-link {
-    margin-top: 12px;
-    display: block;
-    color: map-get($palette, primary);
   }
 </style>

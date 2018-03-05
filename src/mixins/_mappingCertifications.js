@@ -18,7 +18,7 @@ export default {
     },
     shortenCertifications(certificationMaps) {
       return omitBy(certificationMaps, certMap =>
-        this.$_.find(certMap, cert => !cert.code))
+        this.$_.find(certMap, cert => !cert.path))
     },
     // 枚举属性的一维数组
     flattenCertifications(certificationMaps) {

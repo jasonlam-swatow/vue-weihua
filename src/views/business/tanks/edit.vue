@@ -100,6 +100,11 @@
                     slot="tip"
                     class="el-upload__tip">
                     <p>检验报告封面页</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/tank_report_1.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -115,10 +120,20 @@
                   <div
                     slot="tip"
                     class="el-upload__tip">
-                    <p>检验报告细节液</p>
+                    <p>检验报告细节页</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/tank_report_2.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
               </el-form-item>
+              <el-alert
+                title="彩色扫描件或彩色照片，内容清晰可见"
+                type="info"
+                show-icon
+                style="margin-left: 130px"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>
@@ -157,6 +172,11 @@
                     slot="tip"
                     class="el-upload__tip">
                     <p>管理页</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/tank_reg_1.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -173,6 +193,11 @@
                     slot="tip"
                     class="el-upload__tip">
                     <p>检验页</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/tank_reg_2.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
                 <el-upload
@@ -189,13 +214,25 @@
                     slot="tip"
                     class="el-upload__tip">
                     <p>特性页</p>
+                    <p>
+                      <a
+                        target="_blank" href="/static/samples/tank_reg_3.jpg"
+                        class="sample-link">点此查看示例</a>
+                    </p>
                   </div>
                 </el-upload>
               </el-form-item>
+              <el-alert
+                title="彩色扫描件或彩色照片，内容清晰可见"
+                description="压力罐容器必填"
+                type="info"
+                show-icon
+                style="margin-left: 130px"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>
         <div class="button_area">
+          <el-button @click="$router.go(-1)" icon="el-icon-back">取消</el-button>
           <el-button type="primary" @click="onSubmit" v-loading="submitting" icon="el-icon-check">
             确认{{ isAdd ? '新增' : '修改' }}
           </el-button>
