@@ -874,30 +874,28 @@ export default {
     // 观察对应值生成对应条件
     generateCondition(type) {
       console.log(type)
-      if (!type.includes('TRAILER')) {
-        return this.tabData.content.certifications.find(_ => _.title === '车辆道路运输证' && _.type === 'D').path
+      let collection = []
+      if (!(this.tabData.content.type.includes('TRAILER') && !this.tabData.content.type.includes('VEHICLE'))) {
+        collection.push({title: '等级评定卡', condition: this.tabData.content.certifications.find(_ => _.title === '车辆道路运输证' && _.type === 'D').path})
       }
       if (type.includes('TOWING_VEHICLE')) {
-        return this.tabData.content.certifications.find(_ => _.title === '卫星定位终端安装证书' && _.type === 'A').path
-      } else {
-        return 'default'
+        collection.push({title: '卫星定位终端安装证书', condition: this.tabData.content.certifications.find(_ => _.title === '卫星定位终端安装证书' && _.type === 'A').path})
       }
+      return collection
     },
-    extraCheck(condition) {
+    // 多类型
+    extraCheck(checkNum) {
       let tag = 0
-      let length = Object.keys(condition).length
-      console.log(condition)
-      if (condition) {
-        for (var i = 0; i < length; i++) {
-          let group = 'list' + i
-          console.log(condition[group].condition)
-          if (condition[group].condition) {
-            console.log(condition[group].condition)
-            return true
-          } else {
-            tag ++
-            this.$notify.warning(`${condition[group].title}不能为空`)
-            return false
+      console.log(checkNum)
+      if (checkNum) {
+        for (let i = 0; i < checkNum.length; i++) {
+          for (let j = 0; j < checkNum[i].length; j++ ) {
+            if (checkNum[i][j].condition){
+              console.log(checkNum[i][j].condition)
+            } else {
+              console.log(checkNum[i][j])
+              this.$notify.error(`${checkNum[i][j].title}不能为空`)
+            }
           }
         }
       }
@@ -936,8 +934,7 @@ export default {
       //   this.submitting = false
       //   return
       // }
-      this.extraCheck({ list0: { 'title': '等级评定卡', 'condition': this.generateCondition(this.tabData.content.type) }, 
-          list1: { 'title': '卫星定位终端安装证书', 'condition': this.generateCondition(this.tabData.content.type)}})
+      this.extraCheck([this.generateCondition(this.tabData.content.type)])
       // this.$refs['tabData.content'].validate((valid) => {
       //   if (valid) {
       //     if (this.extraCheck({ list1: { 'title': '等级评定卡', 'condition': this.generateCondition(this.tabData.content.type) }, 
