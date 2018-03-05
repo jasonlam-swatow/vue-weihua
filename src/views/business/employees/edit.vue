@@ -418,6 +418,7 @@ export default {
           { validator: checkId, trigger: 'blur' }
         ],
         phone: [
+          { required: true, message: '请输入联系电话', trigger: 'blur' },
           { validator: checkPhone, trigger: 'blur' }
         ]
       },

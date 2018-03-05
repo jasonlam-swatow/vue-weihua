@@ -38,7 +38,7 @@
           </el-col>
         </el-row>
         <el-table :data="employeeList" border stripe v-loading="loading">
-          <el-table-column type="selection"></el-table-column>
+          <!-- <el-table-column type="selection"></el-table-column> -->
           <el-table-column prop="name" label="姓名" width="100"></el-table-column>
           <el-table-column label="性别" width="80">
             <template slot-scope="scope">
