@@ -119,6 +119,11 @@
                   </div>
                 </el-upload>
               </el-form-item>
+              <el-alert
+                title="彩色扫描件或彩色照片，内容清晰可见"
+                type="info"
+                show-icon
+                style="margin-left: 130px"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>
@@ -192,6 +197,12 @@
                   </div>
                 </el-upload>
               </el-form-item>
+              <el-alert
+                title="彩色扫描件或彩色照片，内容清晰可见"
+                description="压力罐容器必填"
+                type="info"
+                show-icon
+                style="margin-left: 130px"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>

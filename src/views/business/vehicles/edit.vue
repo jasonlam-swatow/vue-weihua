@@ -179,6 +179,11 @@
                   </div>
                 </el-upload>
               </el-form-item>
+              <el-alert
+                title="彩色扫描件或彩色照片，内容清晰可见"
+                type="info"
+                show-icon
+                style="margin-left: 130px"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>
@@ -224,6 +229,11 @@
                   </div>
                 </el-upload>
               </el-form-item>
+              <el-alert
+                title="彩色扫描件或彩色照片，内容清晰可见"
+                type="info"
+                show-icon
+                style="margin-left: 130px"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>
@@ -308,6 +318,11 @@
                   </div>
                 </el-upload>
               </el-form-item>
+              <el-alert
+                title="彩色扫描件或彩色照片，内容清晰可见"
+                type="info"
+                show-icon
+                style="margin-left: 130px"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>
@@ -322,11 +337,6 @@
               <svg-icon icon-class="id-card"></svg-icon>
               卫星定位终端安装证书
             </span>
-            <el-alert
-              title="牵引车必填"
-              type="info"
-              show-icon
-              class="mgb12"></el-alert>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item
                 label="从业资格证号"
@@ -360,6 +370,12 @@
                   </div>
                 </el-upload>
               </el-form-item>
+              <el-alert
+                title="彩色扫描件或彩色照片，内容清晰可见"
+                description="牵引车必填"
+                type="info"
+                show-icon
+                style="margin-left: 130px"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>
@@ -412,6 +428,11 @@
                   </div>
                 </el-upload>
               </el-form-item>
+              <el-alert
+                title="彩色扫描件或彩色照片，内容清晰可见"
+                type="info"
+                show-icon
+                style="margin-left: 130px"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>
@@ -426,11 +447,6 @@
               <svg-icon icon-class="id-card"></svg-icon>
               车辆安全设备配备照片
             </span>
-            <el-alert
-              title="牵引车必填，至少上传一张"
-              type="info"
-              show-icon
-              class="mgb12"></el-alert>
             <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="上传" class="full-width">
                 <el-upload
@@ -498,6 +514,12 @@
                   </div>
                 </el-upload>
               </el-form-item>
+              <el-alert
+                title="彩色扫描件或彩色照片，内容清晰可见"
+                description="牵引车必填，至少上传一张"
+                type="info"
+                show-icon
+                style="margin-left: 130px"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>
