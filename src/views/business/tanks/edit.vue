@@ -196,6 +196,7 @@
           </el-tab-pane>
         </el-tabs>
         <div class="button_area">
+          <el-button @click="$router.go(-1)" icon="el-icon-back">取消</el-button>
           <el-button type="primary" @click="onSubmit" v-loading="submitting" icon="el-icon-check">
             确认{{ isAdd ? '新增' : '修改' }}
           </el-button>
