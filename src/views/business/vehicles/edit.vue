@@ -894,7 +894,9 @@ export default {
               console.log(checkNum[i][j].condition)
             } else {
               console.log(checkNum[i][j])
-              this.$notify.error(`${checkNum[i][j].title}不能为空`)
+              setTimeout(() => {
+                this.$notify.error(`${checkNum[i][j].title}不能为空`)
+              }, 100)
             }
           }
         }
