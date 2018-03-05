@@ -608,6 +608,7 @@ import {
 import { getEnterpriseList } from '@/api/business/enterprises'
 import datepickerOptions from '@/mixins/_datepickerOptions'
 import remove from 'lodash/remove'
+import isEmpty from 'lodash/isEmpty'
 
 export default {
   mixins: [datepickerOptions],
@@ -871,15 +872,23 @@ export default {
     })
   },
   methods: {
+    // 计算tabplane里集合长度
+    countCertificationLength(type) {
+      let collections = this.$_.filter(this.tabData.content.certifications, o => { o.code === type })
+      collections = this.$_.map(collections, o => o.path)
+      const certificationsLength = collections.length - this.$_.filter(collections, isEmpty).length
+      return certificationsLength
+    },
     // 观察对应值生成对应条件
     generateCondition(type) {
       console.log(type)
-      let collection = []
+      const collection = []
       if (!(this.tabData.content.type.includes('TRAILER') && !this.tabData.content.type.includes('VEHICLE'))) {
-        collection.push({title: '等级评定卡', condition: this.tabData.content.certifications.find(_ => _.title === '车辆道路运输证' && _.type === 'D').path})
+        collection.push({ warning: '等级评定卡不能为空', condition: this.tabData.content.certifications.find(_ => _.title === '车辆道路运输证' && _.type === 'D').path })
       }
       if (type.includes('TOWING_VEHICLE')) {
-        collection.push({title: '卫星定位终端安装证书', condition: this.tabData.content.certifications.find(_ => _.title === '卫星定位终端安装证书' && _.type === 'A').path})
+        collection.push({ warning: '车辆安全设备配备照片至少有一张', condition: this.countCertificationLength('TERM_OF_VEHICLE_SAFETY_EQUIPMENT') })
+        collection.push({ warning: '卫星定位终端安装证书不能为空', condition: this.tabData.content.certifications.find(_ => _.title === '卫星定位终端安装证书' && _.type === 'A').path })
       }
       return collection
     },
@@ -889,19 +898,20 @@ export default {
       console.log(checkNum)
       if (checkNum) {
         for (let i = 0; i < checkNum.length; i++) {
-          for (let j = 0; j < checkNum[i].length; j++ ) {
-            if (checkNum[i][j].condition){
+          for (let j = 0; j < checkNum[i].length; j++) {
+            if (checkNum[i][j].condition) {
               console.log(checkNum[i][j].condition)
             } else {
+              tag++
               console.log(checkNum[i][j])
               setTimeout(() => {
-                this.$notify.error(`${checkNum[i][j].title}不能为空`)
+                this.$notify.error(checkNum[i][j].warning)
               }, 100)
             }
           }
         }
       }
-      if(!tag) {
+      if (!tag) {
         return true
       } else { return false }
     },
@@ -931,40 +941,38 @@ export default {
     onSubmit() {
       this.submitting = true
       const { content } = this.tabData
-      // if (!this.tabData.content.businessType.length) {
-      //   this.$message.error('请勾选经营范围')
-      //   this.submitting = false
-      //   return
-      // }
-      this.extraCheck([this.generateCondition(this.tabData.content.type)])
-      // this.$refs['tabData.content'].validate((valid) => {
-      //   if (valid) {
-      //     if (this.extraCheck({ list1: { 'title': '等级评定卡', 'condition': this.generateCondition(this.tabData.content.type) }, 
-      //     list2: { 'title': '卫星定位终端安装证书', condition: this.generateCondition(this.tabData.content.type)}})) {
-      //       if (this.isAdd) {
-      //         createTrailer(content).then(res => {
-      //           this.$message.success('已新增！')
-      //           _afterSubmit()
-      //         })
-      //       } else {
-      //         editTrailer(this.$route.query.id, { ...this.tabData.content }).then(res => {
-      //           this.$message.success('已修改！')
-      //           _afterSubmit()
-      //         })
-      //       }
-      //     }
-      //   } else {
-      //     this.$message.warning('表单提交失败有错误项')
-      //     this.submitting = false
-      //     return false
-      //   }
-      // })
-      // const _this = this
-      // this.submitting = false
-      // function _afterSubmit() {
-      //   // _this.submitting = false
-      //   _this.$router.push('/business/vehicles')
-      // }
+      if (!this.tabData.content.businessType.length) {
+        this.$message.error('请勾选经营范围')
+        this.submitting = false
+        return
+      }
+      this.$refs['tabData.content'].validate((valid) => {
+        if (valid) {
+          if (this.extraCheck([this.generateCondition(this.tabData.content.type)])) {
+            if (this.isAdd) {
+              createTrailer(content).then(res => {
+                this.$message.success('已新增！')
+                _afterSubmit()
+              })
+            } else {
+              editTrailer(this.$route.query.id, { ...this.tabData.content }).then(res => {
+                this.$message.success('已修改！')
+                _afterSubmit()
+              })
+            }
+          }
+        } else {
+          this.$message.warning('表单提交失败有错误项')
+          this.submitting = false
+          return false
+        }
+      })
+      const _this = this
+      this.submitting = false
+      function _afterSubmit() {
+        // _this.submitting = false
+        _this.$router.push('/business/vehicles')
+      }
     }
   }
 }
