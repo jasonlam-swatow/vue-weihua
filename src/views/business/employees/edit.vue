@@ -168,7 +168,11 @@
         </el-tabs>
         
         <!-- 上传驾驶证 -->
-        <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
+        <el-tabs
+          v-if="tabData.content.position !== 'ESCORT'"
+          v-model="activeTab"
+          type="card" class="customized denser"
+          v-loading="loading">
           <el-tab-pane name="first">
             <span slot="label" class="span-with-svg">
               <svg-icon icon-class="driver"></svg-icon>
@@ -243,7 +247,11 @@
         </el-tabs>
         
         <!-- 上传驾驶员从业资格证 -->
-        <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
+        <el-tabs
+          v-if="tabData.content.position !== 'ESCORT'"
+          v-model="activeTab"
+          type="card" class="customized denser"
+          v-loading="loading">
           <el-tab-pane name="first">
             <span slot="label" class="span-with-svg">
               <svg-icon icon-class="qualification"></svg-icon>
@@ -276,7 +284,11 @@
         </el-tabs>
         
         <!-- 上传押运员从业资格证 -->
-        <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
+        <el-tabs
+          v-if="tabData.content.position === 'ESCORT'"
+          v-model="activeTab"
+          type="card" class="customized denser"
+          v-loading="loading">
           <el-tab-pane name="first">
             <span slot="label" class="span-with-svg">
               <svg-icon icon-class="qualification"></svg-icon>
