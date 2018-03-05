@@ -749,6 +749,12 @@ export default {
       }
     }
   },
+  // watch: {
+  // 'tabData.content.type': {
+  //   handler(val) {
+  //     this.generateCondition(val)
+  //   }
+  // }},
   computed: {
     ...mapGetters([
       'vehicleTypes',
@@ -770,6 +776,40 @@ export default {
     })
   },
   methods: {
+    // 观察对应值生成对应条件
+    generateCondition(type) {
+      console.log(type)
+      if (!type.includes('TRAILER')) {
+        return this.tabData.content.certifications.find(_ => _.title === '车辆道路运输证' && _.type === 'D').path
+      }
+      if (type.includes('TOWING_VEHICLE')) {
+        return this.tabData.content.certifications.find(_ => _.title === '卫星定位终端安装证书' && _.type === 'A').path
+      } else {
+        return 'default'
+      }
+    },
+    extraCheck(condition) {
+      let tag = 0
+      let length = Object.keys(condition).length
+      console.log(condition)
+      if (condition) {
+        for (var i = 0; i < length; i++) {
+          let group = 'list' + i
+          console.log(condition[group].condition)
+          if (condition[group].condition) {
+            console.log(condition[group].condition)
+            return true
+          } else {
+            tag ++
+            this.$notify.warning(`${condition[group].title}不能为空`)
+            return false
+          }
+        }
+      }
+      if(!tag) {
+        return true
+      } else { return false }
+    },
     onUpload(title, type) {
       const that = this
       return function(res) {
@@ -796,36 +836,41 @@ export default {
     onSubmit() {
       this.submitting = true
       const { content } = this.tabData
-      if (!this.tabData.content.businessType.length) {
-        this.$message.error('请勾选经营范围')
-        this.submitting = false
-        return
-      }
-      this.$refs['tabData.content'].validate((valid) => {
-        if (valid) {
-          if (this.isAdd) {
-            createTrailer(content).then(res => {
-              this.$message.success('已新增！')
-              _afterSubmit()
-            })
-          } else {
-            editTrailer(this.$route.query.id, { ...this.tabData.content }).then(res => {
-              this.$message.success('已修改！')
-              _afterSubmit()
-            })
-          }
-        } else {
-          this.$message.warning('表单提交失败有错误项')
-          this.submitting = false
-          return false
-        }
-      })
-      const _this = this
-      this.submitting = false
-      function _afterSubmit() {
-        // _this.submitting = false
-        _this.$router.push('/business/vehicles')
-      }
+      // if (!this.tabData.content.businessType.length) {
+      //   this.$message.error('请勾选经营范围')
+      //   this.submitting = false
+      //   return
+      // }
+      this.extraCheck({ list0: { 'title': '等级评定卡', 'condition': this.generateCondition(this.tabData.content.type) }, 
+          list1: { 'title': '卫星定位终端安装证书', 'condition': this.generateCondition(this.tabData.content.type)}})
+      // this.$refs['tabData.content'].validate((valid) => {
+      //   if (valid) {
+      //     if (this.extraCheck({ list1: { 'title': '等级评定卡', 'condition': this.generateCondition(this.tabData.content.type) }, 
+      //     list2: { 'title': '卫星定位终端安装证书', condition: this.generateCondition(this.tabData.content.type)}})) {
+      //       if (this.isAdd) {
+      //         createTrailer(content).then(res => {
+      //           this.$message.success('已新增！')
+      //           _afterSubmit()
+      //         })
+      //       } else {
+      //         editTrailer(this.$route.query.id, { ...this.tabData.content }).then(res => {
+      //           this.$message.success('已修改！')
+      //           _afterSubmit()
+      //         })
+      //       }
+      //     }
+      //   } else {
+      //     this.$message.warning('表单提交失败有错误项')
+      //     this.submitting = false
+      //     return false
+      //   }
+      // })
+      // const _this = this
+      // this.submitting = false
+      // function _afterSubmit() {
+      //   // _this.submitting = false
+      //   _this.$router.push('/business/vehicles')
+      // }
     }
   }
 }
