@@ -115,7 +115,7 @@
                   <div
                     slot="tip"
                     class="el-upload__tip">
-                    <p>检验报告细节液</p>
+                    <p>检验报告细节页</p>
                   </div>
                 </el-upload>
               </el-form-item>
