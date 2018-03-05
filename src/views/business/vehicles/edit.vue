@@ -159,7 +159,9 @@
                     <p>代理证反面</p>
                   </div>
                 </el-upload>
+                <!-- 挂车不需要等级评定卡 -->
                 <el-upload
+                  v-if="!tabData.content.type.includes('TRAILER')"
                   :headers="header"
                   action="/v1/files/upload"
                   class="license-uploader"
@@ -172,7 +174,7 @@
                   <div
                     slot="tip"
                     class="el-upload__tip">
-                    <p>等级评定卡（挂车不需要）</p>
+                    <p>等级评定卡</p>
                   </div>
                 </el-upload>
               </el-form-item>
@@ -309,7 +311,11 @@
           </el-tab-pane>
         </el-tabs>
         <!-- 上传卫星定位终端安装证书 -->
-        <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
+        <el-tabs
+          v-if="tabData.content.type.includes('TOWING_VEHICLE')"
+          v-model="activeTab"
+          type="card" class="customized denser"
+          v-loading="loading">
           <el-tab-pane name="first">
             <span slot="label" class="span-with-svg">
               <svg-icon icon-class="id-card"></svg-icon>
@@ -409,7 +415,11 @@
           </el-tab-pane>
         </el-tabs>
         <!-- 车辆安全设备配备照 -->
-        <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
+        <el-tabs
+          v-if="tabData.content.type.includes('TOWING_VEHICLE')"
+          v-model="activeTab"
+          type="card" class="customized denser"
+          v-loading="loading">
           <el-tab-pane name="first">
             <span slot="label" class="span-with-svg">
               <svg-icon icon-class="id-card"></svg-icon>

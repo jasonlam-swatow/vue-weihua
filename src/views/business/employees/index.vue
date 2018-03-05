@@ -26,7 +26,7 @@
                 :value="position.code">
               </el-option>
             </el-select>
-            <el-input style="width:200px" placeholder="身份证号或姓名" v-model="searchQueries.idOrName" @keyup.enter.native="onSearch"></el-input>
+            <el-input style="width:200px" placeholder="姓名" v-model="searchQueries.idOrName" @keyup.enter.native="onSearch"></el-input>
             <el-button size="medium" type="primary" plain round icon="el-icon-search" @click="onSearch"></el-button>
           </el-col>
           <el-col :span="6" class="fr">
