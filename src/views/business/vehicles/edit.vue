@@ -32,6 +32,7 @@
                 <el-select v-model="tabData.content.type">
                 <el-option-group
                   v-for="group in vehicleTypes"
+                  v-if="group.code !== 'OTHER'"
                   :key="group.id"
                   :label="group.value">
                   <el-option
