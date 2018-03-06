@@ -27,6 +27,12 @@
           <el-table-column prop="address" label="企业注册地址"></el-table-column>
           <el-table-column prop="contactName" label="紧急联系人"></el-table-column>
           <el-table-column prop="contactMobile" label="联系电话" width="180"></el-table-column>
+          <el-table-column label="审核状态" width="100">
+            <template slot-scope="scope">
+              {{$_.find(statusTypes, ['code', scope.row.status]) &&
+                $_.find(statusTypes, ['code', scope.row.status]).value}}
+            </template>
+          </el-table-column>
           <!-- <el-table-column label="企业资质" width="100">
             <template slot-scope="scope">
               <el-button type="text" @click="onViewEnterprise(scope.row)">点击查看</el-button>

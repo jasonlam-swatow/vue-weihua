@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-container">
     <el-row v-if="enterpriseId && !dialogSelectVisible">
-      <el-col :md="24" :lg="20">
+      <el-col :md="24" :lg="20" style="min-width: 910px;">
         <!-- <progress-bar></progress-bar> -->
         
         <kanbans :loading="loading" :statistics="statistics"></kanbans>

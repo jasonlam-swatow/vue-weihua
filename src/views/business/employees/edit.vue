@@ -525,6 +525,7 @@ export default {
           { max: 6, message: '性别不超过 6 个字符', trigger: 'change' }
         ],
         entryDate: [{ required: true, message: '请选择入职日期', trigger: 'blur' }],
+        position: [{ required: true, message: '请选择主要岗位', trigger: 'blur' }],
         idCard: [
           { validator: checkId, trigger: 'blur' }
         ],

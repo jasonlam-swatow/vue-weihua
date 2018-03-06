@@ -120,7 +120,7 @@
         font-weight: bold;
       }
     }
-    .el-form-item.full-width {
+    .el-form-item {
       // .el-form-item__label {
       //   width: 100% !important;
       //   text-align: left;
@@ -145,6 +145,8 @@
           width: 210px !important;
         }
       }
+    }
+    .el-form-item.full-width {
       .el-form-item__content {
         width: 100%;
         padding-left: 80px;

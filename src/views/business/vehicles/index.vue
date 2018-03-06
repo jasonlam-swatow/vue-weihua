@@ -158,7 +158,7 @@
         <el-form-item label="整备质量">
           {{tempVehicleInfo.curbWeight}} KG
         </el-form-item>
-         <el-form-item label="核载/准牵引质量">
+         <el-form-item label="核载/准牵引质量" class="wider-label-120">
           {{tempVehicleInfo.tractionMass}} KG
         </el-form-item>     
           <el-form-item label="经营类型" class="full-width">

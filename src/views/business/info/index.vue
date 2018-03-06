@@ -19,12 +19,12 @@
               <el-form-item label="企业名称">{{enterpriseData.name}}</el-form-item>
               <el-form-item label="统一社会信用代码">{{enterpriseData.registrationNo}}</el-form-item>
               <el-form-item label="状态">
-                {{$_.find(statusTypes, ['code', enterpriseData.enterpriseType]) &&
-                  $_.find(statusTypes, ['code', enterpriseData.enterpriseType]).value}}
+                {{$_.find(statusTypes, ['code', enterpriseData.status]) &&
+                  $_.find(statusTypes, ['code', enterpriseData.status]).value}}
               </el-form-item>
               <el-form-item label="公司类型">
-                {{$_.find(enterpriseTypes, ['code', enterpriseData.status]) &&
-                  $_.find(enterpriseTypes, ['code', enterpriseData.status]).value}}
+                {{$_.find(enterpriseTypes, ['code', enterpriseData.enterpriseType]) &&
+                  $_.find(enterpriseTypes, ['code', enterpriseData.enterpriseType]).value}}
               </el-form-item>
               <el-form-item label="成立日期">{{enterpriseData.fundationDate/1000 | moment('YYYY-MM-DD')}}</el-form-item>
               <el-form-item label="法定代表人">{{enterpriseData.legalPerson}}</el-form-item>

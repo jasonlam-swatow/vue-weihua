@@ -164,7 +164,7 @@
             <figcaption>反面</figcaption>
           </figure>
           <h5 class="sub-title">
-            <span>有效期：{{$_.find(tempEmployeeInfo.certifications, { title: '身份证', type: 'A' }).expireDate/1000 | moment('YYYY-MM-DD')}}</span>
+            <span>有效期：{{$_.find(tempEmployeeInfo.certifications, { title: '身份证', type: 'A' }) && $_.find(tempEmployeeInfo.certifications, { title: '身份证', type: 'A' }).expireDate/1000 | moment('YYYY-MM-DD')}}</span>
           </h5>
         </el-form-item>
         <el-form-item
@@ -184,7 +184,7 @@
             <figcaption>内页（含甲乙方签字）</figcaption>
           </figure>
           <h5 class="sub-title">
-            <span>有效期：{{$_.find(tempEmployeeInfo.certifications, { title: '劳动合同', type: 'A' }).expireDate/1000 | moment('YYYY-MM-DD')}}</span>
+            <span>有效期：{{$_.find(tempEmployeeInfo.certifications, { title: '劳动合同', type: 'A' }) && $_.find(tempEmployeeInfo.certifications, { title: '劳动合同', type: 'A' }).expireDate/1000 | moment('YYYY-MM-DD')}}</span>
           </h5>
         </el-form-item>
         <el-form-item
@@ -208,7 +208,7 @@
             <figcaption>副本反面</figcaption>
           </figure>
           <h5 class="sub-title">
-            <span>有效期：{{$_.find(tempEmployeeInfo.certifications, { title: '驾驶证', type: 'A' }).expireDate/1000 | moment('YYYY-MM-DD')}}</span>
+            <span>有效期：{{$_.find(tempEmployeeInfo.certifications, { title: '驾驶证', type: 'A' }) && $_.find(tempEmployeeInfo.certifications, { title: '驾驶证', type: 'A' }).expireDate/1000 | moment('YYYY-MM-DD')}}</span>
           </h5>
         </el-form-item>
         <el-form-item
@@ -220,11 +220,11 @@
             <figcaption>基本信息页</figcaption>
           </figure>
           <h5 class="sub-title">
-            <span>有效期：{{$_.find(tempEmployeeInfo.certifications, ['title', '驾驶员从业资格证']).expireDate/1000 | moment('YYYY-MM-DD')}}</span>
+            <span>有效期：{{$_.find(tempEmployeeInfo.certifications, ['title', '驾驶员从业资格证']) && $_.find(tempEmployeeInfo.certifications, ['title', '驾驶员从业资格证']).expireDate/1000 | moment('YYYY-MM-DD')}}</span>
           </h5>
         </el-form-item>
         <el-form-item
-          v-if="$_.find(tempEmployeeInfo.certifications, ['title', '押运员从业资格证'])"
+          v-if="$_.find(tempEmployeeInfo.certifications, ['title', '押运员从业资格证']) && $_.find(tempEmployeeInfo.certifications, ['title', '押运员从业资格证']).path"
           label="押运员从业资格证"
           class="full-width wider-label-140">
           <figure v-if="$_.find(tempEmployeeInfo.certifications, ['title', '押运员从业资格证'])">
@@ -232,7 +232,7 @@
             <figcaption>基本信息页</figcaption>
           </figure>
           <h5 class="sub-title">
-            <span>有效期：{{$_.find(tempEmployeeInfo.certifications, ['title', '押运员从业资格证']).expireDate/1000 | moment('YYYY-MM-DD')}}</span>
+            <span>有效期：{{$_.find(tempEmployeeInfo.certifications, ['title', '押运员从业资格证']) && $_.find(tempEmployeeInfo.certifications, ['title', '押运员从业资格证']).expireDate/1000 | moment('YYYY-MM-DD')}}</span>
           </h5>
         </el-form-item>
         <el-form-item
@@ -248,7 +248,7 @@
             <figcaption>含甲乙方签章页</figcaption>
           </figure>
           <h5 class="sub-title">
-            <span>有效期：{{$_.find(tempEmployeeInfo.certifications, { title: '安全责任状', type: 'A' }).expireDate/1000 | moment('YYYY-MM-DD')}}</span>
+            <span>有效期：{{$_.find(tempEmployeeInfo.certifications, { title: '安全责任状', type: 'A' }) && $_.find(tempEmployeeInfo.certifications, { title: '安全责任状', type: 'A' }).expireDate/1000 | moment('YYYY-MM-DD')}}</span>
           </h5>
         </el-form-item>
       </el-form>

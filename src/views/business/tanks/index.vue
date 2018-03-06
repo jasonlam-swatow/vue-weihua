@@ -22,7 +22,7 @@
             </el-select>
             <el-input
               size="medium" style="width:200px"
-              placeholder="罐体编号 or 关联挂车号"
+              placeholder="罐体编号"
               @keyup.enter.native="onSearch"
               v-model="searchQueries.tankerNo"></el-input>
             <el-button
