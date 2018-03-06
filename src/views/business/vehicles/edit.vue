@@ -203,7 +203,7 @@
                 title="彩色扫描件或彩色照片，内容清晰可见"
                 type="info"
                 show-icon
-                style="margin-left: 130px"></el-alert>
+                style="margin-left: 130px; width: 80%;"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>
@@ -263,7 +263,7 @@
                 title="彩色扫描件或彩色照片，内容清晰可见"
                 type="info"
                 show-icon
-                style="margin-left: 130px"></el-alert>
+                style="margin-left: 130px; width: 80%;"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>
@@ -372,7 +372,7 @@
                 title="彩色扫描件或彩色照片，内容清晰可见"
                 type="info"
                 show-icon
-                style="margin-left: 130px"></el-alert>
+                style="margin-left: 130px; width: 80%;"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>
@@ -430,7 +430,7 @@
                 description="牵引车必填"
                 type="info"
                 show-icon
-                style="margin-left: 130px"></el-alert>
+                style="margin-left: 130px; width: 80%;"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>
@@ -497,7 +497,7 @@
                 title="彩色扫描件或彩色照片，内容清晰可见"
                 type="info"
                 show-icon
-                style="margin-left: 130px"></el-alert>
+                style="margin-left: 130px; width: 80%;"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>
@@ -584,7 +584,7 @@
                 description="牵引车必填，至少上传一张"
                 type="info"
                 show-icon
-                style="margin-left: 130px"></el-alert>
+                style="margin-left: 130px; width: 80%;"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>

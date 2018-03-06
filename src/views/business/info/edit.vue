@@ -182,7 +182,7 @@
                 description="若为三证合一企业，此三个文件应上传统一社会信用代码证"
                 type="info"
                 show-icon
-                style="margin-left: 140px"></el-alert>
+                style="margin-left: 140px; width: 80%;"></el-alert>
             </el-form>
           </el-tab-pane>
         </el-tabs>
@@ -231,7 +231,7 @@
                 title="彩色扫描件或彩色照片，内容清晰可见"
                 type="info"
                 show-icon
-                style="margin-left: 160px"></el-alert>
+                style="margin-left: 160px; width: 80%;"></el-alert>
              </el-form>
           </el-tab-pane>
         </el-tabs>
@@ -265,7 +265,7 @@
                 description="要求：下载→填写→盖公章→彩色件扫描上传"
                 type="info"
                 show-icon
-                style="margin-left: 130px"></el-alert>
+                style="margin-left: 130px; width: 80%;"></el-alert>
              </el-form>
           </el-tab-pane>
         </el-tabs>
