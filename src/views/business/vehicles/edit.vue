@@ -114,6 +114,7 @@
               <el-form-item label="上传" class="full-width">
                 <el-upload
                   :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"
                   action="/v1/files/upload/"
                   class="license-uploader"
                   :on-success="onUpload('车辆道路运输证', 'A')">
@@ -135,6 +136,7 @@
                 </el-upload>
                 <el-upload
                   :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"
                   action="/v1/files/upload"
                   class="license-uploader"
                   :on-success="onUpload('车辆道路运输证', 'B')">
@@ -156,6 +158,7 @@
                 </el-upload>
                 <el-upload
                   :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"
                   action="/v1/files/upload"
                   class="license-uploader"
                   :on-success="onUpload('车辆道路运输证', 'C')">
@@ -179,6 +182,7 @@
                 <el-upload
                   v-if="!(tabData.content.type.includes('TRAILER') && !tabData.content.type.includes('VEHICLE'))"
                   :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"
                   action="/v1/files/upload"
                   class="license-uploader"
                   :on-success="onUpload('车辆道路运输证', 'D')">
@@ -218,6 +222,7 @@
               <el-form-item label="上传" class="full-width">
                 <el-upload
                   :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"
                   action="/v1/files/upload"
                   class="license-uploader"
                   :on-success="onUpload('机动车登记证', 'A')">
@@ -239,6 +244,7 @@
                 </el-upload>
                 <el-upload
                   :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"
                   action="/v1/files/upload"
                   class="license-uploader"
                   :on-success="onUpload('机动车登记证', 'B')">
@@ -285,6 +291,7 @@
               <el-form-item label="上传" class="full-width">
                 <el-upload
                   :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"
                   action="/v1/files/upload"
                   class="license-uploader"
                   :on-success="onUpload('车辆行驶证', 'A')">
@@ -306,6 +313,7 @@
                 </el-upload>
                 <el-upload
                   :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"
                   action="/v1/files/upload"
                   class="license-uploader"
                   :on-success="onUpload('车辆行驶证', 'B')">
@@ -327,6 +335,7 @@
                 </el-upload>
                 <el-upload
                   :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"
                   action="/v1/files/upload"
                   class="license-uploader"
                   :on-success="onUpload('车辆行驶证', 'C')">
@@ -348,6 +357,7 @@
                 </el-upload>
                 <el-upload
                   :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"
                   action="/v1/files/upload"
                   class="license-uploader"
                  :on-success="onUpload('车辆行驶证', 'D')">
@@ -405,6 +415,7 @@
               <el-form-item label="上传" class="full-width">
                 <el-upload
                   :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"
                   action="/v1/files/upload"
                   class="license-uploader"
                   :on-success="onUpload('卫星定位终端安装证书', 'A')">
@@ -452,6 +463,7 @@
               <el-form-item label="上传" class="full-width">
                 <el-upload
                   :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"
                   action="/v1/files/upload"
                   class="license-uploader"
                   :on-success="onUpload('道路危险货物承运人责任保险单', 'A')">
@@ -473,6 +485,7 @@
                 </el-upload>
                 <el-upload
                   :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"
                   action="/v1/files/upload"
                   class="license-uploader"
                   :on-success="onUpload('道路危险货物承运人责任保险单', 'B')">
@@ -516,6 +529,7 @@
               <el-form-item label="上传" class="full-width">
                 <el-upload
                   :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"
                   action="/v1/files/upload"
                   class="license-uploader"
                   :on-success="onUpload('车辆安全设备配备照', 'A')">
@@ -532,6 +546,7 @@
                 </el-upload>
                 <el-upload
                   :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"
                   action="/v1/files/upload"
                   class="license-uploader"
                   :on-success="onUpload('车辆安全设备配备照', 'B')">
@@ -548,6 +563,7 @@
                 </el-upload>
                 <el-upload
                   :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"
                   action="/v1/files/upload"
                   class="license-uploader"
                   :on-success="onUpload('车辆安全设备配备照', 'C')">
@@ -564,6 +580,7 @@
                 </el-upload>
                 <el-upload
                   :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"
                   action="/v1/files/upload"
                   class="license-uploader"
                   :on-success="onUpload('车辆安全设备配备照', 'D')">

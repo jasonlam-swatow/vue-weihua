@@ -76,7 +76,8 @@
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader"
-                  :headers="header"                
+                  :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"
                   :on-success="onUpload('身份证', 'A')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'A').path"
@@ -95,7 +96,8 @@
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader"
-                  :headers="header"                
+                  :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"                
                   :on-success="onUpload('身份证', 'B')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'B').path"
@@ -138,7 +140,8 @@
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader"
-                  :headers="header"                
+                  :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"                
                   :on-success="onUpload('劳动合同', 'A')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'A').path"
@@ -157,7 +160,8 @@
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader"
-                  :headers="header"                
+                  :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"                
                   :on-success="onUpload('劳动合同', 'B')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'B').path"
@@ -176,7 +180,8 @@
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader"
-                  :headers="header"                
+                  :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"                
                   :on-success="onUpload('劳动合同', 'C')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'C').path"
@@ -223,7 +228,8 @@
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader "
-                  :headers="header" 
+                  :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf" 
                   :on-success="onUpload('驾驶证', 'A')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'A').path"
@@ -242,7 +248,8 @@
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader"
-                  :headers="header"                
+                  :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"                
                   :on-success="onUpload('驾驶证', 'B')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'B').path"
@@ -261,7 +268,8 @@
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader"
-                  :headers="header"                
+                  :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"                
                   :on-success="onUpload('驾驶证', 'C')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'C').path"
@@ -280,7 +288,8 @@
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader"
-                  :headers="header"                
+                  :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"                
                   :on-success="onUpload('驾驶证', 'D')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'D').path"
@@ -327,7 +336,8 @@
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader"
-                  :headers="header"                
+                  :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"                
                   :on-success="onUpload('驾驶员从业资格证', 'A')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '驾驶员从业资格证' && _.type === 'A').path"
@@ -374,7 +384,8 @@
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader"
-                  :headers="header"                
+                  :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"                
                   :on-success="onUpload('押运员从业资格证', 'A')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '押运员从业资格证' && _.type === 'A').path"
@@ -416,7 +427,8 @@
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader"
-                  :headers="header"                
+                  :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"                
                   :on-success="onUpload('安全责任状', 'A')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'A').path"
@@ -435,7 +447,8 @@
                 <el-upload
                   action="/v1/files/upload"
                   class="license-uploader"
-                  :headers="header"                
+                  :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"                
                   :on-success="onUpload('安全责任状', 'B')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'B').path"

@@ -89,6 +89,7 @@
                 <el-upload
                   action="/v1/files/upload/"
                   :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"
                   class="license-uploader"
                   :on-success="onUpload('罐体检验报告', 'A')">
                   <img
@@ -110,7 +111,8 @@
                 <el-upload
                   action="/v1/files/upload/"
                   class="license-uploader"
-                  :headers="header"                  
+                  :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"                  
                   :on-success="onUpload('罐体检验报告', 'B')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '罐体检验报告' && _.type === 'B').path"
@@ -159,7 +161,8 @@
               </el-form-item>
               <el-form-item label="上传报告" class="full-width">
                 <el-upload
-                  :headers="header"                
+                  :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"                
                   action="/v1/files/upload/"
                   class="license-uploader"
                   :on-success="onUpload('压力罐容器登记证', 'A')">
@@ -180,7 +183,8 @@
                   </div>
                 </el-upload>
                 <el-upload
-                  :headers="header"                
+                  :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"                
                   action="/v1/files/upload/"
                   class="license-uploader"
                   :on-success="onUpload('压力罐容器登记证', 'B')">
@@ -201,7 +205,8 @@
                   </div>
                 </el-upload>
                 <el-upload
-                  :headers="header"                
+                  :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"                
                   action="/v1/files/upload/"
                   class="license-uploader"
                   :on-success="onUpload('压力罐容器登记证', 'C')">

@@ -114,7 +114,8 @@
               </el-form-item>
               <el-form-item label="上传企业营业执照" class="full-width">
                 <el-upload
-                  :headers="header"                
+                  :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"
                   action="/v1/files/upload/"
                   class="license-uploader"
                   :on-success="onUpload('企业营业执照', 'A')">
@@ -136,6 +137,7 @@
                 </el-upload>
                 <el-upload
                   :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"
                   action="/v1/files/upload"
                   class="license-uploader"
                   :on-success="onUpload('企业营业执照', 'B')">
@@ -157,6 +159,7 @@
                 </el-upload>
                 <el-upload
                   :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"
                   action="/v1/files/upload"
                   class="license-uploader"
                   :on-success="onUpload('企业营业执照', 'C')">
@@ -206,7 +209,8 @@
               </el-form-item>
               <el-form-item label="上传报告" class="full-width">
                 <el-upload
-                  :headers="header"                
+                  :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"                
                   action="/v1/files/upload/"
                   class="license-uploader"
                   :on-success="onUpload('企业道路运输经营许可证', 'A')">
@@ -244,7 +248,8 @@
              <el-form :inline="true" label-width="130px" class="prevent-uneven strange-input">
               <el-form-item label="上传报告" class="full-width">
                 <el-upload
-                  :headers="header"                
+                  :headers="header"
+                  accept=".jpg, .jpeg, .png, .pdf"                
                   action="/v1/files/upload/"
                   class="license-uploader"
                   :on-success="onUpload('企业安全责任承诺书', 'A')">
