@@ -8,7 +8,7 @@
           type="warning"
           show-icon
           class="mgb12"></el-alert>
-        <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
+        <el-tabs id="firstTab" v-model="activeTab" type="card" class="customized denser" v-loading="loading">
           <el-tab-pane
             :key="tabData.name"
             :name="tabData.name">
@@ -287,6 +287,8 @@ import { getEnterpriseInfo, createEnterprise, editEnterprise } from '@/api/busin
 import datepickerOptions from '@/mixins/_datepickerOptions'
 import isEmpty from 'lodash/isEmpty'
 import remove from 'lodash/remove'
+import VueScrollTo from 'vue-scrollto'
+
 export default {
   mixins: [datepickerOptions],
   data() {
@@ -467,6 +469,12 @@ export default {
             licenseNo: ''
           }]
         }
+      },
+      scrollToOptions: {
+        container: 'body',
+        easing: 'ease-in',
+        offset: -100,
+        cancelable: true
       }
     }
   },
@@ -557,7 +565,7 @@ export default {
       this.submitting = true
       const { content } = this.tabData
       if (!this.tabData.content.businessTerm.length) {
-        this.$message.warning('请勾选经营范围')
+        this.$notify.error('请勾选经营范围')
         this.submitting = false
         return false
       }
@@ -577,7 +585,12 @@ export default {
             }
           }
         } else {
-          this.$message.warning('表单提交失败有错误项')
+          this.$notify({
+            title: '表单提交有错误项',
+            message: '请根据表单字段提示信息，补充必要字段',
+            type: 'error'
+          })
+          VueScrollTo.scrollTo('#firstTab', 500, this.scrollToOptions)
           this.submitting = false
           return false
         }

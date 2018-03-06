@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-row>
       <el-col :span="24">
-        <el-tabs v-model="activeTab" type="card" class="customized denser" v-loading="loading">
+        <el-tabs id="firstTab" v-model="activeTab" type="card" class="customized denser" v-loading="loading">
           <el-tab-pane
             :key="tabData.name"
             :name="tabData.name">
@@ -253,6 +253,8 @@ import {
 import { getEnterpriseList } from '@/api/business/enterprises'
 import datepickerOptions from '@/mixins/_datepickerOptions'
 import isEmpty from 'lodash/isEmpty'
+import VueScrollTo from 'vue-scrollto'
+
 export default {
   mixins: [datepickerOptions],
   data() {
@@ -321,6 +323,12 @@ export default {
         ],
         type: [{ required: true, message: '请选择罐体类型', trigger: 'blur' }],
         plateNo: [{ required: true, message: '请填写关联挂车号', trigger: 'blur' }]
+      },
+      scrollToOptions: {
+        container: 'body',
+        easing: 'ease-in',
+        offset: -100,
+        cancelable: true
       }
     }
   },
@@ -430,7 +438,12 @@ export default {
             }
           }
         } else {
-          this.$message.warning('表单提交失败有错误项')
+          this.$notify({
+            title: '表单提交有错误项',
+            message: '请根据表单字段提示信息，补充必要字段',
+            type: 'error'
+          })
+          VueScrollTo.scrollTo('#firstTab', 500, this.scrollToOptions)
           this.submitting = false
           return false
         }
