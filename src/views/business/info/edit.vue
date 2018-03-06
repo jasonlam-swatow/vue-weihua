@@ -285,7 +285,7 @@
 import { mapGetters } from 'vuex'
 import { getEnterpriseInfo, createEnterprise, editEnterprise } from '@/api/business/enterprises'
 import datepickerOptions from '@/mixins/_datepickerOptions'
-
+import isEmpty from 'lodash/isEmpty'
 import remove from 'lodash/remove'
 export default {
   mixins: [datepickerOptions],
@@ -473,9 +473,6 @@ export default {
   created() {
     if (!this.isAdd) this.fetchData()
   },
-  mounted() {
-    this.$ref('mo').$forceUpdate()
-  },
   computed: {
     ...mapGetters([
       'vehicleBusinessTypes',
@@ -493,6 +490,45 @@ export default {
     }
   },
   methods: {
+    // 计算tabplane里集合长度
+    countCertificationLength(type) {
+      let collections = this.$_.filter(this.tabData.content.certifications, o => { return o.code === type })
+      collections = this.$_.map(collections, o => o.path)
+      const certificationsLength = collections.length - this.$_.filter(collections, isEmpty).length
+      return certificationsLength
+    },
+    // 观察对应值生成对应条件
+    generateCondition(type) {
+      const collection = []
+      // console.log(this.$_.filter(this.tabData.content.certifications, o => o.code === 'TERM_OF_DRIVING_LICENSE_INSPECTION'))
+      collection.push({ warning: '企业营业执照必填', condition: this.countCertificationLength('TERM_OF_BUSINESS') === this.$_.filter(this.tabData.content.certifications, o => { return o.code === 'TERM_OF_BUSINESS' }).length })
+      collection.push({ warning: '企业安全责任承诺书必填', condition: this.countCertificationLength('TERM_OF_SAFETY_PRODUCTION_PERMIT') === this.$_.filter(this.tabData.content.certifications, o => { return o.code === 'TERM_OF_SAFETY_PRODUCTION_PERMIT' }).length })
+      collection.push({ warning: '企业道路运输经营许可证必填', condition: this.countCertificationLength('TERM_OF_TRANSPORT_LICENSE') === this.$_.filter(this.tabData.content.certifications, o => { return o.code === 'TERM_OF_TRANSPORT_LICENSE' }).length })
+      return collection
+    },
+    // 多类型
+    extraCheck(checkNum) {
+      let tag = 0
+      console.log(checkNum)
+      if (checkNum) {
+        for (let i = 0; i < checkNum.length; i++) {
+          for (let j = 0; j < checkNum[i].length; j++) {
+            if (checkNum[i][j].condition) {
+              console.log(checkNum[i][j].condition)
+            } else {
+              tag++
+              console.log(checkNum[i][j])
+              setTimeout(() => {
+                this.$notify.error(checkNum[i][j].warning)
+              }, 100)
+            }
+          }
+        }
+      }
+      if (!tag) {
+        return true
+      } else { return false }
+    },
     onUpload(title, type) {
       const that = this
       return function(res) {
@@ -527,16 +563,18 @@ export default {
       }
       this.$refs['tabData.content'].validate((valid) => {
         if (valid) {
-          if (this.isAdd) {
-            createEnterprise(content).then(res => {
-              this.$message.success('已新增！')
-              _afterSubmit()
-            })
-          } else {
-            editEnterprise(this.$route.query.id, { ...this.tabData.content }).then(res => {
-              this.$message.success('已修改！')
-              _afterSubmit()
-            })
+          if (this.extraCheck([this.generateCondition()])) {
+            if (this.isAdd) {
+              createEnterprise(content).then(res => {
+                this.$message.success('已新增！')
+                _afterSubmit()
+              })
+            } else {
+              editEnterprise(this.$route.query.id, { ...this.tabData.content }).then(res => {
+                this.$message.success('已修改！')
+                _afterSubmit()
+              })
+            }
           }
         } else {
           this.$message.warning('表单提交失败有错误项')

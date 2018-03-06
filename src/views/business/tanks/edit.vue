@@ -90,7 +90,7 @@
                   action="/v1/files/upload/"
                   :headers="header"
                   class="license-uploader"
-                  :on-success="onUploadPaperA">
+                  :on-success="onUpload('罐体检验报告', 'A')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '罐体检验报告' && _.type === 'A').path"
                     :src="tabData.content.certifications.find(_ => _.title === '罐体检验报告' && _.type === 'A').path"
@@ -111,7 +111,7 @@
                   action="/v1/files/upload/"
                   class="license-uploader"
                   :headers="header"                  
-                  :on-success="onUploadPaperB">
+                  :on-success="onUpload('罐体检验报告', 'B')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '罐体检验报告' && _.type === 'B').path"
                     :src="tabData.content.certifications.find(_ => _.title === '罐体检验报告' && _.type === 'B').path"
@@ -162,7 +162,7 @@
                   :headers="header"                
                   action="/v1/files/upload/"
                   class="license-uploader"
-                  :on-success="onUploadLicenseA">
+                  :on-success="onUpload('压力罐容器登记证', 'A')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '压力罐容器登记证' && _.type === 'A').path"
                     :src="tabData.content.certifications.find(_ => _.title === '压力罐容器登记证' && _.type === 'A').path"
@@ -183,7 +183,7 @@
                   :headers="header"                
                   action="/v1/files/upload/"
                   class="license-uploader"
-                  :on-success="onUploadLicenseB">
+                  :on-success="onUpload('压力罐容器登记证', 'B')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '压力罐容器登记证' && _.type === 'B').path"
                     :src="tabData.content.certifications.find(_ => _.title === '压力罐容器登记证' && _.type === 'B').path"
@@ -204,7 +204,7 @@
                   :headers="header"                
                   action="/v1/files/upload/"
                   class="license-uploader"
-                  :on-success="onUploadLicenseC">
+                  :on-success="onUpload('压力罐容器登记证', 'C')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '压力罐容器登记证' && _.type === 'C').path"
                     :src="tabData.content.certifications.find(_ => _.title === '压力罐容器登记证' && _.type === 'C').path"
@@ -252,6 +252,7 @@ import {
 } from '@/api/business/tanks'
 import { getEnterpriseList } from '@/api/business/enterprises'
 import datepickerOptions from '@/mixins/_datepickerOptions'
+import isEmpty from 'lodash/isEmpty'
 export default {
   mixins: [datepickerOptions],
   data() {
@@ -339,20 +340,54 @@ export default {
     })
   },
   methods: {
-    onUploadPaperA(res) {
-      this.$_.find(this.tabData.content.certifications, { title: '罐体检验报告', type: 'A' }).path = res.data
+    // 计算tabplane里集合长度
+    countCertificationLength(type) {
+      let collections = this.$_.filter(this.tabData.content.certifications, o => { return o.code === type })
+      collections = this.$_.map(collections, o => o.path)
+      const certificationsLength = collections.length - this.$_.filter(collections, isEmpty).length
+      return certificationsLength
     },
-    onUploadPaperB(res) {
-      this.$_.find(this.tabData.content.certifications, { title: '罐体检验报告', type: 'B' }).path = res.data
+    // 观察对应值生成对应条件
+    generateCondition(type) {
+      const collection = []
+      // console.log(this.$_.filter(this.tabData.content.certifications, o => o.code === 'TERM_OF_DRIVING_LICENSE_INSPECTION'))
+      if (this.tabData.content.type.includes('ATMOSPHERIC_TANK')) {
+        collection.push({ warning: '检验报告必填', condition: this.countCertificationLength('TERM_OF_TANKER_INSPECTION') === this.$_.filter(this.tabData.content.certifications, o => { return o.code === 'TERM_OF_TANKER_INSPECTION' }).length })
+      }
+      if (this.tabData.content.type.includes('OVERHEAD_TANK')) {
+        collection.push({ warning: '检验报告必填', condition: this.countCertificationLength('TERM_OF_TANKER_INSPECTION') === this.$_.filter(this.tabData.content.certifications, o => { return o.code === 'TERM_OF_TANKER_INSPECTION' }).length })
+        collection.push({ warning: '压力罐容器登记证必填', condition: this.countCertificationLength('TERM_OF_PTC_REGISTRATION_CERTIFICATE') === this.$_.filter(this.tabData.content.certifications, o => { return o.code === 'TERM_OF_PTC_REGISTRATION_CERTIFICATE' }).length })
+      }
+      return collection
     },
-    onUploadLicenseA(res) {
-      this.$_.find(this.tabData.content.certifications, { title: '压力罐容器登记证', type: 'A' }).path = res.data
+    // 多类型
+    extraCheck(checkNum) {
+      let tag = 0
+      console.log(checkNum)
+      if (checkNum) {
+        for (let i = 0; i < checkNum.length; i++) {
+          for (let j = 0; j < checkNum[i].length; j++) {
+            if (checkNum[i][j].condition) {
+              console.log(checkNum[i][j].condition)
+            } else {
+              tag++
+              console.log(checkNum[i][j])
+              setTimeout(() => {
+                this.$notify.error(checkNum[i][j].warning)
+              }, 100)
+            }
+          }
+        }
+      }
+      if (!tag) {
+        return true
+      } else { return false }
     },
-    onUploadLicenseB(res) {
-      this.$_.find(this.tabData.content.certifications, { title: '压力罐容器登记证', type: 'B' }).path = res.data
-    },
-    onUploadLicenseC(res) {
-      this.$_.find(this.tabData.content.certifications, { title: '压力罐容器登记证', type: 'C' }).path = res.data
+    onUpload(title, type) {
+      const that = this
+      return function(res) {
+        that.$_.find(that.tabData.content.certifications, { 'title': title, 'type': type }).path = res.data
+      }
     },
     searchAssociateVehicle(query) {
       if (query !== '') {
@@ -381,16 +416,18 @@ export default {
       const { content } = this.tabData
       this.$refs['tabData.content'].validate((valid) => {
         if (valid) {
-          if (this.isAdd) {
-            createTank(content).then(res => {
-              this.$message.success('已新增！')
-              _afterSubmit()
-            })
-          } else {
-            editTank(this.$route.query.id, { ...this.tabData.content }).then(res => {
-              this.$message.success('已修改！')
-              _afterSubmit()
-            })
+          if (this.extraCheck([this.generateCondition(this.tabData.content.type)])) {
+            if (this.isAdd) {
+              createTank(content).then(res => {
+                this.$message.success('已新增！')
+                _afterSubmit()
+              })
+            } else {
+              editTank(this.$route.query.id, { ...this.tabData.content }).then(res => {
+                this.$message.success('已修改！')
+                _afterSubmit()
+              })
+            }
           }
         } else {
           this.$message.warning('表单提交失败有错误项')
