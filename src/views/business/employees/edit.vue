@@ -77,7 +77,7 @@
                   action="/v1/files/upload"
                   class="license-uploader"
                   :headers="header"                
-                  :on-success="onUploadIdA">
+                  :on-success="onUpload('身份证', 'A')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'A').path"
                     :src="tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'A').path"
@@ -96,7 +96,7 @@
                   action="/v1/files/upload"
                   class="license-uploader"
                   :headers="header"                
-                  :on-success="onUploadIdB">
+                  :on-success="onUpload('身份证', 'B')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'B').path"
                     :src="tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'B').path"
@@ -139,7 +139,7 @@
                   action="/v1/files/upload"
                   class="license-uploader"
                   :headers="header"                
-                  :on-success="onUploadContractA">
+                  :on-success="onUpload('劳动合同', 'A')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'A').path"
                     :src="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'A').path"
@@ -158,7 +158,7 @@
                   action="/v1/files/upload"
                   class="license-uploader"
                   :headers="header"                
-                  :on-success="onUploadContractB">
+                  :on-success="onUpload('劳动合同', 'B')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'B').path"
                     :src="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'B').path"
@@ -177,7 +177,7 @@
                   action="/v1/files/upload"
                   class="license-uploader"
                   :headers="header"                
-                  :on-success="onUploadContractC">
+                  :on-success="onUpload('劳动合同', 'C')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'C').path"
                     :src="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'C').path"
@@ -224,7 +224,7 @@
                   action="/v1/files/upload"
                   class="license-uploader "
                   :headers="header" 
-                  :on-success="onUploadLicenseA">
+                  :on-success="onUpload('驾驶证', 'A')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'A').path"
                     :src="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'A').path"
@@ -243,7 +243,7 @@
                   action="/v1/files/upload"
                   class="license-uploader"
                   :headers="header"                
-                  :on-success="onUploadLicenseB">
+                  :on-success="onUpload('驾驶证', 'B')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'B').path"
                     :src="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'B').path"
@@ -262,7 +262,7 @@
                   action="/v1/files/upload"
                   class="license-uploader"
                   :headers="header"                
-                  :on-success="onUploadLicenseC">
+                  :on-success="onUpload('驾驶证', 'C')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'C').path"
                     :src="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'C').path"
@@ -281,7 +281,7 @@
                   action="/v1/files/upload"
                   class="license-uploader"
                   :headers="header"                
-                  :on-success="onUploadLicenseD">
+                  :on-success="onUpload('驾驶证', 'D')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'D').path"
                     :src="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'D').path"
@@ -328,10 +328,10 @@
                   action="/v1/files/upload"
                   class="license-uploader"
                   :headers="header"                
-                  :on-success="onUploadDriverPermit">
+                  :on-success="onUpload('驾驶员从业资格证', 'A')">
                   <img
-                    v-if="tabData.content.certifications.find(_ => _.title === '驾驶员从业资格证').path"
-                    :src="tabData.content.certifications.find(_ => _.title === '驾驶员从业资格证').path"
+                    v-if="tabData.content.certifications.find(_ => _.title === '驾驶员从业资格证' && _.type === 'A').path"
+                    :src="tabData.content.certifications.find(_ => _.title === '驾驶员从业资格证' && _.type === 'A').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
@@ -355,7 +355,7 @@
         
         <!-- 上传押运员从业资格证 -->
         <el-tabs
-          v-if="tabData.content.position === 'ESCORT'"
+          v-if="tabData.content.position === 'ESCORT' || tabData.content.position === 'BOTH'"
           v-model="activeTab"
           type="card" class="customized denser"
           v-loading="loading">
@@ -375,10 +375,10 @@
                   action="/v1/files/upload"
                   class="license-uploader"
                   :headers="header"                
-                  :on-success="onUploadEscortPermit">
+                  :on-success="onUpload('押运员从业资格证', 'A')">
                   <img
-                    v-if="tabData.content.certifications.find(_ => _.title === '押运员从业资格证').path"
-                    :src="tabData.content.certifications.find(_ => _.title === '押运员从业资格证').path"
+                    v-if="tabData.content.certifications.find(_ => _.title === '押运员从业资格证' && _.type === 'A').path"
+                    :src="tabData.content.certifications.find(_ => _.title === '押运员从业资格证' && _.type === 'A').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
                   <div slot="tip" class="el-upload__tip">
@@ -417,7 +417,7 @@
                   action="/v1/files/upload"
                   class="license-uploader"
                   :headers="header"                
-                  :on-success="onUploadCommitmentA">
+                  :on-success="onUpload('安全责任状', 'A')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'A').path"
                     :src="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'A').path"
@@ -436,7 +436,7 @@
                   action="/v1/files/upload"
                   class="license-uploader"
                   :headers="header"                
-                  :on-success="onUploadCommitmentB">
+                  :on-success="onUpload('安全责任状', 'B')">
                   <img
                     v-if="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'B').path"
                     :src="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'B').path"
@@ -482,6 +482,7 @@ import {
 import { getEnterpriseList } from '@/api/business/enterprises'
 import datepickerOptions from '@/mixins/_datepickerOptions'
 import { mapGetters } from 'vuex'
+import isEmpty from 'lodash/isEmpty'
 
 export default {
   mixins: [datepickerOptions],
@@ -602,12 +603,14 @@ export default {
             title: '驾驶员从业资格证',
             code: 'TERM_OF_DRIVER_QUALIFICATION_CERTIFICATE',
             path: '',
+            type: 'A',
             expireDate: ''
           }, {
             fkTable: 'EMP',
             title: '押运员从业资格证',
             code: 'TERM_OF_ESCORT_QUALIFICATION_CERTIFICATE',
             path: '',
+            type: 'A',
             expireDate: ''
           }, {
             fkTable: 'EMP',
@@ -644,6 +647,69 @@ export default {
     })
   },
   methods: {
+    // 计算tabplane里集合长度
+    countCertificationLength(type) {
+      let collections = this.$_.filter(this.tabData.content.certifications, o => { return o.code === type })
+      collections = this.$_.map(collections, o => o.path)
+      const certificationsLength = collections.length - this.$_.filter(collections, isEmpty).length
+      return certificationsLength
+    },
+    // 观察对应值生成对应条件
+    generateCondition(type) {
+      const collection = []
+      // console.log(this.$_.filter(this.tabData.content.certifications, o => o.code === 'TERM_OF_DRIVING_LICENSE_INSPECTION'))
+      if (this.tabData.content.position.includes('DRIVER')) {
+        collection.push({ warning: '驾驶证必填', condition: this.countCertificationLength('TERM_OF_DRIVING_LICENSE_INSPECTION') === this.$_.filter(this.tabData.content.certifications, o => { return o.code === 'TERM_OF_DRIVING_LICENSE_INSPECTION' }).length })
+        collection.push({ warning: '驾驶员从业资格证必填', condition: this.countCertificationLength('TERM_OF_DRIVER_QUALIFICATION_CERTIFICATE') === this.$_.filter(this.tabData.content.certifications, o => { return o.code === 'TERM_OF_DRIVER_QUALIFICATION_CERTIFICATE' }).length })
+        collection.push({ warning: '身份证必填', condition: this.countCertificationLength('TERM_OF_ID_CARD') === this.$_.filter(this.tabData.content.certifications, o => { return o.code === 'TERM_OF_ID_CARD' }).length })
+        collection.push({ warning: '劳动合同必填', condition: this.countCertificationLength('TERM_OF_LABOR_CONTRACT') === this.$_.filter(this.tabData.content.certifications, o => { return o.code === 'TERM_OF_LABOR_CONTRACT' }).length })
+        collection.push({ warning: '安全责任状必填', condition: this.countCertificationLength('TERM_OF_SAFETY_RESPONSIBILITY') === this.$_.filter(this.tabData.content.certifications, o => { return o.code === 'TERM_OF_SAFETY_RESPONSIBILITY' }).length })
+      }
+      if (this.tabData.content.position.includes('ESCORT')) {
+        collection.push({ warning: '押运员从业资格证必填', condition: this.countCertificationLength('TERM_OF_ESCORT_QUALIFICATION_CERTIFICATE') === this.$_.filter(this.tabData.content.certifications, o => { return o.code === 'TERM_OF_ESCORT_QUALIFICATION_CERTIFICATE' }).length })
+        collection.push({ warning: '身份证必填', condition: this.countCertificationLength('TERM_OF_ID_CARD') === this.$_.filter(this.tabData.content.certifications, o => { return o.code === 'TERM_OF_ID_CARD' }).length })
+        collection.push({ warning: '劳动合同必填', condition: this.countCertificationLength('TERM_OF_LABOR_CONTRACT') === this.$_.filter(this.tabData.content.certifications, o => { return o.code === 'TERM_OF_LABOR_CONTRACT' }).length })
+        collection.push({ warning: '安全责任状必填', condition: this.countCertificationLength('TERM_OF_SAFETY_RESPONSIBILITY') === this.$_.filter(this.tabData.content.certifications, o => { return o.code === 'TERM_OF_SAFETY_RESPONSIBILITY' }).length })
+      }
+      if (this.tabData.content.position.includes('BOTH')) {
+        collection.push({ warning: '押运员从业资格证必填', condition: this.countCertificationLength('TERM_OF_ESCORT_QUALIFICATION_CERTIFICATE') === this.$_.filter(this.tabData.content.certifications, o => { return o.code === 'TERM_OF_ESCORT_QUALIFICATION_CERTIFICATE' }).length })
+        collection.push({ warning: '驾驶证必填', condition: this.countCertificationLength('TERM_OF_DRIVING_LICENSE_INSPECTION') === this.$_.filter(this.tabData.content.certifications, o => { return o.code === 'TERM_OF_DRIVING_LICENSE_INSPECTION' }).length })
+        collection.push({ warning: '驾驶员从业资格证必填', condition: this.countCertificationLength('TERM_OF_DRIVER_QUALIFICATION_CERTIFICATE') === this.$_.filter(this.tabData.content.certifications, o => { return o.code === 'TERM_OF_DRIVER_QUALIFICATION_CERTIFICATE' }).length })
+        collection.push({ warning: '身份证必填', condition: this.countCertificationLength('TERM_OF_ID_CARD') === this.$_.filter(this.tabData.content.certifications, o => { return o.code === 'TERM_OF_ID_CARD' }).length })
+        collection.push({ warning: '劳动合同必填', condition: this.countCertificationLength('TERM_OF_LABOR_CONTRACT') === this.$_.filter(this.tabData.content.certifications, o => { return o.code === 'TERM_OF_LABOR_CONTRACT' }).length })
+        collection.push({ warning: '安全责任状必填', condition: this.countCertificationLength('TERM_OF_SAFETY_RESPONSIBILITY') === this.$_.filter(this.tabData.content.certifications, o => { return o.code === 'TERM_OF_SAFETY_RESPONSIBILITY' }).length })
+      }
+      return collection
+    },
+    // 多类型
+    extraCheck(checkNum) {
+      let tag = 0
+      console.log(checkNum)
+      if (checkNum) {
+        for (let i = 0; i < checkNum.length; i++) {
+          for (let j = 0; j < checkNum[i].length; j++) {
+            if (checkNum[i][j].condition) {
+              console.log(checkNum[i][j].condition)
+            } else {
+              tag++
+              console.log(checkNum[i][j])
+              setTimeout(() => {
+                this.$notify.error(checkNum[i][j].warning)
+              }, 100)
+            }
+          }
+        }
+      }
+      if (!tag) {
+        return true
+      } else { return false }
+    },
+    onUpload(title, type) {
+      const that = this
+      return function(res) {
+        that.$_.find(that.tabData.content.certifications, { 'title': title, 'type': type }).path = res.data
+      }
+    },
     fetchData() {
       const { id } = this.$route.query
       this.loading = true
@@ -652,60 +718,23 @@ export default {
         this.loading = false
       })
     },
-    onUploadIdA(res) {
-      this.$_.find(this.tabData.content.certifications, { title: '身份证', type: 'A' }).path = res.data
-    },
-    onUploadIdB(res) {
-      this.$_.find(this.tabData.content.certifications, { title: '身份证', type: 'B' }).path = res.data
-    },
-    onUploadContractA(res) {
-      this.$_.find(this.tabData.content.certifications, { title: '劳动合同', type: 'A' }).path = res.data
-    },
-    onUploadContractB(res) {
-      this.$_.find(this.tabData.content.certifications, { title: '劳动合同', type: 'B' }).path = res.data
-    },
-    onUploadContractC(res) {
-      this.$_.find(this.tabData.content.certifications, { title: '劳动合同', type: 'C' }).path = res.data
-    },
-    onUploadLicenseA(res) {
-      this.$_.find(this.tabData.content.certifications, { title: '驾驶证', type: 'A' }).path = res.data
-    },
-    onUploadLicenseB(res) {
-      this.$_.find(this.tabData.content.certifications, { title: '驾驶证', type: 'B' }).path = res.data
-    },
-    onUploadLicenseC(res) {
-      this.$_.find(this.tabData.content.certifications, { title: '驾驶证', type: 'C' }).path = res.data
-    },
-    onUploadLicenseD(res) {
-      this.$_.find(this.tabData.content.certifications, { title: '驾驶证', type: 'D' }).path = res.data
-    },
-    onUploadDriverPermit(res) {
-      this.$_.find(this.tabData.content.certifications, { title: '驾驶员从业资格证' }).path = res.data
-    },
-    onUploadEscortPermit(res) {
-      this.$_.find(this.tabData.content.certifications, { title: '押运员从业资格证' }).path = res.data
-    },
-    onUploadCommitmentA(res) {
-      this.$_.find(this.tabData.content.certifications, { title: '安全责任状', type: 'A' }).path = res.data
-    },
-    onUploadCommitmentB(res) {
-      this.$_.find(this.tabData.content.certifications, { title: '安全责任状', type: 'B' }).path = res.data
-    },
     onSubmit() {
       this.submitting = true
       const { content } = this.tabData
       this.$refs['tabData.content'].validate((valid) => {
         if (valid) {
-          if (this.isAdd) {
-            createEmployee(content).then(res => {
-              this.$message.success('已新增！')
-              _afterSubmit()
-            })
-          } else {
-            editEmployee(this.$route.query.id, { ...this.tabData.content }).then(res => {
-              this.$message.success('已修改！')
-              _afterSubmit()
-            })
+          if (this.extraCheck([this.generateCondition(this.tabData.content.position)])) {
+            if (this.isAdd) {
+              createEmployee(content).then(res => {
+                this.$message.success('已新增！')
+                _afterSubmit()
+              })
+            } else {
+              editEmployee(this.$route.query.id, { ...this.tabData.content }).then(res => {
+                this.$message.success('已修改！')
+                _afterSubmit()
+              })
+            }
           }
         } else {
           this.$message.warning('表单提交失败有错误项')

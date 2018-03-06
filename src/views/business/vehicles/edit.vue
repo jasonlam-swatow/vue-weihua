@@ -874,7 +874,7 @@ export default {
   methods: {
     // 计算tabplane里集合长度
     countCertificationLength(type) {
-      let collections = this.$_.filter(this.tabData.content.certifications, o => { o.code === type })
+      let collections = this.$_.filter(this.tabData.content.certifications, o => { return o.code === type })
       collections = this.$_.map(collections, o => o.path)
       const certificationsLength = collections.length - this.$_.filter(collections, isEmpty).length
       return certificationsLength
