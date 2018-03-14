@@ -3,10 +3,10 @@
     <el-menu-item index="1" class="logo">
       <router-link to="/home">
           <img class="logo-image" src="../../../assets/logo.png" alt="logo">
-          <span class="logo-name">危化运输</span>
+          <span class="logo-name">企业资质备案SaaS服务系统</span>
         </router-link>
     </el-menu-item>
-    <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
+    <!-- <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger> -->
     <!-- <breadcrumb></breadcrumb> -->
     <div class="navbar-workbench">
       <el-dropdown class="avatar-container" trigger="click">
@@ -104,17 +104,18 @@ export default {
     }
   }
   .logo {
-    width: 180px;
+    width: 220px;
     height: $navbarHeight;
+    padding: 0 10px;
     &-name {
-      font-size: 28px;
+      font-size: 20px;
       line-height: $navbarHeight;
       color: $color;
     }
     &-image {
-      width: 28px;
-      height: 28px;
-      margin-right: 8px;
+      width: 24px;
+      height: 24px;
+      margin-right: 4px;
     }
   }
   .hamburger-container {
