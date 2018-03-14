@@ -50,11 +50,6 @@
           </el-table-column>
           <el-table-column prop="volume" label="罐体容积 m3" width="110"></el-table-column>
           <el-table-column prop="plateNo" label="关联挂车号" width="110"></el-table-column>
-          <el-table-column label="投运日期">
-            <template slot-scope="scope">
-              <span>{{scope.row.startDate/1000 | moment('YYYY-MM-DD')}}</span>
-            </template>
-          </el-table-column>       
           <el-table-column label="审核状态">
             <template slot-scope="scope">
               {{$_.find(statusTypes, ['code', scope.row.status]) &&

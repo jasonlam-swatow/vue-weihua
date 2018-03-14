@@ -18,7 +18,7 @@
                 :value="status.code">
               </el-option>
             </el-select> -->
-            <el-select placeholder="车辆类型" v-model="searchQueries.vehicleType">
+            <el-select placeholder="车辆类型" v-model="searchQueries.type">
             <el-option-group
               v-for="group in vehicleTypes"
               :key="group.id"
@@ -334,7 +334,7 @@ export default {
       carTypeSelected: '',
       searchQueries: {
         status: '',
-        vehicleType: '',
+        type: '',
         plateNo: ''
       },
       certificationMap: {
