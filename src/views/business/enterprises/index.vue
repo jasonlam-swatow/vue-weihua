@@ -1,17 +1,18 @@
 <template>
   <div class="app-container">
-    <el-tabs type="card" class="customized denser mgb0">
+    <el-tabs
+      type="card" class="customized denser mgb0">
       <el-tab-pane v-for="(item, index) in tabPaneTitles" :label="item" :key="index">
         <el-row type="flex" class="mgb12 strange-input">
           <el-col :span="20">
             <el-input style="width:200px" placeholder="企业名称" v-model="searchQueries.name"></el-input>
             <el-input style="width:200px" placeholder="信用代码" v-model="searchQueries.registrationNo"></el-input>
-            <el-date-picker
+            <!-- <el-date-picker
               :picker-options="pickerOptions"
               v-model="searchQueries.gmtCreateBegin" type="date" size="medium" style="width:200px;height:36px" placeholder="创建开始时间"></el-date-picker>
             <el-date-picker
               :picker-options="pickerOptions"
-              v-model="searchQueries.gmtCreateEnd" type="date" size="medium" style="width:200px;height:36px" placeholder="创建结束时间"></el-date-picker>
+              v-model="searchQueries.gmtCreateEnd" type="date" size="medium" style="width:200px;height:36px" placeholder="创建结束时间"></el-date-picker> -->
             <el-button type="primary" plain round icon="el-icon-search" @click="onSearch"></el-button>
           </el-col>
           <el-col :span="4" class="fr">
@@ -183,8 +184,8 @@ export default {
       tabPaneTitles: ['全部企业'],
       enterpriseList: [],
       searchQueries: {
-        gmtCreateBegin: '',
-        gmtCreateEnd: '',
+        // gmtCreateBegin: '',
+        // gmtCreateEnd: '',
         name: '',
         registrationNo: ''
       }
@@ -206,6 +207,19 @@ export default {
     onSearch() {
       this.fetchData()
     },
+    // _resetSearch() {
+    //   this.searchQueries = {
+    //     // gmtCreateBegin: '',
+    //     // gmtCreateEnd: '',
+    //     name: '',
+    //     registrationNo: ''
+    //   }
+    // },
+    // onTabChange({ label }) {
+    //   this._resetSearch()
+    //   this.searchQueries.status = this.tabPanes[label]
+    //   this.fetchData()
+    // },
     addEnterprise() {
       this.$router.push('/business/enterprises/add')
     },
