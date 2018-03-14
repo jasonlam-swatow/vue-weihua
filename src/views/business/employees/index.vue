@@ -18,6 +18,13 @@
                 :value="status.code">
               </el-option>
             </el-select> -->
+            <el-select placeholder="所属企业" v-model="searchQueries.enterpriseId">
+              <el-option
+                v-for="ent in enterpriseList"
+                :key="ent.id"
+                :value="ent.id"
+                :label="ent.name"></el-option>
+            </el-select>
             <el-select placeholder="主要岗位" v-model="searchQueries.position" clearable>
               <el-option
                 v-for="position in positionTypes"
@@ -265,6 +272,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import { getEnterpriseList } from '@/api/business/enterprises'
 import {
   getEmployeeList,
   getEmployeeInfo,
@@ -276,7 +284,6 @@ import mappingCertifications from '@/mixins/_mappingCertifications'
 import stamp_pic from '@/assets/stamp.png'
 
 import omitBy from 'lodash/omitBy'
-import isEmpty from 'lodash/isEmpty'
 
 export default {
   mixins: [mappingCertifications],
@@ -290,7 +297,8 @@ export default {
       searchQueries: {
         status: '',
         position: '',
-        idOrName: ''
+        idOrName: '',
+        enterpriseId: ''
       },
       certificationMap: {
         '基': ['身份证', '驾驶证'],
@@ -304,6 +312,7 @@ export default {
         '待审核': 'PENDING',
         '审核未通过': 'UNAUDITED'
       },
+      enterpriseList: [],
       dialogVisible: false,
       tempEmployeeInfo: {}
     }
@@ -318,6 +327,9 @@ export default {
   },
   created() {
     this.fetchData()
+    getEnterpriseList({ pageNum: 1, pageSize: 250 }).then(res => {
+      this.enterpriseList = res.data.list
+    })
   },
   methods: {
     onSearch() {
@@ -327,7 +339,8 @@ export default {
       this.searchQueries = {
         status: '',
         position: '',
-        idOrName: ''
+        idOrName: '',
+        enterpriseId: ''
       }
     },
     onTabChange({ label }) {
@@ -359,7 +372,7 @@ export default {
       const queries = {
         pageNum,
         pageSize: 15,
-        ...omitBy(this.searchQueries, isEmpty)
+        ...omitBy(this.searchQueries, query => !query)
       }
       console.log(queries)
       getEmployeeList(queries).then(res => {

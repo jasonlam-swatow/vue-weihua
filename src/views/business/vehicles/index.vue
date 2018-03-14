@@ -18,18 +18,25 @@
                 :value="status.code">
               </el-option>
             </el-select> -->
-            <el-select placeholder="车辆类型" v-model="searchQueries.type">
-            <el-option-group
-              v-for="group in vehicleTypes"
-              :key="group.id"
-              :label="group.value">
+            <el-select placeholder="所属企业" v-model="searchQueries.enterpriseId">
               <el-option
-                v-for="child in group.children"
-                :key="child.id"
-                :label="child.value"
-                :value="child.code">
-              </el-option>
-            </el-option-group>
+                v-for="ent in enterpriseList"
+                :key="ent.id"
+                :value="ent.id"
+                :label="ent.name"></el-option>
+            </el-select>
+            <el-select placeholder="车辆类型" v-model="searchQueries.type">
+              <el-option-group
+                v-for="group in vehicleTypes"
+                :key="group.id"
+                :label="group.value">
+                <el-option
+                  v-for="child in group.children"
+                  :key="child.id"
+                  :label="child.value"
+                  :value="child.code">
+                </el-option>
+              </el-option-group>
             </el-select>
             <el-input
               size="medium"
@@ -302,6 +309,8 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
+
+import { getEnterpriseList } from '@/api/business/enterprises'
 import {
   getVehicleList,
   deleteVehicle,
@@ -316,7 +325,6 @@ import flatten from 'lodash/flatten'
 import thru from 'lodash/thru'
 import union from 'lodash/union'
 import omitBy from 'lodash/omitBy'
-import isEmpty from 'lodash/isEmpty'
 // import find from 'lodash/find'
 
 export default {
@@ -335,8 +343,10 @@ export default {
       searchQueries: {
         status: '',
         type: '',
-        plateNo: ''
+        plateNo: '',
+        enterpriseId: ''
       },
+      enterpriseList: [],
       certificationMap: {
         '运输': ['车辆道路运输证'],
         '登记': ['机动车登记证'],
@@ -363,6 +373,9 @@ export default {
   },
   created() {
     this.fetchData()
+    getEnterpriseList({ pageNum: 1, pageSize: 250 }).then(res => {
+      this.enterpriseList = res.data.list
+    })
   },
   methods: {
     findVehicleType(type, vehicleTypes) {
@@ -377,8 +390,9 @@ export default {
     _resetSearch() {
       this.searchQueries = {
         status: '',
-        vehicleType: '',
-        number: ''
+        type: '',
+        plateNo: '',
+        enterpriseId: ''
       }
     },
     onTabChange({ label }) {
@@ -410,7 +424,7 @@ export default {
       const queries = {
         pageNum,
         pageSize: 10,
-        ...omitBy(this.searchQueries, isEmpty)
+        ...omitBy(this.searchQueries, query => !query)
       }
       console.log(queries)
       getVehicleList(queries).then(res => {
