@@ -62,10 +62,10 @@
               $_.find(licensePlateTypes, ['code', scope.row.plateType]).value}}
             </template>
           </el-table-column>
-          <el-table-column prop="licenseNo" label="道路运输证号" width="140"></el-table-column>
+          <el-table-column prop="licenseNo" label="道路运输证号" width="120"></el-table-column>
           <!-- <el-table-column prop="gps_time" label="GPS更新时间"></el-table-column> -->
-          <el-table-column prop="curbWeight" label="整备质量（KG）" width="130"></el-table-column>
-          <el-table-column prop="tractionMass" label="核载/准牵引（KG）" width="150"></el-table-column>         
+          <el-table-column prop="curbWeight" label="整备质量（KG）"></el-table-column>
+          <el-table-column prop="tractionMass" label="核载/准牵引（KG）"></el-table-column>         
           <el-table-column label="审核状态" width="90">
             <template slot-scope="scope">
               {{$_.find(statusTypes, ['code', scope.row.status]) &&
@@ -91,9 +91,9 @@
                 </div>
                 <div>
                   <el-tag
-                    v-for="(cert, key) in shortenCertifications(getCertificationMaps(scope.row.certifications, certificationMap))"
-                    :key="key"
-                    size="small" type="success" class="adjacent">{{key}}</el-tag>
+                    v-for="cert in shortenCertifications(getCertificationMaps(scope.row.certifications, certificationMap))"
+                    :key="cert"
+                    size="small" type="success" class="adjacent">{{cert}}</el-tag>
                 </div>
               </el-tooltip>
             </template>
@@ -338,11 +338,11 @@ export default {
         number: ''
       },
       certificationMap: {
-        '基': ['身份证', '驾驶证'],
-        '劳': ['劳动合同'],
-        '驾': ['驾驶员从业资格证'],
-        '押': ['押运员从业资格证'],
-        '安': ['安全责任状']
+        '运输': ['车辆道路运输证'],
+        '登记': ['机动车登记证'],
+        '行驶': ['车辆行驶证'],
+        '保险': ['道路危险货物承运人责任保险单'],
+        '设备': ['车辆安全设备配备照']
       },
       tabPanes: {
         '全部员工': '',

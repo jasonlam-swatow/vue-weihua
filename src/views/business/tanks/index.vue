@@ -69,7 +69,7 @@
                   class="text-success"
                   style="font-size: 14px">
                   <p
-                    v-for="(cert, key) in flattenCertifications(getCertificationMaps(scope.row.certifications, certtificationMap))"
+                    v-for="(cert, key) in flattenCertifications(getCertificationMaps(scope.row.certifications, certificationMap))"
                     :key="key"
                     :class="{ 'text-warning': cert.status === 'WILL_ABNORMAL', 'text-danger': cert.status === 'ABNORMAL', }">
                     <b>{{cert.title}}</b>：
@@ -80,9 +80,9 @@
                 </div>
                 <div>
                   <el-tag
-                    v-for="(cert, key) in shortenCertifications(getCertificationMaps(scope.row.certifications, certtificationMap))"
-                    :key="key"
-                    size="small" type="success" class="adjacent">{{key}}</el-tag>
+                    v-for="cert in shortenCertifications(getCertificationMaps(scope.row.certifications, certificationMap))"
+                    :key="cert"
+                    size="small" type="success" class="adjacent">{{cert}}</el-tag>
                 </div>
               </el-tooltip>
             </template>
@@ -223,7 +223,7 @@ export default {
       loading: true,
       statusSelected: '',
       carTypeSelected: '',
-      certtificationMap: {
+      certificationMap: {
         '检': ['罐体检验报告'],
         '登': ['压力罐容器登记证']
       },

@@ -229,7 +229,6 @@ export default {
         }), elem => elem.children.length > 0)
       })
     },
-
     onEditBusiness() {
       this.$confirm('修改后需要重新审核，确定需要修改吗？', '提示', {
         confirmButtonText: '确定',
@@ -251,7 +250,7 @@ export default {
           reviewEnterprise(id, { status: 'AUDITED' }).then(res => {
             this.$message.success('已审核通过！')
             this.dialogVisible = false
-            this.fetchData()
+            this.fetchData(this.enterpriseData.id)
           })
         })
       } else {
@@ -263,7 +262,8 @@ export default {
           reviewEnterprise(id, { status: 'UNAUDITED', comment: value }).then(res => {
             this.$message.info('已审核不通过！')
             this.dialogVisible = false
-            this.fetchData()
+            // console.log(this.enterpriseData.id)
+            this.fetchData(this.enterpriseData.id)
           })
         })
       }

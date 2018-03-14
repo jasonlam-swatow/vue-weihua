@@ -70,7 +70,7 @@
               <el-form-item label="有效期" class="full-width">
                 <el-date-picker
                   :picker-options="pickerOptions"
-                  v-model="tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'A').expireDate" type="date"></el-date-picker>
+                  v-model="tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'A') && tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'A').expireDate" type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="上传身份证" class="full-width">
                 <el-upload
@@ -80,7 +80,7 @@
                   accept=".jpg, .jpeg, .png, .pdf"
                   :on-success="onUpload('身份证', 'A')">
                   <img
-                    v-if="tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'A').path"
+                    v-if="tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'A') && tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'A').path"
                     :src="tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'A').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
@@ -100,7 +100,7 @@
                   accept=".jpg, .jpeg, .png, .pdf"                
                   :on-success="onUpload('身份证', 'B')">
                   <img
-                    v-if="tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'B').path"
+                    v-if="tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'B') && tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'B').path"
                     :src="tabData.content.certifications.find(_ => _.title === '身份证' && _.type === 'B').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
@@ -134,7 +134,7 @@
               <el-form-item label="有效期" class="full-width">
                 <el-date-picker
                   :picker-options="pickerOptions"
-                  v-model="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'A').expireDate" type="date"></el-date-picker>
+                  v-model="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'A') && tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'A').expireDate" type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="上传劳动合同" class="full-width">
                 <el-upload
@@ -144,7 +144,7 @@
                   accept=".jpg, .jpeg, .png, .pdf"                
                   :on-success="onUpload('劳动合同', 'A')">
                   <img
-                    v-if="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'A').path"
+                    v-if="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'A') && tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'A').path"
                     :src="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'A').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
@@ -164,7 +164,7 @@
                   accept=".jpg, .jpeg, .png, .pdf"                
                   :on-success="onUpload('劳动合同', 'B')">
                   <img
-                    v-if="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'B').path"
+                    v-if="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'B') && tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'B').path"
                     :src="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'B').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
@@ -184,7 +184,7 @@
                   accept=".jpg, .jpeg, .png, .pdf"                
                   :on-success="onUpload('劳动合同', 'C')">
                   <img
-                    v-if="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'C').path"
+                    v-if="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'C') && tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'C').path"
                     :src="tabData.content.certifications.find(_ => _.title === '劳动合同' && _.type === 'C').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
@@ -222,7 +222,7 @@
               <el-form-item label="有效期" class="full-width">
                 <el-date-picker
                   :picker-options="pickerOptions"
-                  v-model="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'A').expireDate" type="date"></el-date-picker>
+                  v-model="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'A') && tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'A').expireDate" type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="上传驾驶证" class="full-width">
                 <el-upload
@@ -232,7 +232,7 @@
                   accept=".jpg, .jpeg, .png, .pdf" 
                   :on-success="onUpload('驾驶证', 'A')">
                   <img
-                    v-if="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'A').path"
+                    v-if="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'A') && tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'A').path"
                     :src="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'A').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
@@ -252,7 +252,7 @@
                   accept=".jpg, .jpeg, .png, .pdf"                
                   :on-success="onUpload('驾驶证', 'B')">
                   <img
-                    v-if="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'B').path"
+                    v-if="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'B') && tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'B').path"
                     :src="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'B').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
@@ -272,7 +272,7 @@
                   accept=".jpg, .jpeg, .png, .pdf"                
                   :on-success="onUpload('驾驶证', 'C')">
                   <img
-                    v-if="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'C').path"
+                    v-if="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'C') && tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'C').path"
                     :src="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'C').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
@@ -292,7 +292,7 @@
                   accept=".jpg, .jpeg, .png, .pdf"                
                   :on-success="onUpload('驾驶证', 'D')">
                   <img
-                    v-if="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'D').path"
+                    v-if="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'D') && tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'D').path"
                     :src="tabData.content.certifications.find(_ => _.title === '驾驶证' && _.type === 'D').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
@@ -330,7 +330,7 @@
               <el-form-item label="有效期" class="full-width">
                 <el-date-picker
                   :picker-options="pickerOptions"
-                  v-model="tabData.content.certifications.find(_ => _.title === '驾驶员从业资格证').expireDate" type="date"></el-date-picker>
+                  v-model="tabData.content.certifications.find(_ => _.title === '驾驶员从业资格证') && tabData.content.certifications.find(_ => _.title === '驾驶员从业资格证').expireDate" type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="上传驾驶员从业资格证" class="full-width">
                 <el-upload
@@ -340,7 +340,7 @@
                   accept=".jpg, .jpeg, .png, .pdf"                
                   :on-success="onUpload('驾驶员从业资格证', 'A')">
                   <img
-                    v-if="tabData.content.certifications.find(_ => _.title === '驾驶员从业资格证' && _.type === 'A').path"
+                    v-if="tabData.content.certifications.find(_ => _.title === '驾驶员从业资格证' && _.type === 'A') && tabData.content.certifications.find(_ => _.title === '驾驶员从业资格证' && _.type === 'A').path"
                     :src="tabData.content.certifications.find(_ => _.title === '驾驶员从业资格证' && _.type === 'A').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
@@ -378,7 +378,7 @@
               <el-form-item label="有效期" class="full-width">
                 <el-date-picker
                   :picker-options="pickerOptions"
-                  v-model="tabData.content.certifications.find(_ => _.title === '押运员从业资格证').expireDate" type="date"></el-date-picker>
+                  v-model="tabData.content.certifications.find(_ => _.title === '押运员从业资格证') && tabData.content.certifications.find(_ => _.title === '押运员从业资格证').expireDate" type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="上传押运员从业资格证" class="full-width">
                 <el-upload
@@ -388,7 +388,7 @@
                   accept=".jpg, .jpeg, .png, .pdf"                
                   :on-success="onUpload('押运员从业资格证', 'A')">
                   <img
-                    v-if="tabData.content.certifications.find(_ => _.title === '押运员从业资格证' && _.type === 'A').path"
+                    v-if="tabData.content.certifications.find(_ => _.title === '押运员从业资格证' && _.type === 'A') && tabData.content.certifications.find(_ => _.title === '押运员从业资格证' && _.type === 'A').path"
                     :src="tabData.content.certifications.find(_ => _.title === '押运员从业资格证' && _.type === 'A').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
@@ -421,7 +421,7 @@
               <el-form-item label="有效期" class="full-width">
                 <el-date-picker
                   :picker-options="pickerOptions"
-                  v-model="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'A').expireDate" type="date"></el-date-picker>
+                  v-model="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'A') && tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'A').expireDate" type="date"></el-date-picker>
               </el-form-item>
               <el-form-item label="上传安全责任状" class="full-width">
                 <el-upload
@@ -431,7 +431,7 @@
                   accept=".jpg, .jpeg, .png, .pdf"                
                   :on-success="onUpload('安全责任状', 'A')">
                   <img
-                    v-if="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'A').path"
+                    v-if="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'A') && tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'A').path"
                     :src="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'A').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>
@@ -451,7 +451,7 @@
                   accept=".jpg, .jpeg, .png, .pdf"                
                   :on-success="onUpload('安全责任状', 'B')">
                   <img
-                    v-if="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'B').path"
+                    v-if="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'B') && tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'B').path"
                     :src="tabData.content.certifications.find(_ => _.title === '安全责任状' && _.type === 'B').path"
                     class="license">
                   <i v-else class="el-icon-plus license-uploader-icon"></i>

@@ -1,8 +1,8 @@
 import mapValues from 'lodash/mapValues'
 import values from 'lodash/values'
 import uniqBy from 'lodash/uniqBy'
-import omitBy from 'lodash/omitBy'
 import flattenDeep from 'lodash/flattenDeep'
+import forOwn from 'lodash/forOwn'
 
 export default {
   methods: {
@@ -17,8 +17,11 @@ export default {
       )
     },
     shortenCertifications(certificationMaps) {
-      return omitBy(certificationMaps, certMap =>
-        this.$_.find(certMap, cert => !cert.path))
+      var shortened = []
+      forOwn(certificationMaps, (mapArr, key) => {
+        if (mapArr.filter(cert => cert.code).length) shortened.push(key)
+      })
+      return shortened
     },
     // 枚举属性的一维数组
     flattenCertifications(certificationMaps) {

@@ -47,14 +47,14 @@
             </template>
           </el-table-column>
           <el-table-column prop="idCard" label="身份证"></el-table-column>
-          <el-table-column label="主要岗位">
+          <el-table-column label="主要岗位" width="100">
             <template slot-scope="scope">
               {{$_.find(positionTypes, ['code', scope.row.position]) &&
                 $_.find(positionTypes, ['code', scope.row.position]).value}}
             </template>
           </el-table-column>
           <el-table-column prop="phone" label="联系电话"></el-table-column>
-          <el-table-column label="入职日期">
+          <el-table-column label="入职日期" width="120">
             <template slot-scope="scope">
               <span>{{scope.row.entryDate/1000 | moment('YYYY-MM-DD')}}</span>
             </template>
@@ -65,7 +65,7 @@
                 $_.find(statusTypes, ['code', scope.row.status]).value}}
             </template>
           </el-table-column>
-          <el-table-column label="证件展示" width="200">
+          <el-table-column label="证件展示">
             <template slot-scope="scope">
               <el-tooltip placement="right" effect="light">
                 <div
@@ -84,9 +84,9 @@
                 </div>
                 <div>
                   <el-tag
-                    v-for="(cert, key) in shortenCertifications(getCertificationMaps(scope.row.certifications, certificationMap))"
-                    :key="key"
-                    size="small" type="success" class="adjacent">{{key}}</el-tag>
+                    v-for="cert in shortenCertifications(getCertificationMaps(scope.row.certifications, certificationMap))"
+                    :key="cert"
+                    size="small" type="success" class="adjacent">{{cert}}</el-tag>
                 </div>
               </el-tooltip>
             </template>
