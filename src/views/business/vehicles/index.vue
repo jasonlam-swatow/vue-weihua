@@ -182,19 +182,19 @@
           class="full-width wider-label-140">
           <!-- <el-form-item label="关联挂车号">{{tempVehicleInfo.plateNo}}</el-form-item> -->
           <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'A' })">
-            <img :src="$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'A' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'A' }).path">
             <figcaption>营运证正本正本正面</figcaption>
           </figure>
           <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'B' })">
-            <img :src="$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'B' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'B' }).path">
             <figcaption>代理证正面</figcaption>
           </figure>
           <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'C' })">
-            <img :src="$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'C' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'C' }).path">
             <figcaption>代理证反面</figcaption>
           </figure>
           <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'D' })">
-            <img :src="$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'D' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempVehicleInfo.certifications, { title: '车辆道路运输证', type: 'D' }).path">
             <figcaption>等级评定卡（挂车不需要）</figcaption>
           </figure>
            <h5 class="sub-title">
@@ -209,11 +209,11 @@
           class="full-width wider-label-120">
           <!-- <el-form-item label="关联挂车号">{{tempVehicleInfo.plateNo}}</el-form-item> -->
           <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '机动车登记证', type: 'A' })">
-            <img :src="$_.find(tempVehicleInfo.certifications, { title: '机动车登记证', type: 'A' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempVehicleInfo.certifications, { title: '机动车登记证', type: 'A' }).path">
             <figcaption>机动车登记信息证</figcaption>
           </figure>
           <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '机动车登记证', type: 'B' })">
-            <img :src="$_.find(tempVehicleInfo.certifications, { title: '机动车登记证', type: 'B' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempVehicleInfo.certifications, { title: '机动车登记证', type: 'B' }).path">
             <figcaption>机动车登记证登记栏（最近一次登记）</figcaption>
           </figure>
         </el-form-item>
@@ -223,19 +223,19 @@
           class="full-width">
           <!-- <el-form-item label="关联挂车号">{{tempVehicleInfo.plateNo}}</el-form-item> -->
           <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '车辆行驶证', type: 'A' })">
-            <img :src="$_.find(tempVehicleInfo.certifications, { title: '车辆行驶证', type: 'A' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempVehicleInfo.certifications, { title: '车辆行驶证', type: 'A' }).path">
             <figcaption>行驶证正本正面</figcaption>
           </figure>
           <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '车辆行驶证', type: 'B' })">
-            <img :src="$_.find(tempVehicleInfo.certifications, { title: '车辆行驶证', type: 'B' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempVehicleInfo.certifications, { title: '车辆行驶证', type: 'B' }).path">
             <figcaption>行驶证正本反面</figcaption>
           </figure>
           <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '车辆行驶证', type: 'C' })">
-            <img :src="$_.find(tempVehicleInfo.certifications, { title: '车辆行驶证', type: 'C' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempVehicleInfo.certifications, { title: '车辆行驶证', type: 'C' }).path">
             <figcaption>行驶证副本正面</figcaption>
           </figure>
           <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '车辆行驶证', type: 'D' })">
-            <img :src="$_.find(tempVehicleInfo.certifications, { title: '车辆行驶证', type: 'D' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempVehicleInfo.certifications, { title: '车辆行驶证', type: 'D' }).path">
             <figcaption>行驶证副本反面</figcaption>
           </figure>
            <h5 class="sub-title">
@@ -248,7 +248,7 @@
           class="full-width wider-label-160">
           <!-- <el-form-item label="关联挂车号">{{tempVehicleInfo.plateNo}}</el-form-item> -->
           <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '卫星定位终端安装证书', type: 'A' })">
-            <img :src="$_.find(tempVehicleInfo.certifications, { title: '卫星定位终端安装证书', type: 'A' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempVehicleInfo.certifications, { title: '卫星定位终端安装证书', type: 'A' }).path">
             <figcaption>卫星定位终端安装证书</figcaption>
           </figure>
            <h5 class="sub-title">
@@ -262,11 +262,11 @@
           class="full-width wider-label-210">
           <!-- <el-form-item label="关联挂车号">{{tempVehicleInfo.plateNo}}</el-form-item> -->
           <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '道路危险货物承运人责任保险单', type: 'A' })">
-            <img :src="$_.find(tempVehicleInfo.certifications, { title: '道路危险货物承运人责任保险单', type: 'A' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempVehicleInfo.certifications, { title: '道路危险货物承运人责任保险单', type: 'A' }).path">
             <figcaption>道路危险货物承运人责任保险单</figcaption>
           </figure>
           <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '道路危险货物承运人责任保险单', type: 'B' })">
-            <img :src="$_.find(tempVehicleInfo.certifications, { title: '道路危险货物承运人责任保险单', type: 'B' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempVehicleInfo.certifications, { title: '道路危险货物承运人责任保险单', type: 'B' }).path">
             <figcaption>道路危险货物承运人责任保险单（附</figcaption>
           </figure>
            <h5 class="sub-title">
@@ -279,19 +279,19 @@
           class="full-width wider-label-160">
           <!-- <el-form-item label="关联挂车号">{{tempVehicleInfo.plateNo}}</el-form-item> -->
           <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '车辆安全设备配备照', type: 'A' })">
-            <img :src="$_.find(tempVehicleInfo.certifications, { title: '车辆安全设备配备照', type: 'A' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempVehicleInfo.certifications, { title: '车辆安全设备配备照', type: 'A' }).path">
             <figcaption>车辆安全设备配备照片</figcaption>
           </figure>
           <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '车辆安全设备配备照', type: 'B' })">
-            <img :src="$_.find(tempVehicleInfo.certifications, { title: '车辆安全设备配备照', type: 'B' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempVehicleInfo.certifications, { title: '车辆安全设备配备照', type: 'B' }).path">
             <figcaption>车辆安全设备配备照片</figcaption>
           </figure>
           <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '车辆安全设备配备照', type: 'C' })">
-            <img :src="$_.find(tempVehicleInfo.certifications, { title: '车辆安全设备配备照', type: 'C' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempVehicleInfo.certifications, { title: '车辆安全设备配备照', type: 'C' }).path">
             <figcaption>车辆安全设备配备照片</figcaption>
           </figure>
           <figure v-if="$_.find(tempVehicleInfo.certifications, { title: '车辆安全设备配备照', type: 'D' })">
-            <img :src="$_.find(tempVehicleInfo.certifications, { title: '车辆安全设备配备照', type: 'D' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempVehicleInfo.certifications, { title: '车辆安全设备配备照', type: 'D' }).path">
             <figcaption>车辆安全设备配备照片</figcaption>
           </figure>
         </el-form-item>
@@ -476,6 +476,16 @@ export default {
           })
         })
       }
+    },
+    scaleUpImage(event) {
+      const imageSrc = event.target.src
+      const h = this.$createElement
+      this.$msgbox({
+        showConfirmButton: false,
+        showCancelButton: false,
+        customClass: 'image-previewer',
+        message: h('img', { attrs: { src: imageSrc }})
+      })
     }
   }
 }

@@ -162,6 +162,7 @@
       img {
         width: 120px;
         height: 120px;
+        cursor: zoom-in;
       }
       figcaption {
         text-align: center;
@@ -329,4 +330,11 @@ $license-size: 150px;
       border-radius: 0 4px 4px 4px;
     }
   }
+}
+
+.el-message-box.image-previewer {
+  width: auto;
+  max-height: 90%;
+  max-width: 90%;
+  overflow: scroll;
 }

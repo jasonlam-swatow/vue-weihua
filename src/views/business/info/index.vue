@@ -72,15 +72,15 @@
                 label="企业营业执照"
                 class="full-width">
                 <figure v-if="$_.find(enterpriseData.certifications, { title: '企业营业执照', type: 'A' })">
-                  <img :src="$_.find(enterpriseData.certifications, { title: '企业营业执照', type: 'A' }).path">
+                  <img @click="scaleUpImage" :src="$_.find(enterpriseData.certifications, { title: '企业营业执照', type: 'A' }).path">
                   <figcaption>企业营业执照</figcaption>
                 </figure>
                 <figure v-if="$_.find(enterpriseData.certifications, { title: '企业营业执照', type: 'B' })">
-                  <img :src="$_.find(enterpriseData.certifications, { title: '企业营业执照', type: 'B' }).path">
+                  <img @click="scaleUpImage" :src="$_.find(enterpriseData.certifications, { title: '企业营业执照', type: 'B' }).path">
                   <figcaption>企业组织机构代码证</figcaption>
                 </figure>
                 <figure v-if="$_.find(enterpriseData.certifications, { title: '企业营业执照', type: 'C' })">
-                  <img :src="$_.find(enterpriseData.certifications, { title: '企业营业执照', type: 'C' }).path">
+                  <img @click="scaleUpImage" :src="$_.find(enterpriseData.certifications, { title: '企业营业执照', type: 'C' }).path">
                   <figcaption>企业税务登记证</figcaption>
                 </figure>
               </el-form-item>
@@ -99,7 +99,7 @@
                 label="企业道路运输经营许可证"
                 class="full-width">
                 <figure v-if="$_.find(enterpriseData.certifications, { title: '企业道路运输经营许可证', type: 'A' })">
-                  <img :src="$_.find(enterpriseData.certifications, { title: '企业道路运输经营许可证', type: 'A' }).path">
+                  <img @click="scaleUpImage" :src="$_.find(enterpriseData.certifications, { title: '企业道路运输经营许可证', type: 'A' }).path">
                   <figcaption>企业道路运输经营许可证</figcaption>
                 </figure>
                 <h5 class="sub-title">
@@ -111,7 +111,7 @@
                 label="企业安全责任承诺书"
                 class="full-width">
                 <figure v-if="$_.find(enterpriseData.certifications, { title: '企业安全责任承诺书', type: 'A' })">
-                  <img :src="$_.find(enterpriseData.certifications, { title: '企业安全责任承诺书', type: 'A' }).path">
+                  <img @click="scaleUpImage" :src="$_.find(enterpriseData.certifications, { title: '企业安全责任承诺书', type: 'A' }).path">
                   <figcaption>企业安全责任承诺书</figcaption>
                 </figure>
               </el-form-item>
@@ -267,6 +267,16 @@ export default {
           })
         })
       }
+    },
+    scaleUpImage(event) {
+      const imageSrc = event.target.src
+      const h = this.$createElement
+      this.$msgbox({
+        showConfirmButton: false,
+        showCancelButton: false,
+        customClass: 'image-previewer',
+        message: h('img', { attrs: { src: imageSrc }})
+      })
     }
   }
 }

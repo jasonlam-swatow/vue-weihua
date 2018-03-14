@@ -163,11 +163,11 @@
           label="身份证"
           class="full-width">
           <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '身份证', type: 'A' })">
-            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '身份证', type: 'A' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempEmployeeInfo.certifications, { title: '身份证', type: 'A' }).path">
             <figcaption>正面</figcaption>
           </figure>
           <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '身份证', type: 'B' })">
-            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '身份证', type: 'B' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempEmployeeInfo.certifications, { title: '身份证', type: 'B' }).path">
             <figcaption>反面</figcaption>
           </figure>
           <h5 class="sub-title">
@@ -179,15 +179,15 @@
           label="劳动合同"
           class="full-width">
           <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '劳动合同', type: 'A' })">
-            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '劳动合同', type: 'A' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempEmployeeInfo.certifications, { title: '劳动合同', type: 'A' }).path">
             <figcaption>封面（含甲乙方名称）</figcaption>
           </figure>
           <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '劳动合同', type: 'B' })">
-            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '劳动合同', type: 'B' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempEmployeeInfo.certifications, { title: '劳动合同', type: 'B' }).path">
             <figcaption>内页（含劳动合约时间页）</figcaption>
           </figure>
           <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '劳动合同', type: 'C' })">
-            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '劳动合同', type: 'C' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempEmployeeInfo.certifications, { title: '劳动合同', type: 'C' }).path">
             <figcaption>内页（含甲乙方签字）</figcaption>
           </figure>
           <h5 class="sub-title">
@@ -199,19 +199,19 @@
           label="驾驶证"
           class="full-width">
           <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '驾驶证', type: 'A' })">
-            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '驾驶证', type: 'A' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempEmployeeInfo.certifications, { title: '驾驶证', type: 'A' }).path">
             <figcaption>正本正面</figcaption>
           </figure>
           <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '驾驶证', type: 'B' })">
-            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '驾驶证', type: 'B' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempEmployeeInfo.certifications, { title: '驾驶证', type: 'B' }).path">
             <figcaption>正本反面</figcaption>
           </figure>
           <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '驾驶证', type: 'C' })">
-            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '驾驶证', type: 'C' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempEmployeeInfo.certifications, { title: '驾驶证', type: 'C' }).path">
             <figcaption>副本正面</figcaption>
           </figure>
           <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '驾驶证', type: 'D' })">
-            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '驾驶证', type: 'D' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempEmployeeInfo.certifications, { title: '驾驶证', type: 'D' }).path">
             <figcaption>副本反面</figcaption>
           </figure>
           <h5 class="sub-title">
@@ -223,7 +223,7 @@
           label="驾驶员从业资格证"
           class="full-width wider-label-140">
           <figure v-if="$_.find(tempEmployeeInfo.certifications, ['title', '驾驶员从业资格证'])">
-            <img :src="$_.find(tempEmployeeInfo.certifications, ['title', '驾驶员从业资格证']).path">
+            <img @click="scaleUpImage" :src="$_.find(tempEmployeeInfo.certifications, ['title', '驾驶员从业资格证']).path">
             <figcaption>基本信息页</figcaption>
           </figure>
           <h5 class="sub-title">
@@ -235,7 +235,7 @@
           label="押运员从业资格证"
           class="full-width wider-label-140">
           <figure v-if="$_.find(tempEmployeeInfo.certifications, ['title', '押运员从业资格证'])">
-            <img :src="$_.find(tempEmployeeInfo.certifications, ['title', '押运员从业资格证']).path">
+            <img @click="scaleUpImage" :src="$_.find(tempEmployeeInfo.certifications, ['title', '押运员从业资格证']).path">
             <figcaption>基本信息页</figcaption>
           </figure>
           <h5 class="sub-title">
@@ -247,11 +247,11 @@
           label="安全责任状"
           class="full-width">
           <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '安全责任状', type: 'A' })">
-            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '安全责任状', type: 'A' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempEmployeeInfo.certifications, { title: '安全责任状', type: 'A' }).path">
             <figcaption>含甲乙方名称页</figcaption>
           </figure>
           <figure v-if="$_.find(tempEmployeeInfo.certifications, { title: '安全责任状', type: 'B' })">
-            <img :src="$_.find(tempEmployeeInfo.certifications, { title: '安全责任状', type: 'B' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempEmployeeInfo.certifications, { title: '安全责任状', type: 'B' }).path">
             <figcaption>含甲乙方签章页</figcaption>
           </figure>
           <h5 class="sub-title">
@@ -421,6 +421,16 @@ export default {
           })
         })
       }
+    },
+    scaleUpImage(event) {
+      const imageSrc = event.target.src
+      const h = this.$createElement
+      this.$msgbox({
+        showConfirmButton: false,
+        showCancelButton: false,
+        customClass: 'image-previewer',
+        message: h('img', { attrs: { src: imageSrc }})
+      })
     }
   }
 }

@@ -147,11 +147,11 @@
           class="full-width">
           <!-- <el-form-item label="关联挂车号">{{tempTankInfo.plateNo}}</el-form-item> -->
           <figure v-if="$_.find(tempTankInfo.certifications, { title: '罐体检验报告', type: 'A' })">
-            <img :src="$_.find(tempTankInfo.certifications, { title: '罐体检验报告', type: 'A' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempTankInfo.certifications, { title: '罐体检验报告', type: 'A' }).path">
             <figcaption>检验报告封面页</figcaption>
           </figure>
           <figure v-if="$_.find(tempTankInfo.certifications, { title: '罐体检验报告', type: 'B' })">
-            <img :src="$_.find(tempTankInfo.certifications, { title: '罐体检验报告', type: 'B' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempTankInfo.certifications, { title: '罐体检验报告', type: 'B' }).path">
             <figcaption>检验报告细节页</figcaption>
           </figure>
           <h5 class="sub-title">
@@ -165,15 +165,15 @@
           class="full-width wider-label-140">
           <!-- <el-form-item label="关联挂车号">{{tempTankInfo.plateNo}}</el-form-item> -->
           <figure v-if="$_.find(tempTankInfo.certifications, { title: '压力罐容器登记证', type: 'A' })">
-            <img :src="$_.find(tempTankInfo.certifications, { title: '压力罐容器登记证', type: 'A' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempTankInfo.certifications, { title: '压力罐容器登记证', type: 'A' }).path">
             <figcaption>管理页</figcaption>
           </figure>
           <figure v-if="$_.find(tempTankInfo.certifications, { title: '压力罐容器登记证', type: 'B' })">
-            <img :src="$_.find(tempTankInfo.certifications, { title: '压力罐容器登记证', type: 'B' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempTankInfo.certifications, { title: '压力罐容器登记证', type: 'B' }).path">
             <figcaption>检验页</figcaption>
           </figure>
           <figure v-if="$_.find(tempTankInfo.certifications, { title: '压力罐容器登记证', type: 'C' })">
-            <img :src="$_.find(tempTankInfo.certifications, { title: '压力罐容器登记证', type: 'C' }).path">
+            <img @click="scaleUpImage" :src="$_.find(tempTankInfo.certifications, { title: '压力罐容器登记证', type: 'C' }).path">
             <figcaption>特性页</figcaption>
           </figure>
            <h5 class="sub-title">
@@ -338,6 +338,16 @@ export default {
           })
         })
       }
+    },
+    scaleUpImage(event) {
+      const imageSrc = event.target.src
+      const h = this.$createElement
+      this.$msgbox({
+        showConfirmButton: false,
+        showCancelButton: false,
+        customClass: 'image-previewer',
+        message: h('img', { attrs: { src: imageSrc }})
+      })
     }
   }
 }
