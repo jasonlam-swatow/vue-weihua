@@ -633,7 +633,7 @@ export default {
   data() {
     var checkPlateNo = (rule, value, callback) => {
       console.log(value)
-      var reg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9学警港澳]{1}$/
+      var reg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/
       if (!reg.test(value)) {
         return callback(new Error('车牌号格式不正确'))
       } else { return callback() }
