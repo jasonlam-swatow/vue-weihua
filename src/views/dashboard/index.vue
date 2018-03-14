@@ -4,7 +4,10 @@
       <el-col :md="24" :lg="20" style="min-width: 910px;">
         <!-- <progress-bar></progress-bar> -->
         
-        <kanbans :loading="loading" :statistics="statistics"></kanbans>
+        <kanbans
+
+          :loading="loading"
+          :statistics="statistics"></kanbans>
 
         <div class="chart-container">
           <!-- <line-chart height="400px" width="100%"></line-chart> -->
@@ -70,7 +73,7 @@ export default {
     fetchData(id) {
       this.dialogSelectVisible = false
       getStatistics(id).then(res => {
-        this.statistics = res.data
+        this.statistics = { ...res.data, enterpriseId: this.enterpriseId }
         this.loading = false
       })
     }

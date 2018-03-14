@@ -243,12 +243,19 @@ export default {
     ...mapGetters([
       'statusTypes',
       'tankerTypes'
-    ])
+    ]),
+    isView() {
+      return !!this.$route.query.view
+    }
   },
   created() {
-    this.fetchData()
+    // this.fetchData()
     getEnterpriseList({ pageNum: 1, pageSize: 250 }).then(res => {
       this.enterpriseList = res.data.list
+      if (this.isView) {
+        this.searchQueries.enterpriseId = this.$route.query.id
+      }
+      this.fetchData()
     })
   },
   methods: {

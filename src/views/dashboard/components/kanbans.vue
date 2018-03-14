@@ -1,7 +1,7 @@
 <template>
   <el-row :gutter="12">
     <el-col :md="8" :sm="24">
-      <router-link :to="{ path: '/business/vehicles' }">
+      <router-link :to="{ path: '/business/vehicles', query: { view: true, id: statistics.enterpriseId } }">
         <el-card class="box-card kanban mgb12" style="min-height: 360px" v-loading="loading">
           <div slot="header" class="clearfix">
             <el-row type="flex">
@@ -99,7 +99,7 @@
     </el-col>
 
     <el-col :md="8" :sm="24">
-      <router-link :to="{ path: '/business/tanks' }">
+      <router-link :to="{ path: '/business/tanks', query: { view: true, id: statistics.enterpriseId } }">
         <el-card class="box-card kanban mgb12" style="min-height: 360px" v-loading="loading">
           <div slot="header" class="clearfix">
             <el-row type="flex">
@@ -185,7 +185,7 @@
     </el-col>
 
     <el-col :md="8" :sm="24">
-      <router-link :to="{ path: '/business/employees' }">
+      <router-link :to="{ path: '/business/employees', query: { view: true, id: statistics.enterpriseId } }">
         <el-card class="box-card kanban mgb12" style="min-height: 360px" v-loading="loading">
           <div slot="header" class="clearfix">
             <el-row type="flex">
