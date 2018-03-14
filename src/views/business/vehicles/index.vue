@@ -34,8 +34,8 @@
             <el-input
               size="medium"
               style="width:200px"
-              placeholder="车号 or 道路运输证号"
-              v-model="searchQueries.number"></el-input>
+              placeholder="车号"
+              v-model="searchQueries.plateNo"></el-input>
             <el-button size="medium" type="primary" plain round icon="el-icon-search" @click="onSearch"></el-button>
           </el-col>
           <el-col :span="6" class="fr">
@@ -56,12 +56,12 @@
               $_.find(vehicleTypes, ['code', scope.row.type]).value}} -->
             </template>
           </el-table-column>
-          <el-table-column label="车牌类型">
+          <!-- <el-table-column label="车牌类型">
             <template slot-scope="scope">
               {{$_.find(licensePlateTypes, ['code', scope.row.plateType]) &&
               $_.find(licensePlateTypes, ['code', scope.row.plateType]).value}}
             </template>
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column prop="licenseNo" label="道路运输证号" width="120"></el-table-column>
           <!-- <el-table-column prop="gps_time" label="GPS更新时间"></el-table-column> -->
           <el-table-column prop="curbWeight" label="整备质量（KG）"></el-table-column>
@@ -335,7 +335,7 @@ export default {
       searchQueries: {
         status: '',
         vehicleType: '',
-        number: ''
+        plateNo: ''
       },
       certificationMap: {
         '运输': ['车辆道路运输证'],
